@@ -1,0 +1,50 @@
+table.schedule td {
+    height: 40px;
+    width: 300px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+table.schedule th {
+    height: 40px;
+    width: 300px;
+    border: 1px solid black
+}
+
+td.lecture {
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+table.schedule td.tutoring {
+    background-color: lightblue;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle
+}
+
+table.schedule td.lab {
+    background-color: moccasin;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle
+}
+
+table.schedule td.guest {
+    background-color: orange;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle
+}
+
+table.schedule td.exam {
+    background-color: coral;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle
+}
+
+table {
+    empty-cells: hide;
+    hyphens: manual;
+}
