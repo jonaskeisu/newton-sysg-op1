@@ -1,50 +1,61 @@
+table.schedule {
+    empty-cells: hide;
+    hyphens: manual;
+    zoom: 0.8;
+    width: 100%;
+    border: 1px solid silver;
+    table-layout: fixed;
+}
+
 table.schedule td {
     height: 40px;
-    width: 300px;
+    width: 15%;
     vertical-align: middle;
-    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 10px;
 }
 
 table.schedule th {
-    height: 40px;
-    width: 300px;
-    border: 1px solid black
+    width: 15%;
+    background-color: aliceblue
 }
 
-td.lecture {
+
+table.schedule td.lecture {
     background-color: lightgreen;
-    border: 1px solid black;
 }
+
+table.schedule td.other {
+    text-decoration: underline;
+    font-weight: bolder;
+    background-color: coral;
+    text-align: center;
+}
+
 
 table.schedule td.tutoring {
     background-color: lightblue;
-    border: 1px solid black;
-    text-align: center;
-    vertical-align: middle
 }
 
 table.schedule td.lab {
     background-color: moccasin;
-    border: 1px solid black;
-    text-align: center;
-    vertical-align: middle
 }
 
 table.schedule td.guest {
     background-color: orange;
-    border: 1px solid black;
-    text-align: center;
-    vertical-align: middle
 }
 
 table.schedule td.exam {
     background-color: coral;
-    border: 1px solid black;
-    text-align: center;
-    vertical-align: middle
+    text-decoration: underline;
+    font-weight: bolder;
 }
 
-table {
-    empty-cells: hide;
-    hyphens: manual;
+table.lectures, table.lectures th, table.lectures td {
+    border: 1px solid black;
+}
+
+table.rooms, table.rooms th, table.rooms td {
+    border: 1px solid black;
 }
