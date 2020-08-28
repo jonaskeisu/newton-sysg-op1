@@ -129,6 +129,7 @@ style: |
     <tr><td>34 359 720 774</td><td><code>01011111</code></td></tr>
 </table>
 </div>
+
 ---
 
 ## Vad betyder datat i arbetsminnet?
