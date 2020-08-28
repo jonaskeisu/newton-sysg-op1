@@ -37,13 +37,13 @@ style: |
 
 <div class="title-page">
 
-# Datorns delar
+# Datorns programmeringsgränssnitt
 
 </div>
 
 ---
 
-## Datorns delar 
+## Datorns centrala komponenter 
 
 <table 
       class="abscenter" 
@@ -971,7 +971,7 @@ Double kan alltså representera större och mindre tal än float och innehålle
 
 ---
 
-## Precision i flyttal
+## Precision
 
 - Resultatet för beräkningar med double är korrekt  ca. 7 decimaler
   - Det relativa felet är maximalt ca. 0.0000001%
@@ -980,7 +980,7 @@ Double kan alltså representera större och mindre tal än float och innehålle
 
 ---
 
-## Storlek för flyttal
+## Storlek
 
 - En float är 4 bytes = 32 bitar
 - En double är 8 bytes = 32 bitar
@@ -991,7 +991,8 @@ Double kan alltså representera större och mindre tal än float och innehålle
 
 - Moderna CPU:er arbetar ungefär lika snabbt på double som float. 
 - Double har högre precision och kan representera större/mindre tal = säkrare
-- Oftast är double att föredra framför float. 
+- Som regel är double förstavalet framför float. 
+- Float kan vara användbart ibland om minnesåtgång är ett problem.
 
 ---
 
@@ -1806,3 +1807,90 @@ Nedan visas UTF-16-kodning av två olika tecken.
 
 ---
 
+## Byteordning
+
+- Primitiva datatyper kan lagras i minnet på två sätt
+  - *Big endian* - högsta byten
+  - *Little endian* - lägsta byten först
+- T.ex. är Intels processorer Little endian och ARM-processorer Big endian
+
+---
+
+### Exempel
+
+Talet 1962939861 blir som ett 32-bitars binärt tal:
+
+```
+01110101 00000000 00010101 11010101
+```
+
+Lagrat i minnet: 
+
+<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex; zoom: 0.7">
+<div style="display: flex; flex-direction: column; align-items: center">
+<span style="font-size: 130%">Big endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>01110101</code></td></tr>
+    <tr><td>K + 1</td><td><code>00000000</code></td></tr>
+    <tr><td>K + 2</td><td><code>00010101</code></td></tr>
+    <tr><td>K + 3</td><td><code>11010101</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 6em">
+<span style="font-size: 130%">Little endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>11010101</code></td></tr>
+    <tr><td>K + 1</td><td><code>00010101</code></td></tr>
+    <tr><td>K + 2</td><td><code>00000000</code></td></tr>
+    <tr><td>K + 3</td><td><code>01110101</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+---
+
+### Exempel
+
+Med UTF-16 är tecknet ``U+1F642`` (🙂) blir 2 16-bitarstecken:
+
+```text
+11011000 00111101 11011110 01000010
+```
+
+
+<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex; zoom: 0.7">
+<div style="display: flex; flex-direction: column; align-items: center">
+<span style="font-size: 130%">Big endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>11011000</code></td></tr>
+    <tr><td>K + 1</td><td><code>00111101</code></td></tr>
+    <tr><td>K + 2</td><td><code>11011110</code></td></tr>
+    <tr><td>K + 3</td><td><code>01000010</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 6em">
+<span style="font-size: 130%">Little endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>00111101</code></td></tr>
+    <tr><td>K + 1</td><td><code>11011000</code></td></tr>
+    <tr><td>K + 2</td><td><code>01000010</code></td></tr>
+    <tr><td>K + 3</td><td><code>11011110</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+</div>
+</div>
