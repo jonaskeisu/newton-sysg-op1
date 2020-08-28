@@ -1860,7 +1860,7 @@ Lagrat i minnet:
 
 ### Exempel
 
-Med UTF-16 blir tecknet ``U+1F642`` (🙂) 2 16-bitarstecken:
+Med UTF-16 blir symbolen ``U+1F642`` (🙂) 2 16-bitarstecken:
 
 ```text
 11011000 00111101 11011110 01000010
