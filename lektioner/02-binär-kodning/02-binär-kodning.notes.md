@@ -1860,12 +1860,13 @@ Lagrat i minnet:
 
 ### Exempel
 
-Med UTF-16 är tecknet ``U+1F642`` (🙂) blir 2 16-bitarstecken:
+Med UTF-16 blir tecknet ``U+1F642`` (🙂) 2 16-bitarstecken:
 
 ```text
 11011000 00111101 11011110 01000010
 ```
 
+Lagrat i minnet:
 
 <div style="display: flex; flex-direction: column; align-items: center">
 <div style="display: flex; zoom: 0.7">
