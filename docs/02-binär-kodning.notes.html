@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>02-binär-kodning.notes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div class="title-page">
+<h1 id="bin%C3%A4r-kodning">Binär kodning</h1>
+</div>
+<hr>
+<h2 id="sekvenser-och-f%C3%A4lt">Sekvenser och fält</h2>
+<ul>
+<li>En <em><strong>sekvens</strong></em> är en ordnad följd av <em><strong>element</strong></em>.
+<ul>
+<li>T.ex. är S = 1, 0, 0, 1, 1, 1, 0 en sekvens av ettor och nollor.</li>
+</ul>
+</li>
+<li>Ett elements position i en sekvens kallas för elementets <em>index</em>.
+<ul>
+<li>Index kan börja på vilket heltal som helst, ofta 0 eller 1.</li>
+</ul>
+</li>
+<li>Element i en sekvens betecknas ofta med så kallad <em>indexnotation</em>.
+<ul>
+<li>T.ex. kan vi beteckna elementen i sekvensen ovan S<sub>0</sub>, S<sub>1</sub>, .., S<sub>6</sub></li>
+</ul>
+</li>
+<li>En sekvens <em><strong>längd</strong></em> är antalet element i sekvensen.</li>
+<li>Ett <em><strong>fält</strong></em> är en sekvens med en bestämd och konstant längd.</li>
+</ul>
+<hr>
+<div class="title-page">
+<h1 id="datorns-programmeringsgr%C3%A4nssnitt">Datorns programmeringsgränssnitt</h1>
+</div>
+<hr>
+<h2 id="datorns-centrala-komponenter">Datorns centrala komponenter</h2>
+<table 
+      class="abscenter" 
+      style="
+        text-align: center; 
+        margin: 0; 
+        width: auto;">
+  <tr>
+    <td>Program 1
+    <td>Program 2
+    <td>Program 3
+  </tr>
+  <tr>
+    <td bgcolor="aliceblue" colspan="3">Operativsystem
+  </tr>
+  <tr>
+    <td >Arbetsminne
+    <td >Processor
+    <td >I/O-enheter
+  </tr>
+</table>
+<hr>
+<h2 id="minne">Minne</h2>
+<ul>
+<li>Datorer lagrar information (<em>data</em>) i <em><strong>minne</strong></em></li>
+<li>Minne är sekvens av bytes</li>
+<li>Index för en byte i minnet kallas för <em><strong>adress</strong></em></li>
+<li>Adressen för första byten i minnet är <em>0</em></li>
+</ul>
+<hr>
+<h2 id="bit">Bit</h2>
+<ul>
+<li>Datorer lagrar information som ettor och nollor</li>
+<li>Ett värde som är vara antingen <code>0</code> eller <code>1</code> kallas för <em><strong>bit</strong></em></li>
+</ul>
+<hr>
+<h2 id="byte">Byte</h2>
+<ul>
+<li>En <em><strong>byte</strong></em> är en fält av åtta bitar.</li>
+</ul>
+<h3 id="exempel">Exempel</h3>
+<p><code>00101001</code></p>
+<hr>
+<h2 id="arbetsminne">Arbetsminne</h2>
+<ul>
+<li>Datorn lagrar information den arbetar med för tillfället i <em><strong>arbetsminnet</strong></em></li>
+<li>Datorn kan läsa/skriva direkt till vilken adress som helst i arbetsminnet</li>
+<li>Arbetsminnet kallas därför på eng. <em><strong>Random Access Memory</strong></em> (<em><strong>RAM</strong></em>)</li>
+<li>När strömmen till datorn bryts går all information i arbetsminnet förlorad</li>
+</ul>
+<hr>
+<h2 id="enheter-f%C3%B6r-storlek-p%C3%A5-datorminne">Enheter för storlek på datorminne</h2>
+<div class="abscenter">
+<p>1 <em><strong>KB</strong></em> = 1024 byte
+1 <em><strong>MB</strong></em> = 1024 KB =  1 048 576 byte
+1 <em><strong>GB</strong></em> = 1024 MB = 1 073 741 824 byte</p>
+</div>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<div style="display: flex; width: 1080px; flex-direction: column; align-items: center">
+32 GB RAM
+<table style="display: inline; width: auto">
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>0</td><td><code>10100111</code></td></tr>
+    <tr><td>1</td><td><code>01111101</code></td></tr>
+    <tr><td>2</td><td><code>10100111</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>34 359 720 773</td><td><code>10010010</code></td></tr>
+    <tr><td>34 359 720 774</td><td><code>01011111</code></td></tr>
+</table>
+</div>
+<hr>
+<h2 id="vad-betyder-datat-i-arbetsminnet">Vad betyder datat i arbetsminnet?</h2>
+<p>Det skall vi titta på i detalj senare under i denna lektion.</p>
+<hr>
+<h2 id="processorn">Processorn</h2>
+<ul>
+<li><em><strong>Processorn</strong></em> utför programets instruktioner</li>
+<li>Instruktionerna utför operationer på små mängder data i arbetsminnet</li>
+</ul>
+<hr>
+<h2 id="olika-typer-av-instruktioner">Olika typer av instruktioner</h2>
+<p>En instruktion kan exempelvis vara:</p>
+<ul>
+<li>Läsa data från eller skriv data till adress i arbetsminne</li>
+<li><em><strong>Aritmeteisk</strong></em> (<em>addition</em>, <em>subtraktion</em>, <em>multiplikation</em>,  ..)</li>
+<li><em><strong>Jämförelser</strong></em> (<em>större än</em>, <em>mindre än</em>,  ..)</li>
+<li><em><strong>Logisk</strong></em> (dra enkla slutsatser från påståenden)</li>
+<li><em><strong>Bitwise</strong></em> (bitmönster-manipulation)</li>
+</ul>
+<hr>
+<h2 id="io-enheter">I/O-enheter</h2>
+<ul>
+<li>Förkortningen <em><strong>I/O</strong></em> står för <em>Input/Output</em></li>
+<li><em><strong>Input</strong></em> är när ett program tar emot data från omvärlden</li>
+<li><em><strong>Output</strong></em> är när ett program skickar ut data till omvärlden</li>
+<li>En <em><strong>I/O-enhet</strong></em> är en sändare och/eller en mottagare av data</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<ul>
+<li>Hårddisk</li>
+<li>Mus / tangentbord</li>
+<li>Ljudkort / mikrofon</li>
+<li>Grafikkort / kamera</li>
+<li>Wifi / Bluetooth / USB</li>
+</ul>
+<hr>
+<h1 id="operativsystemet">Operativsystemet</h1>
+<ul>
+<li><em><strong>Operativsystemet (OS)</strong></em> är ett lager mellan program och hårdvara</li>
+<li>Har uppgifter som att:
+<ul>
+<li>Administrera program/resurser</li>
+<li>Förenkla resurstillgång</li>
+<li>Skyddar systemet</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<ul>
+<li>Windows 10</li>
+<li>macOS</li>
+<li>Linux</li>
+<li>Android</li>
+<li>iOS</li>
+</ul>
+<hr>
+<div class="title-page">
+<h1 id="talrepresentation">Talrepresentation</h1>
+</div>
+<hr>
+<h2 id="heltalsintervall">Heltalsintervall</h2>
+<p>Ett intervall av heltal kan betecknas: [<em>start</em>, <em>slut</em>]</p>
+<h3 id="exempel">Exempel</h3>
+<p>[1, 5] är heltalen 1, 2, 3, 4, 5
+[-10, 10] är alla heltal -10, -9, -7, .., -1, 0, 1, .. 9, 10.</p>
+<hr>
+<h2 id="potenser">Potenser</h2>
+<ul>
+<li>Talet <em>X</em> upphöjt till <em>Y</em> betyder <em>X</em> multiplicerat med sig själv <em>Y</em> gånger.</li>
+<li>Talet <em>X</em> upphöjt till <em>Y</em> betecknas <em>X</em><sup><em>Y</em></sup>.
+<ul>
+<li>T.ex. 3<sup>4</sup> = 3 x 3 x 3 x 3 = 81 och 2<sup>3</sup> = 2 x 2 x 2 = 8</li>
+</ul>
+</li>
+<li>Ett tal gånger sig själv 0 gånger är alltid 1, så för alla <em>X</em> gäller att <em>X</em><sup>0</sup> = 1.
+<ul>
+<li>Tex. 10<sup>0</sup> = 1, 2<sup>0</sup> = 1, 16<sup>0</sup> = 1, osv</li>
+</ul>
+</li>
+<li>Om <em>Y</em> är negativt är <em>X</em><sup><em>Y</em></sup> samma som 1 genom <em>X</em> upphöjt till beloppet av <em>Y</em>.
+<ul>
+<li>T.ex. 2<sup>-3</sup> = 1 / 2<sup>3</sup> = 1 / 8 = 0.125 och 10<sup>-2</sup> = 1 / 10<sup>2</sup> = 1 / 100 = 0.01</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="talrepresentation">Talrepresentation</h2>
+<ul>
+<li>Tal representeras med sekvenser av symboler som ibland kallas <em>siffror</em>.</li>
+<li>Elementen i sekvensen skrivs från höger till vänster.</li>
+</ul>
+<center>
+<table style="display:inline">
+    <tr>
+        <th colspan="6">Kolumner</th>
+    </tr>
+    <tr>
+        <th>K</th><th>K - 1</th><td> ... </td><th>2</th><th>1</th><th>0</th>
+    </tr>
+    <tr>
+        <td>S<sub>K</sub></td>
+        <td>S<sub>K - 1</sub></td>
+        <td>...</td>
+        <td>S<sub>2</sub></td>
+        <td>S<sub>1</sub></td>
+        <td>S<sub>0</sub></td>
+    </tr>
+</table>
+</center>
+<h3 id="exempel">Exempel</h3>
+<p><em>517</em> är ett tal med S<sub>0</sub> = 7, S<sub>1</sub> = 1 och S<sub>2</sub> = 5.</p>
+<hr>
+<h2 id="talbas">Talbas</h2>
+<ul>
+<li>En talrepresentation med <em><strong>talbas</strong></em> <em>N</em> har <em>N</em> unika symboler.</li>
+<li>Symbolerna tilldelas värden 0, 1, 2, ..., <em>N</em> - 1</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>En talrepresentation med talbas 3 kan ha symboler:</p>
+<table style="zoom: .8; width: auto; margin-left: 1em">
+    <tr><th>Symbol</th><th>Värde</hd></tr>
+    <tr><td><code>A</code></td><td>0</td></tr>
+    <tr><td><code>B</code></td><td>1</td></tr>
+    <tr><td><code>C</code></td><td>2</td></tr>
+</table>
+<p>Med denna representation är:</p>
+<pre class="hljs"><code><div>BAC
+</div></code></pre>
+<p>ett tal med S<sub>0</sub> = <code>C</code>, S<sub>1</sub> = A och S<sub>2</sub> = <code>B</code>.</p>
+<hr>
+<h2 id="rotation-av-symboler">Rotation av symboler</h2>
+<ul>
+<li><em>S</em><sub>0</sub> kan representera tal från 0 till <em>N</em> - 1.</li>
+<li>När en symbol når N <em>roterar</em> den och börjar om från 0 igen.</li>
+<li>En rotation av symbol <em>S</em><sub>K</sub> läggs i minnet genom att öka <em>S</em><sub>K - 1</sub> med 1.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Vi räknar från 0 till 31 med vår nya talbas 3:</p>
+<div style="display:flex">
+<code>
+AAAA (0)<br/>
+AAAB (1)<br/>
+AAAC (2)<br/>
+AABA (3)<br/>
+AABB (4)<br/>
+AABC (5)<br/>
+AACA (6)<br/>
+AACB (7)
+</code>
+<code style="margin-left:0.5em">
+AACC (8)<br/>
+ABAA (9)<br/>
+ABAB (10)<br/>
+ABAC (11)<br/>
+ABBA (12)<br/>
+ABBB (13)<br/>
+ABBC (14)<br/>
+ABCA (15)
+</code>
+<code style="margin-left:0.5em">
+ABCB (16)<br/>
+ABCC (17)<br/>
+ACAA (18)<br/>
+ACAB (19)<br/>
+ACAC (20)<br/>
+ACBA (21)<br/>
+ACBB (22)<br/>
+ACBC (23)
+</code>
+<code style="margin-left:0.5em">
+ACCA (24)<br/>
+ACCB (25)<br/>
+ACCC (26)<br/>
+BAAA (27)<br/>
+BAAB (28)<br/>
+BAAC (29)<br/>
+BABA (30)<br/>
+BABB (31)
+</code>
+</div>
+<p>Notera att <em>S</em><sub>0</sub> roterar för mutliplar av N = N<sup>1</sup> (3, 6, 9, 12 och 15) samt att <em>S</em><sub>1</sub> roterar för mutiplar av N x N = N<sup>2</sup> (9, 18 och 27).</p>
+<hr>
+<h2 id="symbolernas-v%C3%A4rde">Symbolernas värde</h2>
+<p>I talet:</p>
+<center>
+<table style="display:inline">
+    <tr>
+        <th>K</th><th>K - 1</th><td> ... </td><th>2</th><th>1</th><th>0</th>
+    </tr>
+    <tr>
+        <td>S<sub>K</sub></td>
+        <td>S<sub>K - 1</sub></td>
+        <td>...</td>
+        <td>S<sub>2</sub></td>
+        <td>S<sub>1</sub></td>
+        <td>S<sub>0</sub></td>
+    </tr>
+</table>
+</center>
+<p>så har:</p>
+<ul>
+<li>S<sub>0</sub> värdet av S<sub>0</sub>.</li>
+<li>S<sub>1</sub> värdet av S<sub>1</sub> x <em>N</em> eftersom S<sub>1</sub> ökar med 1 varje gång S<sub>0</sub> når <em>N</em>.</li>
+<li>S<sub>2</sub> värdet av S<sub>2</sub> x <em>N</em> x <em>N</em> eftersom den ökar med 1 varje gång S<sub>1</sub> når <em>N</em>.</li>
+<li>Allmänt S<sub>K</sub> värdet av S<sub>K</sub> x <em>N</em><sup>K</sup></li>
+</ul>
+<hr>
+<h2 id="talets-totala-v%C3%A4rde">Talets totala värde</h2>
+<p>Det totala värdet av:</p>
+<center>
+<table style="display:inline">
+    <tr>
+        <th>K</th><th>K - 1</th><td> ... </td><th>2</th><th>1</th><th>0</th>
+    </tr>
+    <tr>
+        <td>S<sub>K</sub></td>
+        <td>S<sub>K - 1</sub></td>
+        <td>...</td>
+        <td>S<sub>2</sub></td>
+        <td>S<sub>1</sub></td>
+        <td>S<sub>0</sub></td>
+    </tr>
+</table>
+</center>
+<p>är summan av symbolernas värden:</p>
+<center>
+<p>S<sub>K</sub> x <em>N</em> <sup>K</sup> + S<sub>K - 1</sub> x <em>N</em> <sup>K - 1</sup> + .. + S<sub>2</sub> x <em>N</em> <sup>2</sup> + S<sub>1</sub> x <em>N</em> <sup>1</sup> + S<sub>0</sub> x <em>N</em> <sup>0</sup></p>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>I talet <code>CAB</code> gäller att:</p>
+<ul>
+<li>S<sub>2</sub> har värdet <code>C</code> x 3<sup>2</sup> = 2 x 9 = 12</li>
+<li>S<sub>1</sub> har värdet <code>A</code> x 3<sup>1</sup> = 0 x 3 = 0</li>
+<li>S<sub>0</sub> har värdet <code>B</code> x 3<sup>0</sup> = 1 x 1 = 3</li>
+</ul>
+<p>Alltså är det totala värdet av <code>CAB</code> lika med:</p>
+<center>
+<p><code>C</code> x 3<sup>2</sup> + <code>A</code> x 3<sup>1</sup> + <code>B</code> x 3<sup>0</sup> = 2 x 3<sup>2</sup> + 0 x 3<sup>1</sup> + 1 x 3<sup>0</sup> = <u>19</u></p>
+</center>
+<hr>
+<h2 id="hur-m%C3%A5nga-v%C3%A4rden-kan-representeras">Hur många värden kan representeras?</h2>
+<p>Ett tal med bas <em>N</em> som har maximal längd <em>K</em> symboler kan representera N<sup>K</sup> olika värden.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Ett tal med bas 10 med 3 siffror kan representera 10<sup>3</sup> = 1000 olika värden. Dessa värden är 0, 1, 2, .., 998, 999.</p>
+<p>Ett tal med bas 2 (binärt) med 8 siffror (<em>bitar</em>) kan representera 2<sup>8</sup> = 256 olika värden.</p>
+<p>Ett tal med bas 16 (hexadecimalt) med 4 siffror kan representera 16<sup>4</sup> = 65 536 olika värden.</p>
+<hr>
+<div class="title-page">
+<h1 id="viktiga-talrepresentationer">Viktiga talrepresentationer</h1>
+</div>
+<hr>
+<h2 id="decimaltal-bas-10">Decimaltal (bas 10)</h2>
+<ul>
+<li>Vanliga talrepresentationen vi lär oss i grundskolan.</li>
+<li>Tal består av sekvenser av symbolerna 0, 1, 2, 3, 4, 5, 6, 7, 8 och 9.</li>
+</ul>
+<hr>
+<h2 id="bin%C3%A4ra-tal-bas-2">Binära tal (bas 2)</h2>
+<ul>
+<li>Tal med bas 2 kallas <em><strong>binära tal</strong></em>.</li>
+<li>Tal består av sekvenser av 0 och 1.</li>
+<li>En symbol som bara kan vara 0 eller 1 kallas för en <em><strong>bit</strong></em>.</li>
+<li>Datorer lagrar all information som binära tal.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Följande sekvens är ett 8-bitars binärt tal:</p>
+<pre class="hljs"><code><div>10011101
+</div></code></pre>
+<p>Värdet av talet är:</p>
+<p>1 x 2<sup>7</sup> + 0 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 1 x 1<sup>4</sup>  + 1 x 2<sup>3</sup>  + 1 x 2<sup>2</sup>  + 0 x 2<sup>1</sup> + 1 x 2<sup>0</sup> = <br/>
+1 x 128 + 0 x 64 + 0 x 32 + 1 x 16 + 1 x 8 + 1 x 4 + 0 x 2 + 1 x 1 = <br/>
+<u>156</u></p>
+<hr>
+<h2 id="hexadecimala-tal-bas-16">Hexadecimala tal (bas 16)</h2>
+<ul>
+<li>Inom programmering används ofta hexadecimala tal.</li>
+</ul>
+<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex">
+<center>
+<table style="display: inline; zoom: 0.8;">
+    <tr><th>Symbol</th><th>Värde</th></tr>
+    <tr><td>0</td><td>0</td></tr>
+    <tr><td>1</td><td>1</td></tr>
+    <tr><td>2</td><td>2</td></tr>
+    <tr><td>3</td><td>3</td></tr>
+    <tr><td>4</td><td>4</td></tr>
+    <tr><td>5</td><td>5</td></tr>
+    <tr><td>6</td><td>6</td></tr>
+    <tr><td>7</td><td>7</td></tr>
+</table>
+</center>
+<center style="margin-left: 1em">
+<table style="display: inline; zoom: 0.8;">
+    <tr><th>Symbol</th><th>Värde</th></tr>
+    <tr><td>8</td><td>8</td></tr>
+    <tr><td>9</td><td>9</td></tr>
+    <tr><td>A</td><td>10</td></tr>
+    <tr><td>B</td><td>11</td></tr>
+    <tr><td>C</td><td>12</td></tr>
+    <tr><td>D</td><td>13</td></tr>
+    <tr><td>E</td><td>14</td></tr>
+    <tr><td>F</td><td>15</td></tr>
+</table>
+</center>
+</div>
+</div>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Följande är ett hexadecimalt tal med fyra tecken:</p>
+<pre class="hljs"><code><div>A1F7
+</div></code></pre>
+<p>med värdet:</p>
+<p><code>A</code> x 16<sup>3</sup> + <code>1</code> x  16<sup>2</sup> + <code>F</code> x 16 <sup>1</sup> + <code>7</code> * 16 x <sup>0</sup> = <br/>
+10 x 16<sup>3</sup> + 1 x  16<sup>2</sup> + 15 x 16<sup>1</sup> + 7 x 16<sup>0</sup> = <br/>
+10 x 4096 + 1 x 256 + 15 x 16 + 7 x 1 = <u>41 463</u></p>
+<hr>
+<h2 id="konvertering-mellan-bin%C3%A4rt-och-hexadecimalt">Konvertering mellan binärt och hexadecimalt</h2>
+<p>En bitsekvens med med längd som är en multipel av 4 kan enkelt översättas till hexadecimal form.</p>
+<hr>
+<h3 id="%C3%B6vers%C3%A4ttningstabell-mellan-bin%C3%A4rt-och-hexadecimalt">Översättningstabell mellan binärt och hexadecimalt</h3>
+<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex">
+<center>
+<table style="display: inline; zoom: 0.9;">
+    <tr><th>Symbol</th><th>Värde</th></tr>
+    <tr><td>0</td><td>0000</td></tr>
+    <tr><td>1</td><td>0001</td></tr>
+    <tr><td>2</td><td>0010</td></tr>
+    <tr><td>3</td><td>0011</td></tr>
+    <tr><td>4</td><td>0100</td></tr>
+    <tr><td>5</td><td>0101</td></tr>
+    <tr><td>6</td><td>0110</td></tr>
+    <tr><td>7</td><td>0111</td></tr>
+</table>
+</center>
+<center style="margin-left: 1em">
+<table style="display: inline; zoom: 0.9;">
+    <tr><th>Symbol</th><th>Värde</th></tr>
+    <tr><td>8</td><td>1000</td></tr>
+    <tr><td>9</td><td>1001</td></tr>
+    <tr><td>A</td><td>1010</td></tr>
+    <tr><td>B</td><td>1011</td></tr>
+    <tr><td>C</td><td>1100</td></tr>
+    <tr><td>D</td><td>1101</td></tr>
+    <tr><td>E</td><td>1110</td></tr>
+    <tr><td>F</td><td>1111</td></tr>
+</table>
+</center>
+</div>
+</div>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Den binära sekvensen:</p>
+<pre class="hljs"><code><div>10111011 00011100 00011101 01011000 
+11101000 11011000 11001011 10001011 
+10000101 11100011
+</div></code></pre>
+<p>blir på hexadecimal form:</p>
+<pre class="hljs"><code><div>BB 1C 1D 58 E8 D8 CB 8B 85 E3
+</div></code></pre>
+<hr>
+<h2 id="bytes">Bytes</h2>
+<ul>
+<li>En fält av 8 bitar kallas för en <em><strong>byte</strong></em>.</li>
+<li>Minnet i datorer är organiserad som en sekvens av bytes.</li>
+<li>En processor utför intstruktiner på sekvenser av bytes.</li>
+<li>Datatyper inom programmering är därför ett jämnt antal bytes långa.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Tabellen nedan listar några primitiva heltalstyper i C#.
+<br/></p>
+<center>
+<table style="display:inline;">
+    <tr><th>Datatyp</th><th>Beskrivning</th></tr>
+    <tr><td><code>byte</code></td><td>8 bitars heltal</td></tr>
+    <tr><td><code>ushort</code></td><td>16 bitars heltal</td></tr>
+    <tr><td><code>uint</code></td><td>32 bitars heltal</td></tr>
+    <tr><td><code>ulong</code></td><td>64 bitars heltal</td></tr>
+</table>
+</center>
+<hr>
+<h2 id="kodning">Kodning</h2>
+<ul>
+<li>Översättnng av en symbolisk representation till en annan kallas <em><strong>kodning</strong></em>.</li>
+<li>Resultatet av kodningen kallas för <em><strong>kod</strong></em>.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<ul>
+<li>Talet 14 kan kodas binärt som <code>1110</code>. Alltså är <code>1110</code> binär kod för 14.</li>
+<li>Det binära talet 1111000011110000 kan kodas hexadecimalt som <code>F0F0</code>. Alltså är <code>F0F0</code> hexadecimal kod för 1111000011110000.</li>
+</ul>
+<hr>
+<div class="title-page">
+<h1 id="bin%C3%A4r-kodning-av-negativa-heltal">Binär kodning av negativa heltal</h1>
+</div>
+<hr>
+<h2 id="bin%C3%A4r-kodning-av-heltal">Binär kodning av heltal</h2>
+<ul>
+<li>Ett fält med <em>N</em> bitar kan koda heltalen [0, 2<sup><em>N</em></sup> - 1]</li>
+<li>Ett fält med <em>N</em> bitar kan också koda heltal [-2<sup><em>N</em> - 1</sup>, 2<sup><em>N</em> - 1</sup> - 1] genom så kallad <em><strong>två-komplements-kodning</strong></em></li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Tabellen nedan visar för olika antal bitar intervallet av heltal som kan kodas med vanlig binär kodning respektive två-komplements-kodning.</p>
+<center>
+<table style="display: inline">
+    <tr><th>Antal bitar</th><th>Vanlig binär kodning</th><th>Två-komplement-kodning</th></tr>
+    <tr><td>8</td><td>[0, 255]</td><td>[-128, 127]</td></tr>
+    <tr><td>16</td><td>[0, 65 536]</td><td>[-32 768, 32 767]</td></tr>
+    <tr><td>32</td><td>[0, 4 294 967 296]</td><td>[-2 097 152, 2 097 151]</td></tr>
+</table>
+</center>
+<hr>
+<h2 id="tv%C3%A5-komplement-kodning">Två-komplement-kodning</h2>
+<ul>
+<li>För en två-komplement-kodningen med <em>N</em> bitar gäller att:
+<ul>
+<li>De 2<sup><em>N</em> - 1</sup> första koderna de icket-negativa heltalen</li>
+<li>De 2<sup><em>N</em> - 1</sup> följande koderna är de negativa talen <em>baklänges</em></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Fyra bitar kan koda talen i intervallet [0, 15] eller [-8, 7].</p>
+<center>
+<div style="display: flex; zoom: 0.7">
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 6em">
+<b style="font-size: 130%">Vanlig kodning</b>
+<table style="width: auto">
+    <tr><th>Kod</th><th>Värde</th><th>Kod</th><th>Värde</th></tr>
+    <tr><td>0000</td><td>0</td><td>1000</td><td>8</td></tr>
+    <tr><td>0001</td><td>1</td><td>1001</td><td>9</td></tr>
+    <tr><td>0010</td><td>2</td><td>1010</td><td>10</td></tr>
+    <tr><td>0011</td><td>3</td><td>1011</td><td>11</td></tr>
+    <tr><td>0100</td><td>4</td><td>1100</td><td>12</td></tr>
+    <tr><td>0101</td><td>5</td><td>1101</td><td>13</td></tr>
+    <tr><td>0110</td><td>6</td><td>1110</td><td>14</td></tr>
+    <tr><td>0111</td><td>7</td><td>1111</td><td>15</td></tr>
+</table>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 6em">
+<b style="font-size: 130%">Två-komplement</b>
+<table style="width: auto">
+    <tr><th>Kod</th><th>Värde</th><th>Kod</th><th>Värde</th></tr>
+    <tr><td>0000</td><td>0</td><td>1000</td><td>-8</td></tr>
+    <tr><td>0001</td><td>1</td><td>1001</td><td>-7</td></tr>
+    <tr><td>0010</td><td>2</td><td>1010</td><td>-6</td></tr>
+    <tr><td>0011</td><td>3</td><td>1011</td><td>-5</td></tr>
+    <tr><td>0100</td><td>4</td><td>1100</td><td>-4</td></tr>
+    <tr><td>0101</td><td>5</td><td>1101</td><td>-3</td></tr>
+    <tr><td>0110</td><td>6</td><td>1110</td><td>-2</td></tr>
+    <tr><td>0111</td><td>7</td><td>1111</td><td>-1</td></tr>
+</table>
+</div>
+</div>
+</center>
+<hr>
+<h2 id="signed-och-unsigned">Signed och unsigned</h2>
+<ul>
+<li>Typer av heltal inom programmering som kan representera  både positiva och negativa heltal kallas <em><strong>signed</strong></em>.</li>
+<li>Typer av heltal inom programmering som kan representera endast noll och positiva heltal kallas <em><strong>signed</strong></em>.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Tabellen nedan ger exempel på <em>signed</em> och <em>unsigned</em> heltalstyper i C#.</p>
+<center>
+<table style="display: inline">
+    <tr><th>Datatyp</th><th>Heltalsintervall</th></tr>
+    <tr><td><code>byte</code></td><td>[0, 255]</td></tr>
+    <tr><td><code>sbyte</code></td><td>[-128, 127]</td></tr>
+    <tr><td><code>ushort</code></td><td>[0, 65 536]</td></tr>
+    <tr><td><code>short</code></td><td>[-32 768, 32 767]</td></tr>
+    <tr><td><code>uint</code></td><td>[0, 4 294 967 296]</td></tr>
+    <tr><td><code>int</code></td><td>[-2 097 152, 2 097 151]</td></tr>
+</table>
+</center>
+<hr>
+<div class="title-page">
+<h1 id="bin%C3%A4r-kodning-av-reella-tal">Binär kodning av reella tal</h1>
+</div>
+<hr>
+<h2 id="reella-tal">Reella tal</h2>
+<ul>
+<li><em><strong>Reella tal</strong></em> beskriver tal som ligger mellan heltalen.</li>
+<li>I grundskolan studeras reella tal i bas 10, så kallas <em>decimaltal</em>.</li>
+<li>Ett reelt tal känns igen på <em>punkten</em> mellan heltalsdelen och &quot;decimalerna&quot;.</li>
+<li>Heltal och bråk är också reella tal.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Samtliga tal nedan är exempel på reella tal.</p>
+<ul>
+<li>-1/3 = -0.33333...</li>
+<li>π = 3.14159265359...</li>
+<li>174.00000 ...</li>
+</ul>
+<p>Notera punkten som skiljer heltalsdel från decimaler samt att ett decimaltal kan ha oändligt många decimaler.</p>
+<hr>
+<h2 id="notation-f%C3%B6r-reella-tal">Notation för reella tal</h2>
+<p>Allmänt kan ett reellt tal skrivas på formen:</p>
+<center>
+S<sub>K</sub>S<sub>K-1</sub>..S<sub>3</sub>S<sub>2</sub>S<sub>1</sub>S<sub>0</sub><b style="font-size: 150%">.</b>S<sub>-1</sub>S<sub>-2</sub>S<sub>-3</sub>...
+</center>
+<h3 id="exempel">Exempel</h3>
+<p><code>12.34</code> är ett reellt tal med S<sub>1</sub> = <code>1</code>, S<sub>0</sub> = <code>2</code>, S<sub>-1</sub> = <code>3</code>och S<sub>-2</sub> = <code>4</code></p>
+<hr>
+<h2 id="decimaltal">Decimaltal</h2>
+<p>Faktorerna för värdet av symbolerna i decimaltalet (bas 10):</p>
+<table style="white-space:no-wrap">
+    <tr>
+        <th colspan="9">Kolumner</th>
+    </tr>
+    <tr>
+        <th>Kolumn</th>
+        <th>K</th>
+        <th>K-1</th>
+        <th>..</th>
+        <th>3</th>
+        <th>2</th>
+        <th>1</th>
+        <th>0</th>
+        <th>-1</th>
+        <th>-2</th>
+        <th>-3</th>
+        <th>...</th>
+    </tr>
+    <tr>
+        <th>Faktor</th>
+        <td>10<sup>K</sup></td>
+        <td>10<sup>K-1</sup></td>
+        <td>..</td>
+        <td>10<sup>3</sup> </td>
+        <td>10<sup>2</sup></td>
+        <td>10<sup>1</sup></td>
+        <td>10<sup>0</sup></td>
+        <td>1 / 10<sup>1</sup></td>
+        <td>1 / 10<sup>2</sup></td>
+        <td>1 / 10<sup>3</sup></td>
+        <td>..</th>
+    </tr>
+</table>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>I bas 10 är värdet av <code>12.75</code> är ett reellt tal med värdet:</p>
+<center>
+1 x 10<sup>1</sup> + 2 x 10<sup>0</sup> + 7 x (1 / 10<sup>1</sup>)  + 5 x (1 / 10<sup>2</sup>) = <br/>
+1 x 10 + 2 x 1 + 7 x 0.1 + 5 x 0.01 =<br/> <u>12.75</u>
+</center>
+<hr>
+<h2 id="bin%C3%A4ra-reella-tal">Binära reella tal</h2>
+<p>Reella tal kan också kodas binärt (bas 2).</p>
+<ul>
+<li>T.ex. 1100.11</li>
+</ul>
+<p>Faktorerna för värdet av symbolerna i det binära talet är då:</p>
+<table style="white-space:no-wrap">
+    <tr>
+        <th colspan="9">Kolumner</th>
+    </tr>
+    <tr>
+        <th>Kolumn</th>
+        <th>K</th>
+        <th>K-1</th>
+        <th>..</th>
+        <th>3</th>
+        <th>2</th>
+        <th>1</th>
+        <th>0</th>
+        <th>-1</th>
+        <th>-2</th>
+        <th>-3</th>
+        <th>...</th>
+    </tr>
+    <tr>
+        <th>Faktor</th>
+        <td>2<sup>K</sup></td>
+        <td>2<sup>K-1</sup></td>
+        <td>..</td>
+        <td>2<sup>3</sup> </td>
+        <td>2<sup>2</sup></td>
+        <td>2<sup>1</sup></td>
+        <td>2<sup>0</sup></td>
+        <td>1 / 2<sup>1</sup></td>
+        <td>1 / 2<sup>2</sup></td>
+        <td>1 / 2<sup>3</sup></td>
+        <td>..</th>
+    </tr>
+</table>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>I bas 2 är värdet av <code>1100.11</code> är ett reellt tal med värdet:</p>
+<center>
+1 x 2<sup>3</sup> + 1 x 2<sup>2</sup> + 0 x 2<sup>1</sup> + 0 x 2<sup>0</sup> + 1 x (1 / 2<sup>1</sup>)  + 1 x (1 / 10<sup>2</sup>) = <br/>
+1 x 8 + 1 x 4 + 0 x 2 + 0 x 1 + 1 x (1 / 2) + 1 x (1 / 4) =<br/> 
+1 x 8 + 1 x 4 + 0 x 2 + 0 x 1 + 1 x 0.5 + 1 x 0.25 =<br/> 
+<u>12.75</u>
+</center>
+<hr>
+<h2 id="representation-av-reella-tal-i-datorer">Representation av reella tal i datorer</h2>
+<ul>
+<li>I verkligenheten har reella tal oändligt många decimaler.</li>
+<li>Datorer har begränsat med arbetsminne, så reella tal måste approximeras.</li>
+<li>Datorer approximerar reella tal genom att begränsa antalet decimaler.
+<ul>
+<li>T.ex. π = 3.14159265359.. ≈ 3.141593 (om 6 decimler är nära nog)</li>
+</ul>
+</li>
+<li><em><strong>Flyttal</strong></em> är en vanlig binära kodningen för approximation av reella tal.</li>
+</ul>
+<hr>
+<h2 id="flyttal">Flyttal</h2>
+<ul>
+<li>Flyttal är en binär kodning av en approximation för reella tal.</li>
+<li>Kodningen har tre delar:
+<ul>
+<li>En <em><strong>teckenbit</strong></em> - 1 om talet är negativt, annars 0</li>
+<li>En <em><strong>exponent</strong></em> - ett heltalsfält som anger förskjutningen av punkten</li>
+<li>En <em><strong>signifikand</strong></em> - ett fält med binära &quot;decimaler&quot;</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="single-precision-floating-point">Single-precision floating-point</h2>
+<p>En <em><strong>single-precision floating-point</strong></em>, i vardagligt tal <em><strong>float</strong></em>, är ett flyttalsformat med 8 bitars exponent och 23 bitars signifikand, t.ex.:</p>
+<table style="zoom: 0.65; text-align: center">
+    <tr>
+        <td>Teckenbit</td>
+        <td colspan="8">Exponent</td>
+        <td colspan="23">Signifikand</td>
+    <tr>
+        <td style="background-color: pink">0</td>
+        <td style="background-color: lightgreen">1</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">1</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+</table>
+<p>där:</p>
+<ul>
+<li>det reella talet är <code>1.</code> följt av signifikanden, ovan <code>1.10011</code></li>
+<li>förskjutningen av punkten är exponenten minus 127, ovan 130 - 127 = <u>3</u>
+<ul>
+<li>Positivt resultat förskjuter punkten höger, negativt vänster.</li>
+</ul>
+</li>
+</ul>
+<p>I exemplet ovan är alltså värdet 1100.11 binärt, eller 12.75 decimalt.</p>
+<hr>
+<h2 id="double-precision-floating-point">Double-precision floating-point</h2>
+<p>En <em><strong>double-precision floating-point</strong></em>, i vardagligt tal <em><strong>double</strong></em>, är ett flyttalsformat som fungerar precis som <em>float</em> med skillnaden att formatet har:</p>
+<ul>
+<li>11 bitar exponent</li>
+<li>52 bitar siginifikand</li>
+<li>Förskjutningen av punkten ges av exponenten minus 1023</li>
+</ul>
+<p>Double kan alltså representera större och mindre tal än float och innehåller fler decimaler.</p>
+<hr>
+<h2 id="precision">Precision</h2>
+<ul>
+<li>Resultatet för beräkningar med double är korrekt  ca. 7 decimaler
+<ul>
+<li>Det relativa felet är maximalt ca. 0.0000001%</li>
+</ul>
+</li>
+<li>Resultatet för beräkningar med double är korrekt med ca. 16 decimaler
+<ul>
+<li>Det relativa felet är maximalt ca. 0.0000000000000001%</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="storlek">Storlek</h2>
+<ul>
+<li>En float är 4 bytes = 32 bitar</li>
+<li>En double är 8 bytes = 32 bitar</li>
+</ul>
+<hr>
+<h2 id="float-eller-double">Float eller double?</h2>
+<ul>
+<li>Moderna CPU:er arbetar ungefär lika snabbt på double som float.</li>
+<li>Double har högre precision och kan representera större/mindre tal = säkrare</li>
+<li>Som regel är double förstavalet framför float.</li>
+<li>Float kan vara användbart ibland om minnesåtgång är ett problem.</li>
+</ul>
+<hr>
+<h2 id="kom-ih%C3%A5g-flyttal-%C3%A4r-inte-en-exakt-representation">Kom ihåg! Flyttal är INTE en exakt representation</h2>
+<ul>
+<li>Matematiskt har reella tal oändligt många decimaler</li>
+<li>Double är en god approximation men ingen exakta representation</li>
+</ul>
+<p>T.ex. ger koden:</p>
+<pre class="hljs"><code><div>Console.WriteLine((<span class="hljs-number">0.3</span> * <span class="hljs-number">3</span>) + <span class="hljs-number">0.1</span>);
+</div></code></pre>
+<p>utskriften:</p>
+<pre class="hljs"><code><div>0.9999999999999999
+</div></code></pre>
+<p>Det är säkert att jämföra storleken på resultat av flyttalsberäkningar men var mycket försiktig med att kontrollera om resultaten är exakt lika!</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Ett andragradspolynom är en funktion av <em>x</em> på formen:</p>
+<p>p(x) = a + bx + cx<sup>2</sup></p>
+<p>där <em>a</em>, <em>b</em> och <em>c</em> är konstanter.</p>
+<p>T.ex. om <em>a</em> = -8.03, <em>b</em> = 2.95 och <em>c</em> = 1.00 så är polyonmet:</p>
+<p>p(x) = -8.03 + 2.95x + 1.00x<sup>2</sup></p>
+<p>En <em>rot</em> till polynomet är ett värde på <em>x</em> sådant att <em>p</em>(<em>x</em>) = 0.</p>
+<p>Skriv kod som kontrollerar om aktuellt värde på <em>x</em> är en rot.</p>
+<hr>
+<p>Till synes matematiskt korrekt men ej tillförlitlig kod:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> p = a + b * x + c * x * x;
+<span class="hljs-keyword">if</span> (p == <span class="hljs-number">0.0</span>) { <span class="hljs-comment">// Ej tillförlitlig lösning!</span>
+    <span class="hljs-comment">// p(x) == 0 </span>
+}
+</div></code></pre>
+<p>Finns inget exakt sätt med flyttal att kontrollera om värdet på <em>x</em> är en rot.</p>
+<p>Vi kan dock kontroller om <em>x</em> är tillräckligt nära att vara en rot för vårt syfte.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> p = a + b * x + c * x * x;
+<span class="hljs-keyword">if</span> (<span class="hljs-number">-0.005</span> &gt; p &amp;&amp; p &lt; <span class="hljs-number">0.005</span>) {
+    <span class="hljs-comment">// p(x) avrundat till två decimalers nogranhet är 0</span>
+}
+</div></code></pre>
+<hr>
+<div class="title-page">
+<h1 id="bin%C3%A4r-kodning-av-text">Binär kodning av text</h1>
+</div>
+<hr>
+<h2 id="bin%C3%A4r-kodning-av-text">Binär kodning av text</h2>
+<ul>
+<li>Text är en sekvens av tecken i minnet</li>
+<li>Varje tecken kodas med en eller flera bytes enligt en kodningsstandard</li>
+<li>Det finns olika kodningsstandarder</li>
+<li>Försöker man avkoda en bytesekvens som text med fel kodningsstardard så blir resultatet sannolikt fel.</li>
+<li>Viktigt veta vilken kodningsstandard som gäller!</li>
+</ul>
+<hr>
+<h2 id="ascii-kodning">ASCII-kodning</h2>
+<ul>
+<li>ASCII-kodning är en gammal standard med anor från telegrafmaskiner
+<ul>
+<li>Americal Standard Core for Information Exchange</li>
+<li>Första versionen definierad 1963</li>
+</ul>
+</li>
+<li>Varje tecken kodas med 7 bits
+<ul>
+<li>I datorer en byte med första biten alltid 0</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="ascii-tabell">ASCII-tabell</h2>
+<table style="zoom: 0.6; text-align: center">
+    <tr>
+        <td/>
+        <td/>
+        <th colspan="16">b<sub>3</sub>b<sub>2</sub>b<sub>1</sub>b<sub>0</sub></th>
+    </tr>
+    <tr>
+        <td/>
+        <td/>
+        <td>0000</td>
+        <td>0001</td>
+        <td>0010</td>
+        <td>0011</td>
+        <td>0100</td>
+        <td>0101</td>
+        <td>0110</td>
+        <td>0111</td>
+        <td>1000</td>
+        <td>1001</td>
+        <td>1010</td>
+        <td>1011</td>
+        <td>1100</td>
+        <td>1101</td>
+        <td>1110</td>
+        <td>1111</td>
+    </tr>
+    <tr>
+        <th rowspan="16">b<sub>6</sub>b<sub>6</sub>b<sub>5</sub>b<sub>4</sub></th>
+        <td>0000</td>
+        <td>NUL</td>
+        <td>SOH</td>
+        <td>STX</td>
+        <td>ETX</td>
+        <td>EOT</td>
+        <td>ENQ</td>
+        <td>ACK</td>
+        <td>BEL</td>
+        <td>BS</td>
+        <td>HT</td>
+        <td>LF</td>
+        <td>VT</td>
+        <td>FF</td>
+        <td>CR</td>
+        <td>SO</td>
+        <td>SI</td>
+    </tr>
+    <tr>
+        <td>0001</td>
+        <td>DLE</td>
+        <td>DC1</td>
+        <td>DC2</td>
+        <td>DC3</td>
+        <td>DC4</td>
+        <td>NAK</td>
+        <td>SYN</td>
+        <td>ETB</td>
+        <td>CAN</td>
+        <td>EM</td>
+        <td>SUB</td>
+        <td>ESC</td>
+        <td>FS</td>
+        <td>GS</td>
+        <td>RS</td>
+        <td>US</td>
+    </tr>
+    <tr>
+        <td>0010</td>
+        <td>SP</td>
+        <td>!</td>
+        <td>"</td>
+        <td>#</td>
+        <td>$</td>
+        <td>%</td>
+        <td>&</td>
+        <td>'</td>
+        <td>(</td>
+        <td>)</td>
+        <td>*</td>
+        <td>+</td>
+        <td>,</td>
+        <td>-</td>
+        <td>.</td>
+        <td>/</td>
+    </tr>
+    <tr>
+        <td>0011</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>:</td>
+        <td>;</td>
+        <td><</td>
+        <td>=</td>
+        <td>></td>
+        <td>?</td>
+    </tr>
+    <tr>
+        <td>0100</td>
+        <td>@</td>
+        <td>A</td>
+        <td>B</td>
+        <td>C</td>
+        <td>D</td>
+        <td>E</td>
+        <td>F</td>
+        <td>G</td>
+        <td>H</td>
+        <td>I</td>
+        <td>J</td>
+        <td>K</td>
+        <td>L</td>
+        <td>M</td>
+        <td>N</td>
+        <td>O</td>
+    </tr>
+    <tr>
+        <td>0101</td>
+        <td>P</td>
+        <td>Q</td>
+        <td>R</td>
+        <td>S</td>
+        <td>T</td>
+        <td>U</td>
+        <td>V</td>
+        <td>W</td>
+        <td>X</td>
+        <td>Y</td>
+        <td>Z</td>
+        <td>[</td>
+        <td>\</td>
+        <td>]</td>
+        <td>^</td>
+        <td>_</td>
+    </tr>
+    <tr>
+        <td>0110</td>
+        <td>`</td>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+        <td>d</td>
+        <td>e</td>
+        <td>f</td>
+        <td>g</td>
+        <td>h</td>
+        <td>i</td>
+        <td>j</td>
+        <td>k</td>
+        <td>l</td>
+        <td>m</td>
+        <td>n</td>
+        <td>o</td>
+    </tr>
+    <tr>
+        <td>0111</td>
+        <td>p</td>
+        <td>q</td>
+        <td>r</td>
+        <td>s</td>
+        <td>t</td>
+        <td>u</td>
+        <td>v</td>
+        <td>w</td>
+        <td>x</td>
+        <td>y</td>
+        <td>z</td>
+        <td>{</td>
+        <td>|</td>
+        <td>}</td>
+        <td>~</td>
+        <td>DEL</td>
+    </tr>
+</table>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>T.ex. blir bytesekvensen:</p>
+<pre class="hljs"><code><div>01001000 01100101 01101100 01101100 01101111 00100000
+01110100 01101000 01100101 01110010 01100101 00100001
+</div></code></pre>
+<p>avkodad med ASCII-standarden texten:</p>
+<pre class="hljs"><code><div>Hello there!
+</div></code></pre>
+<hr>
+<h2 id="kontrolltecken">Kontrolltecken</h2>
+<ul>
+<li>Vissa tecken i ASCII-standarden är inte grafiska
+<ul>
+<li><code>PAD</code>, <code>HOP</code>, <code>BPH</code>, etc</li>
+</ul>
+</li>
+<li>Dessa tecken är så kallade <em><strong>kontrolltecken</strong></em></li>
+<li>Kontrolltecken är istruktioner till konsolen som tolkar texten</li>
+<li>Många kontrolltecken är föråldrade och används inte längre</li>
+<li>Vissa kontrolltecken har viktiga användningsområden än idag</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>T.ex. Följande tecken är viktiga än idag.</p>
+<center>
+<table style="display: inline; zoom: 0.8">
+    <tr><th>Tecken</th><th>Betydelse</th></tr>
+    <tr><td><code>BS</code></td><td>Backspace</td></tr>
+    <tr><td><code>LF</code></td><td>Linefeed (New line)</td></tr>
+    <tr><td><code>CR</code></td><td>Carrige return</td></tr>
+    <tr><td><code>BEL</code></td><td>Bell</td></tr>
+    <tr><td><code>HT</code></td><td>Horizontal tab</td></tr>
+    <tr><td><code>DLE</code></td><td>Delete</td></tr>
+    <tr><td><code>BS</code></td><td>Backspace</td></tr>
+    <tr><td><code>BS</code></td><td>Backspace</td></tr>
+</table>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>T.ex. innehåller följande bytesekvens avkodad som ASCII ett <code>LF</code>-tecken:</p>
+<pre class="hljs"><code><div><span class="hljs-number">01001000</span> <span class="hljs-number">01100101</span> <span class="hljs-number">01101100</span> <span class="hljs-number">01101100</span> <span class="hljs-number">01101111</span> 
+<span class="hljs-number">00101100</span> <span class="hljs-number">00001010</span> <span class="hljs-number">01010111</span> <span class="hljs-number">01101111</span> <span class="hljs-number">01110010</span> 
+<span class="hljs-number">01101100</span> <span class="hljs-number">01100100</span> <span class="hljs-number">00100001</span>
+</div></code></pre>
+<p>och skrivs i konsolen ut som:</p>
+<pre class="hljs"><code><div>Hello,
+World!
+</div></code></pre>
+<hr>
+<h2 id="iso-8859-1">ISO-8859-1</h2>
+<ul>
+<li>Eftersom ASCII är en 7-bitarsstandard så kan standarden utökas med betydelse för alla bitkoder som börjar på 1 och ända vara bakåtkompatibel</li>
+<li>För icket-amerikaner saknas flera viktiga tecken i ASCII-standarden
+<ul>
+<li>T.ex. som svenskar behöver vi tecknen <code>å</code>, <code>ä</code> och <code>ö</code></li>
+</ul>
+</li>
+<li>En vanlig standardutökning av ASCII är ISO-8859-1
+<ul>
+<li>Standarden kallas även Latin-1</li>
+<li>Anpassat för språk som använder det latinska alfabetet</li>
+<li>Används t.ex. i Unix/Linux och därför även vanlig på Internet</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="iso-8859-1-tabell">ISO-8859-1-tabell</h2>
+<table style="zoom: 0.6; text-align: center">
+    <tr>
+        <td/>
+        <td/>
+        <th colspan="16">b<sub>3</sub>b<sub>2</sub>b<sub>1</sub>b<sub>0</sub></th>
+    </tr>
+    <tr>
+        <td/>
+        <td/>
+        <td>0000</td>
+        <td>0001</td>
+        <td>0010</td>
+        <td>0011</td>
+        <td>0100</td>
+        <td>0101</td>
+        <td>0110</td>
+        <td>0111</td>
+        <td>1000</td>
+        <td>1001</td>
+        <td>1010</td>
+        <td>1011</td>
+        <td>1100</td>
+        <td>1101</td>
+        <td>1110</td>
+        <td>1111</td>
+    </tr>
+    <tr>
+        <th rowspan="16">b<sub>7</sub>b<sub>6</sub>b<sub>5</sub>b<sub>4</sub></th>
+        <td>1000</td>
+        <td>PAD</td>
+        <td>HOP</td>
+        <td>BPH</td>
+        <td>NBH</td>
+        <td>IND</td>
+        <td>NEL</td>
+        <td>SSA</td>
+        <td>ESA</td>
+        <td>HTS</td>
+        <td>HTJ</td>
+        <td>VTS</td>
+        <td>PLD</td>
+        <td>PLU</td>
+        <td>RI</td>
+        <td>SS2</td>
+        <td>SS3</td>
+    </tr>
+    <tr>
+        <td>1001</td>
+        <td>DCS</td>
+        <td>PU1</td>
+        <td>PU2</td>
+        <td>STS</td>
+        <td>CCH</td>
+        <td>MW</td>
+        <td>SPA</td>
+        <td>EPA</td>
+        <td>SOS</td>
+        <td>SGCI</td>
+        <td>SCI</td>
+        <td>CSI</td>
+        <td>ST</td>
+        <td>OSC</td>
+        <td>PM</td>
+        <td>APC</td>
+    </tr>
+    <tr>
+        <td>1010</td>
+        <td>NBSP</td>
+        <td>¡</td>
+        <td>¢</td>
+        <td>£</td>
+        <td>¤</td>
+        <td>¥</td>
+        <td>¦</td>
+        <td>§</td>
+        <td>¨</td>
+        <td>©</td>
+        <td>ª</td>
+        <td>«</td>
+        <td>¬</td>
+        <td>SHY</td>
+        <td>®</td>
+        <td>¯</td>
+    </tr>
+    <tr>
+        <td>1011</td>
+        <td>°</td>
+        <td>±</td>
+        <td>²</td>
+        <td>³</td>
+        <td>´</td>
+        <td>µ</td>
+        <td>¶</td>
+        <td>·</td>
+        <td>¸</td>
+        <td>¹</td>
+        <td>º</td>
+        <td>»</td>
+        <td>¼</td>
+        <td>½</td>
+        <td>¾</td>
+        <td>¿</td>
+    </tr>
+    <tr>
+        <td>1100</td>
+        <td>À</td>
+        <td>Á</td>
+        <td>Â</td>
+        <td>Ã</td>
+        <td>Ä</td>
+        <td>Å</td>
+        <td>Æ</td>
+        <td>Ç</td>
+        <td>È</td>
+        <td>É</td>
+        <td>Ê</td>
+        <td>Ë</td>
+        <td>Ì</td>
+        <td>Í</td>
+        <td>Î</td>
+        <td>Ï</td>
+    </tr>
+    <tr>
+        <td>1101</td>
+        <td>Ð</td>
+        <td>Ñ</td>
+        <td>Ò</td>
+        <td>Ó</td>
+        <td>Ô</td>
+        <td>Õ</td>
+        <td>Ö</td>
+        <td>×</td>
+        <td>Ø</td>
+        <td>Ù</td>
+        <td>Ú</td>
+        <td>Û</td>
+        <td>Ü</td>
+        <td>Ý</td>
+        <td>Þ</td>
+        <td>ß</td>
+    </tr>
+    <tr>
+        <td>1110</td>
+        <td>à</td>
+        <td>á</td>
+        <td>â</td>
+        <td>ã</td>
+        <td>ä</td>
+        <td>å</td>
+        <td>æ</td>
+        <td>ç</td>
+        <td>è</td>
+        <td>é</td>
+        <td>ê</td>
+        <td>ë</td>
+        <td>ì</td>
+        <td>í</td>
+        <td>î</td>
+        <td>ï</td>
+    </tr>
+    <tr>
+        <td>1111</td>
+        <td>ð</td>
+        <td>ñ</td>
+        <td>ò</td>
+        <td>ó</td>
+        <td>ô</td>
+        <td>õ</td>
+        <td>ö</td>
+        <td>÷</td>
+        <td>ø</td>
+        <td>ù</td>
+        <td>ú</td>
+        <td>û</td>
+        <td>ü</td>
+        <td>ý</td>
+        <td>þ</td>
+        <td>ÿ</td>
+    </tr>
+</table>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>T.ex. blir bytesekvensen:</p>
+<pre class="hljs"><code><div>01001000 01100101 01101010 00100000
+01100100 11100100 01110010 00100001
+</div></code></pre>
+<p>avkodad med ISO-8850-1 texten:</p>
+<pre class="hljs"><code><div>Hej där!
+</div></code></pre>
+<hr>
+<h2 id="unicode">Unicode</h2>
+<ul>
+<li>ISO-8859-1 är inte tillräckligt för modern internationell text använding:
+<ul>
+<li>Saknar alfabeten som arabiskt, persiskt, japanskt, kinesiskt, m.fl.</li>
+<li>Inga emojis eller andra vanligt förekommande symboler</li>
+</ul>
+</li>
+<li>Unicode är en standard med ambition att täcka alla tecken i världen!</li>
+<li>Tecknen är uppdelade i 17 plan med vardera upp till 2<sup>16</sup> = 65 536 tecken</li>
+<li>Varje tecken har en textkod, i form av <code>U+</code> följt av 4 eller 5 hexadecimala tal</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>T.ex. står <code>U+1F642</code> för tecknet 🙂</p>
+<p>De fyra sista siffrorna i koden för tecknets hexadecimala position i planet:</p>
+<p><code>F642</code> = 63 042</p>
+<p>De ett eller två första siffrorna är hexadecimalt index på planet (0-10):</p>
+<p><code>1</code> = andra planet</p>
+<hr>
+<h2 id="teckenplan-i-unicode">Teckenplan i Unicode</h2>
+<ul>
+<li>Plan 0 - innehåller alla de vanligaste skrivtecknen
+<ul>
+<li>Kallas <em>Basic Multilingual Plane</em></li>
+<li>Dessa tecken är vanligast förekommande i text</li>
+<li>De första 256 koderna sammanfaller med ISO-8859-1</li>
+</ul>
+</li>
+<li>Plan 1 - Innehåller extra skrivtecken t.ex. ovanliga alfabeten och emoijis</li>
+<li>Plan 2 - 16 - Fler tecken, används mer sällan</li>
+</ul>
+<p>Beskrivning av samtliga plan och tecken i Unicode finns t.ex. <a href="https://en.wikipedia.org/wiki/Unicode">här</a>.</p>
+<hr>
+<h2 id="bin%C3%A4r-kodning-av-unicode">Binär kodning av Unicode</h2>
+<ul>
+<li>Koder som <code>U+1F642</code> är en textkod</li>
+<li>Datorer lagrar Unicodetecken som binärkoder</li>
+<li>Två viktig binärkodningar är UTF-8 och UTF-16</li>
+<li>Först tittar vi på UTF-32 dock</li>
+</ul>
+<hr>
+<h2 id="utf-32">UTF-32</h2>
+<ul>
+<li>Vilket unciodetecken som helst kan lagras med 20 bitar
+<ul>
+<li>5 bitar för planet och 16 för tecknet i planet</li>
+</ul>
+</li>
+<li>Datorer arbetar mest effektivt med block om 1, 2, 4 eller 8 byte</li>
+<li>21 bitar kräver 4 byte per tecken</li>
+<li>Tabellen nedan visar UTF-32-kodning av <code>U+1F642</code> (🙂)</li>
+</ul>
+<table style="zoom: 0.6">
+    <tr>
+        <th colspan="11">
+            Ej utnyttjade
+        </th>
+        <th colspan="5">
+            Plan
+        </th>
+        <th colspan="12">
+            Tecken
+        </th>
+    <tr>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgray">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">0</td>
+        <td style="background-color: lightgreen">1</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">0</td>
+    </tr>
+</table>
+<hr>
+<h2 id="utf-8">UTF-8</h2>
+<ul>
+<li>UTF-8 kodar varje Unicodetecken med 1-4 byte</li>
+<li>Bakåtkompatibel med ASCII</li>
+</ul>
+<table style="zoom:0.9">
+    <tr>
+        <th>Antal<br/>bytes</th>
+        <th>Från<br/>tecken</th>
+        <th>Till<br/>tecken</th>
+        <th>Byte 0</th>
+        <th>Byte 1</th>
+        <th>Byte 2</th>
+        <th>Byte 3</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td><code>U+0000</code></td>
+        <td><code>U+007F</code></td>
+        <td><code>0xxxxxxx</code></td>
+        <td>--</td>
+        <td>--</td>
+        <td>--</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td><code>U+0080</code></td>
+        <td><code>U+07FF</code></td>
+        <td><code>110xxxxx</code></td>
+        <td><code>110xxxxx</code></td>
+        <td>--</td>
+        <td>--</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td><code>U+0800</code></td>
+        <td><code>U+FFFF</code></td>
+        <td><code>1110xxxx</code></td>
+        <td><code>10xxxxxx</code></td>
+        <td><code>10xxxxxxx</code></td>
+        <td>--</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td><code>U+10000</code></td>
+        <td><code>U+10FFFF</code></td>
+        <td><code>11110xxx</code></td>
+        <td><code>10xxxxxx</code></td>
+        <td><code>10xxxxxx</code></td>
+        <td><code>10xxxxxx</code></td>
+    </tr>
+</table>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Nedan visas UTF-8-kodning av tre olika tecken.</p>
+<p><code>U+00041</code> (<code>A</code>) är ett ASCII-tecken och kräver bara en byte:</p>
+<pre class="hljs"><code><div>01000001
+</div></code></pre>
+<p><code>U+000C3</code> (<code>Ä</code>) ligger i två-bytes-intervallet:</p>
+<pre class="hljs"><code><div>11000011 10000100
+</div></code></pre>
+<p><code>U+1F642</code> (🙂) ligger utanför första planet och kräver fyra bytes:</p>
+<pre class="hljs"><code><div>11110000 10011111 10011001 10000010
+</div></code></pre>
+<hr>
+<h2 id="utf-16">UTF-16</h2>
+<ul>
+<li>UTF-16 lagrar alla Unicode-tecken i första planet med två bytes</li>
+<li>Tecken i hägre plan kan lagras med två så kallade <em>surrogattecken</em></li>
+</ul>
+<table style="zoom:0.9">
+    <tr>
+        <th>Antal<br/>bytes</th>
+        <th>Från<br/>tecken</th>
+        <th>Till<br/>tecken</th>
+        <th>Byte 0</th>
+        <th>Byte 1</th>
+        <th>Byte 2</th>
+        <th>Byte 3</th>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td><code>U+00000</code></td>
+        <td><code>U+0D7FF</code></td>
+        <td><code>xxxxxxxx</code></td>
+        <td><code>xxxxxxxx</code></td>
+        <td>--</td>
+        <td>--</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td><code>U+0E000</code></td>
+        <td><code>U+0FFFF</code></td>
+        <td><code>xxxxxxxx</code></td>
+        <td><code>xxxxxxxx</code></td>
+        <td>--</td>
+        <td>--</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td><code>U+0E000</code></td>
+        <td><code>U+10FFFF</code></td>
+        <td><code>110110xx</code></td>
+        <td><code>xxxxxxxx</code></td>
+        <td><code>110111xx</code></td>
+        <td><code>xxxxxxxx</code></td>        
+    </tr>
+</table>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Nedan visas UTF-16-kodning av två olika tecken.</p>
+<p><code>U+00041</code> (<code>A</code>) blir två bytes:</p>
+<pre class="hljs"><code><div>00000000 01000001
+</div></code></pre>
+<p><code>U+1F642</code> (🙂) blir fyra bytes:</p>
+<pre class="hljs"><code><div>11011000 00111101 11011110 01000010
+</div></code></pre>
+<hr>
+<div class="title-page">
+<h1 id="byteordning">Byteordning</h1>
+</div>
+<hr>
+<h2 id="byteordning">Byteordning</h2>
+<ul>
+<li>Primitiva datatyper kan lagras i minnet på två sätt
+<ul>
+<li><em>Big endian</em> - högsta byten</li>
+<li><em>Little endian</em> - lägsta byten först</li>
+</ul>
+</li>
+<li>T.ex. är Intels processorer Little endian och ARM-processorer Big endian</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Talet 1962939861 blir som ett 32-bitars binärt tal:</p>
+<pre class="hljs"><code><div>01110101 00000000 00010101 11010101
+</div></code></pre>
+<p>Lagrat i minnet:</p>
+<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex; zoom: 0.7">
+<div style="display: flex; flex-direction: column; align-items: center">
+<span style="font-size: 130%">Big endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>01110101</code></td></tr>
+    <tr><td>K + 1</td><td><code>00000000</code></td></tr>
+    <tr><td>K + 2</td><td><code>00010101</code></td></tr>
+    <tr><td>K + 3</td><td><code>11010101</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 6em">
+<span style="font-size: 130%">Little endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>11010101</code></td></tr>
+    <tr><td>K + 1</td><td><code>00010101</code></td></tr>
+    <tr><td>K + 2</td><td><code>00000000</code></td></tr>
+    <tr><td>K + 3</td><td><code>01110101</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+</div>
+</div>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Med UTF-16 är tecknet <code>U+1F642</code> (🙂) blir 2 16-bitarstecken:</p>
+<pre class="hljs"><code><div>11011000 00111101 11011110 01000010
+</div></code></pre>
+<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex; zoom: 0.7">
+<div style="display: flex; flex-direction: column; align-items: center">
+<span style="font-size: 130%">Big endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>11011000</code></td></tr>
+    <tr><td>K + 1</td><td><code>00111101</code></td></tr>
+    <tr><td>K + 2</td><td><code>11011110</code></td></tr>
+    <tr><td>K + 3</td><td><code>01000010</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 6em">
+<span style="font-size: 130%">Little endian</span>
+<table>
+    <tr><th>Adress</th><th>Data</th></tr>
+    <tr><td>..</td><td>..</td></tr>
+    <tr><td>K</td><td><code>00111101</code></td></tr>
+    <tr><td>K + 1</td><td><code>11011000</code></td></tr>
+    <tr><td>K + 2</td><td><code>01000010</code></td></tr>
+    <tr><td>K + 3</td><td><code>11011110</code></td></tr>
+    <tr><td>..</td><td>..</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+</body>
+</html>
