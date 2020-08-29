@@ -592,15 +592,6 @@ blir på hexadecimal form:
 BB 1C 1D 58 E8 D8 CB 8B 85 E3
 ```
 
---- 
-
-## Bytes
-
-- En fält av 8 bitar kallas för en ***byte***.
-- Minnet i datorer är organiserad som en sekvens av bytes.
-- En processor utför intstruktiner på sekvenser av bytes.
-- Datatyper inom programmering är därför ett jämnt antal bytes långa.
-
 ---
 
 ### Exempel
