@@ -157,7 +157,6 @@ int @ulong; // 4 bytes allokerade
 - Att skriva till en variabels minne kallas att ***tilldela*** variabeln
 - Syntaxen för tilldeling av en variabel är: 
     ``<variabel> = <uttryck>;``
-- Ett ***utryck*** är kod som kan beräknas till ett värde 
 - Uttrycket till höger i en tilldelning måste ha samma typ som variabeln
 
 ---
@@ -166,12 +165,49 @@ int @ulong; // 4 bytes allokerade
 
 ```cs 
 int a;
-a = 1 + 2; 
+int b; 
+a = 1 + 2;
+b = a * 3; 
 ```
+
+---
 
 ## Uttryck
 
-Exempel på uttryck är:
-  - variabler
+- Ett ***utryck*** är kod som beräknas till ett värde 
+- Exempel på enkla uttryck är:
+  - Bokstavliga värden, så kallade ***litteraler***
+    - T.ex. ``15``, ``123.456``, ``-189``
+  - Variabler
+    - T.ex. ``length``, ``x``, ``shoeSize``
 
 ---
+
+## Operatorer
+
+- ***Operatorer*** skapar uttryck från andra uttryck med beräkningsregler
+- Uttrycken som kombineras av en operator kallas för ***operander***
+- Syntaxen för operatoruttryck använder sig av speciella symboler
+
+---
+
+### Exempel
+
+
+
+
+
+
+<center>
+<table style="display: inline; text-align:center">
+    <tr><th>Operander</th><th>Beskrivning</th><th>Exempel</th></tr>
+    <tr><td>1</td><td><i>unär</i> operator</td><td><code>- a</code></td></tr>
+    <tr><td>2</td><td><i>binär</i> operator</td><td><code>a + b</code></td></tr>
+    <tr><td>3</td><td><i>trinär</i> operator</td><td><code>a ? b : c</code></td></tr>
+</table>
+</center>
+
+---
+
+# Matematiska operatorer
+
