@@ -1,0 +1,13 @@
+digraph serverapp {
+    node [shape="box3d", fontname="arial"]
+    name [shape="none", label="\"Jonas\""]
+    age [shape="none", label="42"]
+    license [shape="none", label="true"]
+    namn [label="namn\n(text)"]
+    ålder [label="ålder\n(heltal)"]
+    körkort [label="ålder\n(villkor)"]
+
+    name -> namn
+    age -> ålder
+    license -> körkort
+}

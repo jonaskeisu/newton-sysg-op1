@@ -1,0 +1,13 @@
+digraph uttryck {
+    nodesep=0.5
+    node [shape="oval", fontname="arial"]
+    expr1 [label = "17"]
+    expr2 [label = "3"]
+    expr3 [label = "a"]
+    operator1 [ label="+"]
+    operator2 [ label="+"]
+    expr1 -> operator1
+    expr2 -> operator1
+    operator1 -> operator2
+    expr3 -> operator2
+}
