@@ -485,11 +485,14 @@ Hello World!
 <hr>
 <h2 id="l%C3%A4gg-till-nya-projektfiler-i-repot">Lägg till nya projektfiler i repot</h2>
 <ul>
-<li>Lägg till alla ändringar till med kommandot: <code>git commit</code></li>
+<li>Lägg till de nya filerna i versionhanteringen till med kommandot: <code>git add</code></li>
+<li>Spara en ny version av repot med: <code>git commit</code></li>
 </ul>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div>&gt; git commit -a -m <span class="hljs-string">"Lägg till mallprojekt"</span>
+<pre class="hljs"><code><div>&gt; git add Program.cs
+&gt; git add hello-world.csproj
+&gt; git commit -a -m <span class="hljs-string">"Lägg till mallprojekt"</span>
 [master 9cd4704] Lägg till mallprojekt
  2 files changed, 21 insertions(+)
  create mode 100644 Program.cs
@@ -497,7 +500,7 @@ Hello World!
 &gt;
 </div></code></pre>
 <hr>
-<h2 id="synkronisera-versioner-med-github">Synkronisera versioner med GitHub</h2>
+<h2 id="synkronisera-lokalt-repot-med-github">Synkronisera lokalt repot med GitHub</h2>
 <ul>
 <li>Synkronisera lokalt repo med GitHub med kommandot: <code>git push</code></li>
 </ul>

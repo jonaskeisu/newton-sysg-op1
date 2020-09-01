@@ -161,13 +161,16 @@ Hello World!
 
 ## Lägg till nya projektfiler i repot
 
-- Lägg till alla ändringar till med kommandot: ``git commit``
+- Lägg till de nya filerna i versionhanteringen till med kommandot: ``git add``
+- Spara en ny version av repot med: ``git commit``
 
 ---
 
 ### Exempel
 
 ```bash
+> git add Program.cs
+> git add hello-world.csproj
 > git commit -a -m "Lägg till mallprojekt"
 [master 9cd4704] Lägg till mallprojekt
  2 files changed, 21 insertions(+)
@@ -178,7 +181,7 @@ Hello World!
 
 --- 
 
-## Synkronisera versioner med GitHub
+## Synkronisera lokalt repot med GitHub
 
 - Synkronisera lokalt repo med GitHub med kommandot: ``git push`` 
 
