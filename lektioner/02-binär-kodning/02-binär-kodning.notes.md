@@ -211,7 +211,7 @@ Ett intervall av heltal kan betecknas: [*start*, *slut*]
 ### Exempel
 
 [1, 5] är heltalen 1, 2, 3, 4, 5
-[-10, 10] är alla heltal -10, -9, -7, .., -1, 0, 1, .. 9, 10.
+[-10, 10] är alla heltal -10, -9, -8, .., -1, 0, 1, .. 9, 10.
 
 ---
 
@@ -411,9 +411,9 @@ S<sub>K</sub> x *N* <sup>K</sup> + S<sub>K - 1</sub> x *N* <sup>K - 1</sup> + ..
 ### Exempel
 
 I talet ``CAB`` gäller att: 
-- S<sub>2</sub> har värdet ``C`` x 3<sup>2</sup> = 2 x 9 = 12
+- S<sub>2</sub> har värdet ``C`` x 3<sup>2</sup> = 2 x 9 = 18
 - S<sub>1</sub> har värdet ``A`` x 3<sup>1</sup> = 0 x 3 = 0
-- S<sub>0</sub> har värdet ``B`` x 3<sup>0</sup> = 1 x 1 = 3
+- S<sub>0</sub> har värdet ``B`` x 3<sup>0</sup> = 1 x 1 = 1
 
 Alltså är det totala värdet av ``CAB`` lika med: 
 
@@ -474,7 +474,7 @@ Följande sekvens är ett 8-bitars binärt tal:
 
 Värdet av talet är:
 
-1 x 2<sup>7</sup> + 0 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 1 x 1<sup>4</sup>  + 1 x 2<sup>3</sup>  + 1 x 2<sup>2</sup>  + 0 x 2<sup>1</sup> + 1 x 2<sup>0</sup> = <br/>
+1 x 2<sup>7</sup> + 0 x 2<sup>6</sup> + 0 x 2<sup>5</sup> + 1 x 2<sup>4</sup>  + 1 x 2<sup>3</sup>  + 1 x 2<sup>2</sup>  + 0 x 2<sup>1</sup> + 1 x 2<sup>0</sup> = <br/>
 1 x 128 + 0 x 64 + 0 x 32 + 1 x 16 + 1 x 8 + 1 x 4 + 0 x 2 + 1 x 1 = <br/>
 <u>156</u>
 
@@ -528,7 +528,7 @@ A1F7
 
 med värdet:
 
-``A`` x 16<sup>3</sup> + ``1`` x  16<sup>2</sup> + ``F`` x 16 <sup>1</sup> + ``7`` * 16 x <sup>0</sup> = <br/>
+``A`` x 16<sup>3</sup> + ``1`` x  16<sup>2</sup> + ``F`` x 16 <sup>1</sup> + ``7`` x 16 <sup>0</sup> = <br/>
 10 x 16<sup>3</sup> + 1 x  16<sup>2</sup> + 15 x 16<sup>1</sup> + 7 x 16<sup>0</sup> = <br/> 
 10 x 4096 + 1 x 256 + 15 x 16 + 7 x 1 = <u>41 463</u>
 
@@ -706,7 +706,7 @@ Fyra bitar kan koda talen i intervallet [0, 15] eller [-8, 7].
 ## Signed och unsigned
 
 - Typer av heltal inom programmering som kan representera  både positiva och negativa heltal kallas ***signed***.
-- Typer av heltal inom programmering som kan representera endast noll och positiva heltal kallas ***signed***.
+- Typer av heltal inom programmering som kan representera endast noll och positiva heltal kallas ***unsigned***.
 
 --- 
 
@@ -920,9 +920,9 @@ En ***single-precision floating-point***, i vardagligt tal ***float***, är ett 
         <td style="background-color: lightgreen">0</td>
         <td style="background-color: lightblue">1</td>
         <td style="background-color: lightblue">0</td>
-        <td style="background-color: lightblue">1</td>
-        <td style="background-color: lightblue">1</td>
         <td style="background-color: lightblue">0</td>
+        <td style="background-color: lightblue">1</td>
+        <td style="background-color: lightblue">1</td>
         <td style="background-color: lightblue">0</td>
         <td style="background-color: lightblue">0</td>
         <td style="background-color: lightblue">0</td>
