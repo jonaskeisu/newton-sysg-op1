@@ -80,7 +80,7 @@ style: |
 ## Bit
 
 - Datorer lagrar information som ettor och nollor
-- Ett värde som är vara antingen ``0`` eller ``1`` kallas för ***bit***
+- Ett värde som bara kan vara antingen ``0`` eller ``1`` kallas för ***bit***
 
 ---
 
@@ -975,7 +975,7 @@ Double kan alltså representera större och mindre tal än float och innehålle
 ## Storlek
 
 - En float är 4 bytes = 32 bitar
-- En double är 8 bytes = 32 bitar
+- En double är 8 bytes = 64 bitar
 
 --- 
 
