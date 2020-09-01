@@ -975,7 +975,7 @@ Double kan alltså representera större och mindre tal än float och innehålle
 ## Storlek
 
 - En float är 4 bytes = 32 bitar
-- En double är 8 bytes = 32 bitar
+- En double är 8 bytes = 64 bitar
 
 --- 
 
