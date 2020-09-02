@@ -357,7 +357,8 @@ Följande operatorer finns för alla heltals- och flyttalstyper.
   <tr><td>Subtraktion</td><td><code>a - b</code></td><td>Differenansen mellan <code>a</code> och <code>b</code></td></tr>
   <tr><td>Multiplikation</td><td><code>a * b</code></td><td>Produkten av <code>a</code> och <code>b</code></td></tr>
   <tr><td>Division</td><td><code>a / b</code></td><td>Kvoten av <code>a</code> och <code>b</code><br/></td></tr>
-  <tr><td>Negative</td><td><code>-a</code></td><td>Minus <code>a</code></td></tr>
+  <tr><td>Rest</td><td><code>a & b</code></td><td>Resten vid heltalsdivision  <code>a / b</code></td></tr>
+  <tr><td>Negativ</td><td><code>-a</code></td><td>Minus <code>a</code></td></tr>
 </table>
 </center>
 <br/>
@@ -376,8 +377,9 @@ double d = 2.0;
 var e = a + b; // int med värdet 5
 var f = c + d; // double med värdet 5.0
 var g = a / b; // int med värde 1 (heltalsdivision)
-var h = c / d; // double med värdet 1.5
-var i = -c; // double med värdet -3.0
+var h = a % b; // int med värde 1
+var i = c / d; // double med värdet 1.5
+var j = -c; // double med värdet -3.0
 ```
 
 ---
@@ -387,7 +389,7 @@ var i = -c; // double med värdet -3.0
 Följande operatorer finns endast för  heltalstyper.
 
 <table style="font-size: 75%">
-  <tr><th>Namn</th><th>Syntax</th><th>Resultat och sidoeffekt</th></tr>
+  <tr><th>Namn</th><th>Syntax</th><th>Resultat/sidoeffekt</th></tr>
   <tr><td>Prefix inkrement</td><td><code>++a</code></td><td>Öka värdet på <code>a</code> med 1 och ge sedan värdet på <code>a</code> som resultat</td></tr>
   <tr><td>Postfix inkrement</td><td><code>a++ </code></td><td>Ge värdet på <code>a</code>  som resultat och öka sedan värdet på <code>a</code> med 1</td></tr>
   <tr><td>Prefix dekrement</td><td><code>--a</code></td><td>Minska värdet på <code>a</code> med 1 och ge sedan värdet på <code>a</code> som resultat</td></tr>
@@ -397,6 +399,45 @@ Följande operatorer finns endast för  heltalstyper.
 --- 
 
 ### Exempel
+
+```cs
+int a = 10;
+int b = ++a; // b = 11, a = 11
+int c = a++; // c = 11, a = 12
+int d = --a; // d = 11, a = 11
+int e = a--; // e = 11, a = 10 
+```
+
+---
+
+## Sammansatt tilldelning
+
+- Det är vanligt med tilldelningar på formen: ``x = x <operator> y;``
+
+- Operatorerna för sammansatt tilldelning förenklar syntaxen
+
+<center>
+<table style="font-size: 75%; display: inline">
+  <tr><th>Operator</th><th>Syntax</th><th>Betydelse</th></tr>
+  <tr><td>Sammansatt addition</td><td><code>a +=  b</code></td><td><code>a = a + b</code></td></tr>
+  <tr><td>Sammansatt subtraktions</td><td><code>a -=  b</code></td><td><code>a = a - b</code></td></tr>
+  <tr><td>Sammansatt multiplikation</td><td><code>a *=  b</code></td><td><code>a = a * b</code></td></tr>
+  <tr><td>Sammansatt division</td><td><code>a /=  b</code></td><td><code>a = a / b</code></td></tr>
+</table>
+</center>
+<br/>
+
+---
+
+### Exempel
+
+```cs
+double a = 10.0;
+a /= 2.0; // a = 5
+a += 10.0; // a = 15
+a -= 3.0; // a = 12
+a *= 4.0; // a = 48
+```
 
 ---
 
@@ -470,7 +511,8 @@ nu strukturen enligt figuren nedan.
 
 ## Aritet
 
-- En operators *aritet* är lika med dess antal operander
+- En operators *aritet* är lika antal operander för operatorn
+  - T.ex. har negativ aritet 1 och addition aritet 2 
 - En operator med aritet 1 kallas ***unär***
 - En operator med aritet 2 kallas ***binär***
 - En operator med aritet 3 kallas ***trinär***
@@ -563,34 +605,139 @@ length = text.Length; // length = 6
 
 ---
 
-## Indexieringsoperatorn
+## Strängoperatorer
 
-- Indexieringsoperatorn ger tecknet med ett specifikt index för en sträng
-- Syntaxen för indexieringsoperatorn är: 
+Även strängar har operatorer.
 
-  ``s [ i ]``
+<center>
+<table style="font-size: 75%; display: inline">
+  <tr><th>Operator</th><th>Syntax</th><th>Resultat</th></tr>
+  <tr><td>Indexering</td><td><code>s [ i ]</code></td><td>Tecknet i strängen <code>s</code> med index <code>i</code></td></tr>
+  <tr><td>Konkatenering</td><td><code>s1 + s2</code></td><td>Ny sträng bestående av <code>s1</code> följt av <code>s2</code></td></tr>
 
-  där ``s`` är en sträng och ``i`` är ett uttryck av typen ``int``
+</table>
+</center>
 
 ---
 
 ### Exempel
 
 ```cs
-string text = "Hej!";
-char a = text[0]; // a = 'H'
-char b = text[1]; // b = 'e'
-char c = text[2]; // c = 'j'
-char d = text[3]; // d = '!'
-char e = text[4]; // FEL! Strängen har inget element med index 4
+string text1 = "Hej";
+string text2 = " då"; 
+string text3 = text1 + text2; // text3 = "Hej då"
+text3 += '!'; // text3 = "Hej då!"
+char a = text1[0]; // a = 'H'
+char b = text1[1]; // b = 'e'
+char c = text1[2]; // c = 'j'
+char e = text1[3]; // FEL! Strängen har inget element med index 3
 ```
 ---
 
-## Escape-sekvenser
+## Escapesekvenser
+
+- Kontrolltecken har ingen grafisk teckenrepesentation
+  - T.ex. ``LF``, ``CR`` och ``BEL``
+- Vissa tecken har speciell betydelse för sträng- eller teckenlitteraler
+  - T.ex. ``"``, ``'`` och ``\``
+- I litteraler måste sådana tecken uttrycks med ***escapesekvenser***
 
 --- 
 
-### Stränginterpolation
+### Exempel 
+
+Tabellen nedan beskriver de viktigaste escapesekvenserna. 
+
+<center>
+
+<table style="display: inline; font-size: 75%"">
+  <tr><th>Escape-<br/>sekvens</th><th>Tecken</th><th>Betydelse</th></tr>
+  <tr><td>\n</td><td><code>LF</code></td><td>Ny rad</td></tr>
+  <tr><td>\r</td><td><code>CR</code></td><td>Gå till början av aktuell rad</td></tr>
+  <tr><td>\t</td><td><code>HT</code></td><td> Horisontell tabulering</td></tr>
+  <tr><td>\"</td><td><code>"</code></td><td/></tr>
+  <tr><td>\'</td><td><code>'</code></td><td/></tr>
+  <tr><td>\\</td><td><code>\</code><td><td/></tr>
+</table>
+
+</center>
+
+En komplett förteckning av escapesekvenser finns [här](https://docs.microsoft.com/en-us/cpp/c-language/escape-sequences?view=vs-2019). 
+
+---
+
+### Exempel
+
+Koden nedan:
+
+```cs
+Console.WriteLine("Hej\tdå!");
+Console.WriteLine("Text på\nny rad.");
+Console.WriteLine("Citat: \"text\"");
+Console.WriteLine("C:\\Projekt\\hello-world\\Program.cs");
+```
+ger utskriften:
+
+```text
+Hej	   då!
+Text på
+ny rad.
+Citat: "text"
+C:\Projekt\hello-world\Program.cs
+```
+
+---
+
+## Implicit konvertering till sträng
+
+- De flesta typer kan implicit konverteras till ``string``
+
+---
+
+### Exempel
+
+Koden nedan: 
+
+```cs
+double pris = 100.0;
+double moms = 0.25; // 25%
+Console.WriteLine(
+  "Momsen på " + pris + " kr är " + 
+  (moms * pris)  + " kr.");
+```
+
+ger utskriften:
+
+```text
+Momsen på 100 kr är 25 kr.
+```
+
+--- 
+
+## Stränginterpolation
+
+- Text med värden av uttryck kan också skapas genom ***stränginterpolation***
+- En interpolerad stränglitteral har prefixet ``$``
+- Uttryck inom klammerparenteser (``{}``) utvärderas och konverteras till text
+
+---
+
+### Exempel
+
+Koden nedan:
+
+```cs
+double pris = 100.0;
+double moms = 0.25; // 25%
+Console.WriteLine($"Momsen på {pris} kr är {moms * pris} kr.");
+```
+
+ger också uttskriften:
+
+```text
+Momsen på 100 kr är 25 kr.
+```
+
 
 
 

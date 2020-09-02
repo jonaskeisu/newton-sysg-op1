@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>03-varibler-typer-och-operatorer.notes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div class="title-page">
+<h1 id="variabler-typer-och-operatorer">Variabler, typer och operatorer</h1>
+</div>
+<hr>
+<h2 id="syntax">Syntax</h2>
+<p><em><strong>Syntax</strong></em> är formella regler för hur man skriver giltig kod.</p>
+<hr>
+<h2 id="variabler">Variabler</h2>
+<ul>
+<li>En <em><strong>variabel</strong></em> är ett lagringsutrymme i minnet för att lagra data</li>
+<li>Variabelns <em><strong>typ</strong></em> bestämmer tolkning, storlek och struktur på data
+<ul>
+<li>Data med en bestämd tolkning, t.ex. tal eller text, kallas även <em><strong>värde</strong></em></li>
+</ul>
+</li>
+<li>I kod refereras en variabel via ett unikt namn som kallas <em><strong>identifierare</strong></em></li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Följande kod:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span> namn = <span class="hljs-string">"Jonas"</span>;
+<span class="hljs-keyword">int</span> ålder = <span class="hljs-number">42</span>;
+<span class="hljs-keyword">bool</span> körkort = <span class="hljs-literal">true</span>;
+</div></code></pre>
+<p>skapar tre variabler och lagrar värden i dem, som illustrerat i figuren nedan.</p>
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 1em;">
+<p><img src="fig/variable.dot.svg" alt="variabel"></p>
+</div>
+<hr>
+<h2 id="identifierare">Identifierare</h2>
+<p>Syntax för en identifierare:</p>
+<ul>
+<li>är en sekvens av tecken</li>
+<li>sekvensen består endast av bokstäver, siffror eller <code>_</code></li>
+<li>måste börja med <code>_</code> eller en bokstav, inte en siffra</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Giltiga identifierare:</p>
+<ul>
+<li><code>length</code>, <code>width</code>, <code>color</code>, <code>myName</code>, <code>object1</code>, <code>_variable</code></li>
+</ul>
+<p>Inte giltiga identifierare:</p>
+<ul>
+<li><code>1object</code>, <code>my name</code>, <code>object:1</code></li>
+</ul>
+<hr>
+<h2 id="heltalstyper-i-c">Heltalstyper i C#</h2>
+<center>
+<table style="font-size: 80%; display: inline">
+    <tr><th>Keyword</th><th>Möjliga värden</th><th>Data</th><th>.NET-typ</th></tr>
+    <tr>
+        <td><code>sbyte</code></td>
+        <td>[-128, 127]</td>
+        <td>8 bitar</td>
+        <td><code>System.SByte</code></td>
+    </tr>
+    <tr>
+        <td><code>byte</code></td>
+        <td>[0, 255]</td>
+        <td>8 bitar</td>
+        <td><code>System.Byte</code></td>
+    </tr>
+    <tr>
+        <td><code>short</code></td>
+        <td>[-32 768, 32 767]</td>
+        <td>16 bitar</td>
+        <td><code>System.Int16</code></td>
+    </tr>
+    <tr>
+        <td><code>ushort</code></td>
+        <td>[0, 65'535]</td>
+        <td>16 bitar</td>
+        <td><code>System.UInt16</code></td>
+    </tr>
+    <tr>
+        <td><code>int</code></td>
+        <td>[-2 147 483 648, 2 147 483 647]</td>
+        <td>32 bitar</td>
+        <td><code>System.Int32</code></td>
+    </tr>
+    <tr>
+        <td><code>uint</code></td>
+        <td>[0, 4 294 967 295]</td>
+        <td>32 bitar</td>
+        <td><code>System.UInt32</code></td>
+    </tr>
+    <tr>
+        <td><code>long</code></td>
+        <td>[-9 223 372 036 854 775 808,<br/> 9 223 372 036 854 775 807] </td>
+        <td>64 bitar</td>
+        <td><code>System.Int64</code></td>
+    </tr>
+    <tr>
+        <td><code>ulong</code></td>
+        <td>[0, 18 446 744 073 709 551 615]</td>
+        <td>64 bitar</td>
+        <td><code>System.UInt64</code></td>
+    </tr>
+</table>
+</center>
+<hr>
+<h2 id="flyttalstyper-i-c">Flyttalstyper i C#</h2>
+<center>
+<table style="font-size: 80%; display: inline">
+    <tr><th>Keyword</th><th>Möjliga värden</th><th>Data</th><th>.NET-typ</th></tr>
+    <tr>
+        <td><code>float</code></td>
+        <td>±1.5 x 10<sup>−45</sup> to ±3.4 x 10<sup>38</sup></td>
+        <td>32 bitar</td>
+        <td><code>System.Single</code></td>
+    </tr>
+    <tr>
+        <td><code>double</code></td>
+        <td>±5.0 × 10<sup>−324</sup> to ±1.7 × 10<sup>308</sup></td>
+        <td>64 bitar</td>
+        <td><code>System.Double</code></td>
+    </tr>
+    <tr>
+        <td><code>decimal</code></td>
+        <td>±1.0 x 10<sup>-28</sup> to ±7.9228 x 10<sup>28</sup></td>
+        <td>128 bitar</td>
+        <td><code>System.Decimal</code></td>
+    </tr>
+</table>
+</center>
+<br/>
+<p><em>OBS: Vi kommer inte gå in på detaljer för typen</em> <code>decimal</code> <em>i denna kurs</em></p>
+<hr>
+<h2 id="keyword">Keyword</h2>
+<ul>
+<li>Ett <em><strong>keyword</strong></em> är ett ord med speciell betydelse i programmeringspsråket.</li>
+<li>Keywords är inte giltiga identifierare.</li>
+</ul>
+<hr>
+<h2 id="variabeldefinition">Variabeldefinition</h2>
+<ul>
+<li>Innan en variabel kan användas i koden så måste den <em>definieras</em>.</li>
+<li>Syntax för definition av en variabel:
+<code>&lt;typ&gt; &lt;identifierare&gt;;</code></li>
+<li>Identifieraren får inte redan vara definierad i samma block av kod.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">byte</span> shoeSize; <span class="hljs-comment">// 1 byte allokerad</span>
+<span class="hljs-keyword">uint</span> pixels; <span class="hljs-comment">// 4 bytes allokerad</span>
+<span class="hljs-keyword">long</span> credit; <span class="hljs-comment">// 8 bytes allokerad</span>
+<span class="hljs-keyword">sbyte</span> shoeSize; <span class="hljs-comment">// FEL! redan definierad i kodblocket</span>
+<span class="hljs-keyword">int</span> <span class="hljs-keyword">ulong</span>; <span class="hljs-comment">// FEL! ulong är ett keyword</span>
+<span class="hljs-keyword">int</span> @<span class="hljs-keyword">ulong</span>; <span class="hljs-comment">// 4 bytes allokerade</span>
+</div></code></pre>
+<p><em><code>//</code> och efterföljande text på samma kodrad en kommentar i dokumenterande syfte och och påverkar inte programmets beteende</em>.</p>
+<hr>
+<h1 id="tilldelning">Tilldelning</h1>
+<ul>
+<li>Efter definition av en variabel är det möjligt att skriva till dess minne</li>
+<li>Att skriva till en variabels minne kallas att <em><strong>tilldela</strong></em> variabeln</li>
+<li>Syntaxen för tilldeling av en variabel är:
+<code>&lt;variabel&gt; = &lt;uttryck&gt;;</code></li>
+<li>Uttrycket till höger i en tilldelning måste ha samma typ som variabeln</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a;
+<span class="hljs-keyword">int</span> b; 
+a = <span class="hljs-number">1</span> + <span class="hljs-number">2</span>;
+b = a * <span class="hljs-number">3</span>; 
+</div></code></pre>
+<hr>
+<h2 id="variabelinitialisering">Variabelinitialisering</h2>
+<ul>
+<li>En variabel kan tilldelas samtidigt som den definieras.</li>
+<li>Detta kallas <em><strong>initialisering</strong></em> av variabeln.</li>
+<li>En ej initialiserad variabel har standardvärdet för typen till den tilldelas.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span> + <span class="hljs-number">2</span>;
+<span class="hljs-keyword">int</span> b = a * <span class="hljs-number">3</span>; 
+</div></code></pre>
+<hr>
+<h2 id="implicit-typning">Implicit typning</h2>
+<ul>
+<li>Om en variabel initialiseras kan typen ersättas med <code>var</code></li>
+<li>Variabeln får då automatiskt samma typ som initaliseringsuttrycket.</li>
+<li>Detta kallas att variabeln har <em><strong>implicit</strong></em> typ.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span> + <span class="hljs-number">2</span>; <span class="hljs-comment">// a har typen int</span>
+<span class="hljs-keyword">var</span> b = <span class="hljs-number">1.0</span> + <span class="hljs-number">2.0</span>; <span class="hljs-comment">// b har typen double </span>
+</div></code></pre>
+<hr>
+<h2 id="uttryck">Uttryck</h2>
+<ul>
+<li>Ett <em><strong>utryck</strong></em> är kod som beräknas till ett värde</li>
+<li>Exempel på enkla uttryck är:
+<ul>
+<li>Bokstavliga värden, så kallade <em><strong>litteraler</strong></em>
+<ul>
+<li>T.ex. <code>15</code>, <code>123.456</code>, <code>-189</code></li>
+</ul>
+</li>
+<li>Variabler
+<ul>
+<li>T.ex. <code>length</code>, <code>x</code>, <code>shoeSize</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="heltalslitteraler">Heltalslitteraler</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> a = <span class="hljs-number">123</span>; <span class="hljs-comment">// int</span>
+
+<span class="hljs-keyword">var</span> b = <span class="hljs-number">123L</span>; <span class="hljs-comment">// long</span>
+
+<span class="hljs-keyword">var</span> c = <span class="hljs-number">123U</span>L; <span class="hljs-comment">// unsigned long</span>
+
+<span class="hljs-keyword">var</span> d = <span class="hljs-number">0x1AC3</span>; <span class="hljs-comment">// int på hexdecimal form</span>
+
+<span class="hljs-keyword">var</span> e = <span class="hljs-number">0b10101010</span>; <span class="hljs-comment">// int på binär form</span>
+
+<span class="hljs-keyword">var</span> f = <span class="hljs-number">0b</span>_1010_1010; <span class="hljs-comment">// samma betydelse som föregående rad</span>
+
+</div></code></pre>
+<hr>
+<h2 id="flyttalslitteraler">Flyttalslitteraler</h2>
+<p>Flyttalslitteraler utmärker sig genom att de alltid innehåller en punkt.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> a = <span class="hljs-number">123.0</span>; <span class="hljs-comment">// litteral av typen double</span>
+
+<span class="hljs-keyword">var</span> b = <span class="hljs-number">123.0f</span>; <span class="hljs-comment">// litteral av typen float</span>
+
+<span class="hljs-keyword">var</span> c = <span class="hljs-number">1.23e2</span>; <span class="hljs-comment">// litteral av typen double, scientific notation</span>
+
+<span class="hljs-keyword">var</span> d = <span class="hljs-number">1.23e2</span>f; <span class="hljs-comment">// litteral av typen float, scientific notation</span>
+</div></code></pre>
+<hr>
+<h2 id="operatorer">Operatorer</h2>
+<ul>
+<li><em><strong>Operatorer</strong></em> skapar nya uttryck från andra uttryck</li>
+<li>Syntaxen för operatoruttryck använder sig av symboler, t.ex. <code>+</code>, <code>-</code> och <code>*</code></li>
+<li>Uttrycken en operator beror på kallas för <em><strong>operander</strong></em></li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>I koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">17</span> + <span class="hljs-number">3</span>
+</div></code></pre>
+<p>används additionsoperatorn för att skapa ett uttryck, illustrerat av figuren nedan.</p>
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 1em;">
+<p><img src="fig/uttryck.dot.svg" alt="variabel"></p>
+</div>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>I koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">17</span> + <span class="hljs-number">3</span> + a
+</div></code></pre>
+<p>använder additionsoperatorn två gånger för att skapa två uttryck, varav ett är operand till det andra, som illustrerat av figuren nedan.</p>
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 0em;">
+<p><img src="fig/sammansatt-uttryck.dot.svg" alt="variabel"></p>
+</div>
+<hr>
+<h2 id="aritematiska-operatorer">Aritematiska operatorer</h2>
+<p>Följande operatorer finns för alla heltals- och flyttalstyper.</p>
+<center>
+<table style="font-size: 75%; display: inline">
+  <tr><th>Operator</th><th>Syntax</th><th>Resultat</th></tr>
+  <tr><td>Addition</td><td><code>a + b</code></td><td>Summan av <code>a</code> och <code>b</code></td></tr>
+  <tr><td>Subtraktion</td><td><code>a - b</code></td><td>Differenansen mellan <code>a</code> och <code>b</code></td></tr>
+  <tr><td>Multiplikation</td><td><code>a * b</code></td><td>Produkten av <code>a</code> och <code>b</code></td></tr>
+  <tr><td>Division</td><td><code>a / b</code></td><td>Kvoten av <code>a</code> och <code>b</code><br/></td></tr>
+  <tr><td>Rest</td><td><code>a & b</code></td><td>Resten vid heltalsdivision  <code>a / b</code></td></tr>
+  <tr><td>Negativ</td><td><code>-a</code></td><td>Minus <code>a</code></td></tr>
+</table>
+</center>
+<br/>
+<p>OBS: <code>a</code> och <code>b</code> måste ha samma typ för att beräkningen skall kunna utföras och resultatet har samma typ som operanderna.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>; 
+<span class="hljs-keyword">double</span> c = <span class="hljs-number">3.0</span>;
+<span class="hljs-keyword">double</span> d = <span class="hljs-number">2.0</span>;
+<span class="hljs-keyword">var</span> e = a + b; <span class="hljs-comment">// int med värdet 5</span>
+<span class="hljs-keyword">var</span> f = c + d; <span class="hljs-comment">// double med värdet 5.0</span>
+<span class="hljs-keyword">var</span> g = a / b; <span class="hljs-comment">// int med värde 1 (heltalsdivision)</span>
+<span class="hljs-keyword">var</span> h = a % b; <span class="hljs-comment">// int med värde 1</span>
+<span class="hljs-keyword">var</span> i = c / d; <span class="hljs-comment">// double med värdet 1.5</span>
+<span class="hljs-keyword">var</span> j = -c; <span class="hljs-comment">// double med värdet -3.0</span>
+</div></code></pre>
+<hr>
+<h2 id="heltalsoperatorer">Heltalsoperatorer</h2>
+<p>Följande operatorer finns endast för  heltalstyper.</p>
+<table style="font-size: 75%">
+  <tr><th>Namn</th><th>Syntax</th><th>Resultat/sidoeffekt</th></tr>
+  <tr><td>Prefix inkrement</td><td><code>++a</code></td><td>Öka värdet på <code>a</code> med 1 och ge sedan värdet på <code>a</code> som resultat</td></tr>
+  <tr><td>Postfix inkrement</td><td><code>a++ </code></td><td>Ge värdet på <code>a</code>  som resultat och öka sedan värdet på <code>a</code> med 1</td></tr>
+  <tr><td>Prefix dekrement</td><td><code>--a</code></td><td>Minska värdet på <code>a</code> med 1 och ge sedan värdet på <code>a</code> som resultat</td></tr>
+  <tr><td>Postfix dekrement</td><td><code>a--</code></td><td>Ge värdet på <code>a</code>  som resultat och minska sedan värdet på <code>a</code> med 1</td></tr>
+</table>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">int</span> b = ++a; <span class="hljs-comment">// b = 11, a = 11</span>
+<span class="hljs-keyword">int</span> c = a++; <span class="hljs-comment">// c = 11, a = 12</span>
+<span class="hljs-keyword">int</span> d = --a; <span class="hljs-comment">// d = 11, a = 11</span>
+<span class="hljs-keyword">int</span> e = a--; <span class="hljs-comment">// e = 11, a = 10 </span>
+</div></code></pre>
+<hr>
+<h2 id="sammansatt-tilldelning">Sammansatt tilldelning</h2>
+<ul>
+<li>
+<p>Det är vanligt med tilldelningar på formen: <code>x = x &lt;operator&gt; y;</code></p>
+</li>
+<li>
+<p>Operatorerna för sammansatt tilldelning förenklar syntaxen</p>
+</li>
+</ul>
+<center>
+<table style="font-size: 75%; display: inline">
+  <tr><th>Operator</th><th>Syntax</th><th>Betydelse</th></tr>
+  <tr><td>Sammansatt addition</td><td><code>a +=  b</code></td><td><code>a = a + b</code></td></tr>
+  <tr><td>Sammansatt subtraktions</td><td><code>a -=  b</code></td><td><code>a = a - b</code></td></tr>
+  <tr><td>Sammansatt multiplikation</td><td><code>a *=  b</code></td><td><code>a = a * b</code></td></tr>
+  <tr><td>Sammansatt division</td><td><code>a /=  b</code></td><td><code>a = a / b</code></td></tr>
+</table>
+</center>
+<br/>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> a = <span class="hljs-number">10.0</span>;
+a /= <span class="hljs-number">2.0</span>; <span class="hljs-comment">// a = 5</span>
+a += <span class="hljs-number">10.0</span>; <span class="hljs-comment">// a = 15</span>
+a -= <span class="hljs-number">3.0</span>; <span class="hljs-comment">// a = 12</span>
+a *= <span class="hljs-number">4.0</span>; <span class="hljs-comment">// a = 48</span>
+</div></code></pre>
+<hr>
+<h2 id="kedjor-av-operatorer">Kedjor av operatorer</h2>
+<p>Har uttrycket tilldelat <code>x</code> i koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span> + <span class="hljs-number">2</span> * <span class="hljs-number">3</span>;
+</div></code></pre>
+<p>strukturen enligt bilden till höger eller vänster nedan?</p>
+<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex;">
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 0em;">
+<p><img src="fig/operatorföreträde-1.dot.svg" alt="variabel"></p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 3em;">
+<p><img src="fig/operatorföreträde-2.dot.svg" alt="variabel"></p>
+</div>
+</div>
+</div>
+<hr>
+<h2 id="operatorf%C3%B6retr%C3%A4de">Operatorföreträde</h2>
+<ul>
+<li>Uttrycket <code>1 + 2 * 3</code> har strukturen enligt figuren nedan.</li>
+<li>Anledningen är att det finns en <a href="https://docs.microsoft.com/en-us/cpp/c-language/precedence-and-order-of-evaluation?view=vs-2019">företrädesordning</a> för operatorer.</li>
+<li>Multiplikation ligger högre i ordningen än addition och binder därför sina operander först.</li>
+</ul>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 3em;">
+<p><img src="fig/operatorföreträde-2.dot.svg" alt="variabel"></p>
+</div>
+<hr>
+<h2 id="gruppering-med-parenteser">Gruppering med parenteser</h2>
+<ul>
+<li>Företrädesordningen kan kringgås genom gruppering med parentser.</li>
+<li>Operatorer inom parenteser binder sina operander innan operatorerna utanför parenteserna.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Med parenterser har uttrycket tilldelat <code>x</code> i koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = (<span class="hljs-number">1</span> + <span class="hljs-number">2</span>) * <span class="hljs-number">3</span>;
+</div></code></pre>
+<p>nu strukturen enligt figuren nedan.</p>
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 0em;">
+<p><img src="fig/operatorföreträde-1.dot.svg" alt="variabel"></p>
+</div>
+<hr>
+<h2 id="aritet">Aritet</h2>
+<ul>
+<li>En operators <em>aritet</em> är lika antal operander för operatorn
+<ul>
+<li>T.ex. har negativ aritet 1 och addition aritet 2</li>
+</ul>
+</li>
+<li>En operator med aritet 1 kallas <em><strong>unär</strong></em></li>
+<li>En operator med aritet 2 kallas <em><strong>binär</strong></em></li>
+<li>En operator med aritet 3 kallas <em><strong>trinär</strong></em></li>
+</ul>
+<hr>
+<h1 id="konvertering">Konvertering</h1>
+<ul>
+<li>
+<p>Konverteringsoperatorn konverterar ett värde av en typ till en annan typ</p>
+</li>
+<li>
+<p>Konverteringsoperatorn har följande syntax:</p>
+<p><code>(&lt;typ&gt;) &lt;uttryck&gt;</code></p>
+<p>där <code>&lt;typ&gt;</code> är typen som uttrycket skall konverteras till.</p>
+</li>
+<li>
+<p>En lista över alla möjliga typkonverteringar finns <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/conversions#explicit-conversions">här</a>.</p>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">123</span>;
+<span class="hljs-keyword">byte</span> b = (<span class="hljs-keyword">byte</span>)a; <span class="hljs-comment">// konvertering till byte</span>
+
+<span class="hljs-keyword">double</span> c = <span class="hljs-number">123.456</span>;
+<span class="hljs-keyword">float</span> d = (<span class="hljs-keyword">float</span>)d; <span class="hljs-comment">// konvertering till float</span>
+<span class="hljs-keyword">int</span> e = (<span class="hljs-keyword">int</span>)c; <span class="hljs-comment">// konvertering till int, resultat: 123</span>
+</div></code></pre>
+<hr>
+<h2 id="implicit-konvertering">Implicit konvertering</h2>
+<ul>
+<li>I vissa fall kan typer <em><strong>implicit</strong></em> konverteras till andra typer</li>
+<li>Taltyper implicit konverteras till &quot;rymligare&quot; taltyper
+<ul>
+<li>T.ex. kan <code>float</code> och <code>int</code> implicit konverteras till <code>double</code></li>
+</ul>
+</li>
+<li>En fullständiga lista över implicita konverteringar finns <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/conversions#implicit-conversions">här</a></li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span> + <span class="hljs-number">2.0</span>; <span class="hljs-comment">// 1 konverteras implicit till double</span>
+<span class="hljs-keyword">double</span> b = <span class="hljs-number">123.456f</span>; <span class="hljs-comment">// implicit konvertering från float till double</span>
+<span class="hljs-keyword">float</span> c = <span class="hljs-number">123.456</span>; <span class="hljs-comment">// FEL! double kan inte implicit konvertersa till float</span>
+</div></code></pre>
+<hr>
+<h2 id="teckentyp">Teckentyp</h2>
+<ul>
+<li>Teckentypen i C# heter <code>char</code></li>
+<li>Lagrar ett tecken med UTF-16-kodning (2 bytes)</li>
+<li>Kan inte lagra surrogatpar</li>
+<li>En teckenlitteral är tecknet inom apostrofer (<code>''</code>)
+<ul>
+<li>T.ex. <code>'a'</code>, <code>'Ä'</code>, <code>'⻑'</code> <code>'β'</code>,</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">char</span> a = <span class="hljs-string">'a'</span>; 
+<span class="hljs-keyword">uint</span> b = a; <span class="hljs-comment">// b = 0b_00000000_01100001, UTF-16-kod för tecknet 'a'</span>
+<span class="hljs-keyword">char</span> c = <span class="hljs-string">'😊'</span>; <span class="hljs-comment">// FEL! Inte i första Unicode-planet, kräver surrogatpar </span>
+</div></code></pre>
+<hr>
+<h2 id="texttyp">Texttyp</h2>
+<ul>
+<li>Texttypen i C# heter <code>string</code></li>
+<li>En text är en sekvens av tecken</li>
+<li>Strängar kan lagra tecken utanför första Unicode-planet med surrogatpar</li>
+<li>En textlitteral är en teckensekvens inom enkla apostrofer (<code>''</code>)
+<ul>
+<li>T.ex. <code>&quot;Strängar kan innehålla emojis 😎&quot;</code></li>
+</ul>
+</li>
+<li>Längden av en text ges av <code>Length</code>-egenskapen</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span> text = <span class="hljs-string">"Hej!"</span>;
+<span class="hljs-keyword">int</span> length = text.Length; <span class="hljs-comment">// length = 4</span>
+text = <span class="hljs-string">"🦊🐻🐼"</span>; 
+length = text.Length; <span class="hljs-comment">// length = 6</span>
+</div></code></pre>
+<hr>
+<h2 id="str%C3%A4ngoperatorer">Strängoperatorer</h2>
+<p>Även strängar har operatorer.</p>
+<center>
+<table style="font-size: 75%; display: inline">
+  <tr><th>Operator</th><th>Syntax</th><th>Resultat</th></tr>
+  <tr><td>Indexering</td><td><code>s [ i ]</code></td><td>Tecknet i strängen <code>s</code> med index <code>i</code></td></tr>
+  <tr><td>Konkatenering</td><td><code>s1 + s2</code></td><td>Ny sträng bestående av <code>s1</code> följt av <code>s2</code></td></tr>
+</table>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span> text1 = <span class="hljs-string">"Hej"</span>;
+<span class="hljs-keyword">string</span> text2 = <span class="hljs-string">" då"</span>; 
+<span class="hljs-keyword">string</span> text3 = text1 + text2; <span class="hljs-comment">// text3 = "Hej då"</span>
+text3 += <span class="hljs-string">'!'</span>; <span class="hljs-comment">// text3 = "Hej då!"</span>
+<span class="hljs-keyword">char</span> a = text1[<span class="hljs-number">0</span>]; <span class="hljs-comment">// a = 'H'</span>
+<span class="hljs-keyword">char</span> b = text1[<span class="hljs-number">1</span>]; <span class="hljs-comment">// b = 'e'</span>
+<span class="hljs-keyword">char</span> c = text1[<span class="hljs-number">2</span>]; <span class="hljs-comment">// c = 'j'</span>
+<span class="hljs-keyword">char</span> e = text1[<span class="hljs-number">3</span>]; <span class="hljs-comment">// FEL! Strängen har inget element med index 3</span>
+</div></code></pre>
+<hr>
+<h2 id="escapesekvenser">Escapesekvenser</h2>
+<ul>
+<li>Kontrolltecken har ingen grafisk teckenrepesentation
+<ul>
+<li>T.ex. <code>LF</code>, <code>CR</code> och <code>BEL</code></li>
+</ul>
+</li>
+<li>Vissa tecken har speciell betydelse för sträng- eller teckenlitteraler
+<ul>
+<li>T.ex. <code>&quot;</code>, <code>'</code> och <code>\</code></li>
+</ul>
+</li>
+<li>I litteraler måste sådana tecken uttrycks med <em><strong>escapesekvenser</strong></em></li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Tabellen nedan beskriver de viktigaste escapesekvenserna.</p>
+<center>
+<table style="display: inline; font-size: 75%"">
+  <tr><th>Escape-<br/>sekvens</th><th>Tecken</th><th>Betydelse</th></tr>
+  <tr><td>\n</td><td><code>LF</code></td><td>Ny rad</td></tr>
+  <tr><td>\r</td><td><code>CR</code></td><td>Gå till början av aktuell rad</td></tr>
+  <tr><td>\t</td><td><code>HT</code></td><td> Horisontell tabulering</td></tr>
+  <tr><td>\"</td><td><code>"</code></td><td/></tr>
+  <tr><td>\'</td><td><code>'</code></td><td/></tr>
+  <tr><td>\\</td><td><code>\</code><td><td/></tr>
+</table>
+</center>
+<p>En komplett förteckning av escapesekvenser finns <a href="https://docs.microsoft.com/en-us/cpp/c-language/escape-sequences?view=vs-2019">här</a>.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hej\tdå!"</span>);
+Console.WriteLine(<span class="hljs-string">"Text på\nny rad."</span>);
+Console.WriteLine(<span class="hljs-string">"Citat: \"text\""</span>);
+Console.WriteLine(<span class="hljs-string">"C:\\Projekt\\hello-world\\Program.cs"</span>);
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>Hej	   då!
+Text på
+ny rad.
+Citat: &quot;text&quot;
+C:\Projekt\hello-world\Program.cs
+</div></code></pre>
+<hr>
+<h2 id="implicit-konvertering-till-str%C3%A4ng">Implicit konvertering till sträng</h2>
+<ul>
+<li>De flesta typer kan implicit konverteras till <code>string</code></li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> pris = <span class="hljs-number">100.0</span>;
+<span class="hljs-keyword">double</span> moms = <span class="hljs-number">0.25</span>; <span class="hljs-comment">// 25%</span>
+Console.WriteLine(
+  <span class="hljs-string">"Momsen på "</span> + pris + <span class="hljs-string">" kr är "</span> + 
+  (moms * pris)  + <span class="hljs-string">" kr."</span>);
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>Momsen på 100 kr är 25 kr.
+</div></code></pre>
+<hr>
+<h2 id="str%C3%A4nginterpolation">Stränginterpolation</h2>
+<ul>
+<li>Text med värden av uttryck kan också skapas genom <em><strong>stränginterpolation</strong></em></li>
+<li>En interpolerad stränglitteral har prefixet <code>$</code></li>
+<li>Uttryck inom klammerparenteser (<code>{}</code>) utvärderas och konverteras till text</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> pris = <span class="hljs-number">100.0</span>;
+<span class="hljs-keyword">double</span> moms = <span class="hljs-number">0.25</span>; <span class="hljs-comment">// 25%</span>
+Console.WriteLine(<span class="hljs-string">$"Momsen på <span class="hljs-subst">{pris}</span> kr är <span class="hljs-subst">{moms * pris}</span> kr."</span>);
+</div></code></pre>
+<p>ger också uttskriften:</p>
+<pre class="hljs"><code><div>Momsen på 100 kr är 25 kr.
+</div></code></pre>
+
+</body>
+</html>
