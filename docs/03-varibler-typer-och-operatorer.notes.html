@@ -601,6 +601,8 @@ b = a * <span class="hljs-number">3</span>;
 <span class="hljs-keyword">var</span> c = <span class="hljs-number">1.23e2</span>; <span class="hljs-comment">// litteral av typen double, scientific notation</span>
 
 <span class="hljs-keyword">var</span> d = <span class="hljs-number">1.23e2</span>f; <span class="hljs-comment">// litteral av typen float, scientific notation</span>
+
+<span class="hljs-keyword">var</span> d = <span class="hljs-number">1.23e-2</span>f; <span class="hljs-comment">// litteral av typen float, scientific notation</span>
 </div></code></pre>
 <hr>
 <h2 id="operatorer">Operatorer</h2>
@@ -725,8 +727,13 @@ a *= <span class="hljs-number">4.0</span>; <span class="hljs-comment">// a = 48<
 <li>Uttrycket <code>1 + 2 * 3</code> har strukturen enligt figuren nedan.</li>
 <li>Anledningen är att det finns en <a href="https://docs.microsoft.com/en-us/cpp/c-language/precedence-and-order-of-evaluation?view=vs-2019">företrädesordning</a> för operatorer.</li>
 <li>Multiplikation ligger högre i ordningen än addition och binder därför sina operander först.</li>
+<li>Operatorer på samma nivå binder operander enligt associativitet.
+<ul>
+<li>Vänster till höger eller höger till vänster.</li>
 </ul>
-<div style="display: flex; flex-direction: column; align-items: center; margin-left: 3em;">
+</li>
+</ul>
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 3em; zoom: 0.8">
 <p><img src="fig/operatorföreträde-2.dot.svg" alt="variabel"></p>
 </div>
 <hr>
@@ -805,7 +812,7 @@ a *= <span class="hljs-number">4.0</span>; <span class="hljs-comment">// a = 48<
 <li>Kan inte lagra surrogatpar</li>
 <li>En teckenlitteral är tecknet inom apostrofer (<code>''</code>)
 <ul>
-<li>T.ex. <code>'a'</code>, <code>'Ä'</code>, <code>'⻑'</code> <code>'β'</code>,</li>
+<li>T.ex. <code>'a'</code>, <code>'Ä'</code>, <code>'['</code>, <code>'⻑'</code>, <code>'β'</code>,</li>
 </ul>
 </li>
 </ul>
@@ -909,14 +916,14 @@ C:\Projekt\hello-world\Program.cs
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Koden nedan:</p>
-<pre class="hljs"><code><div><span class="hljs-keyword">double</span> pris = <span class="hljs-number">100.0</span>;
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> pris = <span class="hljs-number">49.95</span>;
 <span class="hljs-keyword">double</span> moms = <span class="hljs-number">0.25</span>; <span class="hljs-comment">// 25%</span>
 Console.WriteLine(
   <span class="hljs-string">"Momsen på "</span> + pris + <span class="hljs-string">" kr är "</span> + 
   (moms * pris)  + <span class="hljs-string">" kr."</span>);
 </div></code></pre>
 <p>ger utskriften:</p>
-<pre class="hljs"><code><div>Momsen på 100 kr är 25 kr.
+<pre class="hljs"><code><div>Momsen på 49.95 kr är 12.4875 kr.
 </div></code></pre>
 <hr>
 <h2 id="str%C3%A4nginterpolation">Stränginterpolation</h2>
@@ -928,12 +935,70 @@ Console.WriteLine(
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Koden nedan:</p>
-<pre class="hljs"><code><div><span class="hljs-keyword">double</span> pris = <span class="hljs-number">100.0</span>;
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> pris = <span class="hljs-number">49.04</span>;
 <span class="hljs-keyword">double</span> moms = <span class="hljs-number">0.25</span>; <span class="hljs-comment">// 25%</span>
 Console.WriteLine(<span class="hljs-string">$"Momsen på <span class="hljs-subst">{pris}</span> kr är <span class="hljs-subst">{moms * pris}</span> kr."</span>);
 </div></code></pre>
 <p>ger också uttskriften:</p>
-<pre class="hljs"><code><div>Momsen på 100 kr är 25 kr.
+<pre class="hljs"><code><div>Momsen på 49.05 kr är 12.4875 kr.
+</div></code></pre>
+<hr>
+<h2 id="kontrollera-antalet-decimaler">Kontrollera antalet decimaler</h2>
+<ul>
+<li><code>{flyttal:0.##}</code> i stränginterpolation ger två decimalers noggranhet</li>
+<li><code>{flyttal:0.###}</code> ger tre decimalers noggranhet osv</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> pris = <span class="hljs-number">49.04</span>;
+<span class="hljs-keyword">double</span> moms = <span class="hljs-number">0.25</span>; <span class="hljs-comment">// 25%</span>
+Console.WriteLine(<span class="hljs-string">$"Momsen på <span class="hljs-subst">{pris:<span class="hljs-number">0.</span>##}</span> kr är <span class="hljs-subst">{moms * pris:<span class="hljs-number">0.</span>##}</span> kr."</span>);
+</div></code></pre>
+<p>ger uttskriften:</p>
+<pre class="hljs"><code><div>Momsen på 49.05 kr är 12.49 kr.
+</div></code></pre>
+<hr>
+<h2 id="l%C3%A4sa-text-fr%C3%A5n-anv%C3%A4ndaren">Läsa text från användaren</h2>
+<ul>
+<li>
+<p>En textrad kan läsas in från användaren av en konsolapplikation med:</p>
+<p><code>Console.ReadLine()</code></p>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>T.ex. en körning av koden nedan:</p>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Skriv text.);
+string text = Console.ReadLine();
+Console.WriteLine($"</span>Du skrev:\n{text});
+</div></code></pre>
+<p>se ut ut så här:</p>
+<pre class="hljs"><code><div>Skriv in text.
+Hej på dig!
+Du skrev: 
+Hej på dig!
+</div></code></pre>
+<hr>
+<h2 id="konvertering-av-text-till-tal">Konvertering av text till tal</h2>
+<p>Strängar kan konverteras till tal enligt tabellen nedan.</p>
+<center>
+<table style="font-size: 70%; display: inline">
+  <tr><th>Syntax</th><th>Resultat</th></tr>
+  <tr><td><code>SByte.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>sbyte</code></td></tr>
+  <tr><td><code>Byte.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>byte</code></td></tr>
+  <tr><td><code>Int16.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>short</code></td></tr>
+  <tr><td><code>UInt16.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>ushort</code></td></tr>
+  <tr><td><code>Int32.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>int</code></td></tr>
+  <tr><td><code>UInt32.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>uint</code></td></tr>
+  <tr><td><code>Single.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>float</code></td></tr>
+  <tr><td><code>Double.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>double</code></td></tr>
+</table>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> a = Double.Parse(<span class="hljs-string">"123.456"</span>);
+<span class="hljs-keyword">sbyte</span> b = SByte.Parse(<span class="hljs-string">"-17"</span>);
 </div></code></pre>
 
 </body>

@@ -295,6 +295,8 @@ var b = 123.0f; // litteral av typen float
 var c = 1.23e2; // litteral av typen double, scientific notation
 
 var d = 1.23e2f; // litteral av typen float, scientific notation
+
+var d = 1.23e-2f; // litteral av typen float, scientific notation
 ```
 
 ---
@@ -474,9 +476,11 @@ strukturen enligt bilden till höger eller vänster nedan?
 
 - Uttrycket ``1 + 2 * 3`` har strukturen enligt figuren nedan. 
 - Anledningen är att det finns en [företrädesordning](https://docs.microsoft.com/en-us/cpp/c-language/precedence-and-order-of-evaluation?view=vs-2019) för operatorer.
-- Multiplikation ligger högre i ordningen än addition och binder därför sina operander först. 
+- Multiplikation ligger högre i ordningen än addition och binder därför sina operander först.
+- Operatorer på samma nivå binder operander enligt associativitet.
+  - Vänster till höger eller höger till vänster. 
 
-<div style="display: flex; flex-direction: column; align-items: center; margin-left: 3em;">
+<div style="display: flex; flex-direction: column; align-items: center; margin-left: 3em; zoom: 0.8">
 
 ![variabel](fig/operatorföreträde-2.dot.svg)
 
@@ -569,7 +573,7 @@ float c = 123.456; // FEL! double kan inte implicit konvertersa till float
 - Lagrar ett tecken med UTF-16-kodning (2 bytes)
 - Kan inte lagra surrogatpar 
 - En teckenlitteral är tecknet inom apostrofer (``''``)
-  - T.ex. ``'a'``, ``'Ä'``, ``'⻑'`` ``'β'``, 
+  - T.ex. ``'a'``, ``'Ä'``, ``'['``, ``'⻑'``, ``'β'``, 
 
 ---
 
@@ -699,7 +703,7 @@ C:\Projekt\hello-world\Program.cs
 Koden nedan: 
 
 ```cs
-double pris = 100.0;
+double pris = 49.95;
 double moms = 0.25; // 25%
 Console.WriteLine(
   "Momsen på " + pris + " kr är " + 
@@ -709,7 +713,7 @@ Console.WriteLine(
 ger utskriften:
 
 ```text
-Momsen på 100 kr är 25 kr.
+Momsen på 49.95 kr är 12.4875 kr.
 ```
 
 --- 
@@ -727,7 +731,7 @@ Momsen på 100 kr är 25 kr.
 Koden nedan:
 
 ```cs
-double pris = 100.0;
+double pris = 49.04;
 double moms = 0.25; // 25%
 Console.WriteLine($"Momsen på {pris} kr är {moms * pris} kr.");
 ```
@@ -735,8 +739,92 @@ Console.WriteLine($"Momsen på {pris} kr är {moms * pris} kr.");
 ger också uttskriften:
 
 ```text
-Momsen på 100 kr är 25 kr.
+Momsen på 49.05 kr är 12.4875 kr.
 ```
+
+--- 
+
+## Kontrollera antalet decimaler
+ - ``{flyttal:0.##}`` i stränginterpolation ger två decimalers noggranhet
+ - ``{flyttal:0.###}`` ger tre decimalers noggranhet osv
+
+---
+
+### Exempel
+
+Koden nedan:
+
+```cs
+double pris = 49.04;
+double moms = 0.25; // 25%
+Console.WriteLine($"Momsen på {pris:0.##} kr är {moms * pris:0.##} kr.");
+```
+
+ger uttskriften:
+
+```text
+Momsen på 49.05 kr är 12.49 kr.
+```
+
+--- 
+
+## Läsa text från användaren
+
+- En textrad kan läsas in från användaren av en konsolapplikation med:
+
+  ``Console.ReadLine()``
+
+---
+
+### Exempel
+
+T.ex. en körning av koden nedan: 
+
+```cs
+Console.WriteLine("Skriv text.);
+string text = Console.ReadLine();
+Console.WriteLine($"Du skrev:\n{text});
+```
+
+se ut ut så här:
+
+```text
+Skriv in text.
+Hej på dig!
+Du skrev: 
+Hej på dig!
+```
+
+--- 
+
+## Konvertering av text till tal
+
+Strängar kan konverteras till tal enligt tabellen nedan. 
+
+<center>
+<table style="font-size: 70%; display: inline">
+  <tr><th>Syntax</th><th>Resultat</th></tr>
+  <tr><td><code>SByte.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>sbyte</code></td></tr>
+  <tr><td><code>Byte.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>byte</code></td></tr>
+  <tr><td><code>Int16.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>short</code></td></tr>
+  <tr><td><code>UInt16.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>ushort</code></td></tr>
+  <tr><td><code>Int32.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>int</code></td></tr>
+  <tr><td><code>UInt32.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>uint</code></td></tr>
+  <tr><td><code>Single.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>float</code></td></tr>
+  <tr><td><code>Double.Parse(s)</code></td><td>strängen <code>s</code> tolkad som <code>double</code></td></tr>
+</table>
+</center>
+
+---
+
+### Exempel
+
+```cs
+double a = Double.Parse("123.456");
+sbyte b = SByte.Parse("-17");
+```
+
+
 
 
 
