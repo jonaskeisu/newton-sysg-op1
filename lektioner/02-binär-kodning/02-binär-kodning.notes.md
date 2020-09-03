@@ -1070,7 +1070,7 @@ if (-0.005 > p && p < 0.005) {
 ## ASCII-kodning
 
 - ASCII-kodning är en gammal standard med anor från telegrafmaskiner
-  - Americal Standard Core for Information Exchange
+  - American Standard Code for Information Exchange
   - Första versionen definierad 1963
 - Varje tecken kodas med 7 bits
   - I datorer en byte med första biten alltid 0
@@ -1106,7 +1106,7 @@ if (-0.005 > p && p < 0.005) {
         <td>1111</td>
     </tr>
     <tr>
-        <th rowspan="16">b<sub>6</sub>b<sub>6</sub>b<sub>5</sub>b<sub>4</sub></th>
+        <th rowspan="16">b<sub>7</sub>b<sub>6</sub>b<sub>5</sub>b<sub>4</sub></th>
         <td>0000</td>
         <td>NUL</td>
         <td>SOH</td>
@@ -1535,7 +1535,7 @@ T.ex. blir bytesekvensen:
 01100100 11100100 01110010 00100001
 ```
 
-avkodad med ISO-8850-1 texten:
+avkodad med ISO-8859-1 texten:
 
 ```text
 Hej där!
@@ -1676,7 +1676,7 @@ Beskrivning av samtliga plan och tecken i Unicode finns t.ex. [här](https://en.
         <td><code>U+0080</code></td>
         <td><code>U+07FF</code></td>
         <td><code>110xxxxx</code></td>
-        <td><code>110xxxxx</code></td>
+        <td><code>10xxxxxx</code></td>
         <td>--</td>
         <td>--</td>
     </tr>
@@ -1712,7 +1712,7 @@ Nedan visas UTF-8-kodning av tre olika tecken.
 01000001
 ```
 
-``U+000C3`` (``Ä``) ligger i två-bytes-intervallet:
+``U+000C4`` (``Ä``) ligger i två-bytes-intervallet:
 
 ```text
 11000011 10000100
@@ -1730,7 +1730,7 @@ Nedan visas UTF-8-kodning av tre olika tecken.
 ## UTF-16
 
 - UTF-16 lagrar alla Unicode-tecken i första planet med två bytes
-- Tecken i hägre plan kan lagras med två så kallade *surrogattecken*
+- Tecken i hägre plan kan lagras med två så kallade *surrugattecken*
 
 <table style="zoom:0.9">
     <tr>

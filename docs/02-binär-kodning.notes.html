@@ -1232,7 +1232,7 @@ S<sub>K</sub>S<sub>K-1</sub>..S<sub>3</sub>S<sub>2</sub>S<sub>1</sub>S<sub>0</su
 <ul>
 <li>ASCII-kodning är en gammal standard med anor från telegrafmaskiner
 <ul>
-<li>Americal Standard Core for Information Exchange</li>
+<li>American Standard Code for Information Exchange</li>
 <li>Första versionen definierad 1963</li>
 </ul>
 </li>
@@ -1271,7 +1271,7 @@ S<sub>K</sub>S<sub>K-1</sub>..S<sub>3</sub>S<sub>2</sub>S<sub>1</sub>S<sub>0</su
         <td>1111</td>
     </tr>
     <tr>
-        <th rowspan="16">b<sub>6</sub>b<sub>6</sub>b<sub>5</sub>b<sub>4</sub></th>
+        <th rowspan="16">b<sub>7</sub>b<sub>6</sub>b<sub>5</sub>b<sub>4</sub></th>
         <td>0000</td>
         <td>NUL</td>
         <td>SOH</td>
@@ -1678,7 +1678,7 @@ World!
 <pre class="hljs"><code><div>01001000 01100101 01101010 00100000
 01100100 11100100 01110010 00100001
 </div></code></pre>
-<p>avkodad med ISO-8850-1 texten:</p>
+<p>avkodad med ISO-8859-1 texten:</p>
 <pre class="hljs"><code><div>Hej där!
 </div></code></pre>
 <hr>
@@ -1811,7 +1811,7 @@ World!
         <td><code>U+0080</code></td>
         <td><code>U+07FF</code></td>
         <td><code>110xxxxx</code></td>
-        <td><code>110xxxxx</code></td>
+        <td><code>10xxxxxx</code></td>
         <td>--</td>
         <td>--</td>
     </tr>
@@ -1840,7 +1840,7 @@ World!
 <p><code>U+00041</code> (<code>A</code>) är ett ASCII-tecken och kräver bara en byte:</p>
 <pre class="hljs"><code><div>01000001
 </div></code></pre>
-<p><code>U+000C3</code> (<code>Ä</code>) ligger i två-bytes-intervallet:</p>
+<p><code>U+000C4</code> (<code>Ä</code>) ligger i två-bytes-intervallet:</p>
 <pre class="hljs"><code><div>11000011 10000100
 </div></code></pre>
 <p><code>U+1F642</code> (🙂) ligger utanför första planet och kräver fyra bytes:</p>
@@ -1850,7 +1850,7 @@ World!
 <h2 id="utf-16">UTF-16</h2>
 <ul>
 <li>UTF-16 lagrar alla Unicode-tecken i första planet med två bytes</li>
-<li>Tecken i hägre plan kan lagras med två så kallade <em>surrogattecken</em></li>
+<li>Tecken i hägre plan kan lagras med två så kallade <em>surrugattecken</em></li>
 </ul>
 <table style="zoom:0.9">
     <tr>
