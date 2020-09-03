@@ -96,7 +96,7 @@ int d = a + c;
 
 ### Övning 9d8nz3
 
-BMI (Body Mass Index) är ett mått på vikt i förhållande till längd. BMI räknas ut som vikt, i kg, genom läng, i meter, i kvadrag ([kg / m<sup>2</sup>]). Skriv ett program som frågar efter längd i cm och vikt i kg och sedan skriver ut personens BMI med två decimalers noggrannhet. Vad händer om det användaren skriver in inte kan tolkas som ett tal?
+BMI (Body Mass Index) är ett mått på vikt i förhållande till längd. BMI räknas ut som vikt, i kg, genom läng, i meter, i kvadrat ([kg / m<sup>2</sup>]). Skriv ett program som frågar efter längd i cm och vikt i kg och sedan skriver ut personens BMI med två decimalers noggrannhet. Vad händer om det användaren skriver in inte kan tolkas som ett tal?
 
 #### Exempel
 

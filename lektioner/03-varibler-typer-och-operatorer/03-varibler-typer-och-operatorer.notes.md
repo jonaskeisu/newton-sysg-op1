@@ -542,7 +542,7 @@ int a = 123;
 byte b = (byte)a; // konvertering till byte
 
 double c = 123.456;
-float d = (float)d; // konvertering till float
+float d = (float)c; // konvertering till float
 int e = (int)c; // konvertering till int, resultat: 123
 ```
 
@@ -592,7 +592,7 @@ char c = '😊'; // FEL! Inte i första Unicode-planet, kräver surrogatpar
 - Texttypen i C# heter ``string``
 - En text är en sekvens av tecken
 - Strängar kan lagra tecken utanför första Unicode-planet med surrogatpar
-- En textlitteral är en teckensekvens inom enkla apostrofer (``''``)
+- En textlitteral är en teckensekvens inom citattecken (``""``)
   - T.ex. ``"Strängar kan innehålla emojis 😎"``
 - Längden av en text ges av ``Length``-egenskapen
 
