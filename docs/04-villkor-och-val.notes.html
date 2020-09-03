@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>04-villkor-och-val.notes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div class="title-page">
+<h1 id="villkor-och-val">Villkor och val</h1>
+</div>
+<hr>
+<h2 id="satser">Satser</h2>
+<ul>
+<li>En <em><strong>stats</strong></em> är ett stycke kod som kan exekveras fristående</li>
+</ul>
+<hr>
+<h2 id="kodrad">Kodrad</h2>
+<ul>
+<li>En kodrad är en är en sats.</li>
+<li>Slutet på en sats markeras med ett <em>semikolon</em> (<code>;</code>)</li>
+</ul>
+<pre class="hljs"><code><div>&lt;kod&gt; ;
+</div></code></pre>
+<hr>
+<h2 id="skillnaden-p%C3%A5-satser-och-uttryck">Skillnaden på satser och uttryck</h2>
+<ul>
+<li>En <em>sats</em> till skillnaden till ett <em>uttryck</em> behöver inte resulterar i ett värde</li>
+<li>Syftet med en sats är att definiera en identifierare eller skapa en <em>sidoeffekt</em>.</li>
+<li>En <em><strong>sidoeffekt</strong></em> är en bestående effekt av att en sats exekverats, t.ex. förändrad data i minnet eller I/O:
+<ul>
+<li><code>a = 1; // förändrad data i minnet</code></li>
+<li><code>Console.WriteLine(&quot;Hello!&quot;); // I/O</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="kodblock">Kodblock</h2>
+<ul>
+<li>
+<p>Sammansatta satser kan skapas <em><strong>kodblock</strong></em></p>
+</li>
+<li>
+<p>Exkevering av kodblocket innebär att exekvera dess satser <em>sekventiellt</em></p>
+</li>
+<li>
+<p>Ett kodblock formas genom att placera en sekvens av satser mellan klammerparenterser (<code>{}</code>)</p>
+<pre class="hljs"><code><div>{
+    &lt;sats 1&gt;
+    &lt;sats 2&gt;
+    ..
+}
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="n%C3%A4stade-kodblock">Nästade kodblock</h3>
+<p>Kodblock kan vara nästade.</p>
+<pre class="hljs"><code><div>{
+    &lt;sats 1&gt;
+    &lt;sats 2&gt;
+    ..
+    {
+        &lt;sats k&gt;
+        &lt;sats k + 1&gt;
+        ..
+    }
+    ...
+}
+</div></code></pre>
+<hr>
+<h2 id="scope">Scope</h2>
+<ul>
+<li>En variabel är bara synlig i kodblocket där den definieras</li>
+<li>En definieras variabels namn överskuggar namnet i yttre kodblock</li>
+<li>En synlig variabel sägs vara i <em><strong>scope</strong></em></li>
+<li>En ej synlig variabel sägs vara ur scope</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">int</span> a = <span class="hljs-number">2</span>; 
+{
+    <span class="hljs-keyword">int</span> x = <span class="hljs-number">3</span>;
+    <span class="hljs-keyword">int</span> b = <span class="hljs-number">4</span>;
+    <span class="hljs-keyword">int</span> c = a + b + x; <span class="hljs-comment">// c = 2 + 4 + 3 = 9</span>
+    {
+        <span class="hljs-keyword">int</span> x = <span class="hljs-number">5</span>; 
+        <span class="hljs-keyword">int</span> d = a + b + c + x; <span class="hljs-comment">// 2 + 4 + 9 + 5</span>
+    }
+    <span class="hljs-keyword">int</span> e = b; <span class="hljs-comment">// e = 4</span>
+    <span class="hljs-keyword">int</span> f = d; <span class="hljs-comment">// FEL! d är ur scope</span>
+}
+<span class="hljs-keyword">int</span> g = a; <span class="hljs-comment">// g = 2</span>
+<span class="hljs-keyword">int</span> h = e; <span class="hljs-comment">// FEL d är ur scope</span>
+</div></code></pre>
+<hr>
+<h2 id="fl%C3%B6deskontroll">Flödeskontroll</h2>
+<ul>
+<li>Vid det här laget vet vi hur man utför satser i en sekvens</li>
+<li>.. men inom programmering vill man ofta bestämma vilka satser som skall exekveras eller upprepa exekveringen av ett kodblock</li>
+<li>Nyckelord som kontrollera vilka satser som exekveras eller i vilken ordning satserna skall exekveras för <em><strong>flödeskontroll</strong></em></li>
+</ul>
+<hr>
+<h2 id="if-sats">If-sats</h2>
+<ul>
+<li>
+<p>Nyckelordet <em><strong>if</strong></em> används för att skapa en if-sats</p>
+</li>
+<li>
+<p>En if-sats utför en sats endast om och endast om ett <em>villkor</em> är uppfyllt</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span> ( &lt;villkor&gt; )
+    &lt;sats&gt; <span class="hljs-comment">// Körs bara om villkoret är uppfyllt</span>
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<h2 id="datatypen-f%C3%B6r-villkor">Datatypen för villkor</h2>
+<ul>
+<li>Typen för villkor kallas <em><strong>boolean</strong></em></li>
+<li>Ett villkor kan endast vara <em><strong>sant</strong></em> eller <em><strong>falskt</strong></em></li>
+<li>Nyckelordet för typen boolean är <code>bool</code></li>
+<li>Följande är litteraler av typen <code>bool</code>:
+<ul>
+<li><code>true</code> (med betydelsen <em>sant</em>)</li>
+<li><code>false</code> ( med betydelsen <em>falskt</em>)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="j%C3%A4mf%C3%B6relser">Jämförelser</h2>
+<ul>
+<li>C# har binära operatorer som skapar uttryck genom att jämförelse</li>
+<li>Uttrycket har typen <code>bool</code></li>
+</ul>
+<hr>
+<h1 id="j%C3%A4mf%C3%B6relseoperatorer">Jämförelseoperatorer</h1>
+<center>
+<table style="display: inline">
+    <tr><th>Syntax</th><th>Betydelse</th><th>Fungerar på</th></tr>
+    <tr><td><code><</code></td><td>mindre än</td><td>Tal</td></tr>
+    <tr><td><code><=</code></td><td>mindre än eller lika med</td><td>Tal</td></tr>
+    <tr><td><code>></code></td><td>större än</td><td>Tal</td></tr>
+    <tr><td><code>>=</code></td><td>större än eller lika med</td><td>Tal</td></tr>
+    <tr><td><code>==</code></td><td>lika med</td><td>Alla värden</td></tr>
+    <tr><td><code>!=</code></td><td>inte lika med</td><td>Alla värden</td></tr>
+</table>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span> x = <span class="hljs-number">10.0</span>; 
+<span class="hljs-keyword">double</span> y = <span class="hljs-number">10.00000001</span>;
+<span class="hljs-keyword">bool</span> a = <span class="hljs-number">10.0</span> &lt; x; <span class="hljs-comment">// false</span>
+<span class="hljs-keyword">bool</span> b = <span class="hljs-number">10.0</span> &lt;= x; <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">bool</span> c = <span class="hljs-number">10.0</span> &gt; x; <span class="hljs-comment">// false</span>
+<span class="hljs-keyword">bool</span> d = <span class="hljs-number">10.0</span> &gt;= x; <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">bool</span> e = x == y; <span class="hljs-comment">// false</span>
+<span class="hljs-keyword">bool</span> f = x != y; <span class="hljs-comment">// true</span>
+</div></code></pre>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Nu kan börja skapa villkor för meningsfulla <code>if</code>-satser.</p>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hur lång är du?"</span>)
+
+<span class="hljs-keyword">double</span> length = Double.Parse(Console.ReadLine());
+
+<span class="hljs-keyword">if</span> ( length &gt;= <span class="hljs-number">190.0</span> ) 
+{
+    Console.WriteLine(<span class="hljs-string">"Oj, vad lång du är!"</span>);
+}
+</div></code></pre>
+<hr>
+<h2 id="if-else-sats">If-else-sats</h2>
+<ul>
+<li>
+<p>Nyckelordet <code>if</code> kan kombineras med nyckelordet <em><strong><code>else</code></strong></em> med syntax:</p>
+<pre class="hljs"><code><div>if ( &lt;villkor&gt; )
+    &lt;sats a&gt;
+else
+    &lt;sats b&gt;
+</div></code></pre>
+</li>
+<li>
+<p>Om villkoret är uppfyllt exekverar <code>&lt;sats a&gt;</code>, annars <code>&lt;sats b&gt;</code></p>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hur lång är du?"</span>)
+
+<span class="hljs-keyword">double</span> length = Double.Parse(Console.ReadLine());
+
+<span class="hljs-keyword">if</span> ( length &gt;= <span class="hljs-number">190.0</span> ) 
+{
+    Console.WriteLine(<span class="hljs-string">"Oj, vad lång du är!"</span>);
+}
+<span class="hljs-keyword">else</span> 
+{
+    Console.WriteLine(<span class="hljs-string">"Du är inte ovanligt lång."</span>);
+}
+</div></code></pre>
+<hr>
+<h2 id="kedjor-av-if-else">Kedjor av if-else</h2>
+<ul>
+<li>Det är vanligt att koppla samman kedjor av <em>if-else</em> för att skapa fallanalys som täcker mer än två fall</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hur många poäng fick du på provet?"</span>);
+
+<span class="hljs-keyword">int</span> testScore = Double.Int(Console.ReadLine());
+
+<span class="hljs-keyword">if</span> (testScore &lt; <span class="hljs-number">10</span>) {
+  Console.WriteLine(<span class="hljs-string">"Underkänd"</span>);
+} 
+<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (testScore &lt; <span class="hljs-number">20</span>) {
+  Console.WriteLine(<span class="hljs-string">"Godkänd"</span>);
+}
+<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (testScore &lt; <span class="hljs-number">30</span>) {
+  Console.WriteLine(<span class="hljs-string">"Väl godkänd"</span>);
+}
+<span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// testScore &gt;= 30</span>
+    Console.WriteLine(<span class="hljs-string">"Mycket väl godkänd"</span>);
+}
+</div></code></pre>
+<hr>
+<h2 id="j%C3%A4mf%C3%B6relse-av-str%C3%A4ngar">Jämförelse av strängar</h2>
+<ul>
+<li>
+<p>Text kan av orsaker vi kommer diskutera senare inte jämföras med <code>==</code></p>
+</li>
+<li>
+<p>För att testa om sträng <code>a</code> och sträng <code>b</code> har samma text används uttrycket:</p>
+<p><code>a.Equals(b)</code></p>
+<p>som beräknas till <code>true</code> om texten är samma, annars <code>false</code>.</p>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Vad är ditt namn?"</span>);
+<span class="hljs-keyword">string</span> name = Console.ReadLine();
+
+<span class="hljs-keyword">if</span> (name.Equals(<span class="hljs-string">"Jonas"</span>))
+{
+    Console.WriteLine(<span class="hljs-string">"Tjusigt namn!"</span>);
+}
+</div></code></pre>
+<hr>
+<h1 id="logiska-operatorer">Logiska operatorer</h1>
+<ul>
+<li><em><strong>Logiska operatorer</strong></em> skapar sammansatta villkor</li>
+</ul>
+<center>
+<table style="display: inline; font-size: 90%">
+    <tr><th>Operator</th><th>Syntax</th><th>Betydelse</th></tr>
+    <tr><td><i>och</i></td><td><code>a && b</code></td><td><code>true</code> om både <code>a</code> <i>och</i> <code>b</code> är <code>true</code>, annars <code>false</code></td></tr>
+    <tr><td><i>eller</i></td><td><code>a || b</code></td><td><code>true</code> om minst en av <code>a</code> <i>och</i> <code>b</code> är <code>true</code>, annars <code>false</code></td></tr>
+    <tr><td><i>inte</i></td><td><code>! a</code></td><td><code>true</code> om <code>a</code> är <code>false</code>, annars <code>false</code>
+</table>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hur många års erfarenhet har du?"</span>);
+
+<span class="hljs-keyword">double</span> experience = Double.Parse(Console.ReadLine());
+
+<span class="hljs-keyword">if</span> (experience &gt;= <span class="hljs-number">2</span> &amp;&amp; experience &lt;= <span class="hljs-number">5</span>) 
+{
+    Console.WriteLine(<span class="hljs-string">"Du har rätt mängd erfarenhet för jobbet!"</span>);
+} 
+</div></code></pre>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hur många poäng fick du på provet?"</span>);
+
+<span class="hljs-keyword">int</span> testScore = Double.Int(Console.ReadLine());
+
+<span class="hljs-keyword">if</span> (!(testScore &gt;= <span class="hljs-number">0</span> &amp;&amp; testScore &lt;= <span class="hljs-number">50</span>)) {
+  Console.WriteLine(<span class="hljs-string">"Ogiltig inmatning."</span>);
+} 
+..
+</div></code></pre>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Skriv ett heltal mellan 1 och 10."</span>);
+
+<span class="hljs-keyword">int</span> num = Int.Parse(Console.ReadLine());
+
+<span class="hljs-keyword">if</span> (num == <span class="hljs-number">2</span> || num == <span class="hljs-number">3</span> || num = <span class="hljs-number">5</span> || num = <span class="hljs-number">7</span>) 
+{
+    Console.WriteLine(<span class="hljs-string">$"Talet <span class="hljs-subst">{num}</span> är ett primtal!"</span>); 
+} 
+</div></code></pre>
+<hr>
+<h1 id="kortslutning-av-logiska-operatorer">Kortslutning av logiska operatorer</h1>
+<ul>
+<li>I uttrycket <code>a &amp;&amp; b</code> beräknas bara <code>b</code> om <code>a</code> är <code>true</code></li>
+<li>I uttrycket <code>a || b</code> beräknas bara <code>b</code> om <code>a</code> är <code>false</code></li>
+</ul>
+</div>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>; 
+<span class="hljs-keyword">bool</span> a, b; 
+
+a = <span class="hljs-literal">true</span>;
+
+b = a || (++x == <span class="hljs-number">1</span>); <span class="hljs-comment">// b = true, x = 0</span>
+
+a = <span class="hljs-literal">false</span>;
+
+b = a || (++x == <span class="hljs-number">1</span>); <span class="hljs-comment">// b = true, x = 1</span>
+
+b = a &amp;&amp; (++x == <span class="hljs-number">2</span>); <span class="hljs-comment">// b = false, x = 1</span>
+
+a = <span class="hljs-literal">true</span>;
+
+b = a &amp;&amp; (++x == <span class="hljs-number">2</span>); <span class="hljs-comment">// b = true, x = 2</span>
+</div></code></pre>
+
+</body>
+</html>
