@@ -706,8 +706,8 @@ Koden nedan:
 double pris = 49.95;
 double moms = 0.25; // 25%
 Console.WriteLine(
-  "Momsen på " + pris + " kr är " + 
-  (moms * pris)  + " kr.");
+    "Momsen på " + pris + " kr är " + 
+    (moms * pris)  + " kr.");
 ```
 
 ger utskriften:
@@ -731,7 +731,7 @@ Momsen på 49.95 kr är 12.4875 kr.
 Koden nedan:
 
 ```cs
-double pris = 49.04;
+double pris = 49.95;
 double moms = 0.25; // 25%
 Console.WriteLine($"Momsen på {pris} kr är {moms * pris} kr.");
 ```
@@ -739,7 +739,7 @@ Console.WriteLine($"Momsen på {pris} kr är {moms * pris} kr.");
 ger också uttskriften:
 
 ```text
-Momsen på 49.05 kr är 12.4875 kr.
+Momsen på 49.95 kr är 12.4875 kr.
 ```
 
 --- 
@@ -755,7 +755,7 @@ Momsen på 49.05 kr är 12.4875 kr.
 Koden nedan:
 
 ```cs
-double pris = 49.04;
+double pris = 49.95;
 double moms = 0.25; // 25%
 Console.WriteLine($"Momsen på {pris:0.##} kr är {moms * pris:0.##} kr.");
 ```
@@ -763,7 +763,7 @@ Console.WriteLine($"Momsen på {pris:0.##} kr är {moms * pris:0.##} kr.");
 ger uttskriften:
 
 ```text
-Momsen på 49.05 kr är 12.49 kr.
+Momsen på 49.95 kr är 12.49 kr.
 ```
 
 --- 
