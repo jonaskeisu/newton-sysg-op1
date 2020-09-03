@@ -640,7 +640,7 @@ b = a * <span class="hljs-number">3</span>;
   <tr><td>Subtraktion</td><td><code>a - b</code></td><td>Differenansen mellan <code>a</code> och <code>b</code></td></tr>
   <tr><td>Multiplikation</td><td><code>a * b</code></td><td>Produkten av <code>a</code> och <code>b</code></td></tr>
   <tr><td>Division</td><td><code>a / b</code></td><td>Kvoten av <code>a</code> och <code>b</code><br/></td></tr>
-  <tr><td>Rest</td><td><code>a & b</code></td><td>Resten vid heltalsdivision  <code>a / b</code></td></tr>
+  <tr><td>Rest</td><td><code>a % b</code></td><td>Resten vid heltalsdivision  <code>a / b</code></td></tr>
   <tr><td>Negativ</td><td><code>-a</code></td><td>Minus <code>a</code></td></tr>
 </table>
 </center>
@@ -754,7 +754,7 @@ a *= <span class="hljs-number">4.0</span>; <span class="hljs-comment">// a = 48<
 <hr>
 <h2 id="aritet">Aritet</h2>
 <ul>
-<li>En operators <em>aritet</em> är lika antal operander för operatorn
+<li>En operators <em>aritet</em> är lika med antal operander för operatorn
 <ul>
 <li>T.ex. har negativ aritet 1 och addition aritet 2</li>
 </ul>
@@ -820,7 +820,7 @@ a *= <span class="hljs-number">4.0</span>; <span class="hljs-comment">// a = 48<
 <h3 id="exempel">Exempel</h3>
 <pre class="hljs"><code><div><span class="hljs-keyword">char</span> a = <span class="hljs-string">'a'</span>; 
 <span class="hljs-keyword">uint</span> b = a; <span class="hljs-comment">// b = 0b_00000000_01100001, UTF-16-kod för tecknet 'a'</span>
-<span class="hljs-keyword">char</span> c = <span class="hljs-string">'😊'</span>; <span class="hljs-comment">// FEL! Inte i första Unicode-planet, kräver surrogatpar </span>
+<span class="hljs-keyword">char</span> c = <span class="hljs-string">'😊'</span>; <span class="hljs-comment">// FEL! Inte i första Unicode-planet, kräver surrugatpar </span>
 </div></code></pre>
 <hr>
 <h2 id="texttyp">Texttyp</h2>

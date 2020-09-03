@@ -359,7 +359,7 @@ Följande operatorer finns för alla heltals- och flyttalstyper.
   <tr><td>Subtraktion</td><td><code>a - b</code></td><td>Differenansen mellan <code>a</code> och <code>b</code></td></tr>
   <tr><td>Multiplikation</td><td><code>a * b</code></td><td>Produkten av <code>a</code> och <code>b</code></td></tr>
   <tr><td>Division</td><td><code>a / b</code></td><td>Kvoten av <code>a</code> och <code>b</code><br/></td></tr>
-  <tr><td>Rest</td><td><code>a & b</code></td><td>Resten vid heltalsdivision  <code>a / b</code></td></tr>
+  <tr><td>Rest</td><td><code>a % b</code></td><td>Resten vid heltalsdivision  <code>a / b</code></td></tr>
   <tr><td>Negativ</td><td><code>-a</code></td><td>Minus <code>a</code></td></tr>
 </table>
 </center>
@@ -515,7 +515,7 @@ nu strukturen enligt figuren nedan.
 
 ## Aritet
 
-- En operators *aritet* är lika antal operander för operatorn
+- En operators *aritet* är lika med antal operander för operatorn
   - T.ex. har negativ aritet 1 och addition aritet 2 
 - En operator med aritet 1 kallas ***unär***
 - En operator med aritet 2 kallas ***binär***
@@ -582,7 +582,7 @@ float c = 123.456; // FEL! double kan inte implicit konvertersa till float
 ```cs
 char a = 'a'; 
 uint b = a; // b = 0b_00000000_01100001, UTF-16-kod för tecknet 'a'
-char c = '😊'; // FEL! Inte i första Unicode-planet, kräver surrogatpar 
+char c = '😊'; // FEL! Inte i första Unicode-planet, kräver surrugatpar 
 ```
 
 ---
