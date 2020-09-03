@@ -1730,7 +1730,7 @@ Nedan visas UTF-8-kodning av tre olika tecken.
 ## UTF-16
 
 - UTF-16 lagrar alla Unicode-tecken i första planet med två bytes
-- Tecken i hägre plan kan lagras med två så kallade *surrugattecken*
+- Tecken i hägre plan kan lagras med två så kallade *surrogattecken*
 
 <table style="zoom:0.9">
     <tr>

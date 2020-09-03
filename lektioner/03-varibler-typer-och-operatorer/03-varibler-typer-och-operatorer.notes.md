@@ -582,7 +582,7 @@ float c = 123.456; // FEL! double kan inte implicit konvertersa till float
 ```cs
 char a = 'a'; 
 uint b = a; // b = 0b_00000000_01100001, UTF-16-kod för tecknet 'a'
-char c = '😊'; // FEL! Inte i första Unicode-planet, kräver surrugatpar 
+char c = '😊'; // FEL! Inte i första Unicode-planet, kräver surrogatpar 
 ```
 
 ---
