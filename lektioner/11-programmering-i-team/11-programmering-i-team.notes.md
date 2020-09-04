@@ -30,12 +30,12 @@ style: |
 
 ## Gemensamt kodbas
 
-- Ett team av utvecklare bidrar typiskt till en gemensam kodbas i ett repo
+- Ett team av utvecklare bidrar till en gemensam kodbas i ett källdkodsarkiv
+- Inom versionhantering kallas källkodsarkiv för ***repository*** eller kortare  ***repo***
 - Varje utvecklare arbetar lokalt i en klon av det gemensamma repot
 - I klonen är det gemensamma repot en *remote* som heter  ``origin`` 
 
-<br/>
-<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%; margin-top: 0.75em">
 
 ![repos](fig/repos.dot.svg)
 
@@ -55,7 +55,7 @@ style: |
 
 ---
 
-## Commit
+## Commit = ögonblicksbild av källkodsarkiv
 
 - En *commit* är en ögonblicksbild av katalogerna och filerna i repot
 - Med varje commit lagras:
@@ -118,6 +118,18 @@ Ett repo lagrar alla historiska commits och deras relation.
 ![file status](fig/file-status.dot.svg)
 
 </div>
+
+---
+
+## Filen ``.gitignore``
+
+- Det finns som regel lokala filer i repot som inte skall versionshanteras, t.ex.
+  - Filer kompilerade från källkoden som ``.exe`` och ``.dll``.
+  - Thumbnail-filer som operativsystemet skapar. 
+  - Lokala inställningsfiler.
+- Filen ``.gitignore`` i report används för att utesluta ointressanta filer t.ex. i utskriften från ``git status`` 
+  - Innehåller sökvägsmönster för filer som skall ignoreras av Git
+  - Skall ligga på topnivå i repot
 
 ---
 
@@ -221,13 +233,13 @@ Goodbye
 
 ---
 
-### Konfliktlösning
+## Konfliktlösning
 
 - Utvecklaren måste manuellt lösa konflikterna
 - Texten inom konfliktmarkörerna ersätts med önskat innehåll
 - Konfliktmarkörerna avlägsnas
 - Kör ``git add`` på filen med konflikt för att markera som löst
-- När alla konflikter är lösta kör ``git commit``
+- När alla konflikter är lösta kör ``git commit`` för att fullfölja mergning
 - Branchen ``bug-fix``behövs inte länge och kan tas bort med: 
 
   ```sh 
@@ -263,31 +275,32 @@ Goodbye
 
 ## Merge med remote
 
-- Lokal ändringar på loak ``master``-branch sammanföras med remote genom:
+Ändringar på ``origin/master`` sammanförs med ändringar på ``master`` genom:
 
-  ```sh
-  > git merge origin/master
-  ```
+```sh
+> git merge origin/master
+```
 
-  med den lokala ``master``-branschen utcheckad. 
+med den ``master``-branschen utcheckad. 
 
 <div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
 
 ![remote merge](fig/remote-merge.dot.svg)
 
 </div>
+
 ---
 
-## Ladda upp ändringar till remote
+## Uppdatera remote med lokala ändringar
 
-- Nu är vägen från lokal ``master`` till ``origin/master`` utstakad
+- Nu är vägen från ``master`` till ``origin/master`` utstakad
 - Kommandot ``git push`` med ``master`` utcheckad:
-  - Laddar upp nya commits till remote
+  - För över nya commits till remote
   - Flyttar fram ``origin/master`` till samma commit som ``master``
 
 ---
 
-### Efter push
+## Efter push
 
 Efter ``git push`` är historiken för branchen identisk lokalt och på remote.
 

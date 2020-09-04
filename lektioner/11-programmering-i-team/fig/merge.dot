@@ -3,7 +3,8 @@ digraph branch
   rankdir=LR
   ranksep=0.3
   nodesep=0.3
-  node [fontsize=10,]
+  node [fontsize=10]
+  edge [dir = "back"]
   c2 [label = "3484d6f"]
   c3 [label = "0f28ecc"]
   c4 [label = "84f9c6d"]
