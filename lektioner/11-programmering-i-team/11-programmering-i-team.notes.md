@@ -293,7 +293,7 @@ med den lokala ``master``-branschen utcheckad.
 
 ## Uppdatera remote med lokala ändringar
 
-- Nu är vägen från ``master`` till ``origin/master`` utstakad
+- Nu är finns en vägen från ``origin/master`` till ``master`` beskriven lokalt
 - Kommandot ``git push`` med ``master`` utcheckad:
   - För över nya commits till remote
   - Flyttar fram ``origin/master`` till samma commit som ``master``
