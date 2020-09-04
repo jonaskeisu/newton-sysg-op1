@@ -1,0 +1,19 @@
+digraph branch 
+{
+  rankdir=LR
+  ranksep=0.3
+  nodesep=0.3
+  node [fontsize=10,]
+  c2 [label = "3484d6f"]
+  c3 [label = "0f28ecc"]
+  c4 [label = "84f9c6d"]
+  c5 [label = "8f8afc2", xlabel="bug-fix"]
+  c6 [label = "deb0935"]
+  c7 [label = "859bc5d"]
+  c8 [label = "7671515", xlabel="master"]
+
+
+
+  c1 -> c2 -> c3 -> c4 -> c5
+  c3 -> c6 -> c7  -> c8
+}

@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 theme: default
 footer: © 2020 BIT ADDICT
 style: | 
@@ -30,32 +30,22 @@ style: |
 
 ## Gemensamt kodbas
 
-- Ett team bidrar utvecklare typiskt till en gemensam kodbas i ett repo
+- Ett team av utvecklare bidrar typiskt till en gemensam kodbas i ett repo
 - Varje utvecklare arbetar lokalt i en klon av det gemensamma repot
 - I klonen är det gemensamma repot en *remote* som heter  ``origin`` 
 
-<div style="zoom: 50%">
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
 
-<!-- 
-```graphviz
-digraph repo {
-    nodesep=1
-    shared [label = "Origin"]
-    clone1 [label = "Klon", xlabel="Utvecklare 1"]
-    clone2 [label = "Klon", xlabel="Utvecklare 2"]
-    clone3 [label = "Klon", xlabel="Utvecklare 3"]
-    clone1 -> shared [dir=both]
-    clone2 -> shared [dir=both]
-    clone3 -> shared [dir=both]
-}
-```
--->
+![repos](fig/repos.dot.svg)
+
+</div>
 
 </div>
 
 ---
 
-## Kloning
+## Kloning av repo
 
 - En lokal klon av ett repo kan skapas med Git-kommandot ``clone``
 
@@ -68,12 +58,12 @@ digraph repo {
 ## Commit
 
 - En *commit* är en ögonblicksbild av katalogerna och filerna i repot
-- Varje commit har:
-  - En (eller flera) föregående commits
+- Med varje commit lagras:
   - Ett meddelande som dokumenterar:
     - Innehåll/syfte med förändringen i kodbasen
     - Författaren till förändringen
   - En identifierare
+- En commit kan också ha en (eller flera) föregående commits
 
 ---
 
@@ -84,115 +74,229 @@ digraph repo {
 
 --- 
 
-## Commit-historik
+## Historik
 
-- Ett repo lagrar en historik över alla commits
-- Historiken visas med kommandot ``git log``
+Ett repo lagrar alla historiska commits och deras relation. 
 
-<!-- 
-```graphviz 
-digraph history {
-    rankdir=LR
-    edge [dir = "back"]
-    node [fixedsize=true, width=1]
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 110%">
 
-    commit1 [label = "6b6be8a", xlabel="Initial commit"]
-    commit2 [label = "0428486"]
-    commit3 [label = "..", style="dashed"]
-    commit4 [label = "d7e9249"]
-    commit5 [label = "3d3adc5"]
-    
-    commit1 ->
-    commit2 ->
-    commit3 ->
-    commit4 ->
-    commit5
-}
--->
+![history](fig/history.dot.svg)
+
+</div>
+
+<br/>
 
 --- 
 
---- 
+## Återställning av tidigare commit
 
-## Återställning av commit
-
-- En lokalt repo kan återställas till en tidigare commit med Git-kommandot ``checkout``
+- Ett lokalt repo kan återställas till en tidigare commit med ``git checkout``:
 
     ```sh
     > git checkout 0428486
     ```
 
 - Den aktuellt utcheckade commiten har alias ``HEAD``
+- Typiskt checkas commits ut via ett branchnamn, t.ex. 
+
+  ```sh
+  > git checkout master
+  ```
   
+- Historiken för utcheckad commit kan visas med kommandot ``git log``
 ---
 
-## Status på filer i repo
+## Status på filer i lokalt repo
 
-- Filer i ett repo kan ha fyra olika tillstånd
+- Filer i ett repo kan ha fyra olika tillstånd.
+- Filer och kataloger som inte har status unmodified listas med: ``git status``
 
-<!-- 
 
-```graphviz
-digraph file_status {
-    nodesep=0.5
-    node [fixedsize=true, width=1]
-    untracked 
-    staged
-    unmodified
-    modified
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 140%">
 
-    untracked -> staged [label = "git add"]
-    unmodified -> modified [label = "redigering"]
-    staged -> unmodified [label = "git commit"]
-    modified -> unmodified [label = "git checkout"]
-    unmodified -> untracked [label = "git rm"]
-    modified -> staged [label = "git add"]
-}
-```
--->
+![file status](fig/file-status.dot.svg)
+
+</div>
 
 ---
 
-## Lokalt arbetsflöde
+## Arbetsflöde
 
-- Checka ut utgångs-commit (om inte  HEAD)
+- Checka ut önskad branch
 - Redigera filerna
 - Arrangera ny commit med ``git add``
-- Verställ commit
+- Verkställ commit 
+
+---
+
+## Skapa ny commit 
+
+- En commit görs med ``git commit``
+- Utcheckad branch flyttas automatiskt fram till den nya comitten. 
+
+<br/>
+<center>
+Före commit
+</center>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 110%">
+
+![history](fig/history.dot.svg)
+
+</div>
+<center>
+Efter commit
+</center>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 110%">
+
+![history](fig/commit.dot.svg)
+
+</div>
 
 ---
 
 ## Branch
 
-- En branch är ett *spår* i utvecklingen
 - Från en given commit kan utvecklingen dela upp sig i flera spår
+- I Git kallas ett utvecklingsspår för ***branch***
+- En branch är ett alias för sista commiten i ett utvecklingsspår
 
-```graphviz 
-digraph branch 
-{
-  rankdir=LR
-  node [fontsize=10,]
-  c1 [label = "4414186"]
-  c2 [label = "3484d6f"]
-  c3 [label = "0f28ecc"]
-  c4 [label = "84f9c6d"]
-  c5 [label = "8f8afc2", xlabel="master"]
-  c6 [label = "deb0935"]
-  c7 [label = "859bc5d"]
-  c8 [label = "7671515", xlabel="fixa-bugg"]
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
 
+![branch](fig/branch.dot.svg)
 
-  c1 -> c2 -> c3 -> c4 -> c5
-  c3 -> c6 -> c7  -> c8
-}
+</div>
 
-4414186bf13844a85d1943af5baef08b34bca1f4
-3484d6f2f8b66beb7ac0f01c2f66a04f4d36e115
-0f28eccb8b9ca772abd8ee3a54014948546d65a6
-84f9c6dbd9212aa285367c468d9d2cafbc1d47f1
-8f8afc29036d37319bdad472792b18d950ed10b3
-deb0935a1e647a51c2ecd8fc600ef99d5b1be725
-859bc5d87ac7b1ba73ac66b15f880af2509c8ce7
-7671515dfc7f12976c5b9ec372f551ffd73d428f
-29b3ff74f3fe88058ce20c561bb919802a58580a
-eae276a7121554b51d2a6b1279e052e6ef832623
+---
+
+## Skapa en ny branch 
+
+- För att skapa en ny branch, checka först ut utgångscommiten för branchen
+- För att t.ex. skapa en ny branch ``bug-fix`` ge sedan kommandot:
+
+  ```sh
+  > git checkout -b bug-fix
+  ```
+- För att lägga till den nya branchen i en remote, t.ex. ``origin`` används:
+
+  ```sh
+  > git push -u origin bug-fix
+  ```
+
+---
+
+## Merge
+
+- För att återföra arbetet t.ex. på branchen ``bug-fix`` till ``master`` används:
+
+  ```sh
+  > git merge bug-fix
+  ```
+
+  i repot med branchen ``master`` utcheckad.
+- Skapar en ny commit med alla ändringar från ``bug-fix`` och ``master``
+
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+
+![merge](fig/merge.dot.svg)
+
+</div>
+
+--- 
+
+## Konflikter
+
+- Om samma filrader har ändrats i två mergade branscher uppstår en **konflikt**
+- Mergen pausas med konfliktmarkörer placeras i berörda filer
+
+```text
+<<<<<<< HEAD:file.txt
+Hello world
+=======
+Goodbye
+>>>>>>> 77976da:file.txt
+```
+
+---
+
+### Konfliktlösning
+
+- Utvecklaren måste manuellt lösa konflikterna
+- Texten inom konfliktmarkörerna ersätts med önskat innehåll
+- Konfliktmarkörerna avlägsnas
+- Kör ``git add`` på filen med konflikt för att markera som löst
+- När alla konflikter är lösta kör ``git commit``
+- Branchen ``bug-fix``behövs inte länge och kan tas bort med: 
+
+  ```sh 
+  git branch -d bug-fix
+  ```
+
+---
+
+## Resultat efter merge
+
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+
+![after merge](fig/after-merge.dot.svg)
+
+</div>
+
+---
+
+## Lokalt vs. remote
+
+- Git lagrar alla commits, även unika för remotes och i egna repot
+- Hämta nya commits och uppdaterade brancher på remote med: ``git fetch``
+- En branch kan peka till olika commits lokalt och på remote
+
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+
+![remote branch](fig/remote-branch.dot.svg)
+
+</div>
+
+---
+
+## Merge med remote
+
+- Lokal ändringar på loak ``master``-branch sammanföras med remote genom:
+
+  ```sh
+  > git merge origin/master
+  ```
+
+  med den lokala ``master``-branschen utcheckad. 
+
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+
+![remote merge](fig/remote-merge.dot.svg)
+
+</div>
+---
+
+## Ladda upp ändringar till remote
+
+- Nu är vägen från lokal ``master`` till ``origin/master`` utstakad
+- Kommandot ``git push`` med ``master`` utcheckad:
+  - Laddar upp nya commits till remote
+  - Flyttar fram ``origin/master`` till samma commit som ``master``
+
+---
+
+### Efter push
+
+Efter ``git push`` är historiken för branchen identisk lokalt och på remote.
+
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+
+![end result](fig/end-result.dot.svg)
+
+</div>
+
+ 
+

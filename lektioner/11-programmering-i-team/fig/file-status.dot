@@ -1,0 +1,19 @@
+digraph file_status {
+    ranksep=0.2
+    nodesep=0.3
+    node [fontsize=10]
+    edge [fontsize=10]
+    node [fixedsize=true, width=1]
+    untracked 
+    staged
+    unmodified
+    modified
+
+    untracked -> staged [label = "git add <file>"]
+    unmodified -> modified [label = "redigering"]
+    staged -> unmodified [label = "git commit"]
+    staged -> modified [label = "git reset -- <file>"]
+    modified -> unmodified [label = "git checkout -- <file>"]
+    unmodified -> untracked [label = "git rm <file>"]
+    modified -> staged [label = "git add <file>"]
+}
