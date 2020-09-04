@@ -88,7 +88,6 @@ Kodblock kan vara nästade.
 ## Scope
 
 - En variabel är bara synlig i kodblocket där den definieras
-- En definieras variabels namn överskuggar namnet i yttre kodblock 
 - En synlig variabel sägs vara i ***scope***
 - En ej synlig variabel sägs vara ur scope
 
@@ -97,21 +96,19 @@ Kodblock kan vara nästade.
 ### Exempel
 
 ```cs
-int x = 1;
-int a = 2; 
+int a = 1; 
 {
-    int x = 3;
-    int b = 4;
-    int c = a + b + x; // c = 2 + 4 + 3 = 9
+    int b = 2;
+    int c = a + b; // c = 1 + 2
     {
-        int x = 5; 
-        int d = a + b + c + x; // 2 + 4 + 9 + 5
+        int c = 3; 
+        int d = a + b + c; // d = 1 + 2 + 3
     }
-    int e = b; // e = 4
-    int f = d; // FEL! d är ur scope
+    int d = a + b; // d = 1 + 2
+    int e = a + b + c; // FEL! c är ur scope
 }
-int g = a; // g = 2
-int h = e; // FEL d är ur scope
+int g = a; // g = 1
+int h = a + b + c; // FEL! både b och c är ur scope
 ```
 
 ---

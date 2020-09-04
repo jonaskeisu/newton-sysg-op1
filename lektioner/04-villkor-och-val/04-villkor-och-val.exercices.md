@@ -3,6 +3,23 @@
 
 ---
 
+### Övning 29t8vm
+
+Hitta tre fel i koden nedan.
+
+```cs 
+int a = 1;
+{
+    b = 2;
+    int b;
+    {
+        int c = 3;
+    }
+    c = 5;
+}
+a = b;
+```
+
 ### Övning a2gzch
 
 Skriv ett program som tar in en sträng som är fyra tecken lång och testar om strängen är identisk framlänges och baklänges, dvs ett palindrom. 

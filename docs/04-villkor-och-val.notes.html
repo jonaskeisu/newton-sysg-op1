@@ -431,27 +431,24 @@ code {
 <h2 id="scope">Scope</h2>
 <ul>
 <li>En variabel är bara synlig i kodblocket där den definieras</li>
-<li>En definieras variabels namn överskuggar namnet i yttre kodblock</li>
 <li>En synlig variabel sägs vara i <em><strong>scope</strong></em></li>
 <li>En ej synlig variabel sägs vara ur scope</li>
 </ul>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">int</span> a = <span class="hljs-number">2</span>; 
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>; 
 {
-    <span class="hljs-keyword">int</span> x = <span class="hljs-number">3</span>;
-    <span class="hljs-keyword">int</span> b = <span class="hljs-number">4</span>;
-    <span class="hljs-keyword">int</span> c = a + b + x; <span class="hljs-comment">// c = 2 + 4 + 3 = 9</span>
+    <span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">int</span> c = a + b; <span class="hljs-comment">// c = 1 + 2</span>
     {
-        <span class="hljs-keyword">int</span> x = <span class="hljs-number">5</span>; 
-        <span class="hljs-keyword">int</span> d = a + b + c + x; <span class="hljs-comment">// 2 + 4 + 9 + 5</span>
+        <span class="hljs-keyword">int</span> c = <span class="hljs-number">3</span>; 
+        <span class="hljs-keyword">int</span> d = a + b + c; <span class="hljs-comment">// d = 1 + 2 + 3</span>
     }
-    <span class="hljs-keyword">int</span> e = b; <span class="hljs-comment">// e = 4</span>
-    <span class="hljs-keyword">int</span> f = d; <span class="hljs-comment">// FEL! d är ur scope</span>
+    <span class="hljs-keyword">int</span> d = a + b; <span class="hljs-comment">// d = 1 + 2</span>
+    <span class="hljs-keyword">int</span> e = a + b + c; <span class="hljs-comment">// FEL! c är ur scope</span>
 }
-<span class="hljs-keyword">int</span> g = a; <span class="hljs-comment">// g = 2</span>
-<span class="hljs-keyword">int</span> h = e; <span class="hljs-comment">// FEL d är ur scope</span>
+<span class="hljs-keyword">int</span> g = a; <span class="hljs-comment">// g = 1</span>
+<span class="hljs-keyword">int</span> h = a + b + c; <span class="hljs-comment">// FEL! både b och c är ur scope</span>
 </div></code></pre>
 <hr>
 <h2 id="fl%C3%B6deskontroll">Flödeskontroll</h2>
