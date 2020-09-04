@@ -127,7 +127,7 @@ Ett repo lagrar alla historiska commits och deras relation.
   - Filer kompilerade från källkoden som ``.exe`` och ``.dll``.
   - Thumbnail-filer som operativsystemet skapar. 
   - Lokala inställningsfiler.
-- Filen ``.gitignore`` i report används för att utesluta ointressanta filer t.ex. i utskriften från ``git status`` 
+- Filen ``.gitignore`` i repot används för att utesluta ointressanta filer t.ex. i utskriften från ``git status`` 
   - Innehåller sökvägsmönster för filer som skall ignoreras av Git
   - Skall ligga på topnivå i repot
 

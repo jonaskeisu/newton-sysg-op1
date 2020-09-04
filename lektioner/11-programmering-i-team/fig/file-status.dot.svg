@@ -12,13 +12,13 @@
 <!-- untracked -->
 <g id="node1" class="node">
 <title>untracked</title>
-<ellipse fill="none" stroke="#000000" cx="170.9303" cy="-210" rx="36" ry="18"/>
+<ellipse fill="#ffe4e1" stroke="#000000" cx="170.9303" cy="-210" rx="36" ry="18"/>
 <text text-anchor="middle" x="170.9303" y="-207" font-family="Times,serif" font-size="10.00" fill="#000000">untracked</text>
 </g>
 <!-- staged -->
 <g id="node2" class="node">
 <title>staged</title>
-<ellipse fill="none" stroke="#000000" cx="120.9303" cy="-146" rx="36" ry="18"/>
+<ellipse fill="#98fb98" stroke="#000000" cx="120.9303" cy="-146" rx="36" ry="18"/>
 <text text-anchor="middle" x="120.9303" y="-143" font-family="Times,serif" font-size="10.00" fill="#000000">staged</text>
 </g>
 <!-- untracked&#45;&gt;staged -->
@@ -31,7 +31,7 @@
 <!-- unmodified -->
 <g id="node3" class="node">
 <title>unmodified</title>
-<ellipse fill="none" stroke="#000000" cx="214.9303" cy="-82" rx="36" ry="18"/>
+<ellipse fill="#f0f8ff" stroke="#000000" cx="214.9303" cy="-82" rx="36" ry="18"/>
 <text text-anchor="middle" x="214.9303" y="-79" font-family="Times,serif" font-size="10.00" fill="#000000">unmodified</text>
 </g>
 <!-- staged&#45;&gt;unmodified -->
@@ -44,7 +44,7 @@
 <!-- modified -->
 <g id="node4" class="node">
 <title>modified</title>
-<ellipse fill="none" stroke="#000000" cx="122.9303" cy="-18" rx="36" ry="18"/>
+<ellipse fill="#ffe4e1" stroke="#000000" cx="122.9303" cy="-18" rx="36" ry="18"/>
 <text text-anchor="middle" x="122.9303" y="-15" font-family="Times,serif" font-size="10.00" fill="#000000">modified</text>
 </g>
 <!-- staged&#45;&gt;modified -->
