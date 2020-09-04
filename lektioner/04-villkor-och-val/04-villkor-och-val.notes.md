@@ -101,14 +101,14 @@ int a = 1;
     int b = 2;
     int c = a + b; // c = 1 + 2
     {
-        int c = 3; 
-        int d = a + b + c; // d = 1 + 2 + 3
+        int d = 3; 
+        int e = a + b + c; // e = 1 + 2 + 3
     }
-    int d = a + b; // d = 1 + 2
-    int e = a + b + c; // FEL! c är ur scope
+    int f = a + b; // d = 1 + 2
+    int g = a + b + c + d; // FEL! d är ur scope
 }
 int g = a; // g = 1
-int h = a + b + c; // FEL! både b och c är ur scope
+int h = a + b + d; // FEL! både b och d är ur scope
 ```
 
 ---
@@ -244,7 +244,7 @@ else
 ```cs 
 Console.WriteLine("Hur många poäng fick du på provet?");
 
-int testScore = Double.Int(Console.ReadLine());
+int testScore = Int32.Parse(Console.ReadLine());
 
 if (testScore < 10) {
   Console.WriteLine("Underkänd");
@@ -326,7 +326,7 @@ if (experience >= 2 && experience <= 5)
 ```cs 
 Console.WriteLine("Hur många poäng fick du på provet?");
 
-int testScore = Double.Int(Console.ReadLine());
+int testScore = Int32.Parse(Console.ReadLine());
 
 if (!(testScore >= 0 && testScore <= 50)) {
   Console.WriteLine("Ogiltig inmatning.");
@@ -341,9 +341,9 @@ if (!(testScore >= 0 && testScore <= 50)) {
 ```cs 
 Console.WriteLine("Skriv ett heltal mellan 1 och 10.");
 
-int num = Int.Parse(Console.ReadLine());
+int num = Int32.Parse(Console.ReadLine());
 
-if (num == 2 || num == 3 || num = 5 || num = 7) 
+if (num == 2 || num == 3 || num == 5 || num == 7) 
 {
     Console.WriteLine($"Talet {num} är ett primtal!"); 
 } 

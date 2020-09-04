@@ -441,14 +441,14 @@ code {
     <span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;
     <span class="hljs-keyword">int</span> c = a + b; <span class="hljs-comment">// c = 1 + 2</span>
     {
-        <span class="hljs-keyword">int</span> c = <span class="hljs-number">3</span>; 
-        <span class="hljs-keyword">int</span> d = a + b + c; <span class="hljs-comment">// d = 1 + 2 + 3</span>
+        <span class="hljs-keyword">int</span> d = <span class="hljs-number">3</span>; 
+        <span class="hljs-keyword">int</span> e = a + b + c; <span class="hljs-comment">// e = 1 + 2 + 3</span>
     }
-    <span class="hljs-keyword">int</span> d = a + b; <span class="hljs-comment">// d = 1 + 2</span>
-    <span class="hljs-keyword">int</span> e = a + b + c; <span class="hljs-comment">// FEL! c är ur scope</span>
+    <span class="hljs-keyword">int</span> f = a + b; <span class="hljs-comment">// d = 1 + 2</span>
+    <span class="hljs-keyword">int</span> g = a + b + c + d; <span class="hljs-comment">// FEL! d är ur scope</span>
 }
 <span class="hljs-keyword">int</span> g = a; <span class="hljs-comment">// g = 1</span>
-<span class="hljs-keyword">int</span> h = a + b + c; <span class="hljs-comment">// FEL! både b och c är ur scope</span>
+<span class="hljs-keyword">int</span> h = a + b + d; <span class="hljs-comment">// FEL! både b och d är ur scope</span>
 </div></code></pre>
 <hr>
 <h2 id="fl%C3%B6deskontroll">Flödeskontroll</h2>
@@ -564,7 +564,7 @@ else
 <h3 id="exempel">Exempel</h3>
 <pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hur många poäng fick du på provet?"</span>);
 
-<span class="hljs-keyword">int</span> testScore = Double.Int(Console.ReadLine());
+<span class="hljs-keyword">int</span> testScore = Int32.Parse(Console.ReadLine());
 
 <span class="hljs-keyword">if</span> (testScore &lt; <span class="hljs-number">10</span>) {
   Console.WriteLine(<span class="hljs-string">"Underkänd"</span>);
@@ -630,7 +630,7 @@ else
 <h3 id="exempel">Exempel</h3>
 <pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Hur många poäng fick du på provet?"</span>);
 
-<span class="hljs-keyword">int</span> testScore = Double.Int(Console.ReadLine());
+<span class="hljs-keyword">int</span> testScore = Int32.Parse(Console.ReadLine());
 
 <span class="hljs-keyword">if</span> (!(testScore &gt;= <span class="hljs-number">0</span> &amp;&amp; testScore &lt;= <span class="hljs-number">50</span>)) {
   Console.WriteLine(<span class="hljs-string">"Ogiltig inmatning."</span>);
@@ -641,9 +641,9 @@ else
 <h3 id="exempel">Exempel</h3>
 <pre class="hljs"><code><div>Console.WriteLine(<span class="hljs-string">"Skriv ett heltal mellan 1 och 10."</span>);
 
-<span class="hljs-keyword">int</span> num = Int.Parse(Console.ReadLine());
+<span class="hljs-keyword">int</span> num = Int32.Parse(Console.ReadLine());
 
-<span class="hljs-keyword">if</span> (num == <span class="hljs-number">2</span> || num == <span class="hljs-number">3</span> || num = <span class="hljs-number">5</span> || num = <span class="hljs-number">7</span>) 
+<span class="hljs-keyword">if</span> (num == <span class="hljs-number">2</span> || num == <span class="hljs-number">3</span> || num == <span class="hljs-number">5</span> || num == <span class="hljs-number">7</span>) 
 {
     Console.WriteLine(<span class="hljs-string">$"Talet <span class="hljs-subst">{num}</span> är ett primtal!"</span>); 
 } 
