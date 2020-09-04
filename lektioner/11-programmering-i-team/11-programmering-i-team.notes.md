@@ -235,12 +235,12 @@ Goodbye
 
 ## Konfliktlösning
 
-- Utvecklaren måste manuellt lösa konflikterna
-- Texten inom konfliktmarkörerna ersätts med önskat innehåll
-- Konfliktmarkörerna avlägsnas
-- Kör ``git add`` på filen med konflikt för att markera som löst
+- Utvecklaren måste manuellt lösa alla konflikter:
+  - Ersätta texten inom konfliktmarkörerna med önskat innehåll
+  - Avlägsna konfliktmarkörerna
+  - Köra ``git add`` på filen för att markera att konflikten är löst
 - När alla konflikter är lösta kör ``git commit`` för att fullfölja mergning
-- Branchen ``bug-fix``behövs inte länge och kan tas bort med: 
+- Branchen ``bug-fix`` har efter merge fyllt sitt syfte och kan tas bort med: 
 
   ```sh 
   git branch -d bug-fix
