@@ -12,7 +12,7 @@ digraph branch
   c6 [label = "deb0935", fillcolor=aliceblue]
   c7 [label = "859bc5d", fillcolor=aliceblue]
   c8 [label = "7671515", xlabel="master", fillcolor=aliceblue]
-  c9 [label = "3717a71", xlabel=<<I>merge pausad</I>>, fillcolor=none]
+  c9 [label = "", xlabel=<<I>merge pausad</I>>, fillcolor=none]
 
 
   c2 -> c3 -> c4 -> c5 -> c9
