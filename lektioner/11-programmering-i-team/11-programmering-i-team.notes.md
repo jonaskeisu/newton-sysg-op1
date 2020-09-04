@@ -281,7 +281,7 @@ Goodbye
 > git merge origin/master
 ```
 
-med den ``master``-branschen utcheckad. 
+med den lokala ``master``-branschen utcheckad. 
 
 <div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
 
