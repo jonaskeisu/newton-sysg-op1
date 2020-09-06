@@ -1,0 +1,9 @@
+digraph {
+    src 
+    compiler
+    bin
+    
+    src -> compiler
+    compiler -> bin [label = "maskinkod"]
+
+}
