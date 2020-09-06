@@ -1,0 +1,9 @@
+@startuml livscykel-dotnet-applikation
+Utvecklare -> Kompilator: Källkod
+Kompilator -> Assembly: Intermediate\nLanguage 
+Användare -> OS: Kör
+OS -> CLR: Kör
+CLR -> Assembly: Ladda
+Assembly -> JIT: Intermediate\nLanguage 
+JIT -> CPU: Maskinkod
+@enduml

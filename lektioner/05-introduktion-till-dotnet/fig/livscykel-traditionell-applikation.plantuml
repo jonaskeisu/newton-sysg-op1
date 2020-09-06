@@ -1,0 +1,7 @@
+@startuml livscykel-traditionell-applikation
+Utvecklare -> Kompilator: Källkod
+Kompilator -> Binär: Maskinkod 
+Användare -> OS: Kör
+OS -> Binär: Ladda
+Binär -> CPU: Maskinkod
+@enduml

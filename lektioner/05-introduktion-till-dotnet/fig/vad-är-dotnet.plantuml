@@ -1,0 +1,11 @@
+@startwbs vad-är-dotnet
+skinparam defaultTextAlignment center
++ **.NET Framework**
+++ Common Language Runtime\n(**CLR**)
+++- Garbage Collector\n(**GC**)
++++ Common Lanuguage Infrastructure\n(**CLI**)
+++++ Common Language Specification\n(**CLS**)
+++++ Common Type System\n(**CTS**)
+++- Just In-Time Compiler\n(**JIT**)
+++ Framework Class Library\n(**FCL**)
+@endwbs

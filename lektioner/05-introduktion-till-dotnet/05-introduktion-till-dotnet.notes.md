@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 theme: default
 footer: © 2020 BIT ADDICT
 style: | 
@@ -58,62 +58,46 @@ style: |
 
 ---
 
-## Traditionell livscykel för applikation
+## Livscykel för traditionell applikation
 
-- Källkod kompileras till binärfil
-- Binärfilen beror både på operativsystem och procesor
-  - Operativsystem + Processor = Plattform 
 
-```plantuml
-@startuml
-Utvecklare -> Kompilator: Källkod
-Kompilator -> Binär: Maskinkod 
-Användare -> OS: Kör
-OS -> Binär: Ladda
-Binär -> CPU: Maskinkod
-@enduml
-```
+<div class="center-image" style="zoom: 150%; margin-top: 1em">
+    
+![livscykel traditionell applikation](fig/livscykel-traditionell-applikation.svg)
+    
+</div>
+
+---
+
+## Plattform
+
+- Operativsystem + Proccessor = Plattform, t.ex. 
+  - Windows/x86-64 
+  - Linux/ARM
+- Traditionella applikationer kompileras för en specifik plattform
 
 ---
 
 ## Vad är .NET?
 
-```graphviz
-digraph dotnet {
-  node [shape = "box"]
-  dotnet [label=".NET"]
-  cli [label="Common Lanuguage Infrastructure\n(CLI)"]
-  cls [label="Common Language Specification\n(CLS)"]
-  gc [label="]
-
-}
-
-- .NET innehåller:
-  - ***Common Language Runtime*** - virtuell plattform
-    - Inkluderar ***Just-In-Time-kopilatorn*** (***JIT***)
-  - ***Framework Class Library*** - standardiserat klassbibliotek
+<div class="center-image" style="zoom: 140%; margin-top: 1em">
+    
+![vad är dotnet](fig/vad-är-dotnet.svg)
+    
+</div>
 
 ---
 
-## Livscykel för .NET-applikation
+## Common Language Runtime
 
-```plantuml
-@startuml
-Utvecklare -> Kompilator: Källkod
-Kompilator -> Assembly: IL 
-Användare -> OS: Kör
-OS -> CLR: Kör
-CLR -> Assembly: Ladda
-Assembly -> JIT: IL
-JIT -> CPU: Maskinkod
-@enduml
-```
+- En *virtuell* plattform implementerad i mjukvara
+- Laddar och kör maskinkod som kallas ***Intermediate Languge***
 
 ---
 
 ## Intermediate Language
 
-- Maskinkod för CLR
+- Maskinkod för CLR som följer CLI
 - Kallas också ***managed code***
 - Oberoende av programmeringspråk
 
@@ -123,7 +107,7 @@ JIT -> CPU: Maskinkod
 
 Koden för *Hello Wordl* nedan: 
 
-<div style="zoom: 80%">
+<div style="zoom: 75%">
 
 ```cs
   class Program {
@@ -137,7 +121,7 @@ Koden för *Hello Wordl* nedan:
 
 kompileras till följande IL-kod:
 
-<div style="zoom:80%">
+<div style="zoom:75%">
 
 ```cil
 .method static void main()
@@ -156,12 +140,12 @@ kompileras till följande IL-kod:
 
 ---
 
-### JIT-kompilatorn
+## JIT-kompilatorn
 
-- JIT-kompilatorn översätter vid anrop IL till maskinkod för aktuell processor
+- JIT-kompilatorn översätter efter behov IL till maskinkod för aktuell processor
 - *Hello world* kompilerad till maskinkod för Intel x86-64 visas nedan: 
 
-<div style="zoom: 80%">
+<div style="zoom: 75%">
 
 ```asm
 global    _start
@@ -184,6 +168,39 @@ message:  db        "Hello, World", 10      ; note the newline at the end
 
 ---
 
+## Framework Class Library
+
+- Kodbibliotek med grundläggande funktionalitet för programmeringsspråk:
+  - Grundläggande typer (``int``, ``double``, ``bool``, ..)
+  - Samlingar (listor, uppslagstabeller, köer, ..)
+  - I/O och tillgång till filsystemet
+  - Säkerhet och användarrättigheter
+  - Textkodnig och -manipulation
+  - Felhantering
+  - Flertrådad körning
+  - .. 
+
+---
+
+## Garbage Collector
+
+- Dynamiskt reserverat arbetsminne måste i vissa språk manuellt frigöras
+- GC räknar ut vilket minne som inte används av applikationen längre
+- Minne som inte används längre frigörs av GC automatiskt
+
+
+---
+
+## Livscykel för .NET-applikation
+
+<div class="center-image" style="zoom: 140%; margin-top: 1em">
+    
+![vad är dotnet](fig/livscykel-dotnet-applikation.svg)
+    
+</div>
+
+---
+
 ## .NET-programmeringsspråk
 
 Kompilatorer till IL finns bl.a. för programmeringsspråken:
@@ -199,9 +216,9 @@ Kompilatorer till IL finns bl.a. för programmeringsspråken:
 ## Styrkan i .NET 
 
 - .NET har potentialen att vara:
-  - Plattformsoberoende
-  - Programmeringsspråksoberoende
-- Ökar användning och tillgänglighet för skriven koden
+  - Oberoende av operativsystem och hårdvara
+  - Oberoende av programmeringsspråk
+- Resultet blir ökat användning av skriven koden
 
 --- 
 
@@ -210,7 +227,7 @@ Kompilatorer till IL finns bl.a. för programmeringsspråken:
 - ***.NET Framework*** var den första implementationen av .NET
 - Första versionen släpptes 2002 tillsammans med C# av Microsoft
 - Framgångsrikt koncept och många ramverk har tillkommit över åren
-- Utvecklas främst med *Visual Studio 2019*
+- .NET Framework-applikationer utvecklas främst med *Visual Studio 2019*
 
 ---
 
@@ -247,7 +264,7 @@ Kompilatorer till IL finns bl.a. för programmeringsspråken:
   - Modeller för att bygga applikationer
   - Förenkla datahantering
   - Förenkla datorkommunikation
-  - Förenkla flertrådad körning
+  - Förenkla flertrådad körning av kod
 
 ---
 
@@ -259,9 +276,9 @@ Exempel på applikationsmodeller i .NET Framework är:
   - Console
 - Webbapplikationer 
   - <nowiki>ASP.NET</nowiki> (*Active Server <nowiki>Pages.NET</nowiki>*)
-- Desktopapplikationer: 
+- Grafiska desktopapplikationer: 
   - WinForms
-  - WPF (*Windows Presentatin Foundation*)
+  - WPF (*Windows Presentation Foundation*)
   - UWP (*Universal Windows Platform*)
 
 ---
@@ -294,7 +311,8 @@ Exempel på applikationsmodeller i .NET Framework är:
   - Plattformsoberoende
   - Modulärt plattform
   - Kan distribueras med applikation
-    - .. och därför vidareutvecklas snabbare
+- Motsvarigheten till CLR i .NET Core heter *CoreCLR*
+- Motsvarigheten till FCL i .NET Core heter *CoreFX*
 
 ---
 
@@ -312,7 +330,8 @@ Exempel på applikationsmodeller i .NET Framework är:
 - Xamarin och .NET Core följer .NET Standard 2.1
   - .NET Standard 2.1 krävs för C# 8.0
 - .NET Framework följer .NET Standard 2.0
-  - Kan av kompatibilitetsskäl inte lyftas till 2.1
+  - Kan av kompatibilitetsskäl aldrig lyftas till 2.1
+- En specifik .NET Standard-version kan användas som *target* för assemblies
 
 ---
 
@@ -322,6 +341,19 @@ Exempel på applikationsmodeller i .NET Framework är:
   - .NET Framework kommer stanna på major-version 4
 - .NET Core är plattformen för den framtida utvecklingen av C# / .NET
 - Nästa major-version av .NET Core kommer heta enbart *.NET 5*
-  - Hoppas över version 4 för att undvika förväxling med .NET Framework
+  - Version 4 hoppas över för att undvika förväxling med .NET Framework
+
+--- 
+
+## NuGet
+
+- NuGet är en pakethanterare för .NET-assemblies
+- Vem som helst kan lägga upp assemblypaket i NuGet-arkivet
+- Paketen innehåller information om:
+  - Författaren 
+  - Target framework, t.ex. en version av:
+    -  .NET Core, .NET FW eller .NET Standard
+  - Paketversion (*major*.*minor*.*patch*)
+- NuGet kan användas för att automatiskt ladda ner rätt version av tredjepartsberoenden vid utveckling och distribution
 
  
