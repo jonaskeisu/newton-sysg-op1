@@ -1,5 +1,5 @@
 ---
-marp: true
+marp: false
 theme: default
 footer: © 2020 BIT ADDICT
 style: | 
@@ -77,6 +77,16 @@ Binär -> CPU: Maskinkod
 ---
 
 ## Vad är .NET?
+
+```graphviz
+digraph dotnet {
+  node [shape = "box"]
+  dotnet [label=".NET"]
+  cli [label="Common Lanuguage Infrastructure\n(CLI)"]
+  cls [label="Common Language Specification\n(CLS)"]
+  gc [label="]
+
+}
 
 - .NET innehåller:
   - ***Common Language Runtime*** - virtuell plattform
