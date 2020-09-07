@@ -1,0 +1,18 @@
+@startuml dotnet-innehåll
+skinparam DefaultTextAlignment center
+rectangle "==.NET Framework" as dotnet
+rectangle "Framework Class Library\n(**FCL**)" as fcl
+rectangle "Common Language Runtime\n(**CLR**)" as clr
+rectangle "Just In-Time Compiler\n(**JIT**)" as jit
+rectangle "Garbage Collector\n(**GC**)" as gc
+rectangle "Common Language Infrastructure\n(**CLI**)" as cli
+rectangle "Common Language Specification\n(**CLS**)" as cls
+rectangle "Common Type System\n(**CTS**)" as cts
+dotnet --> clr
+dotnet --> fcl
+clr --> cli
+clr --> gc
+clr --> jit
+cli --> cls
+cli --> cts
+@enduml

@@ -1,4 +1,12 @@
 @startuml livscykel-traditionell-applikation
+participant Utvecklare
+participant Kompilator
+participant Binär
+participant Användare
+box "Platform" 
+    participant OS
+    participant CPU
+end box
 Utvecklare -> Kompilator: Källkod
 Kompilator -> Binär: Maskinkod 
 Användare -> OS: Kör

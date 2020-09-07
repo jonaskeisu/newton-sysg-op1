@@ -61,7 +61,7 @@ style: |
 ## Livscykel för traditionell applikation
 
 
-<div class="center-image" style="zoom: 150%; margin-top: 1em">
+<div class="center-image" style="zoom: 180%; margin-top: 0.5em">
     
 ![livscykel traditionell applikation](fig/livscykel-traditionell-applikation.svg)
     
@@ -69,43 +69,57 @@ style: |
 
 ---
 
+## Binär
+
+- En applikation eller ett kodbibliotek
+- I Windows och .NET gäller att: 
+  - Applikationer har filändelse ``.exe``
+    - Står för *Executable*
+  - Kodbibliotek har filändelse ``.dll`` 
+    - Står för *Dynamic Link Library* 
+
+
+---
+
 ## Plattform
 
-- Operativsystem + Proccessor = Plattform, t.ex. 
+- *Plattform = Operativsystem + Processorarkitektur*
+- Exempel:
   - Windows/x86-64 
+  - macOS/PowerPC
   - Linux/ARM
-- Traditionella applikationer kompileras för en specifik plattform
+- En traditionell binär fungerar bara på en specifik plattform
 
 ---
 
 ## Vad är .NET?
 
-<div class="center-image" style="zoom: 140%; margin-top: 1em">
+<div class="center-image" style="zoom: 130%; margin-top: 1em">
     
-![vad är dotnet](fig/vad-är-dotnet.svg)
+![vad är dotnet](fig/dotnet-innehåll.svg)
     
 </div>
 
 ---
 
-## Common Language Runtime
+## Common Language Runtime (CLR)
 
-- En *virtuell* plattform implementerad i mjukvara
-- Laddar och kör maskinkod som kallas ***Intermediate Languge***
+- *CLR* är en virtuell plattform implementerad i mjukvara
 
 ---
 
-## Intermediate Language
+## Common Language Infrastructure (CLI)
 
-- Maskinkod för CLR som följer CLI
-- Kallas också ***managed code***
-- Oberoende av programmeringspråk
+- Beskrivning av en virtuell processor i CRL som innefattar: 
+  - *CLS* - beskrivning av exekverbar maskinkoden
+  - *CTS* - beskrivning av hur datatyper lagras i arbetsminnet
+- Maskinkoden i .NET kallas för *Intermediate Language* (*IL*)
 
 ---
 
 ### Exempel
 
-Koden för *Hello Wordl* nedan: 
+Koden för *Hello World* i C# nedan: 
 
 <div style="zoom: 75%">
 
@@ -119,13 +133,12 @@ Koden för *Hello Wordl* nedan:
 
 </div>
 
-kompileras till följande IL-kod:
+kan kompileras till följande IL-kod:
 
 <div style="zoom:75%">
 
 ```cil
-.method static void main()
-{
+.method static void main() {
     .entrypoint
     .maxstack 1
 
@@ -140,10 +153,29 @@ kompileras till följande IL-kod:
 
 ---
 
-## JIT-kompilatorn
+## Framework Class Library (FCL)
 
-- JIT-kompilatorn översätter efter behov IL till maskinkod för aktuell processor
-- *Hello world* kompilerad till maskinkod för Intel x86-64 visas nedan: 
+- Kodbibliotek med grundläggande funktionalitet för plattformen:
+  - Grundläggande typer (``int``, ``double``, ``bool``, ..)
+  - Samlingsdatatyper
+  - I/O och tillgång till filsystemet
+  - Säkerhet och användarrättigheter
+  - Textkodnig och -manipulation
+  - Felhantering
+  - Flertrådad körning
+  - .. 
+
+---
+
+## Just In-Time-kompilatorn
+
+- *JIT* översätter vid anrop IL till maskinkod för fysisk processor
+
+---
+
+### Exempel
+
+Maskinkod för *Hello World* på Intel x86-64 kan se ut som följer:
 
 <div style="zoom: 75%">
 
@@ -168,24 +200,12 @@ message:  db        "Hello, World", 10      ; note the newline at the end
 
 ---
 
-## Framework Class Library
+## Garbage Collector (GC)
 
-- Kodbibliotek med grundläggande funktionalitet för programmeringsspråk:
-  - Grundläggande typer (``int``, ``double``, ``bool``, ..)
-  - Samlingar (listor, uppslagstabeller, köer, ..)
-  - I/O och tillgång till filsystemet
-  - Säkerhet och användarrättigheter
-  - Textkodnig och -manipulation
-  - Felhantering
-  - Flertrådad körning
-  - .. 
-
----
-
-## Garbage Collector
-
-- Dynamiskt reserverat arbetsminne måste i vissa språk manuellt frigöras
-- GC räknar ut vilket minne som inte används av applikationen längre
+- Dynamiskt allokerat arbetsminne måste frigöras 
+- Traditionellt sker frigörning av arbetsminne manuellt från koden
+  
+- I .NET räknar *GC* ut vilket minne som inte används av applikationen längre
 - Minne som inte används längre frigörs av GC automatiskt
 
 
@@ -201,37 +221,32 @@ message:  db        "Hello, World", 10      ; note the newline at the end
 
 ---
 
-## .NET-programmeringsspråk
+## Styrkan i .NET 
 
-Kompilatorer till IL finns bl.a. för programmeringsspråken:
-- C#
-- F#
-- C++
-- Visual Basic
-- Python
-- Ruby
+- Oberoende av operativsystem och hårdvara
+  - Samma kod kan köras på Windows, Linux och macOS
+- Kan användas för att utveckling för:
+  - Desktop, server/molnet, webb och mobil
+- Oberoende av programmeringsspråk
 
 ---
 
-## Styrkan i .NET 
+## .NET-programmeringsspråk
 
-- .NET har potentialen att vara:
-  - Oberoende av operativsystem och hårdvara
-  - Oberoende av programmeringsspråk
-- Resultet blir ökat användning av skriven koden
+Följande språk kan kompileras till NET-assemblies:
+- *C#, F#, C++, Visual Basic, Python, Ruby,* m.fl.
 
 --- 
 
 ## .NET Framework
 
-- ***.NET Framework*** var den första implementationen av .NET
+- *.NET Framework* var den första implementationen av .NET
 - Första versionen släpptes 2002 tillsammans med C# av Microsoft
-- Framgångsrikt koncept och många ramverk har tillkommit över åren
-- .NET Framework-applikationer utvecklas främst med *Visual Studio 2019*
+- Applikationer utvecklas främst med *Visual Studio 2019*
 
 ---
 
-## Ramverk i .NET Frameworks
+## Ramverk i .NET Framework
 
 <center>
   <table class="frameworks" style="text-align: center; display: inline">
@@ -260,7 +275,7 @@ Kompilatorer till IL finns bl.a. för programmeringsspråken:
 
 ## Vad gör ramverken?
 
-- Exempel på syftet med ramverk i .NET Framework är:
+- Ramverken används t.ex. för att:
   - Modeller för att bygga applikationer
   - Förenkla datahantering
   - Förenkla datorkommunikation
@@ -272,8 +287,7 @@ Kompilatorer till IL finns bl.a. för programmeringsspråken:
 
 Exempel på applikationsmodeller i .NET Framework är:
 
-- Konsolapplikationer
-  - Console
+- Konsolapplikation 
 - Webbapplikationer 
   - <nowiki>ASP.NET</nowiki> (*Active Server <nowiki>Pages.NET</nowiki>*)
 - Grafiska desktopapplikationer: 
@@ -285,8 +299,8 @@ Exempel på applikationsmodeller i .NET Framework är:
 
 ## Brister med .NET Framework
 
-- En version installerad på datorn för alla applikationer
-  - Svårt att lägga till ny funktionalitet
+- Samma installation används av alla applikationer på datorn
+  - Svårt att uppdatera tekniken med så många beroenden
 - Nära knutet till Microsoft Windows
 
 ---
@@ -295,24 +309,25 @@ Exempel på applikationsmodeller i .NET Framework är:
 
 - Open source-version av .NET Framework
 - Första versionen släpptes 2004
-- Kunde inte hålla jämna steg med .NET Framework
-- Används fortfarande för nischade utveckling:
-  - ***Xamarin*** / *Visual Studio 2019 for Mac*
-    - Mobilapplikationer för Android och iOS
-  - ***Unity***
-    - Plattform och ramverk för spelutveckling
+- Lyckades inte hålla jämna steg med .NET Framework
+- Används idag för nischad utveckling:
+  - *Xamarin* - mobilapplikationer för Android och iOS
+  - *Unity* - spel med 2D/3D-grafik.
+- *Visual Studio 2019 for Mac* är en utvecklingsmiljö för Xamarin
 
 --- 
 
 ## .NET Core
 
-- Ny open source-version av .NET från Microsoft
-  - Rensad version av .NET Framework
+- Open source-version av .NET från Microsoft
+  - Valda ramverken i .NET Framework
   - Plattformsoberoende
-  - Modulärt plattform
-  - Kan distribueras med applikation
-- Motsvarigheten till CLR i .NET Core heter *CoreCLR*
-- Motsvarigheten till FCL i .NET Core heter *CoreFX*
+  - Modulärt design
+    - All funktionalitet uppdelad i små paket
+    - En applikation inkluderar bara det som behövs
+  - Varje applikation kan ha egen version .NET 
+- CRL => *CoreCLR*
+- FCL => *CoreFX* 
 
 ---
 
@@ -325,21 +340,21 @@ Exempel på applikationsmodeller i .NET Framework är:
 
 ## .NET Standard
 
-- Med tre aktiva versioner av .NET i användning behövs en standard 
-- .NET Standarden släpps med versionsnummer
-- Xamarin och .NET Core följer .NET Standard 2.1
+- Med tre aktiva versioner av .NET finns behov av en standard:
+  - .NET Standarden släpps med versionsnummer
+  - Xamarin och .NET Core följer idag .NET Standard 2.1
+  - .NET Framework följer .NET Standard 2.0
+    - Kan av kompatibilitetsskäl aldrig lyftas till 2.1
   - .NET Standard 2.1 krävs för C# 8.0
-- .NET Framework följer .NET Standard 2.0
-  - Kan av kompatibilitetsskäl aldrig lyftas till 2.1
 - En specifik .NET Standard-version kan användas som *target* för assemblies
 
 ---
 
 ## Framtiden för .NET
 
-- .NET Framework kan inte följa framtida versioner av .NET Standard
-  - .NET Framework kommer stanna på major-version 4
-- .NET Core är plattformen för den framtida utvecklingen av C# / .NET
+- .NET Framework kan inte anpassas till nya versioner av .NET Standard
+  - Kommer stanna på version 4
+- .NET Core är plattformen för den framtida utvecklingen av C# .NET
 - Nästa major-version av .NET Core kommer heta enbart *.NET 5*
   - Version 4 hoppas över för att undvika förväxling med .NET Framework
 
@@ -348,12 +363,12 @@ Exempel på applikationsmodeller i .NET Framework är:
 ## NuGet
 
 - NuGet är en pakethanterare för .NET-assemblies
-- Vem som helst kan lägga upp assemblypaket i NuGet-arkivet
-- Paketen innehåller information om:
-  - Författaren 
-  - Target framework, t.ex. en version av:
-    -  .NET Core, .NET FW eller .NET Standard
+- Vem som helst kan lägga upp paket med assemblies i NuGet-arkivet
+- Uöver assemblies innehåller paketen information om:
+  - Utvecklaren
+  - Target, t.ex. en version av:
+    -  .NET Core, .NET Framework eller .NET Standard
   - Paketversion (*major*.*minor*.*patch*)
-- NuGet kan användas för att automatiskt ladda ner rätt version av tredjepartsberoenden vid utveckling och distribution
+- NuGet hämtar automatiskt rätt version av paket som refereras i projektet
 
  
