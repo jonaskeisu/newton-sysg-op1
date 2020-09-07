@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>05-introduktion-till-dotnet.notes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div class="title-page">
+<h1 id="introduktion-till-net">Introduktion till .NET</h1>
+</div>
+<hr>
+<h2 id="livscykel-f%C3%B6r-traditionell-applikation">Livscykel för traditionell applikation</h2>
+<div class="center-image" style="zoom: 180%; margin-top: 0.5em">
+<p><img src="fig/livscykel-traditionell-applikation.svg" alt="livscykel traditionell applikation"></p>
+</div>
+<hr>
+<h2 id="bin%C3%A4r">Binär</h2>
+<ul>
+<li>En applikation eller ett kodbibliotek</li>
+<li>I Windows och .NET gäller att:
+<ul>
+<li>Applikationer har filändelse <code>.exe</code>
+<ul>
+<li>Står för <em>Executable</em></li>
+</ul>
+</li>
+<li>Kodbibliotek har filändelse <code>.dll</code>
+<ul>
+<li>Står för <em>Dynamic Link Library</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="plattform">Plattform</h2>
+<ul>
+<li><em>Plattform = Operativsystem + Processorarkitektur</em></li>
+<li>Exempel:
+<ul>
+<li>Windows/x86-64</li>
+<li>macOS/PowerPC</li>
+<li>Linux/ARM</li>
+</ul>
+</li>
+<li>En traditionell binär fungerar bara på en specifik plattform</li>
+</ul>
+<hr>
+<h2 id="vad-%C3%A4r-net">Vad är .NET?</h2>
+<div class="center-image" style="zoom: 130%; margin-top: 1em">
+<p><img src="fig/dotnet-innehåll.svg" alt="vad är dotnet"></p>
+</div>
+<hr>
+<h2 id="common-language-runtime-clr">Common Language Runtime (CLR)</h2>
+<ul>
+<li><em>CLR</em> är en virtuell plattform implementerad i mjukvara</li>
+</ul>
+<hr>
+<h2 id="common-language-infrastructure-cli">Common Language Infrastructure (CLI)</h2>
+<ul>
+<li>Beskrivning av en virtuell processor i CRL som innefattar:
+<ul>
+<li><em>CLS</em> - beskrivning av exekverbar maskinkoden</li>
+<li><em>CTS</em> - beskrivning av hur datatyper lagras i arbetsminnet</li>
+</ul>
+</li>
+<li>Maskinkoden i .NET kallas för <em>Intermediate Language</em> (<em>IL</em>)</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden för <em>Hello World</em> i C# nedan:</p>
+<div style="zoom: 75%">
+<pre class="hljs"><code><div>  <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
+      <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+          Console.WriteLine(<span class="hljs-string">"Hello World!"</span>);
+      }
+  }
+</div></code></pre>
+</div>
+<p>kan kompileras till följande IL-kod:</p>
+<div style="zoom:75%">
+<pre class="hljs"><code><div>.method static void main() {
+    .entrypoint
+    .maxstack 1
+
+    ldstr &quot;Hello world!&quot;
+    call void [mscorlib]System.Console::WriteLine(string)
+
+    ret
+}
+</div></code></pre>
+</div>
+<hr>
+<h2 id="framework-class-library-fcl">Framework Class Library (FCL)</h2>
+<ul>
+<li>Kodbibliotek med grundläggande funktionalitet för plattformen:
+<ul>
+<li>Grundläggande typer (<code>int</code>, <code>double</code>, <code>bool</code>, ..)</li>
+<li>Samlingsdatatyper</li>
+<li>I/O och tillgång till filsystemet</li>
+<li>Säkerhet och användarrättigheter</li>
+<li>Textkodnig och -manipulation</li>
+<li>Felhantering</li>
+<li>Flertrådad körning</li>
+<li>..</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="just-in-time-kompilatorn">Just In-Time-kompilatorn</h2>
+<ul>
+<li><em>JIT</em> översätter vid anrop IL till maskinkod för fysisk processor</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Maskinkod för <em>Hello World</em> på Intel x86-64 kan se ut som följer:</p>
+<div style="zoom: 75%">
+<pre class="hljs"><code><div>global    _start
+
+          section   .text
+_start:   mov       rax, 1                  ; system call for write
+          mov       rdi, 1                  ; file handle 1 is stdout
+          mov       rsi, message            ; address of string to output
+          mov       rdx, 13                 ; number of bytes
+          syscall                           ; invoke operating system to do the write
+          mov       rax, 60                 ; system call for exit
+          xor       rdi, rdi                ; exit code 0
+          syscall                           ; invoke operating system to exit
+
+          section   .data
+message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the end
+</div></code></pre>
+</div>
+<hr>
+<h2 id="garbage-collector-gc">Garbage Collector (GC)</h2>
+<ul>
+<li>
+<p>Dynamiskt allokerat arbetsminne måste frigöras</p>
+</li>
+<li>
+<p>Traditionellt sker frigörning av arbetsminne manuellt från koden</p>
+</li>
+<li>
+<p>I .NET räknar <em>GC</em> ut vilket minne som inte används av applikationen längre</p>
+</li>
+<li>
+<p>Minne som inte används längre frigörs av GC automatiskt</p>
+</li>
+</ul>
+<hr>
+<h2 id="livscykel-f%C3%B6r-net-applikation">Livscykel för .NET-applikation</h2>
+<div class="center-image" style="zoom: 140%; margin-top: 1em">
+<p><img src="fig/livscykel-dotnet-applikation.svg" alt="vad är dotnet"></p>
+</div>
+<hr>
+<h2 id="styrkan-i-net">Styrkan i .NET</h2>
+<ul>
+<li>Oberoende av operativsystem och hårdvara
+<ul>
+<li>Samma kod kan köras på Windows, Linux och macOS</li>
+</ul>
+</li>
+<li>Kan användas för att utveckling för:
+<ul>
+<li>Desktop, server/molnet, webb och mobil</li>
+</ul>
+</li>
+<li>Oberoende av programmeringsspråk</li>
+</ul>
+<hr>
+<h2 id="net-programmeringsspr%C3%A5k">.NET-programmeringsspråk</h2>
+<p>Följande språk kan kompileras till NET-assemblies:</p>
+<ul>
+<li><em>C#, F#, C++, Visual Basic, Python, Ruby,</em> m.fl.</li>
+</ul>
+<hr>
+<h2 id="net-framework">.NET Framework</h2>
+<ul>
+<li><em>.NET Framework</em> var den första implementationen av .NET</li>
+<li>Första versionen släpptes 2002 tillsammans med C# av Microsoft</li>
+<li>Applikationer utvecklas främst med <em>Visual Studio 2019</em></li>
+</ul>
+<hr>
+<h2 id="ramverk-i-net-framework">Ramverk i .NET Framework</h2>
+<center>
+  <table class="frameworks" style="text-align: center; display: inline">
+    <tr class="ver45"><td colspan="6">UWP</td>
+    <td colspan="6">Task-based Async Model</td><td class="version">v4.5</td></tr>
+    <tr class="ver40"><td colspan="6">Parallel LINQ</td>
+    <td colspan="6">Task Parallel Library</td>
+    <td class="version">v4.0</td></tr>
+    <tr class="ver35"><td colspan="6">LINQ</td>
+    <td colspan="6">Entity Framework</td>
+    <td class="version">v3.5</td></tr>
+    <tr class="ver30"><td colspan="3">WPF</td>
+    <td colspan="3">WCF</td>
+    <td colspan="3">WF</td>
+    <td colspan="3">Card Space</td>
+    <td class="version">v3.0</td></tr>
+    <tr class="ver20" colspan="4"><td colspan="4">WinForms</td>
+    <td colspan="4">ASP.NET</td>
+    <td colspan="4">ADO .NET</td><td class="version" rowspan="3">v2.0</td></tr>
+    <tr class="ver20"><td colspan="12">Framework Class Library</td></tr>
+    <tr class="clr"><td colspan="12">Common Language Runtime</td></tr>
+  </table>
+</center>
+<hr>
+<h2 id="vad-g%C3%B6r-ramverken">Vad gör ramverken?</h2>
+<ul>
+<li>Ramverken används t.ex. för att:
+<ul>
+<li>Modeller för att bygga applikationer</li>
+<li>Förenkla datahantering</li>
+<li>Förenkla datorkommunikation</li>
+<li>Förenkla flertrådad körning av kod</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="applikationsmodeller-i-net-framework">Applikationsmodeller i .NET Framework</h2>
+<p>Exempel på applikationsmodeller i .NET Framework är:</p>
+<ul>
+<li>Konsolapplikation</li>
+<li>Webbapplikationer
+<ul>
+<li><nowiki>ASP.NET</nowiki> (<em>Active Server <nowiki>Pages.NET</nowiki></em>)</li>
+</ul>
+</li>
+<li>Grafiska desktopapplikationer:
+<ul>
+<li>WinForms</li>
+<li>WPF (<em>Windows Presentation Foundation</em>)</li>
+<li>UWP (<em>Universal Windows Platform</em>)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="brister-med-net-framework">Brister med .NET Framework</h2>
+<ul>
+<li>Samma installation används av alla applikationer på datorn
+<ul>
+<li>Svårt att uppdatera tekniken med så många beroenden</li>
+</ul>
+</li>
+<li>Nära knutet till Microsoft Windows</li>
+</ul>
+<hr>
+<h2 id="mono">Mono</h2>
+<ul>
+<li>Open source-version av .NET Framework</li>
+<li>Första versionen släpptes 2004</li>
+<li>Lyckades inte hålla jämna steg med .NET Framework</li>
+<li>Används idag för nischad utveckling:
+<ul>
+<li><em>Xamarin</em> - mobilapplikationer för Android och iOS</li>
+<li><em>Unity</em> - spel med 2D/3D-grafik.</li>
+</ul>
+</li>
+<li><em>Visual Studio 2019 for Mac</em> är en utvecklingsmiljö för Xamarin</li>
+</ul>
+<hr>
+<h2 id="net-core">.NET Core</h2>
+<ul>
+<li>Open source-version av .NET från Microsoft
+<ul>
+<li>Valda ramverken i .NET Framework</li>
+<li>Plattformsoberoende</li>
+<li>Modulärt design
+<ul>
+<li>All funktionalitet uppdelad i små paket</li>
+<li>En applikation inkluderar bara det som behövs</li>
+</ul>
+</li>
+<li>Varje applikation kan ha egen version .NET</li>
+</ul>
+</li>
+<li>CRL =&gt; <em>CoreCLR</em></li>
+<li>FCL =&gt; <em>CoreFX</em></li>
+</ul>
+<hr>
+<h2 id="visual-studio-code">Visual Studio Code</h2>
+<ul>
+<li>Plattformsoberoende utvecklingsmiljö för att passa med .NET Core</li>
+<li>Open source, lättviktig och modulär för att skapa stark community</li>
+</ul>
+<hr>
+<h2 id="net-standard">.NET Standard</h2>
+<ul>
+<li>Med tre aktiva versioner av .NET finns behov av en standard:
+<ul>
+<li>.NET Standarden släpps med versionsnummer</li>
+<li>Xamarin och .NET Core följer idag .NET Standard 2.1</li>
+<li>.NET Framework följer .NET Standard 2.0
+<ul>
+<li>Kan av kompatibilitetsskäl aldrig lyftas till 2.1</li>
+</ul>
+</li>
+<li>.NET Standard 2.1 krävs för C# 8.0</li>
+</ul>
+</li>
+<li>En specifik .NET Standard-version kan användas som <em>target</em> för assemblies</li>
+</ul>
+<hr>
+<h2 id="framtiden-f%C3%B6r-net">Framtiden för .NET</h2>
+<ul>
+<li>.NET Framework kan inte anpassas till nya versioner av .NET Standard
+<ul>
+<li>Kommer stanna på version 4</li>
+</ul>
+</li>
+<li>.NET Core är plattformen för den framtida utvecklingen av C# .NET</li>
+<li>Nästa major-version av .NET Core kommer heta enbart <em>.NET 5</em>
+<ul>
+<li>Version 4 hoppas över för att undvika förväxling med .NET Framework</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="nuget">NuGet</h2>
+<ul>
+<li>NuGet är en pakethanterare för .NET-assemblies</li>
+<li>Vem som helst kan lägga upp paket med assemblies i NuGet-arkivet</li>
+<li>Uöver assemblies innehåller paketen information om:
+<ul>
+<li>Utvecklaren</li>
+<li>Target, t.ex. en version av:
+<ul>
+<li>.NET Core, .NET Framework eller .NET Standard</li>
+</ul>
+</li>
+<li>Paketversion (<em>major</em>.<em>minor</em>.<em>patch</em>)</li>
+</ul>
+</li>
+<li>NuGet hämtar automatiskt rätt version av paket som refereras i projektet</li>
+</ul>
+<p></p>
+
+</body>
+</html>
