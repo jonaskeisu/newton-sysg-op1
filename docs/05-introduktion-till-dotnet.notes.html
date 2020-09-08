@@ -469,7 +469,14 @@ code {
 <hr>
 <h2 id="just-in-time-kompilatorn">Just In-Time-kompilatorn</h2>
 <ul>
-<li><em>JIT</em> översätter vid anrop IL till maskinkod för fysisk processor</li>
+<li><em>JIT</em> kompilerar IL till maskinkod för lokal processor</li>
+<li>Kompilering sker <em>Just-In-Time</em> dvs när IL-koden behöver köras</li>
+<li>Resulterande maskinkod körs sedan på lokal processor</li>
+<li>Resulterande maskinkoden lagras också i en lokal <em>cache</em> lokalt
+<ul>
+<li>.. så kompilering av IL-kod sker bara en gång.</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h3 id="exempel">Exempel</h3>
@@ -492,19 +499,45 @@ message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the 
 </div></code></pre>
 </div>
 <hr>
+<h2 id="minnesallokering">Minnesallokering</h2>
+<ul>
+<li>Kod kan allokerar (reserverar) arbetsminne från två källor:
+<ul>
+<li><em>Stacken</em> - en förallokerad (<em>statiskt</em>) minnesarea för programmet
+<ul>
+<li>Här lagras värden för variabeler i koden</li>
+</ul>
+</li>
+<li><em>Heapen</em> - dynamiskt allokerat minne
+<ul>
+<li>Här ligger minne för objekt som allokeras med nyckelordet <code>new</code></li>
+<li>Även litteraler av typen <code>string</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Statiskt allokerat minne frigörs automatiskt
+<ul>
+<li>.. när variabeln går ur scope</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h2 id="garbage-collector-gc">Garbage Collector (GC)</h2>
 <ul>
-<li>
-<p>Dynamiskt allokerat arbetsminne måste frigöras</p>
+<li>Dynamiskt allokerat minne behöver frigöras när datat inte behövs längre
+<ul>
+<li>Traditionellt av programmeraren med nyckelordet <code>delete</code></li>
+</ul>
 </li>
-<li>
-<p>Traditionellt sker frigörning av arbetsminne manuellt från koden</p>
-</li>
-<li>
-<p>I .NET räknar <em>GC</em> ut vilket minne som inte används av applikationen längre</p>
-</li>
-<li>
-<p>Minne som inte används längre frigörs av GC automatiskt</p>
+<li>Frigörs inte dynamiskt allokerat minne riskeras <em>minnesläckage</em></li>
+<li>I .NET räknar <em>GC</em> ut vilket minne som inte används av applikationen längre</li>
+<li>Minne som inte används längre frigörs av GC automatiskt</li>
+<li>GC kör helta tiden med jämna intervall för att rensa heapen
+<ul>
+<li>När GC kör pausas ordinarie programkörning</li>
+<li>Skapar slumpmässiga fördröjningar (<em>latens</em>) i programkörningen</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -513,7 +546,7 @@ message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the 
 <p><img src="fig/livscykel-dotnet-applikation.svg" alt="vad är dotnet"></p>
 </div>
 <hr>
-<h2 id="styrkan-i-net">Styrkan i .NET</h2>
+<h2 id="f%C3%B6rdelen-med-net">Fördelen med .NET</h2>
 <ul>
 <li>Oberoende av operativsystem och hårdvara
 <ul>
@@ -602,7 +635,11 @@ message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the 
 <li>Svårt att uppdatera tekniken med så många beroenden</li>
 </ul>
 </li>
-<li>Nära knutet till Microsoft Windows</li>
+<li>Nära knutet till Microsoft Windows
+<ul>
+<li>Därför inte plattformsoberoende i praktiken</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h2 id="mono">Mono</h2>
