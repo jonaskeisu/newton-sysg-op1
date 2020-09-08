@@ -110,7 +110,7 @@ if (! a >= 0 && a <= 10) {
 ```cs
 int b; 
 .. // kod som tilldelar b ett värde
-if (0 <= b <= 10) {
+if (!(0 <= b <= 10)) {
     Console.WriteLine("b måste ligga i intervallet [0, 10]");
 }
 ```
