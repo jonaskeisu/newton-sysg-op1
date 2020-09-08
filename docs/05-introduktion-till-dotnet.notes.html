@@ -536,7 +536,11 @@ message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the 
 <li>GC kör helta tiden med jämna intervall för att rensa heapen
 <ul>
 <li>När GC kör pausas ordinarie programkörning</li>
-<li>Skapar slumpmässiga fördröjningar (<em>latens</em>) i programkörningen</li>
+<li>Skapar slumpmässiga fördröjningar (<em>latens</em>) i programkörningen
+<ul>
+<li>Gör .NET olämpliga för realtidsapplikationer</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -564,7 +568,7 @@ message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the 
 <h2 id="net-programmeringsspr%C3%A5k">.NET-programmeringsspråk</h2>
 <p>Följande språk kan kompileras till NET-assemblies:</p>
 <ul>
-<li><em>C#, F#, C++, Visual Basic, Python, Ruby,</em> m.fl.</li>
+<li><em>C#, F#, C++/CLI, Visual Basic<span>.NET</span>, IronPython, IronRuby,</em> <a href="https://en.wikipedia.org/wiki/Category:.NET_programming_languages">m.fl.</a></li>
 </ul>
 <hr>
 <h2 id="net-framework">.NET Framework</h2>
@@ -597,7 +601,9 @@ message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the 
     <tr class="clr"><td colspan="12">Common Language Runtime</td></tr>
   </table>
 </center>
-<hr>
+<div style="text-align: right">
+<p>(Källa: <a href="https://en.wikipedia.org/wiki/.NET_Framework">wikipedia</a>)</p>
+<h2 id="div"></div></h2>
 <h2 id="vad-g%C3%B6r-ramverken">Vad gör ramverken?</h2>
 <ul>
 <li>Ramverken används t.ex. för att:
@@ -717,10 +723,10 @@ message:  db        &quot;Hello, World&quot;, 10      ; note the newline at the 
 <ul>
 <li>NuGet är en pakethanterare för .NET-assemblies</li>
 <li>Vem som helst kan lägga upp paket med assemblies i NuGet-arkivet</li>
-<li>Uöver assemblies innehåller paketen information om:
+<li>Utöver assemblies innehåller paketen information om:
 <ul>
-<li>Utvecklaren</li>
-<li>Target, t.ex. en version av:
+<li>Ansvarig utgivare</li>
+<li>Target framework, t.ex. en version av:
 <ul>
 <li>.NET Core, .NET Framework eller .NET Standard</li>
 </ul>

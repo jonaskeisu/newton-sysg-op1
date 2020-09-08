@@ -227,6 +227,7 @@ message:  db        "Hello, World", 10      ; note the newline at the end
 - GC kör helta tiden med jämna intervall för att rensa heapen
   - När GC kör pausas ordinarie programkörning
   - Skapar slumpmässiga fördröjningar (*latens*) i programkörningen 
+    - Gör .NET olämpliga för realtidsapplikationer
 
 
 ---
@@ -254,7 +255,7 @@ message:  db        "Hello, World", 10      ; note the newline at the end
 ## .NET-programmeringsspråk
 
 Följande språk kan kompileras till NET-assemblies:
-- *C#, F#, C++, Visual Basic, Python, Ruby,* m.fl.
+- *C#, F#, C++/CLI, Visual Basic<span>.NET</span>, IronPython, IronRuby,* [m.fl.](https://en.wikipedia.org/wiki/Category:.NET_programming_languages)
 
 --- 
 
@@ -291,6 +292,11 @@ Följande språk kan kompileras till NET-assemblies:
   </table>
 </center>
 
+<div style="text-align: right">
+    
+(Källa: [wikipedia](https://en.wikipedia.org/wiki/.NET_Framework))
+    
+</div>
 ---
 
 ## Vad gör ramverken?
@@ -385,9 +391,9 @@ Exempel på applikationsmodeller i .NET Framework är:
 
 - NuGet är en pakethanterare för .NET-assemblies
 - Vem som helst kan lägga upp paket med assemblies i NuGet-arkivet
-- Uöver assemblies innehåller paketen information om:
-  - Utvecklaren
-  - Target, t.ex. en version av:
+- Utöver assemblies innehåller paketen information om:
+  - Ansvarig utgivare
+  - Target framework, t.ex. en version av:
     -  .NET Core, .NET Framework eller .NET Standard
   - Paketversion (*major*.*minor*.*patch*)
 - NuGet hämtar automatiskt rätt version av paket som refereras i projektet
