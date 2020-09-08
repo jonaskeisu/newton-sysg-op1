@@ -97,7 +97,7 @@ Magisk fyrkant!
 
 ### Övning ra9naz
 
-Varför fungerar är de två kodexemplen nedan inte korrekt kod?
+Vad är fel i vart och ett av de två kodexemplen nedan?
 
 ```cs
 int a; 
