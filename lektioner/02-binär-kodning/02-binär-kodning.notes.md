@@ -428,7 +428,7 @@ Alltså är det totala värdet av ``CAB`` lika med:
 
 ## Hur många värden kan representeras?
 
-  Ett tal med bas *B* och *N* symboler kan representera *B*<sup>*N*</sup> olika värden. 
+  Ett tal med bas *B* och längd *N* symboler kan representera *B*<sup>*N*</sup> olika värden. 
 
 ---
 
