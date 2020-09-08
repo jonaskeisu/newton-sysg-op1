@@ -581,8 +581,8 @@ code {
 <hr>
 <h2 id="talbas">Talbas</h2>
 <ul>
-<li>En talrepresentation med <em><strong>talbas</strong></em> <em>N</em> har <em>N</em> unika symboler.</li>
-<li>Symbolerna tilldelas värden 0, 1, 2, ..., <em>N</em> - 1</li>
+<li>En talrepresentation med <em><strong>talbas</strong></em> <em>B</em> har <em>B</em> unika symboler.</li>
+<li>Symbolerna tilldelas värden 0, 1, 2, ..., <em>B</em> - 1</li>
 </ul>
 <hr>
 <h3 id="exempel">Exempel</h3>
@@ -597,11 +597,12 @@ code {
 <pre class="hljs"><code><div>BAC
 </div></code></pre>
 <p>ett tal med S<sub>0</sub> = <code>C</code>, S<sub>1</sub> = A och S<sub>2</sub> = <code>B</code>.</p>
+<p><em>OBS: Förväxla ej symbolen <code>B</code> med värde 1 och talbasen <em>B</em> som i detta fall är 3</em>.</p>
 <hr>
 <h2 id="rotation-av-symboler">Rotation av symboler</h2>
 <ul>
-<li><em>S</em><sub>0</sub> kan representera tal från 0 till <em>N</em> - 1.</li>
-<li>När en symbol når N <em>roterar</em> den och börjar om från 0 igen.</li>
+<li><em>S</em><sub>0</sub> kan representera tal från 0 till <em>B</em> - 1.</li>
+<li>När en symbol räknats upp <em>B</em> gånger <em>roterar</em> den och börjar om från 0 igen.</li>
 <li>En rotation av symbol <em>S</em><sub>K</sub> läggs i minnet genom att öka <em>S</em><sub>K - 1</sub> med 1.</li>
 </ul>
 <hr>
@@ -649,7 +650,7 @@ BABA (30)<br/>
 BABB (31)
 </code>
 </div>
-<p>Notera att <em>S</em><sub>0</sub> roterar för mutliplar av N = N<sup>1</sup> (3, 6, 9, 12 och 15) samt att <em>S</em><sub>1</sub> roterar för mutiplar av N x N = N<sup>2</sup> (9, 18 och 27).</p>
+<p>Notera att <em>S</em><sub>0</sub> roterar för mutliplar av <em>B</em> = <em>B</em><sup>1</sup> (3, 6, 9, 12 och 15) samt att <em>S</em><sub>1</sub> roterar för mutiplar av <em>B</em> x <em>B</em> = <em>B</em><sup>2</sup> (9, 18 och 27).</p>
 <hr>
 <h2 id="symbolernas-v%C3%A4rde">Symbolernas värde</h2>
 <p>I talet:</p>
@@ -671,9 +672,9 @@ BABB (31)
 <p>så har:</p>
 <ul>
 <li>S<sub>0</sub> värdet av S<sub>0</sub>.</li>
-<li>S<sub>1</sub> värdet av S<sub>1</sub> x <em>N</em> eftersom S<sub>1</sub> ökar med 1 varje gång S<sub>0</sub> når <em>N</em>.</li>
-<li>S<sub>2</sub> värdet av S<sub>2</sub> x <em>N</em> x <em>N</em> eftersom den ökar med 1 varje gång S<sub>1</sub> når <em>N</em>.</li>
-<li>Allmänt S<sub>K</sub> värdet av S<sub>K</sub> x <em>N</em><sup>K</sup></li>
+<li>S<sub>1</sub> värdet av S<sub>1</sub> x <em>B</em> eftersom S<sub>1</sub> ökar med 1 varje gång S<sub>0</sub> når <em>B</em>.</li>
+<li>S<sub>2</sub> värdet av S<sub>2</sub> x <em>B</em> x <em>B</em> eftersom den ökar med 1 varje gång S<sub>1</sub> når <em>B</em>.</li>
+<li>Allmänt S<sub>K</sub> värdet av S<sub>K</sub> x <em>B</em><sup>K</sup></li>
 </ul>
 <hr>
 <h2 id="talets-totala-v%C3%A4rde">Talets totala värde</h2>
@@ -695,7 +696,7 @@ BABB (31)
 </center>
 <p>är summan av symbolernas värden:</p>
 <center>
-<p>S<sub>K</sub> x <em>N</em> <sup>K</sup> + S<sub>K - 1</sub> x <em>N</em> <sup>K - 1</sup> + .. + S<sub>2</sub> x <em>N</em> <sup>2</sup> + S<sub>1</sub> x <em>N</em> <sup>1</sup> + S<sub>0</sub> x <em>N</em> <sup>0</sup></p>
+<p>S<sub>K</sub> x <em>B</em> <sup>K</sup> + S<sub>K - 1</sub> x <em>B</em> <sup>K - 1</sup> + .. + S<sub>2</sub> x <em>B</em> <sup>2</sup> + S<sub>1</sub> x <em>B</em> <sup>1</sup> + S<sub>0</sub> x <em>B</em> <sup>0</sup></p>
 </center>
 <hr>
 <h3 id="exempel">Exempel</h3>
@@ -711,7 +712,7 @@ BABB (31)
 </center>
 <hr>
 <h2 id="hur-m%C3%A5nga-v%C3%A4rden-kan-representeras">Hur många värden kan representeras?</h2>
-<p>Ett tal med bas <em>N</em> som har maximal längd <em>K</em> symboler kan representera N<sup>K</sup> olika värden.</p>
+<p>Ett tal med bas <em>B</em> och <em>N</em> symboler kan representera <em>B</em><sup><em>N</em></sup> olika värden.</p>
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Ett tal med bas 10 med 3 siffror kan representera 10<sup>3</sup> = 1000 olika värden. Dessa värden är 0, 1, 2, .., 998, 999.</p>

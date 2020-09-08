@@ -260,8 +260,8 @@ Ett intervall av heltal kan betecknas: [*start*, *slut*]
 
 ## Talbas
 
-- En talrepresentation med ***talbas*** *N* har *N* unika symboler.
-- Symbolerna tilldelas värden 0, 1, 2, ..., *N* - 1 
+- En talrepresentation med ***talbas*** *B* har *B* unika symboler.
+- Symbolerna tilldelas värden 0, 1, 2, ..., *B* - 1 
 
 ---
 
@@ -284,12 +284,14 @@ Med denna representation är:
 
  ett tal med S<sub>0</sub> = ``C``, S<sub>1</sub> = A och S<sub>2</sub> = ``B``.
 
+ *OBS: Förväxla ej symbolen ``B`` med värde 1 och talbasen *B* som i detta fall är 3*.
+
 ---
 
 ## Rotation av symboler
 
-- *S*<sub>0</sub> kan representera tal från 0 till *N* - 1.
-- När en symbol når N *roterar* den och börjar om från 0 igen. 
+- *S*<sub>0</sub> kan representera tal från 0 till *B* - 1.
+- När en symbol räknats upp *B* gånger *roterar* den och börjar om från 0 igen. 
 - En rotation av symbol *S*<sub>K</sub> läggs i minnet genom att öka *S*<sub>K - 1</sub> med 1.
 
 ---
@@ -346,7 +348,7 @@ BABB (31)
 
 </div>
 
-Notera att *S*<sub>0</sub> roterar för mutliplar av N = N<sup>1</sup> (3, 6, 9, 12 och 15) samt att *S*<sub>1</sub> roterar för mutiplar av N x N = N<sup>2</sup> (9, 18 och 27).
+Notera att *S*<sub>0</sub> roterar för mutliplar av *B* = *B*<sup>1</sup> (3, 6, 9, 12 och 15) samt att *S*<sub>1</sub> roterar för mutiplar av *B* x *B* = *B*<sup>2</sup> (9, 18 och 27).
 
 ---
 
@@ -373,9 +375,9 @@ I talet:
 så har:
 
 - S<sub>0</sub> värdet av S<sub>0</sub>.
-- S<sub>1</sub> värdet av S<sub>1</sub> x *N* eftersom S<sub>1</sub> ökar med 1 varje gång S<sub>0</sub> når *N*.
-- S<sub>2</sub> värdet av S<sub>2</sub> x *N* x *N* eftersom den ökar med 1 varje gång S<sub>1</sub> når *N*. 
-- Allmänt S<sub>K</sub> värdet av S<sub>K</sub> x *N*<sup>K</sup>
+- S<sub>1</sub> värdet av S<sub>1</sub> x *B* eftersom S<sub>1</sub> ökar med 1 varje gång S<sub>0</sub> når *B*.
+- S<sub>2</sub> värdet av S<sub>2</sub> x *B* x *B* eftersom den ökar med 1 varje gång S<sub>1</sub> når *B*. 
+- Allmänt S<sub>K</sub> värdet av S<sub>K</sub> x *B*<sup>K</sup>
 
 ---
 
@@ -403,7 +405,7 @@ Det totala värdet av:
 
 <center>
 
-S<sub>K</sub> x *N* <sup>K</sup> + S<sub>K - 1</sub> x *N* <sup>K - 1</sup> + .. + S<sub>2</sub> x *N* <sup>2</sup> + S<sub>1</sub> x *N* <sup>1</sup> + S<sub>0</sub> x *N* <sup>0</sup>
+S<sub>K</sub> x *B* <sup>K</sup> + S<sub>K - 1</sub> x *B* <sup>K - 1</sup> + .. + S<sub>2</sub> x *B* <sup>2</sup> + S<sub>1</sub> x *B* <sup>1</sup> + S<sub>0</sub> x *B* <sup>0</sup>
 </center>
 
 ---
@@ -426,7 +428,7 @@ Alltså är det totala värdet av ``CAB`` lika med:
 
 ## Hur många värden kan representeras?
 
-  Ett tal med bas *N* som har maximal längd *K* symboler kan representera N<sup>K</sup> olika värden. 
+  Ett tal med bas *B* och *N* symboler kan representera *B*<sup>*N*</sup> olika värden. 
 
 ---
 
