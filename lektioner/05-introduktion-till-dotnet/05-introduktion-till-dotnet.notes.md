@@ -169,7 +169,11 @@ kan kompileras till följande IL-kod:
 
 ## Just In-Time-kompilatorn
 
-- *JIT* översätter vid anrop IL till maskinkod för fysisk processor
+- *JIT* kompilerar IL till maskinkod för lokal processor
+- Kompilering sker *Just-In-Time* dvs när IL-koden behöver köras
+- Resulterande maskinkod körs sedan på lokal processor
+- Resulterande maskinkoden lagras också i en lokal *cache* lokalt
+  - .. så kompilering av IL-kod sker bara en gång.
 
 ---
 
@@ -200,13 +204,29 @@ message:  db        "Hello, World", 10      ; note the newline at the end
 
 ---
 
+## Minnesallokering
+
+- Kod kan allokerar (reserverar) arbetsminne från två källor:
+  - *Stacken* - en förallokerad (*statiskt*) minnesarea för programmet
+    - Här lagras värden för variabeler i koden
+  - *Heapen* - dynamiskt allokerat minne
+    - Här ligger minne för objekt som allokeras med nyckelordet ``new`` 
+    - Även litteraler av typen ``string``
+- Statiskt allokerat minne frigörs automatiskt
+  - .. när variabeln går ur scope
+
+---
+
 ## Garbage Collector (GC)
 
-- Dynamiskt allokerat arbetsminne måste frigöras 
-- Traditionellt sker frigörning av arbetsminne manuellt från koden
-  
+- Dynamiskt allokerat minne behöver frigöras när datat inte behövs längre
+  - Traditionellt av programmeraren med nyckelordet ``delete``  
+- Frigörs inte dynamiskt allokerat minne riskeras *minnesläckage*
 - I .NET räknar *GC* ut vilket minne som inte används av applikationen längre
 - Minne som inte används längre frigörs av GC automatiskt
+- GC kör helta tiden med jämna intervall för att rensa heapen
+  - När GC kör pausas ordinarie programkörning
+  - Skapar slumpmässiga fördröjningar (*latens*) i programkörningen 
 
 
 ---
@@ -221,7 +241,7 @@ message:  db        "Hello, World", 10      ; note the newline at the end
 
 ---
 
-## Styrkan i .NET 
+## Fördelen med .NET
 
 - Oberoende av operativsystem och hårdvara
   - Samma kod kan köras på Windows, Linux och macOS
@@ -302,6 +322,7 @@ Exempel på applikationsmodeller i .NET Framework är:
 - Samma installation används av alla applikationer på datorn
   - Svårt att uppdatera tekniken med så många beroenden
 - Nära knutet till Microsoft Windows
+  - Därför inte plattformsoberoende i praktiken
 
 ---
 
