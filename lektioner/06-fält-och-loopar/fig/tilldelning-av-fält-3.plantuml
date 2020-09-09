@@ -1,0 +1,17 @@
+@startuml
+skinparam ranksep 1
+node "(<i>referens</i>)"  as aref
+note left of aref : int[] <i>a</i>
+
+node "(<i>referens</i>)"  as bref
+note left of bref : int[] <i>b</i>
+
+cloud "heap" {
+    node "{ 1, 7, 3 }" as aval
+    node "{ 4, 5, 6 }" as bval
+}
+
+aref --> aval
+bref --> aval
+
+@enduml

@@ -44,6 +44,9 @@ y[1] = 20;
 Console.WriteLine($"Talet är {x[1]}");
 ```
 
+### Övning 
+
+
 ### Övning mab4rr (1)
 
 I en konsolapplikations ``Main``-metod (där vi skrivit all kod hittills) är variabeln  ``string[] args`` definierad. Denna innehåller alla extraparametrar till applikationen vid körning från terminalen. Skriv ett program som tolkar extraparametrarna som ``double`` och skriver ut summan. 

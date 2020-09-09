@@ -1,0 +1,5 @@
+@startuml värdetyp
+
+node 42 as age
+note left of age : int <i>age</i>
+@enduml

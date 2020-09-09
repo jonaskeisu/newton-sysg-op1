@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>06-fält-och-loopar.exercises.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="f%C3%A4lt-och-loopar">Fält och loopar</h1>
+<h2 id="%C3%B6vningar">Övningar</h2>
+<hr>
+<h3 id="%C3%B6vning-msj9nw-1">Övning msj9nw (1)</h3>
+<p>Skriv en <code>while</code>-loop med exakt samma funktion som följande <code>for</code>-loop:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">10</span>; i++) {
+    System.<span class="hljs-keyword">out</span>.println(i);
+}
+</div></code></pre>
+<h3 id="%C3%B6vning-k47qkb-1">Övning k47qkb (1)</h3>
+<p>Skriv ett program som itererar över varannat element (inkl. första) i fältet <code>a</code> och skriver ut elementets värde på en och samma rad (använd metoden <code>Console.Write</code> istället för <code>Console.WriteLine</code> för att inte automatiskt lägga till ny rad efter varje utskrift):</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">char</span>[] a = {<span class="hljs-string">'g'</span>, <span class="hljs-string">'f'</span>, <span class="hljs-string">'o'</span>, <span class="hljs-string">'z'</span>, <span class="hljs-string">'o'</span>, <span class="hljs-string">'p'</span>, <span class="hljs-string">'d'</span>, <span class="hljs-string">'u'</span>, <span class="hljs-string">' '</span>, <span class="hljs-string">'w'</span>, <span class="hljs-string">'w'</span>, <span class="hljs-string">'i'</span>, <span class="hljs-string">'o'</span>, <span class="hljs-string">'g'</span>, <span class="hljs-string">'r'</span>, <span class="hljs-string">'l'</span>, <span class="hljs-string">'k'</span>};
+</div></code></pre>
+<h3 id="%C3%B6vning-zgy2bd-1">Övning zgy2bd (1)</h3>
+<p>Skriv ett program som låter användaren skriva in ett ord som sedan skrivs ut baklänges.</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div>Skriv in ett ord.
+HelloWorld
+dlroWolleH
+</div></code></pre>
+<h3 id="%C3%B6vning-w4pa4u-1">Övning w4pa4u (1)</h3>
+<p>Vad skriver följande kod ut? Varför?</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[] x = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> };
+<span class="hljs-keyword">int</span>[] y = x; 
+x[<span class="hljs-number">1</span>] = <span class="hljs-number">10</span>;
+y[<span class="hljs-number">1</span>] = <span class="hljs-number">20</span>;
+Console.WriteLine(<span class="hljs-string">$"Talet är <span class="hljs-subst">{x[<span class="hljs-number">1</span>]}</span>"</span>);
+</div></code></pre>
+<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-mab4rr-1">Övning mab4rr (1)</h3>
+<p>I en konsolapplikations <code>Main</code>-metod (där vi skrivit all kod hittills) är variabeln  <code>string[] args</code> definierad. Denna innehåller alla extraparametrar till applikationen vid körning från terminalen. Skriv ett program som tolkar extraparametrarna som <code>double</code> och skriver ut summan.</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div><span class="hljs-meta">&gt;</span><span class="bash"> dotnet run MyProject 1 2.5 -5</span>
+Summan är: -1.5
+</div></code></pre>
+<h3 id="%C3%B6vning-kt28h6-1">Övning kt28H6 (1)</h3>
+<p>Skriv en <code>for</code>-loop som ändrar värdet på varje element i en heltalsarray till dubbla värdet.</p>
+<h3 id="%C3%B6vning-j4e7kb-1">Övning j4e7kb (1)</h3>
+<p>Skriv ett program som använder en <code>do-while</code>-sats för att läsa in svaret på en ja/nej-fråga till dess svaret är ett giltigt alternativ. Efter att att giltigt svar lämnats av användaren skriver programmet ut <code>OK</code>.</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div>Vill du avsluta programmet [ja/nej]?
+nope
+Ogiltigt svar.
+Vill du avsluta programmet [ja/nej]?
+no
+Ogiltigt svar.
+Vill du avsluta programmet [ja/nej]?
+nej
+OK
+</div></code></pre>
+<h3 id="%C3%B6vning-4k7k6s-2">Övning 4k7k6s (2)</h3>
+<p>Utan att implementera koden, lista ut vad följande program skriver ut.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i+j &lt; <span class="hljs-number">10</span>; i++) {
+    j += i;
+    System.<span class="hljs-keyword">out</span>.println(i);
+}
+</div></code></pre>
+<h3 id="%C3%B6vning-cf7mm5-2">Övning cf7mm5 (2)</h3>
+<p>Skriv en konsolapplikation där användaren matar in en siffra i taget, och som skriver ut &quot;Störst hittills&quot; om den nya siffran är större än alla tidigare inmatade siffror (under programmets aktuella körning).</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div>10
+Störst hittills
+15 
+Störst hittills
+12
+13
+20
+Störst hittills
+</div></code></pre>
+<h3 id="%C3%B6vning-ve9xuc-2">Övning ve9xuc (2)</h3>
+<p>Hur många iterationer går följande loopar genom innan de avlutas?</p>
+<p>a)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;=<span class="hljs-number">10</span>; i++) {
+    <span class="hljs-keyword">continue</span>;
+}
+</div></code></pre>
+<p>b)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">100</span>) {
+        <span class="hljs-keyword">break</span>;
+    }
+    i++;
+}
+</div></code></pre>
+<p>c)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">float</span> x = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">do</span> {
+    x *= <span class="hljs-number">2</span>;
+} <span class="hljs-keyword">while</span> (x &lt; <span class="hljs-number">300</span>);
+</div></code></pre>
+<p>d)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k=<span class="hljs-number">0</span>; k&lt;<span class="hljs-number">10</span>; k++) {
+    k -= <span class="hljs-number">1</span>;
+}
+</div></code></pre>
+<h3 id="%C3%B6vning-2zs9hr-2">Övning 2zs9hr (2)</h3>
+<p>Vad skriver följande program ut? Varför?</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a[] = { <span class="hljs-string">"Karl"</span>, <span class="hljs-string">"Niclas"</span>, <span class="hljs-string">"Agnes"</span> };
+<span class="hljs-keyword">int</span> b[] = a;
+b[<span class="hljs-number">0</span>] = <span class="hljs-string">"Fredrik"</span>;
+Console.WriteLine(a[<span class="hljs-number">0</span>]);
+</div></code></pre>
+<h3 id="%C3%B6vning-xw7quz-2">Övning xw7quz (2)</h3>
+<p>Skriv ett program som läser in fem heltal från användaren och sparar dem som element i fältet <code>a</code>. Skapa ett <em>nytt</em> fält <code>b</code> av samma längd som <code>a</code> och <em>kopiera</em> elementen från <code>a</code> till <code>b</code> med en <code>for</code>-loop. Skriv till sist ut elementen i <code>b</code>. Använd loopar även för inläsning och utskrift av tal.</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div>Skriv in fem tal.
+5
+1
+4
+7
+3
+Du skrev in talen:
+5, 1, 4, 7, 3
+</div></code></pre>
+<h3 id="%C3%B6vning-49g32x-2">Övning 49g32x (2)</h3>
+<p>Gör om övning xw7quz men kopiera talen i omvänd ordning från <code>a</code> till <code>b</code>.</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div>Skriv in fem tal.
+5
+1
+4
+7
+3
+Du skrev in talen:
+3, 7, 4, 1, 5
+</div></code></pre>
+<h3 id="%C3%B6vning-9nk2ny-3">Övning 9nk2ny (3)</h3>
+<p>Axel lägger in 50,000kr på ett räntegivande konto med 3% ränta per år, och rör inte kontot efter det. Efter hur många år har kapitalet på Axels konto överstigit 100,000kr? Skriv ett program som räknar ut svaret med hjälp av en loop.</p>
+<h3 id="%C3%B6vning-973shf-3">Övning 973shf (3)</h3>
+<p>Skriv en konsolapplikation som anger vilka attraktioner på Liseberg man får åka på givet sin längd.
+Användaren anger sin längd i konsolen. Därefter får användaren ett meddelande med vilka attraktioner som han/hon får åka.</p>
+<table>
+<thead>
+<tr>
+<th>Attraktion</th>
+<th>Minsta längd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kolorado</td>
+<td>110cm</td>
+</tr>
+<tr>
+<td>radiobilar</td>
+<td>120cm</td>
+</tr>
+<tr>
+<td>flumeride</td>
+<td>120cm</td>
+</tr>
+<tr>
+<td>lisebergståget</td>
+<td>130cm</td>
+</tr>
+<tr>
+<td>balder</td>
+<td>140cm</td>
+</tr>
+<tr>
+<td>sagoslottet</td>
+<td>ingen gräns</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>Vad är din längd?
+135.4
+kolorado, radiobilar, flumeride, sagoslottet
+</div></code></pre>
+<h3 id="%C3%B6vning-ne744y-3">Övning ne744y (3)</h3>
+<p>Skriv ett program som skriver ut de 100 första talen i Fibonaccis talföljd.</p>
+<p>Fibonaccis talföljd ges av att låta nästa tal vara summan av de två föregående talen, där de två första talen är 0 och 1. Alltså 0,1,1,2,3,5,8,13,21,....</p>
+<p><strong>Kontroll:</strong> Det 100:de talet är 218922995834555169026</p>
+<h3 id="%C3%B6vning-w38qfr-4">Övning w38qfr (4)</h3>
+<p>Skriv ett program som tolkar extraparametrar till applikationen som heltal och skriver ut en tom rad följt av ett histogram. Ta bara hänsyn till tal i intervallet [0, 9] i resultatet.</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div>&gt; dotnet run 9 1 4 9 7 5 2 7 9 2 5 3 3 3 9
+
+                #
+    #           #
+  # #       #   #
+# # # # #   #   #
+1 2 3 4 5 6 7 8 9
+</div></code></pre>
+<h3 id="%C3%B6vning-e8kwva-5">Övning e8kwva (5)</h3>
+<p>Skriv luffarshack som konsolapplikation med användargränssnitt enligt exemplet nedan. Spelet avslutat automatiskt när någon av spelarna vunnit eller spelplanen är fylld utan att någon spelare vann med någon av utskrifterna: <code>Ring vann!</code>, <code>Kryss vann!</code> eller <code>Oavgjort</code>.</p>
+<h4 id="exempel">Exempel</h4>
+<pre class="hljs"><code><div>  1 2 3
+ =======
+1| | | |
+ =======
+2| | | |
+ =======
+3| | | |
+ =======
+
+Ring?
+13
+
+  1 2 3
+ =======
+1| | |O|
+ =======
+2| | | |
+ =======
+3| | | |
+ =======
+
+Kryss?
+22
+
+  1 2 3
+ =======
+1| | |O|
+ =======
+2| |X| |
+ =======
+3| | | |
+ =======
+
+Ring?
+
+...
+
+Kryss?
+33 
+
+  1 2 3
+ =======
+1|X|O|O|
+ =======
+2| |X|O|
+ =======
+3| | |X|
+ =======
+
+Kryss vann!
+</div></code></pre>
+
+</body>
+</html>

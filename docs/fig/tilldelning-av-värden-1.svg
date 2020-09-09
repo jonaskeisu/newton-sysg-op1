@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="64px" preserveAspectRatio="none" style="width:328px;height:64px;" version="1.1" viewBox="0 0 328 64" width="328px" zoomAndPan="magnify"><defs><filter height="300%" id="fmojk8ylot447" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[f83ae91a690dfc657e1c5fbbd818f13d]
+entity a--><polygon fill="#FEFECE" filter="url(#fmojk8ylot447)" points="90,16,100,6,139,6,139,42.2969,129,52.2969,90,52.2969,90,16" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="129" x2="139" y1="16" y2="6"/><line style="stroke: #000000; stroke-width: 1.5;" x1="90" x2="129" y1="16" y2="16"/><line style="stroke: #000000; stroke-width: 1.5;" x1="129" x2="129" y1="16" y2="52.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="9" x="105" y="38.9951">1</text><path d="M6,16.5 L6,41.6328 A0,0 0 0 0 6,41.6328 L55,41.6328 A0,0 0 0 0 55,41.6328 L55,34.5 L89.9086,29 L55,26.5 L55,26.5 L45,16.5 L6,16.5 A0,0 0 0 0 6,16.5 " fill="#FBFB77" filter="url(#fmojk8ylot447)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M45,16.5 L45,26.5 L55,26.5 L45,16.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="16" x="12" y="33.5669">int</text><text fill="#000000" font-family="sans-serif" font-size="13" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="8" x="32" y="33.5669">a</text><!--MD5=[5d12e840fb55afd9ed7b3559a638e8f7]
+entity b--><polygon fill="#FEFECE" filter="url(#fmojk8ylot447)" points="258.5,16,268.5,6,306.5,6,306.5,42.2969,296.5,52.2969,258.5,52.2969,258.5,16" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="296.5" x2="306.5" y1="16" y2="6"/><line style="stroke: #000000; stroke-width: 1.5;" x1="258.5" x2="296.5" y1="16" y2="16"/><line style="stroke: #000000; stroke-width: 1.5;" x1="296.5" x2="296.5" y1="16" y2="52.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="8" x="273.5" y="38.9951">2</text><path d="M174,16.5 L174,41.6328 A0,0 0 0 0 174,41.6328 L223,41.6328 A0,0 0 0 0 223,41.6328 L223,34.5 L258.373,29 L223,26.5 L223,26.5 L213,16.5 L174,16.5 A0,0 0 0 0 174,16.5 " fill="#FBFB77" filter="url(#fmojk8ylot447)" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M213,16.5 L213,26.5 L223,26.5 L213,16.5 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="16" x="180" y="33.5669">int</text><text fill="#000000" font-family="sans-serif" font-size="13" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="8" x="200" y="33.5669">b</text><!--MD5=[a2c9b01e4426c8ea238dc5f48d660af3]
+@startuml
+node 1 as a
+note left of a : int <i>a</i>
+
+node 2 as b
+note left of b : int <i>b</i>
+@enduml
+
+PlantUML version 1.2020.17beta5(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

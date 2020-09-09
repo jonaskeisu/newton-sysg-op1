@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 theme: default
 footer: © 2020 BIT ADDICT
 style: | 
@@ -31,19 +31,18 @@ style: |
 
 ## Definition av fältvariabel
 
-En variabel som 
+En variabel som refererar till ett fält defineras med syntaxen:
 
 ```text
 <typ>[] <identifierare>;
 ```
 
-### Betydelse
-Identifieraren *&lt;identifierare>* är en ny variabel av typen referens till ett fält med element av typen *&lt;typ>*
+där ``<typ>`` är typen på elementen i fältet. 
 </div>
 
 ---
 
-## Exempel
+### Exempel
 
 ```text
 float[] testScores; // testScores är en ny referens till ett fält av floats
@@ -55,74 +54,60 @@ bool[] boxesChecked; // boxesChecked är en ny referens till ett fält av boolea
 
 ---
 
-# Konstruktion av nytt fält
+## Konstruktion av nytt fält
 
 - Ett nytt fält konstrueras med nyckelordet ``new``
 - Vid konstruktion anges längden på fältet och typen på elementen 
-- Ett fälts **längd** är antalet element i dess sekvens
+- Ett fälts *längd* är antalet element i fältet
 - Längden på ett fält bestäms vid konstruktion och kan ej förändras
 
 ---
 
-<div class="syntax">
-
 ## Konstruktion av nytt fält
 
-### Syntax
+Ett nytt fält konstrueras med syntaxen:
 
 ```text
 new <typ> [ <int> ]
 ```
 
-### Betydelse
-
-Uttryck för ett nytt fält med längd lika med värdet av ``<int>`` och element av typen ``<typ>`` som initieras till *default*-värdet.
-
-</div>
+där av ``<int>`` är ett uttryck av typen heltal som anger fältets längd och ``<typ>`` är typen på fältets element. Elementens värden initeras till default för aktuell elementtyp (``0`` för tal, ``false`` för ``bool``, ``null`` för referenstyper).
 
 ---
 
-## Exempel
+### Exempel
 
 ```
-int numberOfStudents = 25;
+const int numberOfStudents = 25;
 
-// konstruera ett nytt fält med 25 booleans initierade
-// till default (false).
+// tilldela passedTest en referens till ett nytt fält med 25 booleans 
+// initierade till default (false).
 
 bool[] passedTest = new bool[numberOfStudents]; 
 ```
 
 ---
 
-# Längden av ett fält
+## Längden av ett fält
 
-- Fält har en egenskap ``Length`` som är dess ***längd***
+- Fält har en egenskap ``Length`` som är dess *längd*
 - Egenskaper för objekt uttrycks med *punktnotation*
 
 ---
 
-<div class="syntax">
+## Syntax för längden av ett fält
 
-## Längden av ett fält
-
-### Syntax
+Syntaxen för längden på ett fält är: 
 
 ```text
-<variabel>.Length
+<fält>.Length
 ```
 
-där ``<variabel>`` är en variabel av typen fält.
-
-### Betydelse
-
-Ett uttryck för antalet element i fältet ``<variabel>``.
-
-</div>
+där ``<fält>`` är ett uttryck av typen fältreferens. 
 
 ---
 
-## Exempel
+### Exempel
 
 ```
 int numberOfStudents = 25;
@@ -134,37 +119,33 @@ int length = passedTest.Length; // length tilldelas värdet 25
 
 ---
 
-# Föränderligt vs. oföränderligt
-  - Något som kan förändras kallas ***mutable***
-  - Något som inte kan kan förändras kallas ***immutable***
-  - Ett fälts längd är t.ex. *immutable*
-  - En värdet på en variabel som inte är definierad som ``const`` är t.ex. *mutable* 
+## Föränderligt vs. oföränderligt
+  - Något som kan förändras kallas *mutable*
+  - Något som inte kan kan förändras kallas *immutable*
+  - Ett fälts längd är t.ex. immutable
+  - En sträng är immutable efter konstruktion
+    - Varken tecken eller längd kan ändras
+  - En värdet på en variabel är normalt mutable
 
 ---
-
-# Fältinitialiserare
-
-- En ***fältinitaliserare*** (***array initializer***) används för tilldela ett nytt fälts element förutbestämda värden
-
----
-
-<div class="syntax">
 
 ## Fältinitialiserare
-### Syntax
+
+- En *fältinitaliserare* (eng. *array initializer*) används för tilldela ett nytt fälts element förutbestämda värden
+
+---
+
+## Syntax för fältinitialiserare
+Syntaxen för en fältinitialiserare är:
 ```text
 { <elem 1>, <elem 2>, .., <elem k> }
 ```
 
 där *&lt;elem 1>*, *&lt;elem 2>*, .., *&lt;elem&nbsp;k>* är uttryck av samma typ. 
 
-### Betydelse
-En sekvens av värden *&lt;elem&nbsp;1>*, *&lt;elem&nbsp;2>*, .., *&lt;elem&nbsp;k>*.
-</div>
-
 ---
 
-## Exempel
+### Exempel
 
 | Typ | Exempel på initialiserare | 
 | :-: | --- | 
@@ -174,7 +155,7 @@ En sekvens av värden *&lt;elem&nbsp;1>*, *&lt;elem&nbsp;2>*, .., *&lt;elem&nbsp
 
 ---
 
-# Fältinialiserare är ej litteraler
+## Fältinialiserare är inte litteraler
 
 - Fältinitialiserare kan *endast* användas för initiering av fält
 - Följande är <span class="wrong">inte</span> giltig kod:
@@ -187,23 +168,18 @@ a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
 
 ---
 
-<div class="syntax">
-
 ## Initering av nytt fält
-### Syntax
+Syntaxen för att initalisera ett nytt fält med en fältinitialiserare är:
+
 ```text
 new <typ> [] <fältinitialiserare>
 ```
 
 där ``<fältinitialiserare>`` är en fältinitialiserare med element av typen ``<typ>``. 
 
-### Betydelse
-Referens till ett nytt fält med samma längd *k* och elementvärden som ``<fältlitteral>``.
-</div>
-
 ---
 
-## Exempel
+### Exempel
 
 | Fälttyp | Exempel på initieralisering | 
 | :-: | --- | 
@@ -215,7 +191,7 @@ Referens till ett nytt fält med samma längd *k* och elementvärden som ``<fäl
 
 ---
 
-# Implicit elementtyp
+## Implicit elementtyp
 
 - Ett fälts elementyp är *implicit* från dess initialiserare om:
   - Ett element i initialiseraren har en typ sådan att för alla andra element:
@@ -225,7 +201,7 @@ Referens till ett nytt fält med samma längd *k* och elementvärden som ``<fäl
 
 ---
 
-## Exempel
+### Exempel
 
 | Exempel på fältinitalisering | Implicit typ | 
 | --- | :-: | 
@@ -235,13 +211,13 @@ Referens till ett nytt fält med samma längd *k* och elementvärden som ``<fäl
 
 ---
 
-# Initiering av fält vid variabeldefinition
+## Initiering av fält vid variabeldefinition
 
 Om en fältvariabel vid definition initeras till ett nytt fält med initialiserare och typen på elementet är angiven i variabelns typ så kan ``new <type>[]`` utelämnas i högerledet. 
 
 ---
 
-## Exempel
+### Exempel
 
 
 Följande två satser har samma betydelse:
@@ -265,32 +241,27 @@ string[] employeNames = new string[] { "Anna Nylander", "Bo Ekfors" };
 
 ---
 
-# Indexiering
+## Indexiering
 
-- ***Indexiering*** är ett uttryck för ett fälts element med ett specifikt index
+- *Indexiering* är ett uttryck för ett fälts element med ett specifikt index
 - Ett indexerat element kan: 
   - användas som ett uttryck för elementets värde
   - tilldelas ett nytt värde
 
 ---
 
-<div class="syntax">
-
 ## Indexiering av fält
-### Syntax
+
+Syntaxen för indexiering av ett fält är:
 ```text
-<variabel> [ <int> ]
+<fält> [ <int> ]
 ```
 
-där ``<variabel>`` är en fältvariabel och ``<int>`` är ett utryck av typen ``int``. 
-
-### Betydelse
-Elementet i fältet ``<variabel>`` med index lika med värdet av ``<int>``.
-</div>
+där ``<fält>`` är ett uttryck av typen fältreferens och ``<int>`` är ett heltalsuttryck som anger index för ett element. 
 
 ---
 
-## Exempel 
+### Exempel 
 
 ```text
 string[] array = { "Anna", "Jimmy", "Bo" };
@@ -313,15 +284,25 @@ int d = array[3];
   - ``int``, ``double``, ``bool``, ``char``, ...
 - En variabel av värdetyp ``T`` lagrar ett värde av typen ``T`` på stacken 
 
-<center>
+<br/>
 
-```plantuml
-@startuml
-node 42 as age
-note left of age : int <i>age</i>
+---
 
-@enduml
+### Exempel
+
+Koden nedan:
+
+```cs 
+int age = 42;
 ```
+
+definierar en heltalsvariabel av värdetyp och initerar den med värdet 42.
+
+<br/>
+
+<center style="zoom: 150%">
+
+![värdetyp](fig/värdetyp.svg)
 
 </center>
 
@@ -331,25 +312,25 @@ note left of age : int <i>age</i>
 
 - Fältvariabler har inte värdetyp utan *referenstyp*
 - En variabel av referenstyp ``T`` lagrar en referens till ett värde av typen ``T`` på stacken
-- Det refererade värdet ligger i dynamiskt allokerat minne  i heapen
+- Det refererade värdet ligger i dynamiskt allokerat minne i heapen
 
-<center>
+---
 
-```plantuml
-@startuml
+### Exempel
 
-node "(<i>referens</i>)"  as ref
+Koden nedan:
 
-note left of ref : int[] <i>numbers</i>
-
-cloud "heap" {
-    node "{ 1, 2, 3, 4 }" as value
-}
-
-ref -> value
-
-@enduml
+```cs
+int[] numbers = { 1, 2, 3, 4 };
 ```
+
+definierar en variabel av typen referens till ett heltalsfält. 
+
+<br/>
+
+<center style="zoom: 150%">
+
+![referenstyp](fig/referenstyp.svg)
 
 </center>
 
@@ -361,44 +342,31 @@ ref -> value
 int a = 1;
 int b = 2;
 ```
+<center>
 
-```plantuml
-@startuml
-node 1 as a
-note left of a : int <i>a</i>
+![tilldelning av värden](fig/tilldelning-av-värden-1.svg)
 
-node 2 as b
-note left of b : int <i>b</i>
-@enduml
-```
+</center>
 
 ```cs 
 b = a;
 ```
 
-```plantuml
-@startuml
-node 1 as a
-note left of a : int <i>a</i>
+<center>
 
-node 1 as b
-note left of b : int <i>b</i>
-@enduml
-```
+![tilldelning av värden](fig/tilldelning-av-värden-2.svg)
+
+</center>
 
 ```cs 
 a = 3;
 ```
 
-```plantuml
-@startuml
-node 3 as a
-note left of a : int <i>a</i>
+<center>
 
-node 2 as b
-note left of b : int <i>b</i>
-@enduml
-```
+![tilldelning av värden](fig/tilldelning-av-värden-3.svg)
+
+</center>
 
 ---
 
@@ -409,74 +377,33 @@ int[] a = { 1, 2, 3 };
 int[] b = { 4, 5, 6 };
 ```
 
+<center style="zoom: 95%">
 
-```plantuml
-@startuml
-skinparam ranksep 1
-node "(<i>referens</i>)"  as aref
-note left of aref : int[] <i>a</i>
+![tilldelning av fält](fig/tilldelning-av-fält-1.svg)
 
-node "(<i>referens</i>)"  as bref
-note left of bref : int[] <i>b</i>
-
-cloud "heap" {
-    node "{ 1, 2, 3 }" as aval
-    node "{ 4, 5, 6 }" as bval
-}
-
-aref --> aval
-bref --> bval
-
-@enduml
-```
+</center>
 
 ```cs 
 b = a;
 ```
 
-```plantuml
-@startuml
-skinparam ranksep 1
-node "(<i>referens</i>)"  as aref
-note left of aref : int[] <i>a</i>
+<center style="zoom: 95%">
 
-node "(<i>referens</i>)"  as bref
-note left of bref : int[] <i>b</i>
+![tilldelning av fält](fig/tilldelning-av-fält-2.svg)
 
-cloud "heap" {
-    node "{ 1, 2, 3 }" as aval
-    node "{ 4, 5, 6 }" as bval
-}
+</center>
 
-aref --> aval
-bref --> aval
-
-@enduml
-```
+---
 
 ```cs
 a[1] = 7;
 ```
 
-```plantuml
-@startuml
-skinparam ranksep 1
-node "(<i>referens</i>)"  as aref
-note left of aref : int[] <i>a</i>
+<center>
 
-node "(<i>referens</i>)"  as bref
-note left of bref : int[] <i>b</i>
+![tilldelning av fält](fig/tilldelning-av-fält-3.svg)
 
-cloud "heap" {
-    node "{ 1, 7, 3 }" as aval
-    node "{ 4, 5, 6 }" as bval
-}
-
-aref --> aval
-bref --> aval
-
-@enduml
-```
+</center>
 
 ---
 
@@ -485,17 +412,13 @@ bref --> aval
 ```cs 
 int a = 1;
 int b = 1; 
+
 int[] c = {1, 2};
 int[] d = {1, 2};
-if (a == b)
-    Console.WriteLine("a == b");
-else
-    Console.WriteLine("a != b");
 
-if (c == d)
-    Console.WriteLine("c == d");
-else
-    Console.WriteLine("c != d");
+if (a == b) Console.WriteLine("a == b"); else Console.WriteLine("a != b");
+
+if (c == d) Console.WriteLine("c == d"); else Console.WriteLine("c != d");
 ```
 
 Utskrift:
@@ -503,28 +426,39 @@ Utskrift:
 a == b
 c != d
 ```
----
-
-# Design vs. Implementation
-
- - Mjukvaruutveckling kan delas upp i två delar:
-   - ***Design*** är att bestäm användarfunktioner och gränssnitt
-   - ***Implementation*** är att skriva kod som uppfyller designen:
-     - Bestämma hur data lagras
-     - Skriv kod för funktionerna 
- - Tidigare under denna lektion har vi t.ex. beskrivit *designen* av fälttypen
- - Härnäst beskrivs fälttypens *implementation*
 
 ---
 
-# Lagring av fält i minnet
+## Null-referens
+
+- Nyckelord ``null`` är värdet av en referens som inte refererar till något värde.
+- Försöker man använda ett värde via en ``null``-referens så genereras ett fel. 
+
+--- 
+
+### Exempel
+
+```cs
+string name = null;
+int length = name.Length;
+```
+
+```console
+> dotnet run myProject
+Unhandled exception. System.NullReferenceException: 
+    Object reference not set to an instance of an object.
+```
+
+---
+
+## Lagring av fält i minnet
 
 - Ett fälts element lagras sekventiellt i minnet
 - Alla element har samma typ och kräver lika många byte i minnet
 
 ---
 
-## Exempel
+### Exempel
 
 <div style="display: flex; margin-top: 1em;">
 
@@ -568,35 +502,34 @@ kan lagras i minnet med start på adress 1000 enligt tabell till höger med.
 
 --- 
 
-# Implementation av fältindexiering
+## Implementation av fältindexiering
 
 - För alla fält gäller att, om: 
   - ``start`` är startadressen för fältets första element i minnet, och 
   - ``size`` är antalet bytes för att lagra ett element
 - .. så är startadressen för element med index ``i``:
   -  ``start + i * size``
-- Därför kan ett program genom index och enkel aritmetik lika lätt läsa/skriva till minnet för vilket element som helst i fältet.
+- Därför kan ett program via index och enkel aritmetik lika lätt läsa/skriva till minnet för vilket element som helst i fältet.
 
 ---
 
-# Flerdimensionella fält
+## Flerdimensionella fält
 
 - Ett fält kan ha flera dimensioner
 - Extra dimensioner separeras med komma mellan hakparenterserna
-- Antalet dimensioner för ett fält kallas fältets ***rank***
+- Antalet dimensioner för ett fält kallas fältets *rank*
 
 ---
 
 <div class="syntax">
 
 ## Definition av flerdimentionell fältvariabel
-### Syntax
+Syntaxen för att definiera en variabel som lagrar en referens till ett flerdimensionellt fält är:
 ```text
 <typ>[ , , ..] <identifierare>;
 ```
 
-### Betydelse
-Identifieraren *&lt;identifierare>* är en ny variabel av typen referens till ett flerdimensionellt fält med element av typen *&lt;typ>* med rank lika med antalet kommatecken mellan hakparenteserna plus 1.
+där *&lt;typ>* är typen för elementen och rank är lika med antalet kommatecken mellan hakparenteserna plus 1.
 </div>
 
 --- 
@@ -610,7 +543,7 @@ int[,,,,] secondArray; // secondArray är ett femdimensionellt fält
 
 --- 
 
-# Konstruktion av flerdimensionellt fält
+## Konstruktion av flerdimensionellt fält
 
 - Ett nytt fledimensionellt fält konstrueras också med nyckelordet ``new``
 - Flerdimensionella fält kan ha olika längd i varje dimension
@@ -618,7 +551,7 @@ int[,,,,] secondArray; // secondArray är ett femdimensionellt fält
 
 --- 
 
-# Exempel
+### Exempel
 
 ```text
 // 3 sekvenser av 4 booleans, alltså totalt 3 x 4 = 12 element 
@@ -629,7 +562,7 @@ int[,,] tableSet = new int[2, 3, 6];
 ```
 ---
 
-# Rank och längd på dimension
+## Rank och längd på dimension
 
 - Flerdimensionella fält har en: 
   - Egenskap ``Rank`` som är dess rank
@@ -639,47 +572,31 @@ int[,,] tableSet = new int[2, 3, 6];
 
 ---
 
-<div class="syntax">
-
 ## Rank av ett fält
 
-### Syntax
+Syntaxen för rank av ett flerdimensionellt fält är:
 
 ```text
-<variabel>.Rank
+<fält>.Rank
 ```
 
-där ``<variabel>`` är en variabel av typen fält.
-
-### Betydelse
-
-Ett uttryck för ranken av fältet ``<variabel>``.
-
-</div>
+där ``<fält>`` är en variabel av typen (referens till) flerdimensionellt fält.
 
 ---
 
-<div class="syntax">
-
 ## Längd av ett flerdimensionellt fält
 
-### Syntax
+Syntaxen för längden i en given dimension för ett flerdimensionellt fält är:
 
 ```text
-<variabel>.GetLength( <int> )
+<fält>.GetLength( <int> )
 ```
 
-där ``<variabel>`` är en variabel av typen fält .
-
-### Betydelse
-
-Ett uttryck för längden av fältet ``<variabel>`` i dimensionen med index lika med värdet av ``<int>``.
-
-</div>
+där ``<fält>`` är ett flerdimensionellt fält och ``<int>`` är ett heltalsuttyck som anger aktuell dimension.
 
 --- 
 
-# Exempel
+### Exempel
 
 ```text
 int[,,] tableSet = new int[2, 3, 6];
@@ -698,7 +615,7 @@ int length3 = tableSet.GetLength(3);
 ---
 
 
-# Initering av flerdimensionella fält
+## Initering av flerdimensionella fält
 
 - Flerdimensionella fält initeras med nästade fältinitierare
 - ***Nästade*** betyder att objekt av samma sort ligger innuti varandra i flera lager
@@ -706,7 +623,7 @@ int length3 = tableSet.GetLength(3);
 
 ---
 
-# Exempel
+### Exempel
 
 <div style="zoom: 0.85">
 
@@ -734,7 +651,7 @@ int[,,] tableSet = new int[2,3,6] {
 
 ---
 
-# Tillämpningar av flerdimensionella fält
+## Tillämpningar av flerdimensionella fält
 
 - Tvådimensionella fält används för att lagra data med rektangulärt layout
   - T.ex. tabeller, bilder, shackbräde
@@ -745,7 +662,7 @@ int[,,] tableSet = new int[2,3,6] {
 
 ---
 
-# Exempel
+### Exempel
 
 En animation med 25 bildrutor om 640 x 480 pixlar där varje pixel har en färgkod av typen ``int`` kan lagras i följande tredimensionella fält:
 
@@ -764,14 +681,14 @@ animation[7, 16, 327] = green;
 
 --- 
 
-# Fält av fält
+## Fält av fält
 
 - Fält kan ha vilken elementtyp som helst
 - Det är alltså möjligt att skapa fält av fält
 
 ---
 
-## Exempel
+### Exempel
 
 ```text
 int[][] array1; // array1 är ett fält av int[]
@@ -781,7 +698,7 @@ double[][] array2; // array2 är ett fält av double[]
 
 --- 
 
-# Initering och indexering av fält av fält
+## Initering och indexering av fält av fält
 
 ```text
 int[][] a = { new [] { 1, 2}, new [] { 3, 4, 5 } };
@@ -792,7 +709,7 @@ int d = a[0][2]; // FEL vid exekvering! index out of bounds
 
 ---
 
-# Fält av fält vs. tvådimensionella fält
+## Fält av fält vs. tvådimensionella fält
 
 - Skillnaden på ett fält av fält mot tvådimenssionella fält:
   - Fältet har rank 1, inte 2
@@ -810,13 +727,52 @@ int d = a[0][2]; // FEL vid exekvering! index out of bounds
 
 ---
 
-# Loopar
+## Loopar
 
-- Loopar används när kod behöver upprepas för en sekvens av data
+- Loopar används när samma kod behöver utföras upprepade gånger
 
 ---
 
-# While-loop
+### Exempel
+
+Koden nedan:
+
+```cs
+const int numberOfPersons = 100; 
+string firstName = new string[numberOfPersons];
+string lastName = new string[numberOfPersons];
+... // kod som fyller fälten med namn
+
+// Skriv ut lista med alla namn
+Console.WriteLine("Person 1: {firstName[0]} {lastName[0]}");
+Console.WriteLine("Person 2: {firstName[1]} {lastName[1]}");
+... // 96 nästan likadana rader
+Console.WriteLine("Person 99: {firstName[98]} {lastName[98]}");
+Console.WriteLine("Person 100: {firstName[99]} {lastName[99]}");
+```
+
+---
+
+kan med en loop skrivas: 
+
+```cs
+const int numberOfPersons = 100; 
+string firstName = new string[numberOfPersons];
+string lastName = new string[numberOfPersons];
+... // kod som fyller fälten med namn
+
+// Skriv ut lista med alla namn
+for (int i = 0; i < numberOfPersons; ++i)
+{
+    Console.WriteLine("Person {i + 1}: {firstName[i]} {lastName[i]}");
+}
+```
+
+Hundra kodrader kunde ersättas med fyra. 
+
+---
+
+## While-loop
 
 - En while-loop är den enklaste typen av loop
 - Upprepar en sats så länge ett villkor är uppfyllt
@@ -824,37 +780,26 @@ int d = a[0][2]; // FEL vid exekvering! index out of bounds
 
 ---
 
-<div class="syntax">
-
 ## While-sats
 
-### Syntax
+Syntaxen för en ``while``-loop är:
 ```text
 while ( <villkor> )
   <sats>
 ```
 
-där ``<villkor>`` är ett uttryck av typen ``bool``.
-
-### Betydelse
-Utvärdera ``<villkor>`` och exekvera sedan ``<sats>`` så länge som villkorets värde är *sant*. 
-
-</div>
-
 ---
 
 # Exempel
 
-Skriv ut antalet 'a' i början på en sträng:
+Skriv ut antalet ``a`` i början på en text:
 
 ```text
-text = "aaababcca";
+string text = "aaababcca";
 int count = 0;
-int index = 0; 
 
-while (index < text.Length && text[index] == 'a') {
+while (count < text.Length && text[count] == 'a') {
     ++count;
-    ++index; 
 }
 
 Console.WriteLine(count);
@@ -862,7 +807,7 @@ Console.WriteLine(count);
 
 ---
 
-# Do-while-loop
+## Do-while-loop
 
 - En do-while-loop liknar en while-loop men exekverar
 - Skillnaden är att den exekverar satsen först och testar villkoret efteråt
@@ -871,50 +816,41 @@ Console.WriteLine(count);
 
 ---
 
-<div class="syntax">
-
 ## Do-while-sats
 
-### Syntax
+Syntaxen för en ``do-while``-sats är:
 ```text
 do <sats>
 while ( <villkor> );
 ```
 
-där ``<villkor>`` är ett uttryck av typen ``bool``.
-
-### Betydelse
-Exekvera sats ``<sats>``, utvärdera ``<villkor>`` och upprepa så länge som villkorets värde är *sant*. 
-
-</div>
-
 ---
 
-## Exempel
+### Exempel
 
-Läs och summera tal från consolen så länge talet inte är negativt: 
+Be använder mata in ett lösenord till korrekt lösenord är angivet:
 
 ```text
-int sum = 0;
-int number = 0;
+string password; 
 
 do {
-    sum += number; 
-    number = int.Parse(Console.ReadLine());
-} while (number >= 0);
+    Console.WriteLine("Ange lösenord")
+    password = Console.ReadLine();
+} while (!password.Equals("password123"));
 
-Console.WriteLine($"sum: {sum}");
+Console.WriteLine("Korrekt lösenord");
 ```
 
 ---
 
-# Loop över fält
+## Loop över sekvensen
 
-- Loopar används ofta för att processa element i fält
+- Loopar används ofta för att processa en sekvens av element.
+- Kallas att *iterera* över elementen. 
 
 ---
 
-## Exempel
+### Exempel
 
 Summera alla tal i ett fält:
 
@@ -933,7 +869,7 @@ while(index < data.Length) { // stopvillkor
 
 ---
 
-## Ett till exempel
+### Exempel
 
 Hitta största talet på udda index i ett fält:
 
@@ -954,7 +890,7 @@ while(index < data.Length) { // stopvillkor
 
 ---
 
-# Motivationen bakom for-loopen
+## Motivationen bakom for-loopen
 
 - Det är mycket vanligt med loopar med strukturen:
   - Initiering av en indexvariabel till en startposition
@@ -968,21 +904,15 @@ while(index < data.Length) { // stopvillkor
 
 --- 
 
-
-<div class="syntax" style="zoom: 0.7">
-
 ## For-sats
 
-### Syntax
+Syntexen för en ``for``-loop använder nyckelordet ``for`` och är: 
 ```text
 for ( <initering> ; <stopvillkor> ; <stegning> ) 
   <sats>
 ```
+med samma betydelse som: 
 
-där ``<villkor>`` är ett uttryck av typen ``bool`` och ``<initering>`` och ``<stegning>`` är en enkel satser.
-
-### Betydelse
-Samma betydelse som: 
 ```text
 { 
   <initiering> ;
@@ -992,11 +922,10 @@ Samma betydelse som:
   }
 }
 ```
-</div>
 
 ---
 
-## Exempel
+### Exempel
 
 Summera alla tal i ett fält:
 
@@ -1011,9 +940,9 @@ for (int i = 0; i < data.Length; ++i) {
 
 ---
 
-## Ett till exempel
+### Exempel
 
-Hitta största talet på udda index i ett fält:
+Hitta största talet med index i ett fält:
 
 ```text 
 double[] data = { 1.2, 7.5, 3.8, 10.5, 5.3, 4.7, 0.2 };
@@ -1028,9 +957,65 @@ for (int i = 1; i < data.Length; i += 2)
 
 ---
 
-# Använd for-satsen på rätt sätt
+## Använd for-satsen på rätt sätt
 
 - Använd enligt sitt syfte gör ``for``-satsen koden lätt att läsa
 - En ``for``-sats som används på annat sätt gör koden missledande!
 - Använd ``for``-satser endast i avsett syfte! 
 
+---
+
+## Break
+
+Nyckelordet ``break`` får programflödet att hoppa ut ur aktuell loop. 
+
+--- 
+
+### Exempel
+
+```cs
+int[] numbers = new int[100];
+... // kod som fyller fältet
+const int key = 17; 
+// hitta index för första förekomsten av 'key' i fältet
+index = 0; 
+for (int index = 0; index < numbers.Length; ++index) 
+{
+    if (numbers[index] == key) 
+    {
+        break;
+    }
+} 
+bool foundKey = index != numbers.Length;
+```
+
+---
+
+## Continue
+
+Nyckelordet ``continue`` får programflödet att gå direkt till början på nästa iteration i aktuell loop.
+
+---
+
+### Exempel 
+
+```cs
+string[] names = new string [100];
+... // kod som fyller fältet med värden
+// Skriv ut kommaseparerad lista med alla namn
+string nameList = "";
+index = 0; 
+while(true){
+    string name = names[index];
+
+    if (name == null || name.Equals("")) 
+        continue;
+
+    nameList += name;
+
+    if (++index == length) 
+        break;
+    else 
+        nameList += ", ";
+}
+```

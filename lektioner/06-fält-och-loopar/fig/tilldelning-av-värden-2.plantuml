@@ -1,0 +1,7 @@
+@startuml tilldelning-av-värden-2
+node 1 as a
+note left of a : int <i>a</i>
+
+node 1 as b
+note left of b : int <i>b</i>
+@enduml

@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>06-fält-och-loopar.notes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div class="title-page">
+<h1 id="f%C3%A4lt-och-loopar">Fält och loopar</h1>
+</div>
+<hr>
+<h2 id="f%C3%A4lt">Fält</h2>
+<ul>
+<li>Ett <em>fält</em> (eng. <em>array</em>) är en sekvenser av element med konstant längd</li>
+<li>Elementen i ett fält är värden av <em>samma typ</em></li>
+</ul>
+<hr>
+<div class="syntax">
+<h2 id="definition-av-f%C3%A4ltvariabel">Definition av fältvariabel</h2>
+<p>En variabel som refererar till ett fält defineras med syntaxen:</p>
+<pre class="hljs"><code><div>&lt;typ&gt;[] &lt;identifierare&gt;;
+</div></code></pre>
+<p>där <code>&lt;typ&gt;</code> är typen på elementen i fältet.</p>
+</div>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>float[] testScores; // testScores är en ny referens till ett fält av floats
+
+string[] employeeNames; // employeeNames är en ny referens till ett fält av strängar
+
+bool[] boxesChecked; // boxesChecked är en ny referens till ett fält av booleans
+</div></code></pre>
+<hr>
+<h2 id="konstruktion-av-nytt-f%C3%A4lt">Konstruktion av nytt fält</h2>
+<ul>
+<li>Ett nytt fält konstrueras med nyckelordet <code>new</code></li>
+<li>Vid konstruktion anges längden på fältet och typen på elementen</li>
+<li>Ett fälts <em>längd</em> är antalet element i fältet</li>
+<li>Längden på ett fält bestäms vid konstruktion och kan ej förändras</li>
+</ul>
+<hr>
+<h2 id="konstruktion-av-nytt-f%C3%A4lt">Konstruktion av nytt fält</h2>
+<p>Ett nytt fält konstrueras med syntaxen:</p>
+<pre class="hljs"><code><div>new &lt;typ&gt; [ &lt;int&gt; ]
+</div></code></pre>
+<p>där av <code>&lt;int&gt;</code> är ett uttryck av typen heltal som anger fältets längd och <code>&lt;typ&gt;</code> är typen på fältets element. Elementens värden initeras till default för aktuell elementtyp (<code>0</code> för tal, <code>false</code> för <code>bool</code>, <code>null</code> för referenstyper).</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>const int numberOfStudents = 25;
+
+// tilldela passedTest en referens till ett nytt fält med 25 booleans 
+// initierade till default (false).
+
+bool[] passedTest = new bool[numberOfStudents]; 
+</div></code></pre>
+<hr>
+<h2 id="l%C3%A4ngden-av-ett-f%C3%A4lt">Längden av ett fält</h2>
+<ul>
+<li>Fält har en egenskap <code>Length</code> som är dess <em>längd</em></li>
+<li>Egenskaper för objekt uttrycks med <em>punktnotation</em></li>
+</ul>
+<hr>
+<h2 id="syntax-f%C3%B6r-l%C3%A4ngden-av-ett-f%C3%A4lt">Syntax för längden av ett fält</h2>
+<p>Syntaxen för längden på ett fält är:</p>
+<pre class="hljs"><code><div>&lt;fält&gt;.Length
+</div></code></pre>
+<p>där <code>&lt;fält&gt;</code> är ett uttryck av typen fältreferens.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>int numberOfStudents = 25;
+
+bool[] passedTest = new bool[numberOfStudents]; 
+
+int length = passedTest.Length; // length tilldelas värdet 25
+</div></code></pre>
+<hr>
+<h2 id="f%C3%B6r%C3%A4nderligt-vs-of%C3%B6r%C3%A4nderligt">Föränderligt vs. oföränderligt</h2>
+<ul>
+<li>Något som kan förändras kallas <em>mutable</em></li>
+<li>Något som inte kan kan förändras kallas <em>immutable</em></li>
+<li>Ett fälts längd är t.ex. immutable</li>
+<li>En sträng är immutable efter konstruktion
+<ul>
+<li>Varken tecken eller längd kan ändras</li>
+</ul>
+</li>
+<li>En värdet på en variabel är normalt mutable</li>
+</ul>
+<hr>
+<h2 id="f%C3%A4ltinitialiserare">Fältinitialiserare</h2>
+<ul>
+<li>En <em>fältinitaliserare</em> (eng. <em>array initializer</em>) används för tilldela ett nytt fälts element förutbestämda värden</li>
+</ul>
+<hr>
+<h2 id="syntax-f%C3%B6r-f%C3%A4ltinitialiserare">Syntax för fältinitialiserare</h2>
+<p>Syntaxen för en fältinitialiserare är:</p>
+<pre class="hljs"><code><div>{ &lt;elem 1&gt;, &lt;elem 2&gt;, .., &lt;elem k&gt; }
+</div></code></pre>
+<p>där <em>&lt;elem 1&gt;</em>, <em>&lt;elem 2&gt;</em>, .., <em>&lt;elem k&gt;</em> är uttryck av samma typ.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Typ</th>
+<th>Exempel på initialiserare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>double[]</code></td>
+<td><code> { 46.5, 34.0, 36.0, 28.5 }</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>string[]</code></td>
+<td><code> { &quot;Anna Nylander&quot;, &quot;Bo Ekfors&quot; }</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>bool[]</code></td>
+<td><code> { false, true, true, false, true }</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="f%C3%A4ltinialiserare-%C3%A4r-inte-litteraler">Fältinialiserare är inte litteraler</h2>
+<ul>
+<li>Fältinitialiserare kan <em>endast</em> användas för initiering av fält</li>
+<li>Följande är <span class="wrong">inte</span> giltig kod:</li>
+</ul>
+<pre class="hljs"><code><div>int[] a; 
+... 
+a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
+</div></code></pre>
+<hr>
+<h2 id="initering-av-nytt-f%C3%A4lt">Initering av nytt fält</h2>
+<p>Syntaxen för att initalisera ett nytt fält med en fältinitialiserare är:</p>
+<pre class="hljs"><code><div>new &lt;typ&gt; [] &lt;fältinitialiserare&gt;
+</div></code></pre>
+<p>där <code>&lt;fältinitialiserare&gt;</code> är en fältinitialiserare med element av typen <code>&lt;typ&gt;</code>.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Fälttyp</th>
+<th>Exempel på initieralisering</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>double[]</code></td>
+<td><code>new double[] { 46.5, 34.0, 36.0, 28.5}</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>string[]</code></td>
+<td><code>new string[] { &quot;Anna Nylander&quot;, &quot;Bo Ekfors&quot;}</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>bool[]</code></td>
+<td><code>new double[] { false, true, true, false, true }</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>Notera att längden på fältet ej anges mellan hakparenterserna eftersom längden är implicit från antalet element i litteralen.</em></p>
+<hr>
+<h2 id="implicit-elementtyp">Implicit elementtyp</h2>
+<ul>
+<li>Ett fälts elementyp är <em>implicit</em> från dess initialiserare om:
+<ul>
+<li>Ett element i initialiseraren har en typ sådan att för alla andra element:
+<ol>
+<li>Elementet har samma typ, eller</li>
+<li>Implicit kan konverteras till typen.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>En implicit elementtyp kan utelämnas vid konstruktion av fält med <code>new</code></li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<table>
+<thead>
+<tr>
+<th>Exempel på fältinitalisering</th>
+<th style="text-align:center">Implicit typ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>new [] { true, true, false, true, true }</code></td>
+<td style="text-align:center"><code>bool[]</code></td>
+</tr>
+<tr>
+<td><code>new [] { 46.5, 34, 36, 28.5 }</code></td>
+<td style="text-align:center"><code>double[]</code></td>
+</tr>
+<tr>
+<td><code>new [] { 123, 4294967296L, 34 }</code></td>
+<td style="text-align:center"><code>long[]</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="initiering-av-f%C3%A4lt-vid-variabeldefinition">Initiering av fält vid variabeldefinition</h2>
+<p>Om en fältvariabel vid definition initeras till ett nytt fält med initialiserare och typen på elementet är angiven i variabelns typ så kan <code>new &lt;type&gt;[]</code> utelämnas i högerledet.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Följande två satser har samma betydelse:</p>
+<pre class="hljs"><code><div>double[] testScore = { 8, 16.5, 12, 17, 20, 11.5 };
+</div></code></pre>
+<pre class="hljs"><code><div>double[] testScore = new double[] { 8, 16.5, 12, 17, 20, 11.5 };
+</div></code></pre>
+<p>Följande två satser har också samma betydelse:</p>
+<pre class="hljs"><code><div>string[] employeNames = { &quot;Anna Nylander&quot;, &quot;Bo Ekfors };
+</div></code></pre>
+<pre class="hljs"><code><div>string[] employeNames = new string[] { &quot;Anna Nylander&quot;, &quot;Bo Ekfors&quot; };
+</div></code></pre>
+<hr>
+<h2 id="indexiering">Indexiering</h2>
+<ul>
+<li><em>Indexiering</em> är ett uttryck för ett fälts element med ett specifikt index</li>
+<li>Ett indexerat element kan:
+<ul>
+<li>användas som ett uttryck för elementets värde</li>
+<li>tilldelas ett nytt värde</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="indexiering-av-f%C3%A4lt">Indexiering av fält</h2>
+<p>Syntaxen för indexiering av ett fält är:</p>
+<pre class="hljs"><code><div>&lt;fält&gt; [ &lt;int&gt; ]
+</div></code></pre>
+<p>där <code>&lt;fält&gt;</code> är ett uttryck av typen fältreferens och <code>&lt;int&gt;</code> är ett heltalsuttryck som anger index för ett element.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>string[] array = { &quot;Anna&quot;, &quot;Jimmy&quot;, &quot;Bo&quot; };
+
+string a = array[0]; // a tilldelas &quot;Anna&quot;
+string b = array[1]; // b tilldelas &quot;Jimmy&quot;
+string c = array[3]; // c tilldelas &quot;Bo&quot;
+
+array[1] = &quot;Karl&quot;; // array innehåller nu { &quot;Anna&quot;, &quot;Karl&quot;, &quot;Bo&quot; }
+
+// Följande rad ger FEL vid exekvering! (index out of bounds)
+int d = array[3]; 
+</div></code></pre>
+<hr>
+<h2 id="v%C3%A4rdetyper">Värdetyper</h2>
+<ul>
+<li>Alla typer som diskuterats före fält är <em>värdetyper</em> (utom <code>string</code>)
+<ul>
+<li><code>int</code>, <code>double</code>, <code>bool</code>, <code>char</code>, ...</li>
+</ul>
+</li>
+<li>En variabel av värdetyp <code>T</code> lagrar ett värde av typen <code>T</code> på stacken</li>
+</ul>
+<br/>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> age = <span class="hljs-number">42</span>;
+</div></code></pre>
+<p>definierar en heltalsvariabel av värdetyp och initerar den med värdet 42.</p>
+<br/>
+<center style="zoom: 150%">
+<p><img src="fig/värdetyp.svg" alt="värdetyp"></p>
+</center>
+<hr>
+<h2 id="referenstyper">Referenstyper</h2>
+<ul>
+<li>Fältvariabler har inte värdetyp utan <em>referenstyp</em></li>
+<li>En variabel av referenstyp <code>T</code> lagrar en referens till ett värde av typen <code>T</code> på stacken</li>
+<li>Det refererade värdet ligger i dynamiskt allokerat minne i heapen</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[] numbers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> };
+</div></code></pre>
+<p>definierar en variabel av typen referens till ett heltalsfält.</p>
+<br/>
+<center style="zoom: 150%">
+<p><img src="fig/referenstyp.svg" alt="referenstyp"></p>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;
+</div></code></pre>
+<center>
+<p><img src="fig/tilldelning-av-värden-1.svg" alt="tilldelning av värden"></p>
+</center>
+<pre class="hljs"><code><div>b = a;
+</div></code></pre>
+<center>
+<p><img src="fig/tilldelning-av-värden-2.svg" alt="tilldelning av värden"></p>
+</center>
+<pre class="hljs"><code><div>a = <span class="hljs-number">3</span>;
+</div></code></pre>
+<center>
+<p><img src="fig/tilldelning-av-värden-3.svg" alt="tilldelning av värden"></p>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[] a = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> };
+<span class="hljs-keyword">int</span>[] b = { <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span> };
+</div></code></pre>
+<center style="zoom: 95%">
+<p><img src="fig/tilldelning-av-fält-1.svg" alt="tilldelning av fält"></p>
+</center>
+<pre class="hljs"><code><div>b = a;
+</div></code></pre>
+<center style="zoom: 95%">
+<p><img src="fig/tilldelning-av-fält-2.svg" alt="tilldelning av fält"></p>
+</center>
+<hr>
+<pre class="hljs"><code><div>a[<span class="hljs-number">1</span>] = <span class="hljs-number">7</span>;
+</div></code></pre>
+<center>
+<p><img src="fig/tilldelning-av-fält-3.svg" alt="tilldelning av fält"></p>
+</center>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">1</span>; 
+
+<span class="hljs-keyword">int</span>[] c = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>};
+<span class="hljs-keyword">int</span>[] d = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>};
+
+<span class="hljs-keyword">if</span> (a == b) Console.WriteLine(<span class="hljs-string">"a == b"</span>); <span class="hljs-keyword">else</span> Console.WriteLine(<span class="hljs-string">"a != b"</span>);
+
+<span class="hljs-keyword">if</span> (c == d) Console.WriteLine(<span class="hljs-string">"c == d"</span>); <span class="hljs-keyword">else</span> Console.WriteLine(<span class="hljs-string">"c != d"</span>);
+</div></code></pre>
+<p>Utskrift:</p>
+<pre class="hljs"><code><div>a == b
+c != d
+</div></code></pre>
+<hr>
+<h2 id="null-referens">Null-referens</h2>
+<ul>
+<li>Nyckelord <code>null</code> är värdet av en referens som inte refererar till något värde.</li>
+<li>Försöker man använda ett värde via en <code>null</code>-referens så genereras ett fel.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span> name = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">int</span> length = name.Length;
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">&gt;</span><span class="bash"> dotnet run myProject</span>
+Unhandled exception. System.NullReferenceException: 
+    Object reference not set to an instance of an object.
+</div></code></pre>
+<hr>
+<h2 id="lagring-av-f%C3%A4lt-i-minnet">Lagring av fält i minnet</h2>
+<ul>
+<li>Ett fälts element lagras sekventiellt i minnet</li>
+<li>Alla element har samma typ och kräver lika många byte i minnet</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<div style="display: flex; margin-top: 1em;">
+<div style="margin-left: 1em;">
+<p>Elementen för fältet:</p>
+<pre class="hljs"><code><div>int[] array = { 1, 2, 3 }
+</div></code></pre>
+<p>kan lagras i minnet med start på adress 1000 enligt tabell till höger med.</p>
+<p><em>Notera att</em>:</p>
+<ul>
+<li>Varje element lagras med 4 bytes</li>
+<li>Startadressen för elementet med index <code>i</code> alltid är <code>1000 + i * 4</code></li>
+</ul>
+</div>
+<div style="zoom: 0.6; margin-left: 10em;">
+<table>
+  <tr> <th> Adress <th> Innehåll <th> Kommentar
+  <tr> <td> 1000 <td> 00000001 <td rowspan="4"> array[0]
+  <tr> <td> 1001 <td> 00000000 
+  <tr> <td> 1002 <td> 00000000 
+  <tr> <td> 1003 <td> 00000000 
+  <tr> <td> 1004 <td> 00000010 <td rowspan="4"> array[1]
+  <tr> <td> 1005 <td> 00000000 
+  <tr> <td> 1006 <td> 00000000 
+  <tr> <td> 1007 <td> 00000000 
+  <tr> <td> 1008 <td> 00000011 <td rowspan="4"> array[2]
+  <tr> <td> 1009 <td> 00000000 
+  <tr> <td> 1010 <td> 00000000 
+  <tr> <td> 1010 <td> 00000000 
+</table>
+</div>
+</div>
+<hr>
+<h2 id="implementation-av-f%C3%A4ltindexiering">Implementation av fältindexiering</h2>
+<ul>
+<li>För alla fält gäller att, om:
+<ul>
+<li><code>start</code> är startadressen för fältets första element i minnet, och</li>
+<li><code>size</code> är antalet bytes för att lagra ett element</li>
+</ul>
+</li>
+<li>.. så är startadressen för element med index <code>i</code>:
+<ul>
+<li><code>start + i * size</code></li>
+</ul>
+</li>
+<li>Därför kan ett program via index och enkel aritmetik lika lätt läsa/skriva till minnet för vilket element som helst i fältet.</li>
+</ul>
+<hr>
+<h2 id="flerdimensionella-f%C3%A4lt">Flerdimensionella fält</h2>
+<ul>
+<li>Ett fält kan ha flera dimensioner</li>
+<li>Extra dimensioner separeras med komma mellan hakparenterserna</li>
+<li>Antalet dimensioner för ett fält kallas fältets <em>rank</em></li>
+</ul>
+<hr>
+<div class="syntax">
+<h2 id="definition-av-flerdimentionell-f%C3%A4ltvariabel">Definition av flerdimentionell fältvariabel</h2>
+<p>Syntaxen för att definiera en variabel som lagrar en referens till ett flerdimensionellt fält är:</p>
+<pre class="hljs"><code><div>&lt;typ&gt;[ , , ..] &lt;identifierare&gt;;
+</div></code></pre>
+<p>där <em>&lt;typ&gt;</em> är typen för elementen och rank är lika med antalet kommatecken mellan hakparenteserna plus 1.</p>
+</div>
+<hr>
+<p>Exempel</p>
+<pre class="hljs"><code><div>int[,] firstArray; // firstArray är ett tvådimensionellt fält
+int[,,,,] secondArray; // secondArray är ett femdimensionellt fält 
+</div></code></pre>
+<hr>
+<h2 id="konstruktion-av-flerdimensionellt-f%C3%A4lt">Konstruktion av flerdimensionellt fält</h2>
+<ul>
+<li>Ett nytt fledimensionellt fält konstrueras också med nyckelordet <code>new</code></li>
+<li>Flerdimensionella fält kan ha olika längd i varje dimension</li>
+<li>Totala antalet element är produkten av längden av samtliga dimensioner</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>// 3 sekvenser av 4 booleans, alltså totalt 3 x 4 = 12 element 
+bool[,] table = new bool[3, 4];
+
+// 2 plan av 3 sekvenser av 6 heltal, alltså totalt  2 x 3 x 6 = 36 element
+int[,,] tableSet = new int[2, 3, 6];
+</div></code></pre>
+<hr>
+<h2 id="rank-och-l%C3%A4ngd-p%C3%A5-dimension">Rank och längd på dimension</h2>
+<ul>
+<li>Flerdimensionella fält har en:
+<ul>
+<li>Egenskap <code>Rank</code> som är dess rank</li>
+<li>Metod <code>GetLength(int)</code> som ger:
+<ul>
+<li>Fältets längd i en dimension med ett givet index
+<ul>
+<li>Dimensionerna indexieras med början på 0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="rank-av-ett-f%C3%A4lt">Rank av ett fält</h2>
+<p>Syntaxen för rank av ett flerdimensionellt fält är:</p>
+<pre class="hljs"><code><div>&lt;fält&gt;.Rank
+</div></code></pre>
+<p>där <code>&lt;fält&gt;</code> är en variabel av typen (referens till) flerdimensionellt fält.</p>
+<hr>
+<h2 id="l%C3%A4ngd-av-ett-flerdimensionellt-f%C3%A4lt">Längd av ett flerdimensionellt fält</h2>
+<p>Syntaxen för längden i en given dimension för ett flerdimensionellt fält är:</p>
+<pre class="hljs"><code><div>&lt;fält&gt;.GetLength( &lt;int&gt; )
+</div></code></pre>
+<p>där <code>&lt;fält&gt;</code> är ett flerdimensionellt fält och <code>&lt;int&gt;</code> är ett heltalsuttyck som anger aktuell dimension.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>int[,,] tableSet = new int[2, 3, 6];
+
+int rank = tableSet.Rank; // rank tilldelas 3
+
+int length0 = tableSet.GetLength(0); // length0 tilldelas 2
+int length1 = tableSet.GetLength(1); // length1 tilldelas 3
+int length2 = tableSet.GetLength(2); // length2 tilldelas 6
+
+// Följande sats ger FEL vid exekvering! 
+// Fältet tableSet har ingen fjärde dimension. 
+int length3 = tableSet.GetLength(3); 
+</div></code></pre>
+<hr>
+<h2 id="initering-av-flerdimensionella-f%C3%A4lt">Initering av flerdimensionella fält</h2>
+<ul>
+<li>Flerdimensionella fält initeras med nästade fältinitierare</li>
+<li><em><strong>Nästade</strong></em> betyder att objekt av samma sort ligger innuti varandra i flera lager
+<ul>
+<li>Exempel är lagren av en lök eller ryska babushka-dockor</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<div style="zoom: 0.85">
+<pre class="hljs"><code><div>bool[,] table = new bool[3, 4] { 
+  {true, false, true, false }, 
+  {true, true, false, false }, 
+  {false, false, true, true }
+};
+
+int[,,] tableSet = new int[2,3,6] {
+  {
+    {1, 2, 3, 4, 5, 6}, 
+    {7, 8, 9, 10, 11, 12},
+    {13, 14, 15, 16, 17, 18}
+  }, 
+  {
+    {19, 20, 21, 22, 23, 24}, 
+    {25, 26, 27, 28, 29, 30},
+    {31, 32, 33, 34, 35, 36}
+  } 
+};
+</div></code></pre>
+</div>
+<hr>
+<h2 id="till%C3%A4mpningar-av-flerdimensionella-f%C3%A4lt">Tillämpningar av flerdimensionella fält</h2>
+<ul>
+<li>Tvådimensionella fält används för att lagra data med rektangulärt layout
+<ul>
+<li>T.ex. tabeller, bilder, shackbräde</li>
+</ul>
+</li>
+<li>Tredimensionella fält används typiskt för att lagra:
+<ul>
+<li>Tidserier av tvådimensionella fält, t.ex. <em>video</em></li>
+<li>Skikt av tvådimensionella fält, t.ex. <em>skiktröntgen</em>, <em>minecraft-värld</em></li>
+</ul>
+</li>
+<li>Praktiska tillämpningar av fält med rank högre än tre är ovanliga</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>En animation med 25 bildrutor om 640 x 480 pixlar där varje pixel har en färgkod av typen <code>int</code> kan lagras i följande tredimensionella fält:</p>
+<pre class="hljs"><code><div>int[,,] animation = new int[25, 480, 640];
+</div></code></pre>
+<p>Antag att färgkoden för grön är: <code>0b00000000_11111111_00000000_00000000</code></p>
+<p>Följande kod sätter då pixeln i rad 16 och kolumn 327 i bildruta 7 till färgen grön:</p>
+<pre class="hljs"><code><div>const int green = 0b00000000_11111111_00000000_00000000;
+animation[7, 16, 327] = green;
+</div></code></pre>
+<hr>
+<h2 id="f%C3%A4lt-av-f%C3%A4lt">Fält av fält</h2>
+<ul>
+<li>Fält kan ha vilken elementtyp som helst</li>
+<li>Det är alltså möjligt att skapa fält av fält</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>int[][] array1; // array1 är ett fält av int[]
+
+double[][] array2; // array2 är ett fält av double[]
+</div></code></pre>
+<hr>
+<h2 id="initering-och-indexering-av-f%C3%A4lt-av-f%C3%A4lt">Initering och indexering av fält av fält</h2>
+<pre class="hljs"><code><div>int[][] a = { new [] { 1, 2}, new [] { 3, 4, 5 } };
+int b = a[0][1]; // b tilldelas 2 
+int c = a[0][2]; // c tilldelas 5
+int d = a[0][2]; // FEL vid exekvering! index out of bounds
+</div></code></pre>
+<hr>
+<h2 id="f%C3%A4lt-av-f%C3%A4lt-vs-tv%C3%A5dimensionella-f%C3%A4lt">Fält av fält vs. tvådimensionella fält</h2>
+<ul>
+<li>Skillnaden på ett fält av fält mot tvådimenssionella fält:
+<ul>
+<li>Fältet har rank 1, inte 2</li>
+<li>Fälten i fältet kan ha olika längd</li>
+<li>Fälten i fältet ligger inte sekventiellt i minnet
+<ul>
+<li>Indexiering i andra dimensionen involverar extra minnesläsning</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="title-page">
+<h1 id="loopar">Loopar</h1>
+</div>
+<hr>
+<h2 id="loopar">Loopar</h2>
+<ul>
+<li>Loopar används när samma kod behöver utföras upprepade gånger</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> numberOfPersons = <span class="hljs-number">100</span>; 
+<span class="hljs-keyword">string</span> firstName = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>[numberOfPersons];
+<span class="hljs-keyword">string</span> lastName = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>[numberOfPersons];
+... <span class="hljs-comment">// kod som fyller fälten med namn</span>
+
+<span class="hljs-comment">// Skriv ut lista med alla namn</span>
+Console.WriteLine(<span class="hljs-string">"Person 1: {firstName[0]} {lastName[0]}"</span>);
+Console.WriteLine(<span class="hljs-string">"Person 2: {firstName[1]} {lastName[1]}"</span>);
+... <span class="hljs-comment">// 96 nästan likadana rader</span>
+Console.WriteLine(<span class="hljs-string">"Person 99: {firstName[98]} {lastName[98]}"</span>);
+Console.WriteLine(<span class="hljs-string">"Person 100: {firstName[99]} {lastName[99]}"</span>);
+</div></code></pre>
+<hr>
+<p>kan med en loop skrivas:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> numberOfPersons = <span class="hljs-number">100</span>; 
+<span class="hljs-keyword">string</span> firstName = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>[numberOfPersons];
+<span class="hljs-keyword">string</span> lastName = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>[numberOfPersons];
+... <span class="hljs-comment">// kod som fyller fälten med namn</span>
+
+<span class="hljs-comment">// Skriv ut lista med alla namn</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numberOfPersons; ++i)
+{
+    Console.WriteLine(<span class="hljs-string">"Person {i + 1}: {firstName[i]} {lastName[i]}"</span>);
+}
+</div></code></pre>
+<p>Hundra kodrader kunde ersättas med fyra.</p>
+<hr>
+<h2 id="while-loop">While-loop</h2>
+<ul>
+<li>En while-loop är den enklaste typen av loop</li>
+<li>Upprepar en sats så länge ett villkor är uppfyllt</li>
+<li>Använder nyckelordet <code>while</code></li>
+</ul>
+<hr>
+<h2 id="while-sats">While-sats</h2>
+<p>Syntaxen för en <code>while</code>-loop är:</p>
+<pre class="hljs"><code><div>while ( &lt;villkor&gt; )
+  &lt;sats&gt;
+</div></code></pre>
+<hr>
+<h1 id="exempel">Exempel</h1>
+<p>Skriv ut antalet <code>a</code> i början på en text:</p>
+<pre class="hljs"><code><div>string text = &quot;aaababcca&quot;;
+int count = 0;
+
+while (count &lt; text.Length &amp;&amp; text[count] == 'a') {
+    ++count;
+}
+
+Console.WriteLine(count);
+</div></code></pre>
+<hr>
+<h2 id="do-while-loop">Do-while-loop</h2>
+<ul>
+<li>En do-while-loop liknar en while-loop men exekverar</li>
+<li>Skillnaden är att den exekverar satsen först och testar villkoret efteråt</li>
+<li>Använder nyckelorden <code>do</code> och <code>while</code></li>
+<li>Används i praktiken betydligt mindre ofta än andra loopar</li>
+</ul>
+<hr>
+<h2 id="do-while-sats">Do-while-sats</h2>
+<p>Syntaxen för en <code>do-while</code>-sats är:</p>
+<pre class="hljs"><code><div>do &lt;sats&gt;
+while ( &lt;villkor&gt; );
+</div></code></pre>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Be använder mata in ett lösenord till korrekt lösenord är angivet:</p>
+<pre class="hljs"><code><div>string password; 
+
+do {
+    Console.WriteLine(&quot;Ange lösenord&quot;)
+    password = Console.ReadLine();
+} while (!password.Equals(&quot;password123&quot;));
+
+Console.WriteLine(&quot;Korrekt lösenord&quot;);
+</div></code></pre>
+<hr>
+<h2 id="loop-%C3%B6ver-sekvensen">Loop över sekvensen</h2>
+<ul>
+<li>Loopar används ofta för att processa en sekvens av element.</li>
+<li>Kallas att <em>iterera</em> över elementen.</li>
+</ul>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Summera alla tal i ett fält:</p>
+<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5 };
+double sum = 0;
+
+int index = 0; // Initiera indexvariabel
+while(index &lt; data.Length) { // stopvillkor
+  // hantera aktuellt element
+  sum += data[index]
+
+  ++index; // stega index
+}
+</div></code></pre>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Hitta största talet på udda index i ett fält:</p>
+<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5, 5.3, 4.7, 0.2 };
+double max = 0;
+
+int index = 1; // Initiera indexvariabel
+while(index &lt; data.Length) { // stopvillkor
+  // hantera aktuellt element
+  if (data[index] &gt; max) {
+    max = data[index];
+  }
+
+  index += 2; // Stega index 
+}
+</div></code></pre>
+<hr>
+<h2 id="motivationen-bakom-for-loopen">Motivationen bakom for-loopen</h2>
+<ul>
+<li>Det är mycket vanligt med loopar med strukturen:
+<ul>
+<li>Initiering av en indexvariabel till en startposition</li>
+<li>Ett stopvillkor som säger om det finns fler element att behandla</li>
+<li>Kod för att hantera elementet med aktuellt index</li>
+<li>En sats som stegar indexvariabeln till nästa element</li>
+</ul>
+</li>
+<li>Syftet med for-loopar är att:
+<ul>
+<li>Tydliggöra att en loop har denna struktur</li>
+<li>Göra kod för loop med denna struktur mer kompakt</li>
+<li>Gör indexvariabeln tillgänglig endast under exkvering av loopen</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="for-sats">For-sats</h2>
+<p>Syntexen för en <code>for</code>-loop använder nyckelordet <code>for</code> och är:</p>
+<pre class="hljs"><code><div>for ( &lt;initering&gt; ; &lt;stopvillkor&gt; ; &lt;stegning&gt; ) 
+  &lt;sats&gt;
+</div></code></pre>
+<p>med samma betydelse som:</p>
+<pre class="hljs"><code><div>{ 
+  &lt;initiering&gt; ;
+  while( &lt;stopvillkor&gt; ) {
+    &lt;sats&gt;
+    &lt;stegning&gt; ;
+  }
+}
+</div></code></pre>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Summera alla tal i ett fält:</p>
+<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5 };
+double sum = 0;
+
+for (int i = 0; i &lt; data.Length; ++i) {
+  sum += data[index]
+}
+</div></code></pre>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<p>Hitta största talet med index i ett fält:</p>
+<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5, 5.3, 4.7, 0.2 };
+double max = 0;
+
+for (int i = 1; i &lt; data.Length; i += 2)
+  if (data[index] &gt; max) {
+    max = data[index];
+  }
+}
+</div></code></pre>
+<hr>
+<h2 id="anv%C3%A4nd-for-satsen-p%C3%A5-r%C3%A4tt-s%C3%A4tt">Använd for-satsen på rätt sätt</h2>
+<ul>
+<li>Använd enligt sitt syfte gör <code>for</code>-satsen koden lätt att läsa</li>
+<li>En <code>for</code>-sats som används på annat sätt gör koden missledande!</li>
+<li>Använd <code>for</code>-satser endast i avsett syfte!</li>
+</ul>
+<hr>
+<h2 id="break">Break</h2>
+<p>Nyckelordet <code>break</code> får programflödet att hoppa ut ur aktuell loop.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[] numbers = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">100</span>];
+... <span class="hljs-comment">// kod som fyller fältet</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> key = <span class="hljs-number">17</span>; 
+<span class="hljs-comment">// hitta index för första förekomsten av 'key' i fältet</span>
+index = <span class="hljs-number">0</span>; 
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>; index &lt; numbers.Length; ++index) 
+{
+    <span class="hljs-keyword">if</span> (numbers[index] == key) 
+    {
+        <span class="hljs-keyword">break</span>;
+    }
+} 
+<span class="hljs-keyword">bool</span> foundKey = index != numbers.Length;
+</div></code></pre>
+<hr>
+<h2 id="continue">Continue</h2>
+<p>Nyckelordet <code>continue</code> får programflödet att gå direkt till början på nästa iteration i aktuell loop.</p>
+<hr>
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span>[] names = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span> [<span class="hljs-number">100</span>];
+... <span class="hljs-comment">// kod som fyller fältet med värden</span>
+<span class="hljs-comment">// Skriv ut kommaseparerad lista med alla namn</span>
+<span class="hljs-keyword">string</span> nameList = <span class="hljs-string">""</span>;
+index = <span class="hljs-number">0</span>; 
+<span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
+    <span class="hljs-keyword">string</span> name = names[index];
+
+    <span class="hljs-keyword">if</span> (name == <span class="hljs-literal">null</span> || name.Equals(<span class="hljs-string">""</span>)) 
+        <span class="hljs-keyword">continue</span>;
+
+    nameList += name;
+
+    <span class="hljs-keyword">if</span> (++index == length) 
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">else</span> 
+        nameList += <span class="hljs-string">", "</span>;
+}
+</div></code></pre>
+
+</body>
+</html>

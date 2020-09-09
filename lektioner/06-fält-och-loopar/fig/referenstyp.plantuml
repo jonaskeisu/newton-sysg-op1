@@ -1,0 +1,13 @@
+@startuml referenstyp
+
+node "(<i>referens</i>)"  as ref
+
+note left of ref : int[] <i>numbers</i>
+
+cloud "heap" {
+    node "{ 1, 2, 3, 4 }" as value
+}
+
+ref -> value
+
+@enduml
