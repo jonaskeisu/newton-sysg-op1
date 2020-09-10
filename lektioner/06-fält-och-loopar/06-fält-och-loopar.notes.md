@@ -185,7 +185,7 @@ där ``<fältinitialiserare>`` är en fältinitialiserare med element av typen `
 | :-: | --- | 
 | ``double[]`` | ``new double[] { 46.5, 34.0, 36.0, 28.5}`` | 
 | ``string[]``| ``new string[] { "Anna Nylander", "Bo Ekfors"}`` | 
-| ``bool[]`` | ``new double[] { false, true, true, false, true }`` | 
+| ``bool[]`` | ``new bool[] { false, true, true, false, true }`` | 
 
 *Notera att längden på fältet ej anges mellan hakparenterserna eftersom längden är implicit från antalet element i litteralen.*
 
@@ -232,11 +232,11 @@ double[] testScore = new double[] { 8, 16.5, 12, 17, 20, 11.5 };
 Följande två satser har också samma betydelse:
 
 ```text
-string[] employeNames = { "Anna Nylander", "Bo Ekfors };
+string[] employeeNames = { "Anna Nylander", "Bo Ekfors };
 ```
 
 ```text
-string[] employeNames = new string[] { "Anna Nylander", "Bo Ekfors" };
+string[] employeeNames = new string[] { "Anna Nylander", "Bo Ekfors" };
 ```
 
 ---
@@ -268,7 +268,7 @@ string[] array = { "Anna", "Jimmy", "Bo" };
 
 string a = array[0]; // a tilldelas "Anna"
 string b = array[1]; // b tilldelas "Jimmy"
-string c = array[3]; // c tilldelas "Bo"
+string c = array[2]; // c tilldelas "Bo"
 
 array[1] = "Karl"; // array innehåller nu { "Anna", "Karl", "Bo" }
 
@@ -703,7 +703,7 @@ double[][] array2; // array2 är ett fält av double[]
 ```text
 int[][] a = { new [] { 1, 2}, new [] { 3, 4, 5 } };
 int b = a[0][1]; // b tilldelas 2 
-int c = a[0][2]; // c tilldelas 5
+int c = a[1][2]; // c tilldelas 5
 int d = a[0][2]; // FEL vid exekvering! index out of bounds
 ```
 
@@ -744,11 +744,11 @@ string lastName = new string[numberOfPersons];
 ... // kod som fyller fälten med namn
 
 // Skriv ut lista med alla namn
-Console.WriteLine("Person 1: {firstName[0]} {lastName[0]}");
-Console.WriteLine("Person 2: {firstName[1]} {lastName[1]}");
+Console.WriteLine($"Person 1: {firstName[0]} {lastName[0]}");
+Console.WriteLine($"Person 2: {firstName[1]} {lastName[1]}");
 ... // 96 nästan likadana rader
-Console.WriteLine("Person 99: {firstName[98]} {lastName[98]}");
-Console.WriteLine("Person 100: {firstName[99]} {lastName[99]}");
+Console.WriteLine($"Person 99: {firstName[98]} {lastName[98]}");
+Console.WriteLine($"Person 100: {firstName[99]} {lastName[99]}");
 ```
 
 ---
@@ -764,7 +764,7 @@ string lastName = new string[numberOfPersons];
 // Skriv ut lista med alla namn
 for (int i = 0; i < numberOfPersons; ++i)
 {
-    Console.WriteLine("Person {i + 1}: {firstName[i]} {lastName[i]}");
+    Console.WriteLine($"Person {i + 1}: {firstName[i]} {lastName[i]}");
 }
 ```
 
@@ -830,7 +830,7 @@ while ( <villkor> );
 
 Be använder mata in ett lösenord till korrekt lösenord är angivet:
 
-```text
+```cs
 string password; 
 
 do {
@@ -854,7 +854,7 @@ Console.WriteLine("Korrekt lösenord");
 
 Summera alla tal i ett fält:
 
-```text 
+```cs 
 double[] data = { 1.2, 7.5, 3.8, 10.5 };
 double sum = 0;
 
@@ -873,7 +873,7 @@ while(index < data.Length) { // stopvillkor
 
 Hitta största talet på udda index i ett fält:
 
-```text 
+```cs 
 double[] data = { 1.2, 7.5, 3.8, 10.5, 5.3, 4.7, 0.2 };
 double max = 0;
 
@@ -929,12 +929,12 @@ med samma betydelse som:
 
 Summera alla tal i ett fält:
 
-```text 
+```cs 
 double[] data = { 1.2, 7.5, 3.8, 10.5 };
 double sum = 0;
 
 for (int i = 0; i < data.Length; ++i) {
-  sum += data[index]
+  sum += data[i]
 }
 ```
 
@@ -944,13 +944,13 @@ for (int i = 0; i < data.Length; ++i) {
 
 Hitta största talet med index i ett fält:
 
-```text 
+```cs 
 double[] data = { 1.2, 7.5, 3.8, 10.5, 5.3, 4.7, 0.2 };
 double max = 0;
 
 for (int i = 1; i < data.Length; i += 2)
-  if (data[index] > max) {
-    max = data[index];
+  if (data[i] > max) {
+    max = data[i];
   }
 }
 ```
@@ -978,11 +978,12 @@ int[] numbers = new int[100];
 ... // kod som fyller fältet
 const int key = 17; 
 // hitta index för första förekomsten av 'key' i fältet
-index = 0; 
-for (int index = 0; index < numbers.Length; ++index) 
+int index = numbers.Length; 
+for (int i = 0; i < numbers.Length; ++i) 
 {
-    if (numbers[index] == key) 
+    if (numbers[i] == key) 
     {
+        index = i;
         break;
     }
 } 
@@ -999,23 +1000,30 @@ Nyckelordet ``continue`` får programflödet att gå direkt till början på n
 
 ### Exempel 
 
+<div style="margin-left: 4em">
+
 ```cs
 string[] names = new string [100];
-... // kod som fyller fältet med värden
+// kod som fyller fältet med värden
 // Skriv ut kommaseparerad lista med alla namn
 string nameList = "";
-index = 0; 
-while(true){
+int index = 0;
+while (true)
+{
     string name = names[index];
+    ++index;
 
-    if (name == null || name.Equals("")) 
+    if (name == null || name.Equals(""))    
         continue;
-
+    
     nameList += name;
 
-    if (++index == length) 
+    if (++index == names.Length)
         break;
-    else 
+    else
         nameList += ", ";
 }
+Console.WriteLine(nameList);
 ```
+
+</div>

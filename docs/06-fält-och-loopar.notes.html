@@ -517,7 +517,7 @@ a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
 </tr>
 <tr>
 <td style="text-align:center"><code>bool[]</code></td>
-<td><code>new double[] { false, true, true, false, true }</code></td>
+<td><code>new bool[] { false, true, true, false, true }</code></td>
 </tr>
 </tbody>
 </table>
@@ -572,9 +572,9 @@ a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
 <pre class="hljs"><code><div>double[] testScore = new double[] { 8, 16.5, 12, 17, 20, 11.5 };
 </div></code></pre>
 <p>Följande två satser har också samma betydelse:</p>
-<pre class="hljs"><code><div>string[] employeNames = { &quot;Anna Nylander&quot;, &quot;Bo Ekfors };
+<pre class="hljs"><code><div>string[] employeeNames = { &quot;Anna Nylander&quot;, &quot;Bo Ekfors };
 </div></code></pre>
-<pre class="hljs"><code><div>string[] employeNames = new string[] { &quot;Anna Nylander&quot;, &quot;Bo Ekfors&quot; };
+<pre class="hljs"><code><div>string[] employeeNames = new string[] { &quot;Anna Nylander&quot;, &quot;Bo Ekfors&quot; };
 </div></code></pre>
 <hr>
 <h2 id="indexiering">Indexiering</h2>
@@ -599,7 +599,7 @@ a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
 
 string a = array[0]; // a tilldelas &quot;Anna&quot;
 string b = array[1]; // b tilldelas &quot;Jimmy&quot;
-string c = array[3]; // c tilldelas &quot;Bo&quot;
+string c = array[2]; // c tilldelas &quot;Bo&quot;
 
 array[1] = &quot;Karl&quot;; // array innehåller nu { &quot;Anna&quot;, &quot;Karl&quot;, &quot;Bo&quot; }
 
@@ -920,7 +920,7 @@ double[][] array2; // array2 är ett fält av double[]
 <h2 id="initering-och-indexering-av-f%C3%A4lt-av-f%C3%A4lt">Initering och indexering av fält av fält</h2>
 <pre class="hljs"><code><div>int[][] a = { new [] { 1, 2}, new [] { 3, 4, 5 } };
 int b = a[0][1]; // b tilldelas 2 
-int c = a[0][2]; // c tilldelas 5
+int c = a[1][2]; // c tilldelas 5
 int d = a[0][2]; // FEL vid exekvering! index out of bounds
 </div></code></pre>
 <hr>
@@ -956,11 +956,11 @@ int d = a[0][2]; // FEL vid exekvering! index out of bounds
 ... <span class="hljs-comment">// kod som fyller fälten med namn</span>
 
 <span class="hljs-comment">// Skriv ut lista med alla namn</span>
-Console.WriteLine(<span class="hljs-string">"Person 1: {firstName[0]} {lastName[0]}"</span>);
-Console.WriteLine(<span class="hljs-string">"Person 2: {firstName[1]} {lastName[1]}"</span>);
+Console.WriteLine(<span class="hljs-string">$"Person 1: <span class="hljs-subst">{firstName[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">{lastName[<span class="hljs-number">0</span>]}</span>"</span>);
+Console.WriteLine(<span class="hljs-string">$"Person 2: <span class="hljs-subst">{firstName[<span class="hljs-number">1</span>]}</span> <span class="hljs-subst">{lastName[<span class="hljs-number">1</span>]}</span>"</span>);
 ... <span class="hljs-comment">// 96 nästan likadana rader</span>
-Console.WriteLine(<span class="hljs-string">"Person 99: {firstName[98]} {lastName[98]}"</span>);
-Console.WriteLine(<span class="hljs-string">"Person 100: {firstName[99]} {lastName[99]}"</span>);
+Console.WriteLine(<span class="hljs-string">$"Person 99: <span class="hljs-subst">{firstName[<span class="hljs-number">98</span>]}</span> <span class="hljs-subst">{lastName[<span class="hljs-number">98</span>]}</span>"</span>);
+Console.WriteLine(<span class="hljs-string">$"Person 100: <span class="hljs-subst">{firstName[<span class="hljs-number">99</span>]}</span> <span class="hljs-subst">{lastName[<span class="hljs-number">99</span>]}</span>"</span>);
 </div></code></pre>
 <hr>
 <p>kan med en loop skrivas:</p>
@@ -972,7 +972,7 @@ Console.WriteLine(<span class="hljs-string">"Person 100: {firstName[99]} {lastNa
 <span class="hljs-comment">// Skriv ut lista med alla namn</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numberOfPersons; ++i)
 {
-    Console.WriteLine(<span class="hljs-string">"Person {i + 1}: {firstName[i]} {lastName[i]}"</span>);
+    Console.WriteLine(<span class="hljs-string">$"Person <span class="hljs-subst">{i + <span class="hljs-number">1</span>}</span>: <span class="hljs-subst">{firstName[i]}</span> <span class="hljs-subst">{lastName[i]}</span>"</span>);
 }
 </div></code></pre>
 <p>Hundra kodrader kunde ersättas med fyra.</p>
@@ -1018,14 +1018,14 @@ while ( &lt;villkor&gt; );
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Be använder mata in ett lösenord till korrekt lösenord är angivet:</p>
-<pre class="hljs"><code><div>string password; 
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span> password; 
 
-do {
-    Console.WriteLine(&quot;Ange lösenord&quot;)
+<span class="hljs-keyword">do</span> {
+    Console.WriteLine(<span class="hljs-string">"Ange lösenord"</span>)
     password = Console.ReadLine();
-} while (!password.Equals(&quot;password123&quot;));
+} <span class="hljs-keyword">while</span> (!password.Equals(<span class="hljs-string">"password123"</span>));
 
-Console.WriteLine(&quot;Korrekt lösenord&quot;);
+Console.WriteLine(<span class="hljs-string">"Korrekt lösenord"</span>);
 </div></code></pre>
 <hr>
 <h2 id="loop-%C3%B6ver-sekvensen">Loop över sekvensen</h2>
@@ -1036,31 +1036,31 @@ Console.WriteLine(&quot;Korrekt lösenord&quot;);
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Summera alla tal i ett fält:</p>
-<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5 };
-double sum = 0;
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span>[] data = { <span class="hljs-number">1.2</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">10.5</span> };
+<span class="hljs-keyword">double</span> sum = <span class="hljs-number">0</span>;
 
-int index = 0; // Initiera indexvariabel
-while(index &lt; data.Length) { // stopvillkor
-  // hantera aktuellt element
+<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>; <span class="hljs-comment">// Initiera indexvariabel</span>
+<span class="hljs-keyword">while</span>(index &lt; data.Length) { <span class="hljs-comment">// stopvillkor</span>
+  <span class="hljs-comment">// hantera aktuellt element</span>
   sum += data[index]
 
-  ++index; // stega index
+  ++index; <span class="hljs-comment">// stega index</span>
 }
 </div></code></pre>
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Hitta största talet på udda index i ett fält:</p>
-<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5, 5.3, 4.7, 0.2 };
-double max = 0;
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span>[] data = { <span class="hljs-number">1.2</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">10.5</span>, <span class="hljs-number">5.3</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">0.2</span> };
+<span class="hljs-keyword">double</span> max = <span class="hljs-number">0</span>;
 
-int index = 1; // Initiera indexvariabel
-while(index &lt; data.Length) { // stopvillkor
-  // hantera aktuellt element
-  if (data[index] &gt; max) {
+<span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>; <span class="hljs-comment">// Initiera indexvariabel</span>
+<span class="hljs-keyword">while</span>(index &lt; data.Length) { <span class="hljs-comment">// stopvillkor</span>
+  <span class="hljs-comment">// hantera aktuellt element</span>
+  <span class="hljs-keyword">if</span> (data[index] &gt; max) {
     max = data[index];
   }
 
-  index += 2; // Stega index 
+  index += <span class="hljs-number">2</span>; <span class="hljs-comment">// Stega index </span>
 }
 </div></code></pre>
 <hr>
@@ -1100,22 +1100,22 @@ while(index &lt; data.Length) { // stopvillkor
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Summera alla tal i ett fält:</p>
-<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5 };
-double sum = 0;
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span>[] data = { <span class="hljs-number">1.2</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">10.5</span> };
+<span class="hljs-keyword">double</span> sum = <span class="hljs-number">0</span>;
 
-for (int i = 0; i &lt; data.Length; ++i) {
-  sum += data[index]
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; data.Length; ++i) {
+  sum += data[i]
 }
 </div></code></pre>
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Hitta största talet med index i ett fält:</p>
-<pre class="hljs"><code><div>double[] data = { 1.2, 7.5, 3.8, 10.5, 5.3, 4.7, 0.2 };
-double max = 0;
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span>[] data = { <span class="hljs-number">1.2</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">3.8</span>, <span class="hljs-number">10.5</span>, <span class="hljs-number">5.3</span>, <span class="hljs-number">4.7</span>, <span class="hljs-number">0.2</span> };
+<span class="hljs-keyword">double</span> max = <span class="hljs-number">0</span>;
 
-for (int i = 1; i &lt; data.Length; i += 2)
-  if (data[index] &gt; max) {
-    max = data[index];
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; data.Length; i += <span class="hljs-number">2</span>)
+  <span class="hljs-keyword">if</span> (data[i] &gt; max) {
+    max = data[i];
   }
 }
 </div></code></pre>
@@ -1135,11 +1135,12 @@ for (int i = 1; i &lt; data.Length; i += 2)
 ... <span class="hljs-comment">// kod som fyller fältet</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> key = <span class="hljs-number">17</span>; 
 <span class="hljs-comment">// hitta index för första förekomsten av 'key' i fältet</span>
-index = <span class="hljs-number">0</span>; 
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>; index &lt; numbers.Length; ++index) 
+<span class="hljs-keyword">int</span> index = numbers.Length; 
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numbers.Length; ++i) 
 {
-    <span class="hljs-keyword">if</span> (numbers[index] == key) 
+    <span class="hljs-keyword">if</span> (numbers[i] == key) 
     {
+        index = i;
         <span class="hljs-keyword">break</span>;
     }
 } 
@@ -1150,25 +1151,29 @@ index = <span class="hljs-number">0</span>;
 <p>Nyckelordet <code>continue</code> får programflödet att gå direkt till början på nästa iteration i aktuell loop.</p>
 <hr>
 <h3 id="exempel">Exempel</h3>
+<div style="margin-left: 4em">
 <pre class="hljs"><code><div><span class="hljs-keyword">string</span>[] names = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span> [<span class="hljs-number">100</span>];
-... <span class="hljs-comment">// kod som fyller fältet med värden</span>
+<span class="hljs-comment">// kod som fyller fältet med värden</span>
 <span class="hljs-comment">// Skriv ut kommaseparerad lista med alla namn</span>
 <span class="hljs-keyword">string</span> nameList = <span class="hljs-string">""</span>;
-index = <span class="hljs-number">0</span>; 
-<span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
+<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)
+{
     <span class="hljs-keyword">string</span> name = names[index];
+    ++index;
 
-    <span class="hljs-keyword">if</span> (name == <span class="hljs-literal">null</span> || name.Equals(<span class="hljs-string">""</span>)) 
+    <span class="hljs-keyword">if</span> (name == <span class="hljs-literal">null</span> || name.Equals(<span class="hljs-string">""</span>))    
         <span class="hljs-keyword">continue</span>;
-
+    
     nameList += name;
 
-    <span class="hljs-keyword">if</span> (++index == length) 
+    <span class="hljs-keyword">if</span> (++index == names.Length)
         <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">else</span> 
+    <span class="hljs-keyword">else</span>
         nameList += <span class="hljs-string">", "</span>;
 }
+Console.WriteLine(nameList);
 </div></code></pre>
-
+</div>
 </body>
 </html>
