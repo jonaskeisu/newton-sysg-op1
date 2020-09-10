@@ -44,7 +44,7 @@ där ``<typ>`` är typen på elementen i fältet.
 
 ### Exempel
 
-```text
+```cs
 float[] testScores; // testScores är en ny referens till ett fält av floats
 
 string[] employeeNames; // employeeNames är en ny referens till ett fält av strängar
@@ -109,7 +109,7 @@ där ``<fält>`` är ett uttryck av typen fältreferens.
 
 ### Exempel
 
-```
+```cs
 int numberOfStudents = 25;
 
 bool[] passedTest = new bool[numberOfStudents]; 
@@ -160,7 +160,7 @@ där *&lt;elem 1>*, *&lt;elem 2>*, .., *&lt;elem&nbsp;k>* är uttryck av samma t
 - Fältinitialiserare kan *endast* användas för initiering av fält
 - Följande är <span class="wrong">inte</span> giltig kod:
 
-```text
+```cs
 int[] a; 
 ... 
 a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
@@ -221,21 +221,21 @@ Om en fältvariabel vid definition initeras till ett nytt fält med initialisera
 
 
 Följande två satser har samma betydelse:
-```text
+```cs
 double[] testScore = { 8, 16.5, 12, 17, 20, 11.5 };
 ```
 
-```text
+```cs
 double[] testScore = new double[] { 8, 16.5, 12, 17, 20, 11.5 };
 ```
 
 Följande två satser har också samma betydelse:
 
-```text
+```cs
 string[] employeeNames = { "Anna Nylander", "Bo Ekfors };
 ```
 
-```text
+```cs
 string[] employeeNames = new string[] { "Anna Nylander", "Bo Ekfors" };
 ```
 
@@ -263,7 +263,7 @@ där ``<fält>`` är ett uttryck av typen fältreferens och ``<int>`` är ett he
 
 ### Exempel 
 
-```text
+```cs
 string[] array = { "Anna", "Jimmy", "Bo" };
 
 string a = array[0]; // a tilldelas "Anna"
@@ -536,7 +536,7 @@ där *&lt;typ>* är typen för elementen och rank är lika med antalet kommateck
 
 Exempel 
 
-```text
+```cs
 int[,] firstArray; // firstArray är ett tvådimensionellt fält
 int[,,,,] secondArray; // secondArray är ett femdimensionellt fält 
 ```
@@ -553,7 +553,7 @@ int[,,,,] secondArray; // secondArray är ett femdimensionellt fält
 
 ### Exempel
 
-```text
+```cs
 // 3 sekvenser av 4 booleans, alltså totalt 3 x 4 = 12 element 
 bool[,] table = new bool[3, 4];
 
@@ -598,7 +598,7 @@ där ``<fält>`` är ett flerdimensionellt fält och ``<int>`` är ett heltalsut
 
 ### Exempel
 
-```text
+```cs
 int[,,] tableSet = new int[2, 3, 6];
 
 int rank = tableSet.Rank; // rank tilldelas 3
@@ -627,7 +627,7 @@ int length3 = tableSet.GetLength(3);
 
 <div style="zoom: 0.85">
 
-```text
+```cs
 bool[,] table = new bool[3, 4] { 
   {true, false, true, false }, 
   {true, true, false, false }, 
@@ -666,7 +666,7 @@ int[,,] tableSet = new int[2,3,6] {
 
 En animation med 25 bildrutor om 640 x 480 pixlar där varje pixel har en färgkod av typen ``int`` kan lagras i följande tredimensionella fält:
 
-```text
+```cs
 int[,,] animation = new int[25, 480, 640];
 ```
 
@@ -674,7 +674,7 @@ Antag att färgkoden för grön är: ```0b00000000_11111111_00000000_00000000```
  
  Följande kod sätter då pixeln i rad 16 och kolumn 327 i bildruta 7 till färgen grön:
 
-```text
+```cs
 const int green = 0b00000000_11111111_00000000_00000000;
 animation[7, 16, 327] = green;
 ```
@@ -690,7 +690,7 @@ animation[7, 16, 327] = green;
 
 ### Exempel
 
-```text
+```cs
 int[][] array1; // array1 är ett fält av int[]
 
 double[][] array2; // array2 är ett fält av double[]
@@ -700,7 +700,7 @@ double[][] array2; // array2 är ett fält av double[]
 
 ## Initering och indexering av fält av fält
 
-```text
+```cs
 int[][] a = { new [] { 1, 2}, new [] { 3, 4, 5 } };
 int b = a[0][1]; // b tilldelas 2 
 int c = a[1][2]; // c tilldelas 5
@@ -794,7 +794,7 @@ while ( <villkor> )
 
 Skriv ut antalet ``a`` i början på en text:
 
-```text
+```cs
 string text = "aaababcca";
 int count = 0;
 

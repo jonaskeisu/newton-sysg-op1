@@ -384,11 +384,11 @@ code {
 </div>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div>float[] testScores; // testScores är en ny referens till ett fält av floats
+<pre class="hljs"><code><div><span class="hljs-keyword">float</span>[] testScores; <span class="hljs-comment">// testScores är en ny referens till ett fält av floats</span>
 
-string[] employeeNames; // employeeNames är en ny referens till ett fält av strängar
+<span class="hljs-keyword">string</span>[] employeeNames; <span class="hljs-comment">// employeeNames är en ny referens till ett fält av strängar</span>
 
-bool[] boxesChecked; // boxesChecked är en ny referens till ett fält av booleans
+<span class="hljs-keyword">bool</span>[] boxesChecked; <span class="hljs-comment">// boxesChecked är en ny referens till ett fält av booleans</span>
 </div></code></pre>
 <hr>
 <h2 id="konstruktion-av-nytt-f%C3%A4lt">Konstruktion av nytt fält</h2>
@@ -427,11 +427,11 @@ bool[] passedTest = new bool[numberOfStudents];
 <p>där <code>&lt;fält&gt;</code> är ett uttryck av typen fältreferens.</p>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div>int numberOfStudents = 25;
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> numberOfStudents = <span class="hljs-number">25</span>;
 
-bool[] passedTest = new bool[numberOfStudents]; 
+<span class="hljs-keyword">bool</span>[] passedTest = <span class="hljs-keyword">new</span> <span class="hljs-keyword">bool</span>[numberOfStudents]; 
 
-int length = passedTest.Length; // length tilldelas värdet 25
+<span class="hljs-keyword">int</span> length = passedTest.Length; <span class="hljs-comment">// length tilldelas värdet 25</span>
 </div></code></pre>
 <hr>
 <h2 id="f%C3%B6r%C3%A4nderligt-vs-of%C3%B6r%C3%A4nderligt">Föränderligt vs. oföränderligt</h2>
@@ -487,9 +487,9 @@ int length = passedTest.Length; // length tilldelas värdet 25
 <li>Fältinitialiserare kan <em>endast</em> användas för initiering av fält</li>
 <li>Följande är <span class="wrong">inte</span> giltig kod:</li>
 </ul>
-<pre class="hljs"><code><div>int[] a; 
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[] a; 
 ... 
-a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
+a = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}; <span class="hljs-comment">// FEL! {1, 2, 3} är ej ett uttryck!</span>
 </div></code></pre>
 <hr>
 <h2 id="initering-av-nytt-f%C3%A4lt">Initering av nytt fält</h2>
@@ -567,14 +567,14 @@ a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>Följande två satser har samma betydelse:</p>
-<pre class="hljs"><code><div>double[] testScore = { 8, 16.5, 12, 17, 20, 11.5 };
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span>[] testScore = { <span class="hljs-number">8</span>, <span class="hljs-number">16.5</span>, <span class="hljs-number">12</span>, <span class="hljs-number">17</span>, <span class="hljs-number">20</span>, <span class="hljs-number">11.5</span> };
 </div></code></pre>
-<pre class="hljs"><code><div>double[] testScore = new double[] { 8, 16.5, 12, 17, 20, 11.5 };
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span>[] testScore = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[] { <span class="hljs-number">8</span>, <span class="hljs-number">16.5</span>, <span class="hljs-number">12</span>, <span class="hljs-number">17</span>, <span class="hljs-number">20</span>, <span class="hljs-number">11.5</span> };
 </div></code></pre>
 <p>Följande två satser har också samma betydelse:</p>
-<pre class="hljs"><code><div>string[] employeeNames = { &quot;Anna Nylander&quot;, &quot;Bo Ekfors };
-</div></code></pre>
-<pre class="hljs"><code><div>string[] employeeNames = new string[] { &quot;Anna Nylander&quot;, &quot;Bo Ekfors&quot; };
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span>[] employeeNames = { <span class="hljs-string">"Anna Nylander"</span>, <span class="hljs-string">"Bo Ekfors };
+</span></div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span>[] employeeNames = <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>[] { <span class="hljs-string">"Anna Nylander"</span>, <span class="hljs-string">"Bo Ekfors"</span> };
 </div></code></pre>
 <hr>
 <h2 id="indexiering">Indexiering</h2>
@@ -595,16 +595,16 @@ a = {1, 2, 3}; // FEL! {1, 2, 3} är ej ett uttryck!
 <p>där <code>&lt;fält&gt;</code> är ett uttryck av typen fältreferens och <code>&lt;int&gt;</code> är ett heltalsuttryck som anger index för ett element.</p>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div>string[] array = { &quot;Anna&quot;, &quot;Jimmy&quot;, &quot;Bo&quot; };
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span>[] array = { <span class="hljs-string">"Anna"</span>, <span class="hljs-string">"Jimmy"</span>, <span class="hljs-string">"Bo"</span> };
 
-string a = array[0]; // a tilldelas &quot;Anna&quot;
-string b = array[1]; // b tilldelas &quot;Jimmy&quot;
-string c = array[2]; // c tilldelas &quot;Bo&quot;
+<span class="hljs-keyword">string</span> a = array[<span class="hljs-number">0</span>]; <span class="hljs-comment">// a tilldelas "Anna"</span>
+<span class="hljs-keyword">string</span> b = array[<span class="hljs-number">1</span>]; <span class="hljs-comment">// b tilldelas "Jimmy"</span>
+<span class="hljs-keyword">string</span> c = array[<span class="hljs-number">2</span>]; <span class="hljs-comment">// c tilldelas "Bo"</span>
 
-array[1] = &quot;Karl&quot;; // array innehåller nu { &quot;Anna&quot;, &quot;Karl&quot;, &quot;Bo&quot; }
+array[<span class="hljs-number">1</span>] = <span class="hljs-string">"Karl"</span>; <span class="hljs-comment">// array innehåller nu { "Anna", "Karl", "Bo" }</span>
 
-// Följande rad ger FEL vid exekvering! (index out of bounds)
-int d = array[3]; 
+<span class="hljs-comment">// Följande rad ger FEL vid exekvering! (index out of bounds)</span>
+<span class="hljs-keyword">int</span> d = array[<span class="hljs-number">3</span>]; 
 </div></code></pre>
 <hr>
 <h2 id="v%C3%A4rdetyper">Värdetyper</h2>
@@ -783,8 +783,8 @@ Unhandled exception. System.NullReferenceException:
 </div>
 <hr>
 <p>Exempel</p>
-<pre class="hljs"><code><div>int[,] firstArray; // firstArray är ett tvådimensionellt fält
-int[,,,,] secondArray; // secondArray är ett femdimensionellt fält 
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[,] firstArray; <span class="hljs-comment">// firstArray är ett tvådimensionellt fält</span>
+<span class="hljs-keyword">int</span>[,,,,] secondArray; <span class="hljs-comment">// secondArray är ett femdimensionellt fält </span>
 </div></code></pre>
 <hr>
 <h2 id="konstruktion-av-flerdimensionellt-f%C3%A4lt">Konstruktion av flerdimensionellt fält</h2>
@@ -795,11 +795,11 @@ int[,,,,] secondArray; // secondArray är ett femdimensionellt fält
 </ul>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div>// 3 sekvenser av 4 booleans, alltså totalt 3 x 4 = 12 element 
-bool[,] table = new bool[3, 4];
+<pre class="hljs"><code><div><span class="hljs-comment">// 3 sekvenser av 4 booleans, alltså totalt 3 x 4 = 12 element </span>
+<span class="hljs-keyword">bool</span>[,] table = <span class="hljs-keyword">new</span> <span class="hljs-keyword">bool</span>[<span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
 
-// 2 plan av 3 sekvenser av 6 heltal, alltså totalt  2 x 3 x 6 = 36 element
-int[,,] tableSet = new int[2, 3, 6];
+<span class="hljs-comment">// 2 plan av 3 sekvenser av 6 heltal, alltså totalt  2 x 3 x 6 = 36 element</span>
+<span class="hljs-keyword">int</span>[,,] tableSet = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>];
 </div></code></pre>
 <hr>
 <h2 id="rank-och-l%C3%A4ngd-p%C3%A5-dimension">Rank och längd på dimension</h2>
@@ -833,17 +833,17 @@ int[,,] tableSet = new int[2, 3, 6];
 <p>där <code>&lt;fält&gt;</code> är ett flerdimensionellt fält och <code>&lt;int&gt;</code> är ett heltalsuttyck som anger aktuell dimension.</p>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div>int[,,] tableSet = new int[2, 3, 6];
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[,,] tableSet = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>];
 
-int rank = tableSet.Rank; // rank tilldelas 3
+<span class="hljs-keyword">int</span> rank = tableSet.Rank; <span class="hljs-comment">// rank tilldelas 3</span>
 
-int length0 = tableSet.GetLength(0); // length0 tilldelas 2
-int length1 = tableSet.GetLength(1); // length1 tilldelas 3
-int length2 = tableSet.GetLength(2); // length2 tilldelas 6
+<span class="hljs-keyword">int</span> length0 = tableSet.GetLength(<span class="hljs-number">0</span>); <span class="hljs-comment">// length0 tilldelas 2</span>
+<span class="hljs-keyword">int</span> length1 = tableSet.GetLength(<span class="hljs-number">1</span>); <span class="hljs-comment">// length1 tilldelas 3</span>
+<span class="hljs-keyword">int</span> length2 = tableSet.GetLength(<span class="hljs-number">2</span>); <span class="hljs-comment">// length2 tilldelas 6</span>
 
-// Följande sats ger FEL vid exekvering! 
-// Fältet tableSet har ingen fjärde dimension. 
-int length3 = tableSet.GetLength(3); 
+<span class="hljs-comment">// Följande sats ger FEL vid exekvering! </span>
+<span class="hljs-comment">// Fältet tableSet har ingen fjärde dimension. </span>
+<span class="hljs-keyword">int</span> length3 = tableSet.GetLength(<span class="hljs-number">3</span>); 
 </div></code></pre>
 <hr>
 <h2 id="initering-av-flerdimensionella-f%C3%A4lt">Initering av flerdimensionella fält</h2>
@@ -858,22 +858,22 @@ int length3 = tableSet.GetLength(3);
 <hr>
 <h3 id="exempel">Exempel</h3>
 <div style="zoom: 0.85">
-<pre class="hljs"><code><div>bool[,] table = new bool[3, 4] { 
-  {true, false, true, false }, 
-  {true, true, false, false }, 
-  {false, false, true, true }
+<pre class="hljs"><code><div><span class="hljs-keyword">bool</span>[,] table = <span class="hljs-keyword">new</span> <span class="hljs-keyword">bool</span>[<span class="hljs-number">3</span>, <span class="hljs-number">4</span>] { 
+  {<span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span> }, 
+  {<span class="hljs-literal">true</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span> }, 
+  {<span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">true</span> }
 };
 
-int[,,] tableSet = new int[2,3,6] {
+<span class="hljs-keyword">int</span>[,,] tableSet = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">6</span>] {
   {
-    {1, 2, 3, 4, 5, 6}, 
-    {7, 8, 9, 10, 11, 12},
-    {13, 14, 15, 16, 17, 18}
+    {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>}, 
+    {<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>},
+    {<span class="hljs-number">13</span>, <span class="hljs-number">14</span>, <span class="hljs-number">15</span>, <span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">18</span>}
   }, 
   {
-    {19, 20, 21, 22, 23, 24}, 
-    {25, 26, 27, 28, 29, 30},
-    {31, 32, 33, 34, 35, 36}
+    {<span class="hljs-number">19</span>, <span class="hljs-number">20</span>, <span class="hljs-number">21</span>, <span class="hljs-number">22</span>, <span class="hljs-number">23</span>, <span class="hljs-number">24</span>}, 
+    {<span class="hljs-number">25</span>, <span class="hljs-number">26</span>, <span class="hljs-number">27</span>, <span class="hljs-number">28</span>, <span class="hljs-number">29</span>, <span class="hljs-number">30</span>},
+    {<span class="hljs-number">31</span>, <span class="hljs-number">32</span>, <span class="hljs-number">33</span>, <span class="hljs-number">34</span>, <span class="hljs-number">35</span>, <span class="hljs-number">36</span>}
   } 
 };
 </div></code></pre>
@@ -897,12 +897,12 @@ int[,,] tableSet = new int[2,3,6] {
 <hr>
 <h3 id="exempel">Exempel</h3>
 <p>En animation med 25 bildrutor om 640 x 480 pixlar där varje pixel har en färgkod av typen <code>int</code> kan lagras i följande tredimensionella fält:</p>
-<pre class="hljs"><code><div>int[,,] animation = new int[25, 480, 640];
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[,,] animation = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">25</span>, <span class="hljs-number">480</span>, <span class="hljs-number">640</span>];
 </div></code></pre>
 <p>Antag att färgkoden för grön är: <code>0b00000000_11111111_00000000_00000000</code></p>
 <p>Följande kod sätter då pixeln i rad 16 och kolumn 327 i bildruta 7 till färgen grön:</p>
-<pre class="hljs"><code><div>const int green = 0b00000000_11111111_00000000_00000000;
-animation[7, 16, 327] = green;
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> green = <span class="hljs-number">0b00000000</span>_11111111_00000000_00000000;
+animation[<span class="hljs-number">7</span>, <span class="hljs-number">16</span>, <span class="hljs-number">327</span>] = green;
 </div></code></pre>
 <hr>
 <h2 id="f%C3%A4lt-av-f%C3%A4lt">Fält av fält</h2>
@@ -912,16 +912,16 @@ animation[7, 16, 327] = green;
 </ul>
 <hr>
 <h3 id="exempel">Exempel</h3>
-<pre class="hljs"><code><div>int[][] array1; // array1 är ett fält av int[]
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[][] array1; <span class="hljs-comment">// array1 är ett fält av int[]</span>
 
-double[][] array2; // array2 är ett fält av double[]
+<span class="hljs-keyword">double</span>[][] array2; <span class="hljs-comment">// array2 är ett fält av double[]</span>
 </div></code></pre>
 <hr>
 <h2 id="initering-och-indexering-av-f%C3%A4lt-av-f%C3%A4lt">Initering och indexering av fält av fält</h2>
-<pre class="hljs"><code><div>int[][] a = { new [] { 1, 2}, new [] { 3, 4, 5 } };
-int b = a[0][1]; // b tilldelas 2 
-int c = a[1][2]; // c tilldelas 5
-int d = a[0][2]; // FEL vid exekvering! index out of bounds
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[][] a = { <span class="hljs-keyword">new</span> [] { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>}, <span class="hljs-keyword">new</span> [] { <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> } };
+<span class="hljs-keyword">int</span> b = a[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]; <span class="hljs-comment">// b tilldelas 2 </span>
+<span class="hljs-keyword">int</span> c = a[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>]; <span class="hljs-comment">// c tilldelas 5</span>
+<span class="hljs-keyword">int</span> d = a[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>]; <span class="hljs-comment">// FEL vid exekvering! index out of bounds</span>
 </div></code></pre>
 <hr>
 <h2 id="f%C3%A4lt-av-f%C3%A4lt-vs-tv%C3%A5dimensionella-f%C3%A4lt">Fält av fält vs. tvådimensionella fält</h2>
@@ -992,10 +992,10 @@ Console.WriteLine(<span class="hljs-string">$"Person 100: <span class="hljs-subs
 <hr>
 <h1 id="exempel">Exempel</h1>
 <p>Skriv ut antalet <code>a</code> i början på en text:</p>
-<pre class="hljs"><code><div>string text = &quot;aaababcca&quot;;
-int count = 0;
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span> text = <span class="hljs-string">"aaababcca"</span>;
+<span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
 
-while (count &lt; text.Length &amp;&amp; text[count] == 'a') {
+<span class="hljs-keyword">while</span> (count &lt; text.Length &amp;&amp; text[count] == <span class="hljs-string">'a'</span>) {
     ++count;
 }
 
