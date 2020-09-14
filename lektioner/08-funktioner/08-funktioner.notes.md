@@ -1,9 +1,45 @@
 ---
 presentation:
-  width: 800
+  width: 1200
   height: 600
   theme: 'black.css'
+  center: false
 ---
+<style type="text/css">
+  .reveal h1 {
+    display: inline;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .reveal p {
+    text-align: left;
+  }
+  .reveal ul {
+    display: block;
+  }
+  .reveal ol {
+    display: block;
+  }
+  .reveal section {
+    resize: false;
+    width: 100%;
+    height: 100;
+    text-align: left;
+   
+  }
+  .reveal pre {
+    zoom: 110%;
+  }
+  div.slides{
+     border: 1px solid white;
+  }
+  .reveal code {
+    zoom: 90%;
+  }
+</style>
+
 
 <!-- slide -->
 
@@ -13,44 +49,60 @@ presentation:
 
 ## Funktion
 
-- I C# är en funktion ett namngivet kodblock
-- Koden i blocket körs genom att funktionen anropas
+- I C# är en *funktion* ett namngivet kodblock
+- Koden i blocket körs genom att funktionen *anropas* i koden
 - Kodblocket kallas funktionens *kropp*
+
+<!-- slide -->
+
+## Användningsområden
+
+- Funktioner används t.ex. för att:
+  - Återanvändning av logik
+  - Strukturera långa kodblock (*spaghettikod*)
+  - Callbacks - anropa egen kod från tredjepartsfunktion
+  - Skapa metoder
 
 <!-- slide -->
 
 ## Parametrar
 
-- Funktionen har en lista med parametrar
-- En parameter är en speciell typ av lokal variabel för funktionens kodblocket
-- Varje parameter måste ges ett värde vid varje anropa funktionen
+- Varje funktionen har en lista av parametrar 
+- En *parameter*:
+  - är en lokal variabel för funktionens kropp
+  - måste tilldelas ett värde vid varje anrop till funktionen
+- Värden tilldelade parametrar vid anrop kallas *argument*
 
 <!-- slide -->
 
-## Resultat 
+## Returvärde 
 
-- Ett funktionsanrop kan resultera i ett värde
-- Kallas att funktionen *returnerar* ett värde
+- Ett funktionsanrop kan *returnera* ett värde
+- Ett funktions som returnerar ett värde är ett uttryck
+
 
 <!-- slide -->
 
-## Syntax för en funktion
+## Definition av funktion
 
-- Syntexen för att definiera en funktion är:
+- Syntaxen för att definiera en funktion är:
 
     ```cs
-    <typ> <identifierare> (<param 1>, <param 2>, .., <param k>) 
+    <typ> <identifierare> (<param1>, <param2>, ..) 
     {
-        // kod som körs vid anrop av funktionen
+        // Kod som körs vid anrop av funktionen.
+        // Kallas funktionens kropp.
     }
     ``` 
 
     där ``<typ>`` är typen på värdet som funktionen returnerar. 
 - Hela raden före funktionens kropp kallas fuktionens *huvud*
 
-## Syntax för en parameter
+<!-- slide -->
 
-En parameter hara samma syntax som definition av en lokal variabel:
+## Definition av parameter
+
+En parameter definieras med samma syntax som en variabel: 
 
 ```cs
 <typ> <identifierare>
@@ -60,72 +112,231 @@ En parameter hara samma syntax som definition av en lokal variabel:
 
 ## Return
 
-Om en funktion resulterar i ett värde måste varje körningsflöde genom funktionens kropp måste sluta med en sats bestånde av nyckelordet ``return`` följt av ett uttryck av funktionens resultattyp.
+- Varje flöde genom kroppen på en funktion med returvärde måste alltid sluta i satsen: 
+
+  ```cs
+  return <uttryck>;
+  ```
+
+  där ``return`` är ett nyckelord följt av ett uttryck av typ matchande definitionen av funktionen. 
+
 
 <!-- slide -->
 
 ### Exempel
 
 ```cs
-// definition av ny funktion `add`
-int add(int a, int b) 
-{
-    return b; 
-}
+  // Definition av funktion `Bmi`
+  double Bmi(double lengthCm, double weightKg)
+  {
+      var lengthMeters = lengthCm / 100;
+      return weightKg / (lengthMeters * lengthMeters);
+  }
 
-var x = add(1, 2); // x = 3
-var y = add(3, 4); // y = 7
+  // Ett anrop till funktionen 'Bmi' 
+  // med argumenten '178' och '78.5'
+  var bmi = Bmi(178, 78.5); // x = 24.77.. 
 ```
 
 <!-- slide -->
 
-## Funktioner utan returvärde
+## Parameter via position
 
-- En funktion måste inte reslutera i ett värde
-- I så fall ges resultattypen av funktionen av nyckelordet ``void``
-- Vid anrop återvänder körningsflödet från funktionens kropp:
-  - Vid körning av satsen ``return; `` körs, eller
-  - När körningsflödet når slutet på kodblocket.
+- Parametrar tilldelas argumenten parametrar via position. 
 
-## Användningsområden för funktioner
+  ```cs
+  var bmi = Bmi(178, 78.5);
+  ```
 
-- Återanvändning av logik
-- Strukturera kod för att göra den enklare att läsa och underhålla
-- Callbacks - injiicera egen kod i körning av ramverkskod
-- Metoder
+- Lätt göra ett misstag. 
+
+  ```cs
+  // OOPS! Fel i båda raderna, 
+  // men ingen varning från kompilatorn
+  var bmi = Bmi(78.5, 178); 
+  var bmi2 = Bmi(1.78, 78.5); 
+  ```
+
 
 <!-- slide -->
 
-### Exempel - Luffarschack
+## Parameter via namn
 
-```cs
-var board = new char[3,3]; 
+- Parametrar kan också tilldelas argument via namn. 
 
-for (int r = 0; r < 3; ++r) {
-    for (int k = 0; k < 3; ++k) {
-        board[r, k] = ' ';
-    }
-}
+  ```cs
+  var bmi = Bmi(lengthCm: 178, weightKg: 78.5);
+  ```
 
-bool gamedEnded = false;
-char player = 'X';
+- Kan göra koden mer robus och lättare att förstå.
 
-while (!gameEnded) {
-    Console.WriteLine($"========");
-    for (int r = 0; i < 3; ++r) {
-        Console.WriteLine($"|{board[r, 0]}|{board[r, 1]}|{board[r, 2]}|");
-    }
-    Console.WriteLine($"========");
-    Console.WriteLine("");
-    
-}
+  ```cs
+  // Fortfarande korrekt
+  var bmi = Bmi(weightKg: 78.5, lengthCm: 178);
+  ```
 
 
+<!-- slide -->
 
+## Kortform för enkla funktioner
 
+- Alternativ syntax för funktioner med kropp bestående av en sats:
 
+  ```cs
+  <typ> <identifierare> (<param1>, <param2>, .. ) => <uttryck>
+  ```
 
+<!-- slide -->
 
+### Exampel
+
+- Alternativ implementation av BMI-funktionen.
+
+  ```cs
+  double Bmi(double lengthCm, double weightKg) => 
+          weightKg / Math.Pow(lengthCm / 100, 2);
+  ```
+
+<!-- slide -->
+
+## Procedur
+
+- En funktion måste inte returnera ett värde
+- Resultattypen är då nyckelordet ``void``
+- En funktion utan resultatvärde kallas *procedur*
+- Flödet återvänder från funktionens kropp:
+  - Vid körning av satsen  ``return; ``, eller
+  - När kodblocket tar slut. 
+
+<!-- slide -->
+
+### Exempel 
+
+<div style="zoom: 0.75">
+
+Procedur som skriver ut text med ram. 
+
+```cs 
+void WriteInFrame(string text, int width, char border)
+{
+    width = Math.Max(width, text.Length + 4);
+
+    var line = new String(border, width);
+    var spacer = border + new String(' ', width - 2) + border;
+
+    var paddingNeeded = width - 2 - text.Length;
+    var padLeft = new String(' ', paddingNeeded / 2);
+    var padRight = new String(' ', paddingNeeded - padLeft.Length);
+
+    Console.WriteLine(
+        line + '\n' + spacer + '\n' + 
+        border + padLeft + text + padRight + border + '\n' + 
+        spacer + '\n' + line
+    );
+}               
+```
+
+</div>
+
+<!-- slide -->
+
+### Exempel fort.
+
+<div style="display: flex">
+
+<div style="text-align: center; width: 60%; margin-left: 0.75em">
+  Kod
+  
+  ```cs
+  WriteInFrame("Daniel", 0, '#');
+  Console.WriteLine();
+  WriteInFrame("Bo", 0, '#');
+  ```
+</div>
+<div style="margin-left: 5%; text-align: center; width: 25%">
+Urskrift
+
+```text
+##########
+#        #
+# Daniel #
+#        #
+##########
+
+######
+#    #
+# Bo #
+#    #
+######
+```
+</div>
+
+<!-- slide -->
+
+## Defaultvärde för PARAMETER
+
+- Parametrar kan ha defaultvärde. 
+- Parametrar med defaultvärden måste komma sist i definitionen av funktionen.
+
+<!-- slide -->
+
+## Exempel
+
+<div style="zoom: 0.75">
+
+Procedur som skriver ut text med ram. 
+
+```cs 
+void WriteInFrame(string text, int width = 0, char border = '*')
+{
+    width = Math.Max(width, text.Length + 4);
+
+    var line = new String(border, width);
+    var spacer = border + new String(' ', width - 2) + border;
+
+    ...             
+```
+
+</div>
+
+<!-- slide -->
+
+<div style="display: flex">
+
+<div style="text-align: center; width: 65%; margin-left: 0.75em">
+  Kod
+  
+  ```cs
+WriteInFrame("Anna");
+Console.WriteLine();
+WriteInFrame("Mattias", border: '$');
+  ```
+</div>
+  <div style="margin-left: 5%; text-align: center; width: 23%">
+  Urskrift
+  
+  ```text
+********
+*      *
+* Anna *
+*      *
+********
+
+$$$$$$$$$$$
+$         $
+$ Mattias $
+$         $
+$$$$$$$$$$$
+  ```
+  </div>
+
+<!-- slide -->
+
+## Strukturering och återanvänding av kod
+
+- I slutet av lektionen skall vi titta på exempel där funktioner avnänds för att förtydliga struktur och återanvända kod. 
+
+<!-- slide -->
 
 
 
