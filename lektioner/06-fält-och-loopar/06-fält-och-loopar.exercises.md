@@ -9,7 +9,7 @@ Skriv en ``while``-loop med exakt samma funktion som följande ``for``-loop:
 
 ```cs
 for (int i=0; i<10; i++) {
-    System.out.println(i);
+    Console.WriteLine(i);
 }
 ```
 
