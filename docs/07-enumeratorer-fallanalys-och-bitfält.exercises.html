@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>07-enumeratorer-fallanalys-och-bitfält.exercises.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="enumeratorer-fallanalys-och-bitf%C3%A4lt">Enumeratorer, fallanalys och bitfält</h1>
+<h2 id="%C3%B6vningar">Övningar</h2>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Definiera lämpliga <code>enum</code>-typer (med engelska namn på värdena) för:</p>
+<ul>
+<li>Symbolerna i luffarshack.</li>
+<li>Ranken på spelkort (två, tre, ..., kung, äss).</li>
+<li>Pjäser i ett shackspel.</li>
+<li>Stjärntecken.</li>
+</ul>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Antag typdefinitionen:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Enum {
+    Value1 = <span class="hljs-number">-100</span>
+    Value2 
+    Value3 = <span class="hljs-number">100</span> 
+    Value4
+}
+</div></code></pre>
+<p>Vad skriver följande program ut?</p>
+<pre class="hljs"><code><div>Enum[] enums = {
+    Enum.Value1, Enum.Value2, 
+    Enum.Value3, Enum.Value4
+};
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; enums.Length; ++i)
+{
+    Console.WriteLine((<span class="hljs-keyword">int</span>)enums[i]);
+}  
+</div></code></pre>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Med två <code>enum</code>-typer:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Suite 
+{
+    Hearts, 
+    Diamonds, 
+    Clubs,
+    Spades
+}
+</div></code></pre>
+<p>och:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Rank 
+{
+    Two, 
+    Three, 
+    <span class="hljs-comment">// o.s.v.</span>
+}
+</div></code></pre>
+<p>så kan en hand i poker representeras med två fält:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> ranks = <span class="hljs-keyword">new</span> Rank[<span class="hljs-number">5</span>];
+<span class="hljs-keyword">var</span> suits = <span class="hljs-keyword">new</span> Suite[<span class="hljs-number">5</span>];
+</div></code></pre>
+<p>Handen kan sorteras efter rank med följande implementation av <em>bubble sort</em>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = ranks.Length - <span class="hljs-number">1</span>; i &gt; <span class="hljs-number">0</span>; --i) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i ; ++j) {
+        <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">int</span>)ranks[j] &gt; (<span class="hljs-keyword">int</span>)ranks[j+<span class="hljs-number">1</span>]) {
+            <span class="hljs-comment">// Card j on the hand has higher rank than card j + 1</span>
+            <span class="hljs-comment">// Therefore, swap card j with card j + 1</span>
+            <span class="hljs-keyword">var</span> temp1 = ranks[j+<span class="hljs-number">1</span>];
+            <span class="hljs-keyword">var</span> temp2 = suites[j+<span class="hljs-number">1</span>];
+            ranks[j+<span class="hljs-number">1</span>] = ranks[j];
+            suites[j+<span class="hljs-number">1</span>] = suites[j];
+            ranks[j] = temp1;
+            suites[j] = temp2; 
+        }
+    }
+    <span class="hljs-comment">// Card i is now guaranteed to be in the right position</span>
+}
+</div></code></pre>
+<p>(Fundera gärna på hur oavanstående sorteringsalgoritm fungerar)</p>
+<p>Skriv kod för att kontrollera om spelaren har:</p>
+<p>a) Färg.</p>
+<p>b) Ett par.</p>
+<p>c) Fyrtal.</p>
+<p>d) Stege (antag att äss alltid har rank 14, inte 1).</p>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Antag följande variabler:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">0b</span>_1010_1010;
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">0b</span>_0101_0101;
+<span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>x_FF_00; 
+<span class="hljs-keyword">int</span> y = <span class="hljs-number">0</span>x_00_FF;
+</div></code></pre>
+<p>Vad blir värdet på följande uttryck?</p>
+<p>a) <code>a | b</code></p>
+<p>b) <code>a &amp; b</code></p>
+<p>c) <code>~a == b</code></p>
+<p>d) <code>x &gt;&gt; 8</code></p>
+<p>e) <code>(a &gt;&gt; 1) == b</code></p>
+<p>f) <code>(b &gt;&gt; 1) == a</code></p>
+<p>g) <code>(b &lt;&lt; 1) == a</code></p>
+<p>h) <code>a ^ b</code></p>
+<p>i) <code>(x | y) ^ a) == ~a</code></p>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Använd en <code>for</code>-loop och bitvisa operatorer för att skriva ett program som räknar hur många ett or hur många nollor som ingår i den binära representation av ett <code>int</code>-värde <code>x</code>.</p>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Antag variabeldefinitionen:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = ..; <span class="hljs-comment">// något värde</span>
+</div></code></pre>
+<p>Skriv kod som med en bitmask:</p>
+<p>a) Kontrollerar om bit 7 är satt i <code>x</code>.</p>
+<p>b) Kontrollerar om bit 7 och bit 14 är satt i <code>x</code>.</p>
+<p>c) Sätter bit 31 i <code>x</code>.</p>
+<p>d) Återställer bit 31 i <code>x</code>.</p>
+<p>e) Återställer bitarna bitarna 8-15 i <code>x</code>.</p>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Använd exklusivt-eller-operatorn för att skriva kod som som enbart inverterar värdena på bit 16-31 i värdet av <code>x</code>.</p>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Antag en variabel <code>x</code> av typen <code>int</code>. Skriv kod som lagrar bitarna 0-7, 8-15, 16-23 respektive 24-31 i <code>x</code> som fyra  <code>byte</code>-variabler med namn <code>b0</code>, <code>b1</code>, <code>b2</code> respektive <code>b3</code>.</p>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<p>Antag följande typdefinition:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Zodiac 
+{
+    Aries, 
+    Taurus, 
+    Gemini, 
+    Cancer, 
+    Leo, 
+    Virgo, 
+    Libra, 
+    Scorpio, 
+    Sagittarius,
+    Capricorn,
+    Aquarius,
+    Pisces
+}
+</div></code></pre>
+<p>a) Skriv om följande kod med hjälp av en <code>switch</code>-sats:</p>
+<pre class="hljs"><code><div>Zodiac starsign = ..;
+
+<span class="hljs-keyword">string</span> dateInterval = <span class="hljs-string">""</span>;
+
+<span class="hljs-keyword">if</span> (starsign == Aries) {
+    dateInterval = <span class="hljs-string">"Mar 20 - Apr 19"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Taurus) {
+    dateInterval = <span class="hljs-string">"Apr 20 - May 20"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Gemini) {
+    dateInterval = <span class="hljs-string">"May 21 - Jun 20"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Cancer) {
+    dateInterval = <span class="hljs-string">"Jun 21 - Jul 22"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Leo) {
+    dateInterval = <span class="hljs-string">"Jul 23 - Aug 22"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Virgo) {
+    dateInterval = <span class="hljs-string">"Aug 23 - Sep 22"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Libra) {
+    dateInterval = <span class="hljs-string">"Sep 23 - Oct 22"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Scorpio) {
+    dateInterval = <span class="hljs-string">"Oct 23 - Nov 21"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Sagittarius) {
+    dateInterval = <span class="hljs-string">"Nov 22 - Dec 21"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Capricorn) {
+    dateInterval = <span class="hljs-string">"Dec 22 - Jan 19"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Aquarius) {
+    dateInterval = <span class="hljs-string">"Jag 20 - Feb 17"</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (starsign == Zodiac.Pisces) {
+    dateInterval = <span class="hljs-string">"Feb 18 - Mar 19"</span>;
+}
+
+Console.WriteLine(<span class="hljs-string">$"You were born in the interval <span class="hljs-subst">{dateInterval}</span>"</span>);
+</div></code></pre>
+<p>b) Skriv om samma kod med hjälp av ett <code>switch</code>-uttryck.</p>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<hr>
+<h3 id="%C3%B6vning">Övning</h3>
+<hr>
+
+</body>
+</html>
