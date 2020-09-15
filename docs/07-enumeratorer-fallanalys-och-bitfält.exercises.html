@@ -368,7 +368,7 @@ code {
 <h1 id="enumeratorer-fallanalys-och-bitf%C3%A4lt">Enumeratorer, fallanalys och bitfält</h1>
 <h2 id="%C3%B6vningar">Övningar</h2>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-g3he36-1">Övning g3he36 (1)</h3>
 <p>Definiera lämpliga <code>enum</code>-typer (med engelska namn på värdena) för:</p>
 <ul>
 <li>Symbolerna i luffarshack.</li>
@@ -377,7 +377,7 @@ code {
 <li>Stjärntecken.</li>
 </ul>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-w83gdk-1">Övning w83gdk (1)</h3>
 <p>Antag typdefinitionen:</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Enum {
     Value1 = <span class="hljs-number">-100</span>
@@ -398,7 +398,7 @@ code {
 }  
 </div></code></pre>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-n8nf59-3-4">Övning n8nf59 (3-4)</h3>
 <p>Med två <code>enum</code>-typer:</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Suite 
 {
@@ -444,7 +444,7 @@ code {
 <p>c) Fyrtal.</p>
 <p>d) Stege (antag att äss alltid har rank 14, inte 1).</p>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-pm23wy-2-3">Övning pm23wy (2-3)</h3>
 <p>Antag följande variabler:</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">0b</span>_1010_1010;
 <span class="hljs-keyword">int</span> b = <span class="hljs-number">0b</span>_0101_0101;
@@ -462,10 +462,10 @@ code {
 <p>h) <code>a ^ b</code></p>
 <p>i) <code>(x | y) ^ a) == ~a</code></p>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-ystv87-2">Övning ystv87 (2)</h3>
 <p>Använd en <code>for</code>-loop och bitvisa operatorer för att skriva ett program som räknar hur många ett or hur många nollor som ingår i den binära representation av ett <code>int</code>-värde <code>x</code>.</p>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-k3af6v-2">Övning k3af6v (2)</h3>
 <p>Antag variabeldefinitionen:</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = ..; <span class="hljs-comment">// något värde</span>
 </div></code></pre>
@@ -476,13 +476,13 @@ code {
 <p>d) Återställer bit 31 i <code>x</code>.</p>
 <p>e) Återställer bitarna bitarna 8-15 i <code>x</code>.</p>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-62szxn-3">Övning 62szxn (3)</h3>
 <p>Använd exklusivt-eller-operatorn för att skriva kod som som enbart inverterar värdena på bit 16-31 i värdet av <code>x</code>.</p>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-stu2ge-4">Övning stu2ge (4)</h3>
 <p>Antag en variabel <code>x</code> av typen <code>int</code>. Skriv kod som lagrar bitarna 0-7, 8-15, 16-23 respektive 24-31 i <code>x</code> som fyra  <code>byte</code>-variabler med namn <code>b0</code>, <code>b1</code>, <code>b2</code> respektive <code>b3</code>.</p>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-356hu2-1">Övning 356hu2 (1)</h3>
 <p>Antag följande typdefinition:</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Zodiac 
 {
@@ -535,7 +535,10 @@ Console.WriteLine(<span class="hljs-string">$"You were born in the interval <spa
 </div></code></pre>
 <p>b) Skriv om samma kod med hjälp av ett <code>switch</code>-uttryck.</p>
 <hr>
-<h3 id="%C3%B6vning">Övning</h3>
+<h3 id="%C3%B6vning-br9xvg-2">Övning br9xvg (2)</h3>
+<p>En arbetsgivare måste betala arbetsgivaravgift till staten. Arbetsgivaravgiften är procentuell på bruttolönen för den anställde. Normal arbetsgivaravgift är 31,42% av bruttolönen. För personer över 65 år är arbetsgivaravgiften 10,21%. För ungdomar under 18 år är arbetsgivaravgiften också 10,21%, men bara om bruttolönen är maximalt 25 000 kr i månaden. Överstiger lönen 25 000 kr i månaden skall arbetsgivaren betala 31,42% i arbetsgivaravgift även för ungdom.</p>
+<p>a) Skriv en <code>switch</code>-sats som gör fallanalys på både ålder och bruttomånadslön för en anställd och skriver ut beloppet för arbetsgivaravgiften.</p>
+<p>b) Gör om <code>switch</code>-satsen till ett <code>switch</code>-uttryck som beräknar beloppet på arbetsgivaravgiften från ålder och bruttomånadslön för en anställd.</p>
 <hr>
 <h3 id="%C3%B6vning">Övning</h3>
 <hr>

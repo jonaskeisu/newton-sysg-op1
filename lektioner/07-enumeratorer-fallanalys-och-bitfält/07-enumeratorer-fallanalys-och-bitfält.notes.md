@@ -2,7 +2,7 @@
 presentation:
   width: 1200
   height: 600
-  theme: 'simple.css'
+  theme: 'serif.css'
   center: false
 ---
 <style type="text/css">
@@ -365,7 +365,7 @@ byte g = ~b;    // g = 0b_0101_0101
 
 - *Skiftoperatorer* förskjuter bitarna i ett bitfält
 - Operatorn ``<<`` kallas *vänsterskift* och förskjuter bitfält åt vänster. 
-- Operatorn ``>>`` kallas *högerskift* förskjuter bitfält åt vänster. 
+- Operatorn ``>>`` kallas *högerskift* förskjuter bitfält åt höger. 
 - Skiftning påverkar inte bitfältets längd:
   - Nya bitar som "skiftas in" har värdet 0. 
   - Bitar som "skiftas ut" går förlorade.  
@@ -489,8 +489,8 @@ bitfält &= ~mask;
 byte a = 0b_0101_0101;
 byte b = 0b_1010_1010;
 byte mask = 1 << 5; // mask = 0b_0010_000, så ~mask == 0b_1101_1111
-a &= ~mask; // a är fortfarande 0b_0101_0101
-b &= ~mask; // b är nu 0b_1000_1010
+a &= (byte)(~mask); // a är fortfarande 0b_0101_0101
+b &= (byte)(~mask); // b är nu 0b_1000_1010
 ```
 
 <!-- slide -->
@@ -584,6 +584,7 @@ switch ( <uttryck> ) {
   ...
   default: 
     // Kod för att hantera alla andra fall
+    break;
 }
 ```
 
@@ -693,8 +694,8 @@ switch (obj) {
 ```cs
 switch (age, name)
 {
-    case var x when x.Item2.Equals("Bo"):
-        Console.WriteLine($"Bo är {x.Item1} år");
+    case var x when x.name == "Bo":
+        Console.WriteLine($"Bo är {x.age} år");
         break;
     case (42, "Jonas"):
         Console.WriteLine("Du verkar bekant!");

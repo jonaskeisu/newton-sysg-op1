@@ -3,7 +3,7 @@
 
 ---
 
-### Övning 
+### Övning g3he36 (1)
 
 Definiera lämpliga ``enum``-typer (med engelska namn på värdena) för: 
 
@@ -14,7 +14,7 @@ Definiera lämpliga ``enum``-typer (med engelska namn på värdena) för:
 
 ---
 
-### Övning 
+### Övning w83gdk (1)
 
 Antag typdefinitionen: 
 
@@ -43,7 +43,7 @@ for (int i = 0; i < enums.Length; ++i)
 
 ---
 
-### Övning
+### Övning n8nf59 (3-4)
 
 Med två ``enum``-typer: 
 
@@ -109,7 +109,7 @@ d) Stege (antag att äss alltid har rank 14, inte 1).
 
 ---
 
-### Övning 
+### Övning pm23wy (2-3)
 
 Antag följande variabler: 
 
@@ -142,13 +142,13 @@ i) ``(x | y) ^ a) == ~a``
 
 ---
 
-### Övning 
+### Övning ystv87 (2)
 
 Använd en ``for``-loop och bitvisa operatorer för att skriva ett program som räknar hur många ett or hur många nollor som ingår i den binära representation av ett ``int``-värde ``x``. 
 
 ---
 
-### Övning 
+### Övning k3af6v (2)
 
 Antag variabeldefinitionen: 
 
@@ -170,19 +170,19 @@ e) Återställer bitarna bitarna 8-15 i ``x``.
 
 ---
 
-### Övning 
+### Övning 62szxn (3)
 
 Använd exklusivt-eller-operatorn för att skriva kod som som enbart inverterar värdena på bit 16-31 i värdet av ``x``. 
 
 ---
 
-### Övning 
+### Övning stu2ge (4)
 
 Antag en variabel ``x`` av typen ``int``. Skriv kod som lagrar bitarna 0-7, 8-15, 16-23 respektive 24-31 i ``x`` som fyra  ``byte``-variabler med namn ``b0``, ``b1``, ``b2`` respektive ``b3``. 
 
 ---
 
-### Övning 
+### Övning 356hu2 (1)
 
 Antag följande typdefinition: 
 
@@ -244,7 +244,13 @@ b) Skriv om samma kod med hjälp av ett ``switch``-uttryck.
 
 ---
 
-### Övning 
+### Övning br9xvg (2)
+
+En arbetsgivare måste betala arbetsgivaravgift till staten. Arbetsgivaravgiften är procentuell på bruttolönen för den anställde. Normal arbetsgivaravgift är 31,42% av bruttolönen. För personer över 65 år är arbetsgivaravgiften 10,21%. För ungdomar under 18 år är arbetsgivaravgiften också 10,21%, men bara om bruttolönen är maximalt 25 000 kr i månaden. Överstiger lönen 25 000 kr i månaden skall arbetsgivaren betala 31,42% i arbetsgivaravgift även för ungdom. 
+
+a) Skriv en ``switch``-sats som gör fallanalys på både ålder och bruttomånadslön för en anställd och skriver ut beloppet för arbetsgivaravgiften. 
+
+b) Gör om ``switch``-satsen till ett ``switch``-uttryck som beräknar beloppet på arbetsgivaravgiften från ålder och bruttomånadslön för en anställd. 
 
 
 ---
