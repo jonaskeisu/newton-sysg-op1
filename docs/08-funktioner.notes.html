@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>08-funktioner.notes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<style type="text/css">
+  .reveal h1 {
+    display: inline;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .reveal p {
+    text-align: left;
+  }
+  .reveal ul {
+    display: block;
+  }
+  .reveal ol {
+    display: block;
+  }
+  .reveal section {
+    resize: false;
+    width: 100%;
+    height: 100;
+    text-align: left;
+   
+  }
+  .reveal pre {
+    zoom: 110%;
+  }
+  div.slides{
+     # border: 1px solid black;
+  }
+  .reveal code {
+    zoom: 90%;
+  }
+</style>
+<!-- slide -->
+<h1 id="funktioner">Funktioner</h1>
+<!-- slide -->
+<h2 id="funktion">Funktion</h2>
+<ul>
+<li>I C# är en <em>funktion</em> ett namngivet kodblock</li>
+<li>Koden i blocket körs genom att funktionen <em>anropas</em> i koden</li>
+<li>Kodblocket kallas funktionens <em>kropp</em></li>
+</ul>
+<!-- slide -->
+<h2 id="anv%C3%A4ndningsomr%C3%A5den">Användningsområden</h2>
+<ul>
+<li>Funktioner används t.ex. för att:
+<ul>
+<li>Återanvändning av logik</li>
+<li>Strukturera långa kodblock (<em>spaghettikod</em>)</li>
+<li>Callbacks - anropa egen kod från tredjepartkod</li>
+<li>Skapa metoder</li>
+</ul>
+</li>
+</ul>
+<!-- slide -->
+<h2 id="parametrar">Parametrar</h2>
+<ul>
+<li>Varje funktionen har en lista av <em>parametrar</em></li>
+<li>En parameter:
+<ul>
+<li>är en lokal variabel för funktionens kropp</li>
+<li>måste tilldelas ett värde vid varje anrop till funktionen</li>
+</ul>
+</li>
+<li>Värden tilldelade parametrar vid anrop kallas <em>argument</em></li>
+</ul>
+<!-- slide -->
+<h2 id="returv%C3%A4rde">Returvärde</h2>
+<ul>
+<li>Ett funktionsanrop kan <em>returnera</em> ett värde</li>
+<li>Ett funktions som returnerar ett värde är ett uttryck</li>
+</ul>
+<!-- slide -->
+<h2 id="definition-av-funktion">Definition av funktion</h2>
+<ul>
+<li>
+<p>Syntaxen för att definiera en funktion är:</p>
+<pre class="hljs"><code><div>&lt;typ&gt; &lt;identifierare&gt; (&lt;param1&gt;, &lt;param2&gt;, ..) 
+{
+    <span class="hljs-comment">// Kod som körs vid anrop av funktionen.</span>
+    <span class="hljs-comment">// Kallas funktionens kropp.</span>
+}
+</div></code></pre>
+<p>där <code>&lt;typ&gt;</code> är typen på värdet som funktionen returnerar.</p>
+</li>
+<li>
+<p>Hela raden före funktionens kropp kallas fuktionens <em>signatur</em></p>
+</li>
+</ul>
+<!-- slide -->
+<h2 id="definition-av-parameter">Definition av parameter</h2>
+<p>En parameter definieras med samma syntax som en variabel:</p>
+<pre class="hljs"><code><div>&lt;typ&gt; &lt;identifierare&gt;
+</div></code></pre>
+<!-- slide -->
+<h2 id="return">Return</h2>
+<ul>
+<li>
+<p>Varje flöde genom kroppen på en funktion med returvärde måste alltid sluta i satsen:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">return</span> &lt;uttryck&gt;;
+</div></code></pre>
+<p>där <code>return</code> är ett nyckelord följt av ett uttryck av typ matchande definitionen av funktionen.</p>
+</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div>  <span class="hljs-comment">// Definition av funktion `Bmi`</span>
+  <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Bmi</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> lengthCm, <span class="hljs-keyword">double</span> weightKg</span>)</span>
+  {
+      <span class="hljs-keyword">var</span> lengthMeters = lengthCm / <span class="hljs-number">100</span>;
+      <span class="hljs-keyword">return</span> weightKg / (lengthMeters * lengthMeters);
+  }
+
+  <span class="hljs-comment">// Ett anrop till funktionen 'Bmi' </span>
+  <span class="hljs-comment">// med argumenten '178' och '78.5'</span>
+  <span class="hljs-keyword">var</span> bmi = Bmi(<span class="hljs-number">178</span>, <span class="hljs-number">78.5</span>); <span class="hljs-comment">// x = 24.77.. </span>
+</div></code></pre>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">EmployeeTax</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> employeeAge, <span class="hljs-keyword">double</span> salary</span>)</span>
+{
+  <span class="hljs-keyword">if</span> (employeeAge &gt;= <span class="hljs-number">65</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0.1021</span> * salary; 
+  }
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (employeeAge &lt; <span class="hljs-number">18</span> &amp;&amp; salary &lt;= <span class="hljs-number">25000</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0.1021</span> * salary; 
+  }
+  <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0.3142</span> * salary;
+  }
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="kortform-f%C3%B6r-enkla-funktioner">Kortform för enkla funktioner</h2>
+<ul>
+<li>
+<p>Alternativ syntax för funktioner med kropp bestående av en sats:</p>
+<pre class="hljs"><code><div>&lt;typ&gt; &lt;identifierare&gt; (&lt;param1&gt;, &lt;param2&gt;, .. ) =&gt; &lt;uttryck&gt;
+</div></code></pre>
+</li>
+</ul>
+<!-- slide -->
+<h3 id="exampel">Exampel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Bmi</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> lengthCm, <span class="hljs-keyword">double</span> weightKg</span>)</span> =&gt; 
+  weightKg / Math.Pow(lengthCm / <span class="hljs-number">100</span>, <span class="hljs-number">2</span>);
+</div></code></pre>
+<!-- slide -->
+<h2 id="exempel">Exempel</h2>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">EmployeeTax</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> employeeAge, <span class="hljs-keyword">double</span> salary</span>)</span> =&gt; salary * (
+    (employeeAge, salary) <span class="hljs-keyword">switch</span> {
+        <span class="hljs-keyword">var</span> (age,   _) <span class="hljs-keyword">when</span> age &gt;= <span class="hljs-number">65</span>                =&gt; <span class="hljs-number">0.1021</span>,
+        <span class="hljs-keyword">var</span> (age, sal) <span class="hljs-keyword">when</span> age &lt; <span class="hljs-number">18</span> &amp;&amp; sal &lt;= <span class="hljs-number">25000</span> =&gt; <span class="hljs-number">0.1021</span>,
+        _                                            =&gt; <span class="hljs-number">0.3142</span>,
+    });
+</div></code></pre>
+<!-- slide -->
+<h2 id="statiska-metoder">Statiska metoder</h2>
+<ul>
+<li>En funktion kan definieras på klassnivå och kallas då <em>metod</em></li>
+<li>Om metoden har modifieraren <code>static</code> så är den en <em>klassmetod</em></li>
+<li>En klassmetod kan anropas från andra metoder i samma klass</li>
+<li>Funktionen <code>Main(string[] args)</code> är en speciell klassmetod
+<ul>
+<li>Den utgör så kallad <em>entry point</em> för C#-applikationen</li>
+</ul>
+</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">WeightWatchers</span> {
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
+        <span class="hljs-comment">// Klassmetod</span>
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Bmi</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> lengthCm, <span class="hljs-keyword">double</span> weightKg</span>)</span> =&gt; 
+            weightKg / Math.Pow(lengthCm / <span class="hljs-number">100</span>, <span class="hljs-number">2</span>);
+
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+            <span class="hljs-keyword">var</span> weight = <span class="hljs-keyword">double</span>.Parse(args[<span class="hljs-number">0</span>]);
+            <span class="hljs-keyword">var</span> height = <span class="hljs-keyword">double</span>.Parse(args[<span class="hljs-number">1</span>]);
+            Console.WriteLine(<span class="hljs-string">$"Ditt BMI är: <span class="hljs-subst">{Bmi(weight, height)}</span>"</span>);
+        }
+    }
+} 
+</div></code></pre>
+<!-- slide -->
+<h2 id="lokala-funktioner">Lokala funktioner</h2>
+<ul>
+<li>En lokal funktion:
+<ul>
+<li>Är en funktion definierad i kroppen av en annan funktion</li>
+<li>En synlig enbart i aktuellt kodblock</li>
+<li>Kan dock refereras i kodblocket före definition</li>
+</ul>
+</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">WeightWatchers</span> {
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+            <span class="hljs-keyword">var</span> weight = <span class="hljs-keyword">double</span>.Parse(args[<span class="hljs-number">0</span>]);
+            <span class="hljs-keyword">var</span> height = <span class="hljs-keyword">double</span>.Parse(args[<span class="hljs-number">1</span>]);
+            Console.WriteLine(<span class="hljs-string">$"Ditt BMI är: <span class="hljs-subst">{Bmi(weight, height)}</span>"</span>);
+
+            <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Bmi</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> lengthCm, <span class="hljs-keyword">double</span> weightKg</span>)</span> =&gt; 
+                weightKg / Math.Pow(lengthCm / <span class="hljs-number">100</span>, <span class="hljs-number">2</span>);
+        }
+    }
+} 
+</div></code></pre>
+<!-- slide -->
+<h2 id="parameter-via-position">Parameter via position</h2>
+<p>Parametrar kan tilldelas argumenten via position.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> bmi = Bmi(<span class="hljs-number">178</span>, <span class="hljs-number">78.5</span>);
+</div></code></pre>
+<p>Lätt göra ett misstag..</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// OOPS! Fel i båda anropen, men ingen varning från kompilatorn</span>
+<span class="hljs-keyword">var</span> bmi1 = Bmi(<span class="hljs-number">78.5</span>, <span class="hljs-number">178</span>); 
+<span class="hljs-keyword">var</span> bmi2 = Bmi(<span class="hljs-number">1.78</span>, <span class="hljs-number">78.5</span>); 
+</div></code></pre>
+<!-- slide -->
+<h2 id="parameter-via-namn">Parameter via namn</h2>
+<ul>
+<li>
+<p>Parametrar kan också tilldelas argument via namn.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> bmi = Bmi(lengthCm: <span class="hljs-number">178</span>, weightKg: <span class="hljs-number">78.5</span>);
+</div></code></pre>
+</li>
+<li>
+<p>Kan ibland göra koden mer robust och lättare att förstå.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Fortfarande korrekt</span>
+<span class="hljs-keyword">var</span> bmi = Bmi(weightKg: <span class="hljs-number">78.5</span>, lengthCm: <span class="hljs-number">178</span>);
+</div></code></pre>
+</li>
+</ul>
+<!-- slide -->
+<h2 id="procedur">Procedur</h2>
+<ul>
+<li>En funktion utan resultatvärde kallas <em>procedur</em></li>
+<li>Resultattypen för en procedur är <code>void</code></li>
+<li>Exerkveringsflödet återvänder från funktionens kropp:
+<ul>
+<li>Vid exekvering av satsen <code>return; </code>, eller</li>
+<li>När flödet når kroppens slut</li>
+</ul>
+</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Frame</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> text, <span class="hljs-keyword">int</span> width, <span class="hljs-keyword">char</span> border</span>)</span> {
+    <span class="hljs-keyword">int</span> w = Math.Max(width, text.Length + <span class="hljs-number">4</span>); <span class="hljs-comment">// outer width</span>
+    <span class="hljs-keyword">int</span> iw = w - <span class="hljs-number">2</span>; <span class="hljs-comment">// inner width</span>
+    <span class="hljs-keyword">char</span> b = border;
+    <span class="hljs-function"><span class="hljs-keyword">string</span> <span class="hljs-title">Repeat</span>(<span class="hljs-params"><span class="hljs-keyword">char</span> c, <span class="hljs-keyword">int</span> times</span>)</span> =&gt; <span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>(c, times);
+    WriteLine(Repeat(b, w) + <span class="hljs-string">'\n'</span> + b + Repeat(<span class="hljs-string">' '</span>, iw) + b);
+    <span class="hljs-keyword">string</span> padl = Repeat(<span class="hljs-string">' '</span>, (iw - text.Length) / <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">string</span> padr = Repeat(<span class="hljs-string">' '</span>, padl.Length + (iw - text.Length) % <span class="hljs-number">2</span>);
+    WriteLine(b + padl + text + padr + b);
+    WriteLine(b + Repeat(<span class="hljs-string">' '</span>, iw) + b + <span class="hljs-string">'\n'</span> + Repeat(b, w));
+}      
+</div></code></pre>
+</div>
+<!-- slide -->
+<h3 id="exempel-fort">Exempel fort.</h3>
+<div style="display: flex">
+<div style="width: 60%; margin-left: 0.75em">
+  Kod
+<pre class="hljs"><code><div>Frame(<span class="hljs-string">"Daniel"</span>, width: <span class="hljs-number">0</span>, border: <span class="hljs-string">'#'</span>);
+Console.WriteLine();
+Frame(<span class="hljs-string">"Bo"</span>, width: <span class="hljs-number">0</span>, border: <span class="hljs-string">'#'</span>);
+</div></code></pre>
+</div>
+<div style="margin-left: 5%; width: 25%">
+Utskrift
+<pre class="hljs"><code><div>##########
+#        #
+# Daniel #
+#        #
+##########
+
+######
+#    #
+# Bo #
+#    #
+######
+</div></code></pre>
+</div>
+</div>
+<!-- slide -->
+<h2 id="defaultv%C3%A4rde-f%C3%B6r-parameter">Defaultvärde för parameter</h2>
+<ul>
+<li>Parametrar kan ha defaultvärde.</li>
+<li>Måste då komma sist i parameterlistan.</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<div style="zoom: 0.75">
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Frame</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> text, <span class="hljs-keyword">int</span> width = <span class="hljs-number">0</span>, <span class="hljs-keyword">char</span> border = <span class="hljs-string">'#'</span></span>)</span>
+{
+    <span class="hljs-keyword">int</span> w = Math.Max(width, text.Length + <span class="hljs-number">4</span>); <span class="hljs-comment">// outer width</span>
+    <span class="hljs-keyword">int</span> iw = w - <span class="hljs-number">2</span>; <span class="hljs-comment">// inner width</span>
+    <span class="hljs-keyword">char</span> b = border;
+    ...             
+</div></code></pre>
+</div>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<div style="display: flex">
+<div style="width: 65%; margin-left: 0.75em">
+  Kod
+<pre class="hljs"><code><div>Frame(<span class="hljs-string">"Anna"</span>);
+Console.WriteLine();
+Frame(<span class="hljs-string">"Mattias"</span>, border: <span class="hljs-string">'$'</span>);
+</div></code></pre>
+</div>
+  <div style="margin-left: 5%; width: 23%">
+  Utskrift
+<pre class="hljs"><code><div>********
+*      *
+* Anna *
+*      *
+********
+
+$$$$$$$$$$$
+$         $
+$ Mattias $
+$         $
+$$$$$$$$$$$
+</div></code></pre>
+</div>
+</div>
+<!-- slide -->
+<h2 id="n%C3%A4stade-funktionsanrop">Nästade funktionsanrop</h2>
+<p>Funktioner kan anropa andra funktioner.</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+  <span class="hljs-keyword">int</span> x = Twice(<span class="hljs-number">3</span>);
+  
+  <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Twice</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>)</span> {
+    <span class="hljs-keyword">int</span> sum = Add(x, x);
+    <span class="hljs-keyword">return</span> sum;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span> =&gt; x + y;
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="call-stack">Call stack</h2>
+<ul>
+<li>Minnesaeran för lokala variabler i <em>ett</em> funktionsanrop kallas <em>frame</em></li>
+<li>Ett anrop till en funktion lägger en frame överst på <em>call stacken</em></li>
+<li>Return kasserar den översta framen på call stacken</li>
+</ul>
+<div style="margin-top: 2em; display: flex; align-items: flex-end; zoom: 0.55">
+<div>
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>  
+</table>
+</div>
+<div style="margin-left: 1em">
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Twice()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>sum = 0</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>
+</table>
+</div>
+<div style="margin-left: 1em">
+<table>  
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Add()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>y = 3</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Twice()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>sum = 0</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>
+</table>
+</div>
+<div style="margin-left: 1em">
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Twice()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>sum = 6</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>
+</table>
+</div>
+<div style="margin-left: 1em">
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 6</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>  
+</table>
+</div>
+</div>
+<!-- slide -->
+<h2 id="pass-by-value">Pass by value</h2>
+<ul>
+<li>Normalt tilldelas ett arguments värde en parameter som kopia
+<ul>
+<li>Detta kallas <em>pass by value</em></li>
+</ul>
+</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> a = <span class="hljs-number">3</span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>)</span> { 
+    x = <span class="hljs-number">5</span>; 
+}
+func(a); <span class="hljs-comment">// a är fortfarande 3 efter anropet</span>
+</div></code></pre>
+<div style="margin-top: 1em">
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[] a = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}; <span class="hljs-comment">// a[1] är 2 </span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span>(<span class="hljs-params"><span class="hljs-keyword">int</span>[] x</span>)</span> { 
+    x[<span class="hljs-number">1</span>] = <span class="hljs-number">5</span>; 
+}
+func(a); <span class="hljs-comment">// a refererar samma fält efter anropet, men a[1] är nu 5</span>
+</div></code></pre>
+</div>
+<!-- slide -->
+<h2 id="pass-by-reference">Pass by reference</h2>
+<ul>
+<li>Värdet på ett argument kan tilldelas en parameter som referens
+<ul>
+<li>Detta kallas <em>pass by reference</em></li>
+</ul>
+</li>
+<li>Betyder att parameter är ett alias för argument</li>
+<li>En paramter tilldelas som referens om den har modifieraren <code>ref</code></li>
+<li>Även argumentet måste vid anrop ha modifieraren <code>ref</code></li>
+<li>Variabler, indexiering och objektegenskaper är giltiga argument för en referensvariabel</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Swap</span>(<span class="hljs-params"><span class="hljs-keyword">ref</span> <span class="hljs-keyword">int</span> a, <span class="hljs-keyword">ref</span> <span class="hljs-keyword">int</span> b</span>)</span> {
+    <span class="hljs-keyword">int</span> tmp = a;
+    a = b;
+    b = tmp;
+}
+
+<span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>, y = <span class="hljs-number">2</span>;
+
+Swap(<span class="hljs-keyword">ref</span> x, <span class="hljs-keyword">ref</span> y); <span class="hljs-comment">// x är 2 och y är 1 efter anropet</span>
+</div></code></pre>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Func</span>(<span class="hljs-params"><span class="hljs-keyword">ref</span> <span class="hljs-keyword">int</span>[] a</span>)</span> {
+    a[<span class="hljs-number">2</span>] = <span class="hljs-number">5</span>;
+    a = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[] { <span class="hljs-number">-1</span>, <span class="hljs-number">-2</span>, <span class="hljs-number">-3</span> };
+}
+
+<span class="hljs-keyword">int</span>[] a = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
+Func(a); <span class="hljs-comment">// a refererar till ett nytt fält efter anropet och a[1] är -2</span>
+</div></code></pre>
+<!-- slide -->
+<h2 id="returnera-flera-v%C3%A4rden">Returnera flera värden</h2>
+<ul>
+<li>Modifieraren <code>out</code> på en parameter har likheter med <code>ref</code></li>
+<li>Argumentets värde tilldelas fortfarande parametern som referens</li>
+<li>Funktionen måste dock vid anrop tilldela variabeln ett värde
+<ul>
+<li>.. och kan inte läsa parameterns värde innan dess</li>
+</ul>
+</li>
+<li>Skapar ett sätt att returnera mer än ett värde från funktionen</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<p>Typen <code>int</code> har en metod med följande signatur:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">TryParse</span> (<span class="hljs-params"><span class="hljs-keyword">string</span> s, <span class="hljs-keyword">out</span> <span class="hljs-keyword">in</span> result</span>)</span>;
+</div></code></pre>
+<p>Metoden returnerar <code>true</code> om strängen kunde tolkas som ett heltal och det uttolkade heltalsvärdet tilldelas parametern <code>result</code>.</p>
+<!-- slide -->
+<h2 id="%C3%B6verlagrade-funktioner">Överlagrade funktioner</h2>
+<ul>
+<li>Flera funktioner kan ha samma identifierare om de har olika typer på parametrarna</li>
+<li>Detta kallas att funktionen är <em>överlagrad</em> (eng. <em>overloaded</em>)</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b</span>)</span> {
+    <span class="hljs-keyword">return</span> a + b; 
+}
+
+<span class="hljs-comment">// Funktionen Add är nu överlagrad</span>
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b</span>)</span> {
+    <span class="hljs-keyword">return</span> a + b; 
+} 
+
+<span class="hljs-comment">// FEL! Finns redan en funktion med samma namn och parametertyper</span>
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b</span>)</span> {
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>)(a + b);
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="variadiska-funktioner">Variadiska funktioner</h2>
+<ul>
+<li>Funktioner kan ha ett dynamiskt antal parametrar av samma typ</li>
+<li>Sådana funktioner kallas för <em>variadiska</em></li>
+<li>Variadiska funktioner skapas med modifieraren <code>params</code> på sista parameter som måste vara ett fält</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">params</span> <span class="hljs-keyword">int</span>[] numbers</span>)</span> {
+    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>; 
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numbers.Length; ++i) {
+        sum += numbers[i];
+    }
+    <span class="hljs-keyword">return</span> sum;
+} 
+
+<span class="hljs-keyword">int</span> x = Add(); <span class="hljs-comment">// x = 0</span>
+<span class="hljs-keyword">int</span> y = Add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>); <span class="hljs-comment">// x = 6</span>
+<span class="hljs-keyword">int</span> z = Add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>); <span class="hljs-comment">// z = 21 </span>
+
+</div></code></pre>
+<!-- slide -->
+<h2 id="rekursion">Rekursion</h2>
+<ul>
+<li>En funktion som anropar sig själv i kroppen kallas <em>rekursiv</em></li>
+<li>Rekursion kan skapa elegant och robust kod</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Sum</span>(<span class="hljs-params"><span class="hljs-keyword">int</span>[] array, <span class="hljs-keyword">int</span> length</span>)</span> {
+    <span class="hljs-keyword">if</span> (length == <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; 
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> Sum(array, length - <span class="hljs-number">1</span>) + array[length - <span class="hljs-number">1</span>];
+    }
+}
+</div></code></pre>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InsertSort</span>(<span class="hljs-params"><span class="hljs-keyword">int</span>[] array, <span class="hljs-keyword">int</span> length</span>)</span> {
+    <span class="hljs-keyword">if</span> (length &gt; <span class="hljs-number">2</span>) {
+        InsertSort(array, length - <span class="hljs-number">1</span>);
+    }
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = length - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; --i) {
+        <span class="hljs-keyword">if</span> (array[i] &lt;= array[i + <span class="hljs-number">1</span>]) {
+            <span class="hljs-keyword">break</span>;
+        }
+        Swap(<span class="hljs-keyword">ref</span> array[i], <span class="hljs-keyword">ref</span> array[i + <span class="hljs-number">1</span>]);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Swap</span>(<span class="hljs-params"><span class="hljs-keyword">ref</span> <span class="hljs-keyword">int</span> a, <span class="hljs-keyword">ref</span> <span class="hljs-keyword">int</span> b</span>)</span> { <span class="hljs-keyword">int</span> tmp = a; a = b;b = tmp; }
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="stack-overflow">Stack overflow</h2>
+<ul>
+<li>Vad händer om vi anropar <code>Sum(array, array.Length)</code> på ett fält innehållande en miljard nollor?</li>
+<li>För en implementation med <code>for</code>-loop produceras svaret 0</li>
+<li>För den rekursiva implementationen:
+<ul>
+<li>Kommer få slut stackminne</li>
+<li>Ett <em>stack overflow</em>-problem kommer signaleras</li>
+<li>Programmet kommer tvingas avbryta körningen</li>
+</ul>
+</li>
+</ul>
+<!-- slide -->
+<h2 id="refaktorering">Refaktorering</h2>
+<ul>
+<li><em>Refakorering</em> är omstrukturering av kod som inte ändrar funktion</li>
+<li>Vi skall nu refaktorera en applikation med hjälp av funktioner</li>
+<li>Samtidigt utforska debuggern i <em>Visual Studio Code</em></li>
+</ul>
+<!-- slide -->
+
+</body>
+</html>

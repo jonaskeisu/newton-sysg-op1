@@ -63,6 +63,40 @@ namespace FunktionerNotes
                 Console.WriteLine();
                 Frame("Mattias", border: '$');
             }
+
+            // InsertSort 
+            {
+                var numbers = new int[10];
+                var rnd = new Random();
+
+                for (int i = 0; i < numbers.Length; ++i) {
+                    numbers[i] = rnd.Next(0, 100);
+                }
+
+                WriteLine(string.Join(", ", numbers));
+
+                void InsertSort(int[] array, int length) {
+                    if (length > 2) {
+                        InsertSort(array, length - 1);
+                    }
+                    for (int i = length - 2; i >= 0; --i) {
+                        if (array[i] <= array[i + 1]) {
+                            break;
+                        }
+                        Swap(ref array[i], ref array[i + 1]);
+                    }
+
+                    void Swap(ref int a, ref int b) { 
+                        int tmp = a; 
+                        a = b;
+                        b = tmp; 
+                    }
+                }
+
+                InsertSort(numbers, numbers.Length);
+
+                WriteLine(string.Join(", ", numbers));
+            }
         }
     }
 }
