@@ -5,7 +5,7 @@
 
 ### Övning tn9vfh (1)
 
-Ange returtyp och parametertyp(er) för möljande metodsignaturer:
+Ange returtyp och parametertyp(er) för följande metodsignaturer:
 
 a) ``int sum(int a, int b)``
 
@@ -217,6 +217,10 @@ ger utskriften:
 1 - 2 - 3 - 4
 ```
 
+### Övning 2je3v8 (3)
+
+Ett primtal är ett heltal större än 1 som endast är jämnt delbart med 1 och sig själv. Skriv en klassmetod med signatur ``bool IsPrime(int num)`` som svarar på frågan om ``num`` är ett primtal.
+
 ### Övning tx2axe (4)
 
 Skriv en klassmetod som tar in som argument: 
@@ -229,10 +233,6 @@ Metoden har också en ut-parameter av typen sträng. När strängen t.ex. skriv
 Metoden returnerar också ett värde av typen ``bool`` som anger om tabellen kunde konstrueras enligt argumentens värden. Kravet för att tabellen skall kunna konstrueras är att med angiven kolumnbredd det alltid finns minst ett mellanslag mellan två intilliggande element. Om metoden returnerar ``false`` skall ut-parametern tilldelas värdet ``null``. 
 
 Defaultvärdet på kolumnbredden skall vara 10 och defaultvärdet på justering skall vara vänster. 
-
-### Övning 2je3v8 (4)
-
-Ett primtal är ett heltal större än 1 som endast är jämnt delbart med 1 och sig själv. Skriv en klassmetod med signatur ``bool IsPrime(int num)`` som svarar på frågan om ``num`` är ett primtal.
 
 ### Övning qhj94e (5)
 
