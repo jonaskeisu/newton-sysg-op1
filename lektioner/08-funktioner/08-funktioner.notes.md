@@ -2,8 +2,9 @@
 presentation:
   width: 1200
   height: 600
-  theme: 'black.css'
+  theme: 'serif.css'
   center: false
+  slideNumber: true
 ---
 <style type="text/css">
   .reveal h1 {
@@ -33,7 +34,7 @@ presentation:
     zoom: 110%;
   }
   div.slides{
-     border: 1px solid white;
+     border: 1px solid black;
   }
   .reveal code {
     zoom: 90%;
@@ -60,15 +61,15 @@ presentation:
 - Funktioner används t.ex. för att:
   - Återanvändning av logik
   - Strukturera långa kodblock (*spaghettikod*)
-  - Callbacks - anropa egen kod från tredjepartsfunktion
+  - Callbacks - anropa egen kod från tredjepartskod
   - Skapa metoder
 
 <!-- slide -->
 
 ## Parametrar
 
-- Varje funktionen har en lista av parametrar 
-- En *parameter*:
+- Varje funktionen har en lista av *parametrar* 
+- En parameter:
   - är en lokal variabel för funktionens kropp
   - måste tilldelas ett värde vid varje anrop till funktionen
 - Värden tilldelade parametrar vid anrop kallas *argument*
@@ -140,20 +141,37 @@ En parameter definieras med samma syntax som en variabel:
 
 <!-- slide -->
 
+### Exempel
+```cs
+double EmployeeTax(int employeeAge, double salary)
+{
+  if (employeeAge >= 65) {
+    return 0.1021 * salary; 
+  }
+  else if (employeeAge < 18 && salary <= 25000) {
+    return 0.1021 * salary; 
+  }
+  else {
+    return 0.3142 * salary;
+  }
+}
+```
+
+<!-- slide -->
+
 ## Parameter via position
 
-- Parametrar tilldelas argumenten parametrar via position. 
+Parametrar kan tilldelas argumenten via position. 
 
   ```cs
   var bmi = Bmi(178, 78.5);
   ```
 
-- Lätt göra ett misstag. 
+Lätt göra ett misstag.. 
 
   ```cs
-  // OOPS! Fel i båda raderna, 
-  // men ingen varning från kompilatorn
-  var bmi = Bmi(78.5, 178); 
+  // OOPS! Fel i båda anropen, men ingen varning från kompilatorn
+  var bmi1 = Bmi(78.5, 178); 
   var bmi2 = Bmi(1.78, 78.5); 
   ```
 
@@ -168,7 +186,7 @@ En parameter definieras med samma syntax som en variabel:
   var bmi = Bmi(lengthCm: 178, weightKg: 78.5);
   ```
 
-- Kan göra koden mer robus och lättare att förstå.
+- Kan ibland göra koden mer robust och lättare att förstå.
 
   ```cs
   // Fortfarande korrekt
@@ -190,8 +208,6 @@ En parameter definieras med samma syntax som en variabel:
 
 ### Exampel
 
-- Alternativ implementation av BMI-funktionen.
-
   ```cs
   double Bmi(double lengthCm, double weightKg) => 
           weightKg / Math.Pow(lengthCm / 100, 2);
@@ -199,41 +215,44 @@ En parameter definieras med samma syntax som en variabel:
 
 <!-- slide -->
 
+## Exempel
+
+```cs
+double EmployeeTax(int employeeAge, double salary) =>
+  salary * ((employeeAge, salary) switch {
+    var (age, sal) when age >= 65                 => 0.1021,
+    var (age, sal) when age  < 18 && sal <= 25000 => 0.1021,
+    _                                             => 0.3142,
+  });
+```
+
+<!-- slide -->
+
 ## Procedur
 
-- En funktion måste inte returnera ett värde
-- Resultattypen är då nyckelordet ``void``
 - En funktion utan resultatvärde kallas *procedur*
-- Flödet återvänder från funktionens kropp:
-  - Vid körning av satsen  ``return; ``, eller
-  - När kodblocket tar slut. 
+- Resultattypen för en procedur är ``void``
+- Exerkveringsflödet återvänder från funktionens kropp:
+  - Vid exekvering av satsen ``return; ``, eller
+  - När flödet når kroppens slut
 
 <!-- slide -->
 
 ### Exempel 
 
-<div style="zoom: 0.75">
-
-Procedur som skriver ut text med ram. 
 
 ```cs 
-void WriteInFrame(string text, int width, char border)
-{
-    width = Math.Max(width, text.Length + 4);
-
-    var line = new String(border, width);
-    var spacer = border + new String(' ', width - 2) + border;
-
-    var paddingNeeded = width - 2 - text.Length;
-    var padLeft = new String(' ', paddingNeeded / 2);
-    var padRight = new String(' ', paddingNeeded - padLeft.Length);
-
-    Console.WriteLine(
-        line + '\n' + spacer + '\n' + 
-        border + padLeft + text + padRight + border + '\n' + 
-        spacer + '\n' + line
-    );
-}               
+void Frame(string text, int width, char border) {
+    int w = Math.Max(width, text.Length + 4); // outer width
+    int iw = w - 2; // inner width
+    char b = border;
+    string Repeat(char c, int times) => new string(c, times);
+    WriteLine(Repeat(b, w) + '\n' + b + Repeat(' ', iw) + b);
+    string padl = Repeat(' ', (iw - text.Length) / 2);
+    string padr = Repeat(' ', padl.Length + (iw - text.Length) % 2);
+    WriteLine(b + padl + text + padr + b);
+    WriteLine(b + Repeat(' ', iw) + b + '\n' + Repeat(b, w));
+}      
 ```
 
 </div>
@@ -244,17 +263,17 @@ void WriteInFrame(string text, int width, char border)
 
 <div style="display: flex">
 
-<div style="text-align: center; width: 60%; margin-left: 0.75em">
+<div style="width: 60%; margin-left: 0.75em">
   Kod
   
   ```cs
-  WriteInFrame("Daniel", 0, '#');
+  Frame("Daniel", width: 0, border: '#');
   Console.WriteLine();
-  WriteInFrame("Bo", 0, '#');
+  Frame("Bo", width: 0, border: '#');
   ```
 </div>
-<div style="margin-left: 5%; text-align: center; width: 25%">
-Urskrift
+<div style="margin-left: 5%; width: 25%">
+Utskrift
 
 ```text
 ##########
@@ -273,27 +292,24 @@ Urskrift
 
 <!-- slide -->
 
-## Defaultvärde för PARAMETER
+## Defaultvärde för parameter
 
 - Parametrar kan ha defaultvärde. 
-- Parametrar med defaultvärden måste komma sist i definitionen av funktionen.
+- Måste då komma sist i parameterlistan. 
 
 <!-- slide -->
 
-## Exempel
+### Exempel
 
 <div style="zoom: 0.75">
 
-Procedur som skriver ut text med ram. 
 
 ```cs 
-void WriteInFrame(string text, int width = 0, char border = '*')
+void Frame(string text, int width = 0, char border = '#')
 {
-    width = Math.Max(width, text.Length + 4);
-
-    var line = new String(border, width);
-    var spacer = border + new String(' ', width - 2) + border;
-
+    int w = Math.Max(width, text.Length + 4); // outer width
+    int iw = w - 2; // inner width
+    char b = border;
     ...             
 ```
 
@@ -301,19 +317,21 @@ void WriteInFrame(string text, int width = 0, char border = '*')
 
 <!-- slide -->
 
+### Exempel
+
 <div style="display: flex">
 
-<div style="text-align: center; width: 65%; margin-left: 0.75em">
+<div style="width: 65%; margin-left: 0.75em">
   Kod
   
   ```cs
-WriteInFrame("Anna");
+Frame("Anna");
 Console.WriteLine();
-WriteInFrame("Mattias", border: '$');
+Frame("Mattias", border: '$');
   ```
 </div>
-  <div style="margin-left: 5%; text-align: center; width: 23%">
-  Urskrift
+  <div style="margin-left: 5%; width: 23%">
+  Utskrift
   
   ```text
 ********
@@ -332,9 +350,102 @@ $$$$$$$$$$$
 
 <!-- slide -->
 
-## Strukturering och återanvänding av kod
+## Nästade funktionsanrop
+Funktioner kan anropa andra funktioner.
 
-- I slutet av lektionen skall vi titta på exempel där funktioner avnänds för att förtydliga struktur och återanvända kod. 
+```cs
+void Main(string[] args) {
+  int x = Twice(3);
+  
+  int Twice(int x) {
+    int sum = Add(x, x);
+    return sum;
+  }
+
+  int Add(int x, int y) => x + y;
+}
+```
+
+<!-- slide -->
+
+## Call stacken
+- Minnesaeran för lokala variabler i *ett* funktionsanrop kallas *frame*
+- Ett anrop till en funktion lägger en frame överst på *call stacken* 
+- Return kasserar den översta framen på call stacken
+
+<div style="margin-top: 2em; display: flex; align-items: flex-end; zoom: 0.55">
+
+<div>
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>  
+</table>
+</div>
+
+<div style="margin-left: 1em">
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Twice()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>sum = 0</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>
+</table>
+</div>
+
+<div style="margin-left: 1em">
+<table>  
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Add()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>y = 3</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Twice()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>sum = 0</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>
+</table>
+</div>
+
+<div style="margin-left: 1em">
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Twice()</td><td style="border: 0; border-top: 1px solid black"><code>x = 3</code></td></tr>
+  <tr><td style="border: 0"><code>sum = 6</code></td></tr>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 0</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>
+</table>
+</div>
+
+<div style="margin-left: 1em">
+<table>
+  <tr><td style="border: 0; vertical-align: middle; " rowspan="2">Main()</td><td style="border: 0; border-top: 1px solid black"><code>x = 6</code></td></tr>  
+  <tr><td style="border: 0; border-bottom: 1px solid black"><code>args = ..</code></td></tr>  
+</table>
+</div>
+
+</div>
+
+<!-- slide -->
+
+## Rekursion
+
+<!-- slide -->
+
+## Stack overflow
+
+<!-- slide -->
+
+## Pass by reference
+
+<!-- slide -->
+
+## Returnera flera värden
+
+<!-- slide -->
+
+## Variadiska funktioner
+
+<!-- slide -->
+
+## Refaktorering
+
+- *Refakorering* är omstrukturering av kod som inte ändrar funktion
+- Vi skall nu refaktorera en applikation med hjälp av funktioner
 
 <!-- slide -->
 

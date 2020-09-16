@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 
 namespace FunktionerNotes
 {
@@ -28,7 +29,7 @@ namespace FunktionerNotes
 
             // BMI 2 
             {
-                double Bmi(double lengthCm, double weightKg) => 
+                double Bmi(double lengthCm, double weightKg) =>
                     weightKg / Math.Pow(lengthCm / 100, 2);
 
                 var bmi = Bmi(lengthCm: 178, weightKg: 78.5);
@@ -36,34 +37,33 @@ namespace FunktionerNotes
                 Console.WriteLine($"BMI: {bmi}");
             }
 
-            // WriteInFrame 
+            // Frame 
             {
-                void WriteInFrame(string text, int width = 0, char border = '*')
+                void Frame(string text, int width = 0, char border = '#')
                 {
-                    width = Math.Max(width, text.Length + 4);
+                    int w = Math.Max(width, text.Length + 4); // outer width
+                    int iw = w - 2; // inner width
+                    char b = border;
 
-                    var line = new String(border, width);
-                    var spacer = border + new String(' ', width - 2) + border;
+                    string Repeat(char c, int times) => new string(c, times);
 
-                    var paddingNeeded = width - 2 - text.Length;
-                    var padLeft = new String(' ', paddingNeeded / 2);
-                    var padRight = new String(' ', paddingNeeded - padLeft.Length);
-
-                    Console.WriteLine(
-                        line + '\n' + spacer + '\n' + 
-                        border + padLeft + text + padRight + border + '\n' + 
-                        spacer + '\n' + line
-                    );
+                    WriteLine(Repeat(b, w) + '\n' + b + Repeat(' ', iw) + b);
+                    string padl = Repeat(' ', (iw - text.Length) / 2);
+                    string padr = Repeat(' ', padl.Length + (iw - text.Length) % 2);
+                    WriteLine(b + padl + text + padr + b);
+                    WriteLine(b + Repeat(' ', iw) + b + '\n' + Repeat(b, w));
                 }
 
-                WriteInFrame("Daniel", 0, '#');
-                Console.WriteLine();
-                WriteInFrame("Bo", 0, '#');
 
-                WriteInFrame("Anna");
+                Frame("Daniel", 0, '#');
                 Console.WriteLine();
-                WriteInFrame("Mattias", border: '$');
+                Frame("Bo", 0, '#');
+
+                Frame("Anna");
+                Console.WriteLine();
+                Frame("Mattias", border: '$');
             }
         }
     }
 }
+
