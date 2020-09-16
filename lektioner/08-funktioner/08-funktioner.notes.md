@@ -670,8 +670,6 @@ void InsertSort(int[] array, int length) {
         }
         Swap(ref array[i], ref array[i + 1]);
     }
-
-    void Swap(ref int a, ref int b) { int tmp = a; a = b;b = tmp; }
 }
 ```
 
