@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>08-funktioner.exercises.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="f%C3%A4lt-och-loopar">Fält och loopar</h1>
+<h2 id="%C3%B6vningar">Övningar</h2>
+<hr>
+<h3 id="%C3%B6vning-tn9vfh-1">Övning tn9vfh (1)</h3>
+<p>Ange returtyp och parametertyp(er) för möljande metodsignaturer:</p>
+<p>a) <code>int sum(int a, int b)</code></p>
+<p>b) <code>bool isAllCaps(String s)</code></p>
+<p>c) <code>double power(double x, int e)</code></p>
+<h3 id="%C3%B6vning-u9qmue-1">Övning u9qmue (1)</h3>
+<p>a) Implementera en klassmetod med signaturen <code>double Cube(double x)</code> som returnerar <code>x</code> gånger sig själv tre gånger.</p>
+<p>b) Implementera en klassmetod med signaturen <code>int Min(int x, int y)</code> som returnerar det minsta värdet av <code>x</code> och <code>y</code>.</p>
+<p>c) Implementera en klassmetod med signaturen <code>void WriteTwice(string str)</code> som skriver ut strängen str två gånger till konsolen.</p>
+<p>d) Implementera en klassmetod med signaturen <code>string GetUserInput(string prompt)</code> som vid anrop skriver ut prompt till konsolen, begär användarinput i form av en sträng, och returnerar användarens input.</p>
+<h3 id="%C3%B6vning-pkq697-1-2">Övning pkq697 (1-2)</h3>
+<p>a) Skriv en klassmetod <code>int TriangleSum(int n)</code> som beräknar summan av alla heltal från <code>0</code> till <code>n</code> med hjälp av en <code>for</code>-loop.</p>
+<p>b) Skriv en klassmetod <code>int TriangleSum(int n)</code> som beräknar summan av alla heltal från <code>0</code> till <code>n</code> genom rekursion.</p>
+<h3 id="%C3%B6vning-p6uggf-2">Övning p6uggf (2)</h3>
+<p>a) Skriv en klassmetod med signaturen <code>void multiplyArray(double[] arr, int factor)</code> som multiplicerar elementen i <code>arr</code> med faktorn <code>factor</code>.</p>
+<p>b) Skriv ett kort program som initialiserar en <code>int</code>-array och använder metoden för att gångra värdena med 4.</p>
+<h3 id="%C3%B6vning-u36tue-3">Övning u36tue (3)</h3>
+<p>Skriv en klassmetod <code>int DigitSum(int x)</code> som returnerar summan av siffrorna i ett heltal.</p>
+<h4 id="exempel">Exempel</h4>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> x = DigitSum(<span class="hljs-number">365</span>); 
+Console.WriteLine(x);
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>14
+</div></code></pre>
+<h3 id="%C3%B6vning-3u3ktu-2">Övning 3u3ktu (2)</h3>
+<p>Skriv en klassmetod <code>bool CheckMultiplesOfTen(int[] arr)</code> som svarar på om alla element i en <code>int</code>-array är multiplar av 10.</p>
+<h4 id="exempel">Exempel</h4>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>[] arr1 = {<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">500</span>};
+<span class="hljs-keyword">int</span>[] arr2 = {<span class="hljs-number">10</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1001</span>};
+System.<span class="hljs-keyword">out</span>.println(checkMultiplesOfTen(arr1));
+System.<span class="hljs-keyword">out</span>.println(checkMultiplesOfTen(arr2));
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>true
+false
+</div></code></pre>
+<h3 id="%C3%B6vning-j2b6h6-1">Övning j2b6h6 (1)</h3>
+<p>Inspektera koden nedan. Vilka av <code>x</code>, <code>y</code>, <code>a</code> och <code>b</code> är parametrar respektive argument?</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
+    
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Hypotenuse</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y</span>)</span> {
+        <span class="hljs-keyword">return</span> Math.Sqrt(Math.Pow(x, <span class="hljs-number">2</span>) + Math.Pow(y, <span class="hljs-number">2</span>));
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params">String[] args</span>)</span> {
+        <span class="hljs-keyword">double</span> a = <span class="hljs-number">4</span>, b = <span class="hljs-number">5</span>;
+        <span class="hljs-keyword">double</span> h = Hypotenuse(a, b);
+        Console.WriteLine(<span class="hljs-string">$"A right triangle with sides of length <span class="hljs-subst">{a}</span> and <span class="hljs-subst">{b}</span> has the hypotenuse <span class="hljs-subst">{h}</span>."</span>);
+    }
+}
+</div></code></pre>
+<h3 id="%C3%B6vning-re74fr-3">Övning re74fr (3)</h3>
+<p>Skriv en klassmetod <code>double[,] Transpose(double[,] array)</code> som returnerar ett tvådimensionellt fält vars rader är argumentets kolumner och vars kolumner är argumentets rader.</p>
+<h4 id="exempel">Exempel</h4>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">double</span>[,] table = {
+    { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>},
+    { <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>}
+};
+
+<span class="hljs-keyword">double</span>[,] transpose = Transpose(table);
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>; r &lt; transpose.GetLengt(<span class="hljs-number">0</span>); ++r) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> c = <span class="hljs-number">0</span>; c &lt; transpose.GetLengt(<span class="hljs-number">1</span>); ++c) {
+        Console.Write(transpose[r, c] + <span class="hljs-string">" "</span>);
+    }
+    Console.WriteLine();
+}
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>1 4
+2 5
+3 6
+</div></code></pre>
+<h3 id="%C3%B6vning-6p854m-3">Övning 6p854m (3)</h3>
+<p>Följande kod:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
+
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+        <span class="hljs-keyword">float</span>[] arr1 = {<span class="hljs-number">1.4f</span>, <span class="hljs-number">5.3f</span>};
+        <span class="hljs-keyword">float</span>[] arr2 = MultiplyByTwo(arr1);
+
+        WriteArray(arr1);
+        WriteArray(arr2);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteArray</span>(<span class="hljs-params"><span class="hljs-keyword">int</span>[] arr</span>)</span> {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.Length; ++i) {
+            Console.Write(arr[i] + <span class="hljs-string">" "</span>);
+        }
+        Console.WriteLine();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">float</span>[] <span class="hljs-title">MultiplyByTwo</span>(<span class="hljs-params"><span class="hljs-keyword">float</span>[] arr</span>)</span> {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;arr.length; i++) {
+            arr[i] = <span class="hljs-number">2</span>*arr[i];
+        }
+        <span class="hljs-keyword">return</span> arr;
+    }
+}
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div><span class="hljs-number">2.8</span> <span class="hljs-number">10.6</span>
+<span class="hljs-number">2.8</span> <span class="hljs-number">10.6</span>
+</div></code></pre>
+<p>a) Varför skrivs inte <code>1.4 5.3</code> ut på den övre raden som man kan förvänta sig?</p>
+<p>b) Skriv om metoden <code>float[] MultiplyByTwo(float[] arr)</code> så att koden fungerar som tänkt, dvs. att den returnerar en float-array vars element är två gånger motsvarande element i <code>arr</code> utan att ändra på elementen i <code>arr</code>.</p>
+<h3 id="%C3%B6vning-da5jjf-2">Övning da5jjf (2)</h3>
+<p>Följande funktion är tänkt att dubbla värdet för variabeln som ges som argument. Vad är fel i koden? Hur borde det se ut?</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Double</span>(<span class="hljs-params"><span class="hljs-keyword">out</span> <span class="hljs-keyword">int</span> a</span>)</span> {
+    a *= <span class="hljs-number">2</span>;
+}
+</div></code></pre>
+<h3 id="%C3%B6vning-65whcj-3">Övning 65whcj (3)</h3>
+<p>Skriv en klassmetod <code>int ParseBinary(string binaryString)</code> som tar en sträng som representerar ett binärt tal och returnerar motsvarande heltalsvärde.</p>
+<h4 id="exempel">Exempel</h4>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">string</span> b = <span class="hljs-string">"11001"</span>;
+<span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span> = ParseBinary(b);
+Console.WriteLine(<span class="hljs-keyword">value</span>);
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>25
+</div></code></pre>
+<h3 id="%C3%B6vning-26t4fg-3">Övning 26t4fg (3)</h3>
+<p>Skriv en variadisk klassmetod med signatur <code>string Join(string separator, params string[] strings)</code> som konkatenerar alla argument efter <code>separator</code> med separerade med texten <code>separator</code>.</p>
+<h4 id="exempel">Exempel</h4>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div>Console.WriteLine(Join(<span class="hljs-string">" - "</span>, <span class="hljs-string">"1"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>)); 
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>1 - 2 - 3 - 4
+</div></code></pre>
+<h3 id="%C3%B6vning-tx2axe-4">Övning tx2axe (4)</h3>
+<p>Skriv en klassmetod som tar in som argument:</p>
+<ul>
+<li>Ett tvådimensionellt fält med strängar (första index motsvarar rad, andra motsvarar kolumn).</li>
+<li>En kolumnbredd i antal tecken.</li>
+<li>Ett värde av en egendefinierad <code>enum</code>-typ som anger justering (vänster, höger eller centrerat).</li>
+</ul>
+<p>Metoden har också en ut-parameter av typen sträng. När strängen t.ex. skrivs ut i konsolen är resultatet en tabell med fältdatat formaterat enligt argumentens värden.</p>
+<p>Metoden returnerar också ett värde av typen <code>bool</code> som anger om tabellen kunde konstrueras enligt argumentens värden. Kravet för att tabellen skall kunna konstrueras är att med angiven kolumnbredd det alltid finns minst ett mellanslag mellan två intilliggande element. Om metoden returnerar <code>false</code> skall ut-parametern tilldelas värdet <code>null</code>.</p>
+<p>Defaultvärdet på kolumnbredden skall vara 10 och defaultvärdet på justering skall vara vänster.</p>
+<h3 id="%C3%B6vning-2je3v8-4">Övning 2je3v8 (4)</h3>
+<p>Ett primtal är ett heltal större än 1 som endast är jämnt delbart med 1 och sig själv. Skriv en klassmetod med signatur <code>bool IsPrime(int num)</code> som svarar på frågan om <code>num</code> är ett primtal.</p>
+<h3 id="%C3%B6vning-qhj94e-5">Övning qhj94e (5)</h3>
+<p>Skriv en klassmetod med signatur <code>void SquigglyWrite(string text, int amplitude)</code> som skriver ut text i mönstret av en sinusvåg som spänner över <code>2 * amplitude + 1</code> rader. Våglängden på sinusvågen skall vara 10 tecken.</p>
+<h4 id="hj%C3%A4lp-p%C3%A5-v%C3%A4gen">Hjälp på vägen</h4>
+<p>Indexet <code>r</code> i intervallet <code>[0, 2 * amplitude]</code> motsvarande raden där tecknet <code>text[i]</code> skall skrivas ut kan beräknas:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> r = amplitude + (<span class="hljs-keyword">int</span>)Math.Round(amplitude*Math.Sin(i * ((<span class="hljs-number">2</span>*Math.PI)/(<span class="hljs-keyword">double</span>)wavelength)));
+</div></code></pre>
+<h4 id="exempel">Exempel</h4>
+<p>Koden nedan:</p>
+<pre class="hljs"><code><div>SquigglyWrite(<span class="hljs-string">"abcdefghijklmnopqrustuvwxyz"</span>, <span class="hljs-number">1</span>);
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre class="hljs"><code><div>      ghij      qrst      
+a    f    k    p    u    z
+ bcde      lmno      vwxy 
+</div></code></pre>
+
+</body>
+</html>

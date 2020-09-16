@@ -573,7 +573,7 @@ Func(a); // a refererar till ett nytt fält efter anropet och a[1] är -2
 Typen ``int`` har en metod med följande signatur: 
 
 ```cs
-static bool TryParse (string s, out in result);
+static bool TryParse (string s, out in result)
 ```
 
 Metoden returnerar ``true`` om strängen kunde tolkas som ett heltal och det uttolkade heltalsvärdet tilldelas parametern ``result``. 
