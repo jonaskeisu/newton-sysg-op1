@@ -151,8 +151,8 @@ for (int k=0; k<10; k++) {
 Vad skriver följande program ut? Varför?
 
 ```cs
-int a[] = { "Karl", "Niclas", "Agnes" };
-int b[] = a;
+string a[] = { "Karl", "Niclas", "Agnes" };
+string b[] = a;
 b[0] = "Fredrik";
 Console.WriteLine(a[0]);
 ```
