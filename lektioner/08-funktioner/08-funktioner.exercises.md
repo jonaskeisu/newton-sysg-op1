@@ -7,11 +7,11 @@
 
 Ange returtyp och parametertyp(er) för följande metodsignaturer:
 
-a) ``int sum(int a, int b)``
+a) ``int Sum(int a, int b)``
 
-b) ``bool isAllCaps(String s)``
+b) ``bool IsAllCaps(String s)``
 
-c) ``double power(double x, int e)``
+c) ``double Power(double x, int e)``
 
 ### Övning u9qmue (1)
 
