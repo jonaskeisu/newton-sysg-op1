@@ -255,9 +255,6 @@ b) Gör om ``switch``-satsen till ett ``switch``-uttryck som beräknar beloppet 
 
 ---
 
-### Övning 
-
-
 ---
 
 ### Övning 
