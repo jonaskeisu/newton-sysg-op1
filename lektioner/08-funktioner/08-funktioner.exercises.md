@@ -31,7 +31,7 @@ b) Skriv en klassmetod ``int TriangleSum(int n)`` som beräknar summan av alla h
 
 ### Övning p6uggf (2)
 
-a) Skriv en klassmetod med signaturen ``void multiplyArray(double[] arr, int factor)`` som multiplicerar elementen i ``arr`` med faktorn ``factor``.
+a) Skriv en klassmetod med signaturen ``void MultiplyArray(double[] arr, int factor)`` som multiplicerar elementen i ``arr`` med faktorn ``factor``.
 
 b) Skriv ett kort program som initialiserar en ``int``-array och använder metoden för att gångra värdena med 4.
 
