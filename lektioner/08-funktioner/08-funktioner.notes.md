@@ -59,18 +59,18 @@ presentation:
 ## Användningsområden
 
 - Funktioner används t.ex. för att:
-  - Återanvändning av logik
-  - Strukturera långa kodblock (*spaghettikod*)
-  - Callbacks - anropa egen kod från tredjepartkod
+  - Återanvända logik
+  - Bryta upp långa kodblock i delproblem
   - Skapa metoder
+  - *Callbacks* - anropa egen kod från tredjepartkod
 
 <!-- slide -->
 
 ## Parametrar
 
-- Varje funktionen har en lista av *parametrar* 
-- En parameter:
-  - är en lokal variabel för funktionens kropp
+- Varje funktion har en lista av *parametrar* 
+- Varje parameter i listan är:
+  - är en lokal variabel för funktionens kropp, som
   - måste tilldelas ett värde vid varje anrop till funktionen
 - Värden tilldelade parametrar vid anrop kallas *argument*
 
@@ -79,7 +79,42 @@ presentation:
 ## Returvärde 
 
 - Ett funktionsanrop kan *returnera* ett värde
-- Ett funktions som returnerar ett värde är ett uttryck
+- Ett anrop av funktion som returnerar ett värde är ett uttryck
+
+<!-- slide -->
+
+## Funktion som "svart låda"
+
+<center>
+
+```plantuml
+@startuml
+
+rectangle "anropande kod"{
+node argument1 as arg1
+node argument2 as arg2
+node argument3 as arg3
+node funktion {
+    node parameter1 as param1
+    node parameter2 as param2
+    node parameter3 as param3
+    node "funktionens kropp körs" as logik 
+}
+node returvärde
+
+arg1 --> param1
+arg2 --> param2
+arg3 --> param3
+param1 --> logik
+param2 --> logik
+param3 --> logik
+logik --> returvärde
+}
+
+@enduml
+```
+
+</center>
 
 
 <!-- slide -->
@@ -119,7 +154,7 @@ En parameter definieras med samma syntax som en variabel:
   return <uttryck>;
   ```
 
-  där ``return`` är ett nyckelord följt av ett uttryck av typ matchande definitionen av funktionen. 
+  där ``return`` är ett nyckelord följt av ett uttryck av funktionens returtyp. 
 
 
 <!-- slide -->
@@ -127,7 +162,7 @@ En parameter definieras med samma syntax som en variabel:
 ### Exempel
 
 ```cs
-  // Definition av funktion `Bmi`
+  // Definition av funktion 'Bmi'
   double Bmi(double lengthCm, double weightKg)
   {
       var lengthMeters = lengthCm / 100;
@@ -136,7 +171,7 @@ En parameter definieras med samma syntax som en variabel:
 
   // Ett anrop till funktionen 'Bmi' 
   // med argumenten '178' och '78.5'
-  var bmi = Bmi(178, 78.5); // x = 24.77.. 
+  var bmi = Bmi(178, 78.5); // bmi = 24.77.. 
 ```
 
 <!-- slide -->
@@ -161,7 +196,7 @@ double EmployeeTax(int employeeAge, double salary)
 
 ## Kortform för enkla funktioner
 
-- Alternativ syntax för funktioner med kropp bestående av en sats:
+- Alternativ syntax för funktioner med kropp som kan uttryckas med en enda sats som returnerar ett resultat:
 
   ```cs
   <typ> <identifierare> (<param1>, <param2>, .. ) => <uttryck>
@@ -193,11 +228,11 @@ double EmployeeTax(int employeeAge, double salary) => salary * (
 
 ## Statiska metoder
 
-- En funktion kan definieras på klassnivå och kallas då *metod*
+- En funktion definierad på klassnivå kallas *metod*
 - Om metoden har modifieraren ``static`` så är den en *klassmetod*
-- En klassmetod kan anropas från andra metoder i samma klass 
+- En klassmetod kan anropas t.ex. av andra metoder i samma klass 
 - Funktionen ``Main(string[] args)`` är en speciell klassmetod
-  - Den utgör så kallad *entry point* för C#-applikationen
+  - Den utgör så kallad *entry point* för en C#-applikationen
 
 <!-- slide -->
 
@@ -225,7 +260,7 @@ namespace WeightWatchers {
 
 - En lokal funktion:
   - Är en funktion definierad i kroppen av en annan funktion
-  - En synlig enbart i aktuellt kodblock
+  - Är synlig enbart i kodblocket där definierad
   - Kan dock refereras i kodblocket före definition
 
 <!-- slide -->
@@ -290,9 +325,52 @@ Lätt göra ett misstag..
 
 - En funktion utan resultatvärde kallas *procedur*
 - Resultattypen för en procedur är ``void``
+- Procedurer används för att skapa *sidoeffekter* 
 - Exerkveringsflödet återvänder från funktionens kropp:
   - Vid exekvering av satsen ``return; ``, eller
   - När flödet når kroppens slut
+
+<!-- slide -->
+
+## Procedur som "svart låda"
+
+<center>
+
+```plantuml
+@startuml
+
+rectangle "anropande kod"{
+node argument1 as arg1
+node argument2 as arg2
+node argument3 as arg3 
+node procedur {
+    node parameter1 as param1
+    node parameter2 as param2
+    node parameter3 as param3
+    node "funktionens kropp körs" as logik 
+}
+
+cloud sidoeffekt {
+    node "ändra data i minnet" as mem
+    node "utför I/O-operationer" as io
+}
+mem -[hidden]-> io
+
+arg1 --> param1
+arg2 --> param2
+arg3 --> param3
+param1 --> logik
+param2 --> logik
+param3 --> logik
+logik -up-> mem
+logik -> io
+
+}
+
+@enduml
+```
+
+</center>
 
 <!-- slide -->
 
@@ -361,9 +439,6 @@ Utskrift
 
 ### Exempel
 
-<div style="zoom: 0.75">
-
-
 ```cs 
 void Frame(string text, int width = 0, char border = '#')
 {
@@ -373,7 +448,6 @@ void Frame(string text, int width = 0, char border = '#')
     ...             
 ```
 
-</div>
 
 <!-- slide -->
 
@@ -394,11 +468,11 @@ Frame("Mattias", border: '$');
   Utskrift
   
 ```text
-********
-*      *
-* Anna *
-*      *
-********
+########
+#      #
+# Anna #
+#      #
+########
 
 $$$$$$$$$$$
 $         $
@@ -521,9 +595,9 @@ func(a); // a refererar samma fält efter anropet, men a[1] är nu 5
 - Värdet på ett argument kan tilldelas en parameter som referens
   - Detta kallas *pass by reference*
 - Betyder att parameter är ett alias för argument
-- En paramter tilldelas som referens om den har modifieraren ``ref``
+- En parameter tilldelas som referens om den har modifieraren ``ref``
 - Även argumentet måste vid anrop ha modifieraren ``ref``
-- Variabler, indexiering och objektegenskaper är giltiga argument för en referensvariabel
+- Variabler och indexiering är exempel på giltiga argument för en referensparameter
 
 
 <!-- slide -->
@@ -548,12 +622,12 @@ Swap(ref x, ref y); // x är 2 och y är 1 efter anropet
 
 ```cs 
 void Func(ref int[] a) {
-    a[2] = 5;
+    a[1] = 5;
     a = new int[] { -1, -2, -3 };
 }
 
 int[] a = {1, 2, 3};
-Func(a); // a refererar till ett nytt fält efter anropet och a[1] är -2
+Func(ref a); // a refererar till ett nytt fält efter anropet och a[1] är -2
 ```
 
 <!-- slide -->
@@ -563,20 +637,28 @@ Func(a); // a refererar till ett nytt fält efter anropet och a[1] är -2
 - Modifieraren ``out`` på en parameter har likheter med ``ref``
 - Argumentets värde tilldelas fortfarande parametern som referens
 - Funktionen måste dock vid anrop tilldela variabeln ett värde
-  - .. och kan inte läsa parameterns värde innan dess
+  - .. och kan inte läsa parameterns värde innan tilldelning
 - Skapar ett sätt att returnera mer än ett värde från funktionen
 
 <!-- slide -->
 
 ### Exempel
 
-Typen ``int`` har en metod med följande signatur: 
+Typen ``int`` har en klassmetod med följande signatur: 
 
 ```cs
-static bool TryParse (string s, out in result)
+static bool TryParse (string s, out int result)
 ```
 
-Metoden returnerar ``true`` om strängen kunde tolkas som ett heltal och det uttolkade heltalsvärdet tilldelas parametern ``result``. 
+Metoden returnerar ``true`` om strängen kunde tolkas som ett heltal och det uttolkade heltalsvärdet tilldelas argumentet ``result``. 
+
+```cs 
+string text = Console.ReadLine();
+int x; 
+if(int.TryParse(text, out x)) {
+    // Gör något med x
+}
+```
 
 <!-- slide -->
 
