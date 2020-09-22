@@ -750,6 +750,35 @@ if (board.Full) {
 
 <!-- slide -->
 
+## Nästade typer
+
+- Typer kan definieras innuti komposittyper
+- Nästade typer är klassmedlemmar
+
+<!-- slide -->
+
+### Exempel
+
+```cs
+struct Board {
+    public enum Marker { Blank, Cross, Circle }
+    public Marker[,] markers;
+    public Board(int width, int height)
+    {
+        markers = new Marker[height, width];
+    }
+}
+```
+
+```cs
+Board board = new Board(3, 3);
+if (board.markers[2, 2] == Board.Marker.Circle) {
+    ...
+```
+
+
+<!-- slide -->
+
 ## Mer om consolen
 
 - Genomgång av standard in och standard ut från terminalen.
