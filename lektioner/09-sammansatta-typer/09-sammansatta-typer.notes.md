@@ -34,7 +34,7 @@ presentation:
     zoom: 110%;
   }
   div.slides{
-     border: 1px solid black;
+     # border: 1px solid black;
   }
   .reveal code {
     zoom: 90%;
@@ -71,11 +71,12 @@ presentation:
 
 ## Medlemmar
 
-- I C# kallas delarna i en sammansatt typ för *medlemmar*
+- I C# kallas komponenterna i en sammansatt typ för *medlemmar*
 - Exempel på olika typer av medlemmar är:
   - Variabler
   - Funktioner
   - Operatorer
+  - Egenskaper
   - Nästade typer
 
 <!-- slide -->
@@ -636,16 +637,31 @@ namespace TicTacToe {
   struct Board {
     ...
     public int GetWidth() => w;
-    public int SetWidth(int value) {
+    public void SetWidth(int value) {
       if (value >= 0) { w = value; Init(); }
     }
 
     public int GetHeight() => h;
-    public int SetHeight(int value) {
+    public void SetHeight(int value) {
       if (value >= 0) { h = value; Init(); }
     }
   }
 }
+```
+
+<!-- slide -->
+
+```cs
+Board board; 
+board.SetWidth(4);
+board.SetHeight(5);
+...
+// Gör något för varje markör i första raden
+for (int c = 0; col < board.GetWidth(); ++col)  {
+    marker = board[0, col]
+    ...
+}
+
 ```
 
 <!-- slide -->
