@@ -1,0 +1,20 @@
+digraph branch 
+{
+  rankdir=LR
+  ranksep=0.3
+  nodesep=0.3
+  node [fontsize=10, style=filled]
+  edge [dir = "back"]
+  c2 [label = "3484d6f", fillcolor=aliceblue]
+  c3 [label = "0f28ecc", fillcolor=aliceblue]
+  c4 [label = "84f9c6d", fillcolor=mistyrose]
+  c5 [label = "8f8afc2", xlabel="bugfix", fillcolor=mistyrose]
+  c6 [label = "deb0935", fillcolor=aliceblue]
+  c7 [label = "859bc5d", fillcolor=aliceblue]
+  c8 [label = "7671515", xlabel="master", fillcolor=aliceblue]
+  c9 [label = "", xlabel=<<I>merge pausad</I>>, fillcolor=none]
+
+
+  c2 -> c3 -> c4 -> c5 -> c9
+  c3 -> c6 -> c7  -> c8 -> c9
+}

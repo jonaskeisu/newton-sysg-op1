@@ -1,0 +1,19 @@
+ digraph history {
+    rankdir=LR
+    edge [dir = "back"]
+    node [fixedsize=true, width=1]
+
+    commit1 [label = "6b6be8a", xlabel="Initial commit"]
+    commit2 [label = "0428486"]
+    commit3 [label = "", style="dashed"]
+    commit4 [label = "d7e9249"]
+    commit5 [label = "3d3adc5"]
+    commit6 [label = "6e5b29e", xlabel="master"]
+    
+    commit1 ->
+    commit2 ->
+    commit3 ->
+    commit4 ->
+    commit5 -> 
+    commit6 
+}
