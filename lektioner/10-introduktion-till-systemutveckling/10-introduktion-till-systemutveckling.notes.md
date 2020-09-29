@@ -34,7 +34,7 @@ presentation:
     zoom: 110%;
   }
   div.slides{
-    border: 1px solid black;
+    # border: 1px solid black;
   }
   .reveal code {
     zoom: 90%;
@@ -170,6 +170,8 @@ am -left-> user : "Support / drift"
   - Användargränssnittet utseende
   - Val av applikationsramverk
   - Systemkomponenter
+  - Systemkrav
+  - Nödvändiga resurser
   - Kommunikationsgränssnitt
 
 <!-- slide -->
