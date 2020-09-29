@@ -1,0 +1,10 @@
+digraph repo {
+    nodesep=1.2
+    shared [label = "origin"]
+    clone1 [label = "klon", xlabel="Utvecklare 1"]
+    clone2 [label = "klon", xlabel="Utvecklare 2"]
+    clone3 [label = "klon", xlabel="Utvecklare 3"]
+    clone1 -> shared [dir=both]
+    clone2 -> shared [dir=both]
+    clone3 -> shared [dir=both]
+}
