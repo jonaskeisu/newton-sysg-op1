@@ -161,9 +161,9 @@ class A {
 
 - En klass är en typ
 - Instanser av en klass kallas *objekt*
-- En konstruktor:
+- En klasskonstruktor:
   - Anropas med nyckelordet ``new``
-  - Skapar och initialiserar ett objekt på heapen
+  - Allokerar och initialiserar ett objekt på heapen
   - Returnerar en referens till objektet
 
 <!-- slide -->
@@ -187,16 +187,17 @@ A a = new A(10);
 
 ## Vad är objektorienterad programmering?
 
-- Inom procedurell programming beskrivs program genom funktioner, variabler och strukturer
-- Inom objektorienterad programmering beskrivs program genom relationer mellan objekt tillhörande klasser
+- Inom procedurell programming beskrivs program genom funktioner och variabler
+- Inom objektorienterad programmering beskrivs program genom *relationer mellan klasser av objekt*
 
 <!-- slide -->
 
 ## Objekt
 
 - Ett objekt representeras av:
-  - Egenskaper - beskrivande attribut för objektet
+  - Egenskaper - attribut för objektet
     - Färg, form, kodning, namn, rank, etc.
+    - Tilldelas/avläses genom accesssormetoder (``get``/``set``)
   - Metoder - saker som objektet kan göra
     - Skicka, ta emot, rita, koda, avkoda, .. 
 
@@ -204,17 +205,25 @@ A a = new A(10);
 
 ## Klass
 
-- En klass beskriver en delmängd av objekt med gemensamma egenskaper och metoder
-- T.ex. för att tillhöra klasssen *Spelkort* så måste objektet ha:
-  - En egenskap *Färg* som är *hjärter*, *klöver*, *spader* eller *ruter*
-  - Egenskapen *Rank* som är *två*, *tre*, .., *kung* eller *äss*
-  - En metod *Rita* för att rendera en grafisk representation av sig själv
+- En klass beskriver objekt med gemensamma egenskaper och metoder
+
+<!-- slide -->
+
+### Exempel
+
+En *Kortlek* kan definieras som en klass av objekt med: 
+  - Egenskapen *Antal kort* som är ett heltal.
+  - En *konstruktor* som initerar en ny kortlek med alla 52 kort. 
+  - Metoden *Blanda* som slumpar ordningen på korten i leken.
+  - En metoden *Ta kort* som ger det översta kortet i leken.
+  - En metod *Lägg tillbaka kort* för att föra tillbaka kort till leken.
+  
 
 <!-- slide -->
 
 ## Objektorienterad design
 
-- Objektorienterad design går ut består av att i en systembeskrivning identifiera klasser av objekt och deras  relationer
+- Objektorienterad design består av att i en  systembeskrivning identifiera klasser av objekt och deras relationer
 
 <!-- slide -->
 
@@ -244,23 +253,233 @@ A a = new A(10);
 
 ### Exempel
 
-- Poker är ett spel där en *dealer* har en *kortlek* med 52 *spelkort*. 
-- Dealern delar turvis ut kort till *spelarna* till dess alla har fem kort på *handen*. 
-- Spelare erbjuds en i taget att *kasta* valfritt antal kort och ersätts då med lika många kort av dealern från toppen av leken. 
-- Den spelaren som har handen med högst poäng vinner spelet. 
-  - Om ingen enskild spelare har en hand med högst poäng delar spelarna med högsta poängen för sin hand på vinsten.  
+*Sten, sax, påse* är ett spel med två spelare. Varje spelare väljer i hemlighet ett föremål mellan *sten*, *sax* och *påse*. Spelarna visar samtidigt sitt föremål åt varandra. Om båda spelarna valt samma föremål så blir det lika och spelet börjar om. Om spelarna valt olika föremål, så vinner en av spelarna enligt regelverket:
+- sten besegrar sax
+- sax besegrar påse
+- påse besegrar sten
 
 <!-- slide -->
 
-<table style="zoom: 0.9">
-    <tr><th>Hand</th><th>Värde</th></tr>
-    <tr><td>Par</td><td>1</td></tr>
-    <tr><td>Två par</td><td>2</td></tr>
-    <tr><td>Triss</td><td>3</td></tr>
-    <tr><td>Stege</td><td>4</td></tr>
-    <tr><td>Färg</td><td>5</td></tr>
-    <tr><td>Kåk</td><td>6</td></tr>
-    <tr><td>Fyrtal</td><td>7</td></tr>
-    <tr><td>Färgstege</td><td>8</td></tr>
+### Objektorienterad design
+
+<center>
+
+```plantuml
+@startuml
+
+class Player
+{
+    + string Name
+    + Item SecretItem
+    + Player(string)
+    + void SelectSecretItem()
+}
+
+Player "1" --* "1" Name
+Player "0..2" --* "1" Item
+
+class Game
+{
+    - Player[] Players
+    + Game(Player, Player)
+    + Player Play()
+}
+
+Game "1" --* "2" Player
+
+enum Item
+{
+    Rock
+    Scissors,
+    Paper
+}
+
+@enduml
+```
+
+</center>
+
+<!-- slide -->
+
+### Exempel
+
+Poker är ett spel där en *dealer* har en *kortlek* med 52 *spelkort*. Varje kort i leken har en unik kombination av *rank* (*två*, *tre*, .., *nio*, *tio*, *knekt*, *dam*, *kung* eller *ess*) samt *färg* (*klöver*, *ruter*, *hjärter* eller *spader*).
+
+Varje spelrunda går till på följande vis:
+- Dealern *blandar* kortleken. 
+- Dealern *delar* ut kort i taget laget runt från toppen av leken till *spelarna* till alla spelare fem kort på *handen*. 
+<!-- slide -->
+- Spelare erbjuds en i taget att *kasta* valfritt antal kort från sin hand i en *slaskhög* och *ersätts* då med lika många kort av dealern från toppen av kortleken.
+- Samtliga spelare *visar* sina händer. 
+- Dealern *utser vinnaren* som den spelaren som har den högsta handen.
+- Spelarna *ger tillbaka* sin hand till delearn som för tillbaka korten i kortleken. 
+- Dealern *tar slaskhögen* av kort och *för tillbaka* dem i kortleken. 
+
+
+<!-- slide -->
+
+<table style="zoom: 0.8">
+    <tr><th>Handtyper </th><th>Kommentar</th></tr>
+    <tr><td>Färgstege</td><td>Färg och stege</td></tr>
+    <tr><td>Fyrtal</td><td>Fyra kort med samma rank</td></tr>
+    <tr><td>Kåk</td><td>Triss och par</td></tr>
+    <tr><td>Färg</td><td>Alla kort har samma färg</td></tr>
+    <tr><td>Stege</td><td>Kortens ranker ligger i följd</td></tr>
+    <tr><td>Triss</td><td>Tre kort med samma rank</td></tr>
+    <tr><td>Två par</td><td>Två par</td></tr>
+    <tr><td>Par</td><td>Två kort med samma rank</td></tr>
+    <tr><td>Högsta kort</td><td>Inget av ovanstående</td></tr>
 </table>
 
+<!-- slide -->
+
+Om två spelare har samma typ av hand avgör ranken på korten på hand vinnaren i första hand och färgen i andra hand (*spader* är högst, följt av *hjärter*, *ruter* och sist *klöver*).
+
+<!-- slide -->
+
+Avgörande kort för olika typer av händer:
+
+- Färgstege, stege, färg - högsta kortet avgör
+- Fyrtal - högsta rank av fyrtal avgör
+- Triss - högsta rank av triss avgör
+- Två par - högsta rank av något par avgör, annars ranken av det andra paret, eller i sista hand det återstående kortet.
+- Par - högsta rank på paret avgör, annars rankerna av återstående kort, eller i sista hand färgerna av återstående kort
+- Högsta kort - rankerna på korten, eller i sista hand färgerna på korten
+
+
+<!-- slide -->
+
+### Objektorienterad design
+
+<center>
+
+```plantuml
+@startuml
+left to right direction 
+
+class Card
+{
+    + Rank Rank
+    + Suite Suite
+    + Card(Rank, Suite)
+}
+
+enum Suite
+{
+    Clubs,
+    Diamonds,
+    Hearts,
+    Spader
+}
+
+enum Rank
+{
+    Two, 
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten,
+    Jack,
+    Queen,
+    King,
+    Ace
+}
+
+Card "4" --* "1" Rank
+Card "13" --* "1" Suite
+
+class Hand 
+{
+    + Card[] Cards
+    + HandType Type
+    + Card[] ArbitrationCards
+    + Hand()
+    + void Recieve(Card)
+    + void ThrowAway(Card[], Pile)
+}
+
+enum HandType
+{
+    Incomplete,
+    HighCard,
+    Pair,
+    TwoPairs,
+    ThreeOfAKind,
+    Straight,
+    Flush,
+    FullHouse,
+    FourOfAKind
+    StraightFlush
+}
+
+Hand "*" ..* "1" HandType
+Hand "0..1" --o "0..5" Card
+
+class Deck 
+{
+    - Card[] Cards
+    + Deck()
+    + void Shuffle()
+    + Card TakeCardFromTop()
+    + void ReturnCards(Card[])
+}
+
+Deck "0..1" --o "0..52" Card
+
+class Dealer
+{
+    - Deck Deck
+    + Dealer()
+    + void ShuffleDeck()
+    + void Deal(Player[])
+    + void ReplaceCards(Player[])
+    + void PresentWinner(Player[])
+    + void RecieveHand(Hand)
+    + void TakePile(Pile)
+}
+
+Dealer "1" ..* "1" Deck
+
+class Player 
+{
+    + Hand Hand
+    + string Name
+    + Player(string)
+    + void RecieveDealtCard(Card)
+    + void ThrowCards(Pile)
+    + void RecieveReplacements(Card[])
+    + void ShowHand()
+    + void GiveBackHand(Dealer)
+}
+
+Player "*" ..* "1" Hand
+
+class Pile
+{
+    - Card[] Cards
+    + Pile()
+    + void Receive(Card[])
+    + void ReturnToDeck(Deck)
+}
+
+Pile "0..1" --o "0..52" Card
+
+class Game 
+{
+    - Dealer Dealer
+    - Player[] Players
+    + Game(Players[])
+    + Play()
+}
+
+Game "1" ..* "1" Dealer
+Game "1" ..o "*" Player
+
+@enduml
+```
+
+</center>
