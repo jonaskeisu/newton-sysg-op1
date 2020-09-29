@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>11-programmering-i-team.notes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<div class="title-page">
+<h1 id="programmering-i-team">Programmering i team</h1>
+</div>
+<hr>
+<div class="title-page">
+<h2 id="versionshantering-med-git">Versionshantering med Git</h2>
+</div>
+<hr>
+<h2 id="gemensamt-kodbas">Gemensamt kodbas</h2>
+<ul>
+<li>Ett team av utvecklare bidrar till en gemensam kodbas i ett källdkodsarkiv</li>
+<li>Inom versionhantering kallas källkodsarkiv för <em><strong>repository</strong></em> eller kortare  <em><strong>repo</strong></em></li>
+<li>Varje utvecklare arbetar lokalt i en klon av det gemensamma repot</li>
+<li>I klonen är det gemensamma repot en <em>remote</em> som heter  <code>origin</code></li>
+</ul>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%; margin-top: 0.75em">
+<p><img src="fig/repos.dot.svg" alt="repos"></p>
+</div>
+</div>
+<hr>
+<h2 id="kloning-av-repo">Kloning av repo</h2>
+<ul>
+<li>En lokal klon av ett repo kan skapas med Git-kommandot <code>clone</code></li>
+</ul>
+<pre class="hljs"><code><div>&gt; git <span class="hljs-built_in">clone</span> &lt;url&gt;
+</div></code></pre>
+<hr>
+<h2 id="commit--%C3%B6gonblicksbild-av-k%C3%A4llkodsarkiv">Commit = ögonblicksbild av källkodsarkiv</h2>
+<ul>
+<li>En <em>commit</em> är en ögonblicksbild av katalogerna och filerna i repot</li>
+<li>Med varje commit lagras:
+<ul>
+<li>Ett meddelande som dokumenterar:
+<ul>
+<li>Innehåll/syfte med förändringen i kodbasen</li>
+<li>Författaren till förändringen</li>
+</ul>
+</li>
+<li>En unik identifierare för commiten</li>
+</ul>
+</li>
+<li>En commit kan också ha en (eller flera) föregående commits</li>
+</ul>
+<hr>
+<h2 id="identifierare-f%C3%B6r-commit">Identifierare för commit</h2>
+<ul>
+<li>I Git är identifierare för en commit en SHA-1 kontrollsumma</li>
+<li>T.ex. <code>70460b4b4aece5915caf5c68d12f560a9fe3e4</code></li>
+<li>Kan refereras i kortform: <code>70460b4</code></li>
+</ul>
+<hr>
+<h2 id="historik">Historik</h2>
+<p>Ett repo lagrar alla historiska commits och deras relation.</p>
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 110%">
+<p><img src="fig/history.dot.svg" alt="history"></p>
+</div>
+<br/>
+<hr>
+<h2 id="%C3%A5terst%C3%A4llning-av-tidigare-commit">Återställning av tidigare commit</h2>
+<ul>
+<li>
+<p>Ett lokalt repo kan återställas till en tidigare commit med <code>git checkout</code>:</p>
+<pre class="hljs"><code><div>&gt; git checkout 0428486
+</div></code></pre>
+</li>
+<li>
+<p>Den aktuellt utcheckade commiten har alias <code>HEAD</code></p>
+</li>
+<li>
+<p>Typiskt checkas commits ut via ett branchnamn, t.ex.</p>
+<pre class="hljs"><code><div>&gt; git checkout master
+</div></code></pre>
+</li>
+<li>
+<p>Historiken för utcheckad commit kan visas med kommandot <code>git log</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="status-p%C3%A5-filer-i-lokalt-repo">Status på filer i lokalt repo</h2>
+<ul>
+<li>Filer i ett repo kan ha fyra olika tillstånd.</li>
+<li>Filer och kataloger som inte har status unmodified listas med: <code>git status</code></li>
+</ul>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 140%">
+<p><img src="fig/file-status.dot.svg" alt="file status"></p>
+</div>
+<hr>
+<h2 id="filen-gitignore">Filen <code>.gitignore</code></h2>
+<ul>
+<li>Det finns som regel lokala filer i repot som inte skall versionshanteras, t.ex.
+<ul>
+<li>Filer kompilerade från källkoden som <code>.exe</code> och <code>.dll</code>.</li>
+<li>Thumbnail-filer som operativsystemet skapar.</li>
+<li>Lokala inställningsfiler.</li>
+</ul>
+</li>
+<li>Filen <code>.gitignore</code> i repot används för att utesluta ointressanta filer t.ex. i utskriften från <code>git status</code>
+<ul>
+<li>Innehåller sökvägsmönster för filer som skall ignoreras av Git</li>
+<li>Skall ligga på topnivå i repot</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="arbetsfl%C3%B6de">Arbetsflöde</h2>
+<ul>
+<li>Checka ut önskad branch</li>
+<li>Redigera filerna</li>
+<li>Arrangera ny commit med <code>git add</code></li>
+<li>Verkställ commit</li>
+</ul>
+<hr>
+<h2 id="skapa-ny-commit">Skapa ny commit</h2>
+<ul>
+<li>En commit görs med <code>git commit</code></li>
+<li>Utcheckad branch flyttas automatiskt fram till den nya comitten.</li>
+</ul>
+<br/>
+<center>
+Före commit
+</center>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 110%">
+<p><img src="fig/history.dot.svg" alt="history"></p>
+</div>
+<center>
+Efter commit
+</center>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 110%">
+<p><img src="fig/commit.dot.svg" alt="history"></p>
+</div>
+<hr>
+<h2 id="branch">Branch</h2>
+<ul>
+<li>Från en given commit kan utvecklingen dela upp sig i flera spår</li>
+<li>I Git kallas ett utvecklingsspår för <em><strong>branch</strong></em></li>
+<li>En branch är ett alias för sista commiten i ett utvecklingsspår</li>
+</ul>
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+<p><img src="fig/branch.dot.svg" alt="branch"></p>
+</div>
+<hr>
+<h2 id="skapa-en-ny-branch">Skapa en ny branch</h2>
+<ul>
+<li>
+<p>För att skapa en ny branch, checka först ut utgångscommiten för branchen</p>
+</li>
+<li>
+<p>För att t.ex. skapa en ny branch <code>bug-fix</code> ge sedan kommandot:</p>
+<pre class="hljs"><code><div>&gt; git checkout -b bug-fix
+</div></code></pre>
+</li>
+<li>
+<p>För att lägga till den nya branchen i en remote, t.ex. <code>origin</code> används:</p>
+<pre class="hljs"><code><div>&gt; git push -u origin bug-fix
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<h2 id="merge">Merge</h2>
+<ul>
+<li>
+<p>För att återföra arbetet t.ex. på branchen <code>bug-fix</code> till <code>master</code> används:</p>
+<pre class="hljs"><code><div>&gt; git merge bug-fix
+</div></code></pre>
+<p>i repot med branchen <code>master</code> utcheckad.</p>
+</li>
+<li>
+<p>Skapar en ny commit med alla ändringar från <code>bug-fix</code> och <code>master</code></p>
+</li>
+</ul>
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+<p><img src="fig/merge.dot.svg" alt="merge"></p>
+</div>
+<hr>
+<h2 id="konflikter">Konflikter</h2>
+<ul>
+<li>Om samma filrader har ändrats i två mergade branscher uppstår en <strong>konflikt</strong></li>
+<li>Mergen pausas med konfliktmarkörer placeras i berörda filer</li>
+</ul>
+<pre class="hljs"><code><div>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:file.txt
+Hello world
+=======
+Goodbye
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 77976da:file.txt
+</div></code></pre>
+<hr>
+<h2 id="konfliktl%C3%B6sning">Konfliktlösning</h2>
+<ul>
+<li>
+<p>Utvecklaren måste manuellt lösa alla konflikter:</p>
+<ul>
+<li>Ersätta texten inom konfliktmarkörerna med önskat innehåll</li>
+<li>Avlägsna konfliktmarkörerna</li>
+<li>Köra <code>git add</code> på filen för att markera att konflikten är löst</li>
+</ul>
+</li>
+<li>
+<p>När alla konflikter är lösta kör <code>git commit</code> för att fullfölja mergning</p>
+</li>
+<li>
+<p>Branchen <code>bug-fix</code> har efter merge fyllt sitt syfte och kan tas bort med:</p>
+<pre class="hljs"><code><div>git branch -d bug-fix
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<h2 id="resultat-efter-merge">Resultat efter merge</h2>
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+<p><img src="fig/after-merge.dot.svg" alt="after merge"></p>
+</div>
+<hr>
+<h2 id="lokalt-vs-remote">Lokalt vs. remote</h2>
+<ul>
+<li>Git lagrar alla commits, även unika för remotes och i egna repot</li>
+<li>Hämta nya commits och uppdaterade brancher på remote med: <code>git fetch</code></li>
+<li>Samma branch kan peka till olika commits lokalt och på remote</li>
+</ul>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+<p><img src="fig/remote-branch.dot.svg" alt="remote branch"></p>
+</div>
+<hr>
+<h2 id="merge-med-remote">Merge med remote</h2>
+<p>Ändringar på <code>origin/master</code> sammanförs med ändringar på <code>master</code> genom:</p>
+<pre class="hljs"><code><div>&gt; git merge origin/master
+</div></code></pre>
+<p>med den lokala <code>master</code>-branschen utcheckad.</p>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+<p><img src="fig/remote-merge.dot.svg" alt="remote merge"></p>
+</div>
+<hr>
+<h2 id="uppdatera-remote-med-lokala-%C3%A4ndringar">Uppdatera remote med lokala ändringar</h2>
+<ul>
+<li>Nu är finns en vägen från <code>origin/master</code> till <code>master</code> beskriven lokalt</li>
+<li>Kommandot <code>git push</code> med <code>master</code> utcheckad:
+<ul>
+<li>För över nya commits till remote</li>
+<li>Flyttar fram <code>origin/master</code> till samma commit som <code>master</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="efter-push">Efter push</h2>
+<p>Efter <code>git push</code> är historiken för branchen identisk lokalt och på remote.</p>
+<br/>
+<div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
+<p><img src="fig/end-result.dot.svg" alt="end result"></p>
+</div>
+
+</body>
+</html>

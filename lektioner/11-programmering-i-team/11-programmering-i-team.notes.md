@@ -23,7 +23,7 @@ style: |
 
 <div class="title-page">
 
-## Versionshantering
+## Versionshantering med Git
 </div>
 
 ---
@@ -62,7 +62,7 @@ style: |
   - Ett meddelande som dokumenterar:
     - Innehåll/syfte med förändringen i kodbasen
     - Författaren till förändringen
-  - En identifierare
+  - En unik identifierare för commiten
 - En commit kan också ha en (eller flera) föregående commits
 
 ---
@@ -263,7 +263,7 @@ Goodbye
 
 - Git lagrar alla commits, även unika för remotes och i egna repot
 - Hämta nya commits och uppdaterade brancher på remote med: ``git fetch``
-- En branch kan peka till olika commits lokalt och på remote
+- Samma branch kan peka till olika commits lokalt och på remote
 
 <div style="display: flex; flex-direction: column; align-items: center; zoom: 150%">
 
