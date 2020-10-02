@@ -34,7 +34,7 @@ presentation:
     zoom: 110%;
   }
   div.slides{
-    border: 1px solid black;
+    # border: 1px solid black;
   }
   .reveal code {
     zoom: 90%;
@@ -161,10 +161,9 @@ class A {
 
 - En klass är en typ
 - Instanser av en klass kallas *objekt*
-- En klasskonstruktor:
-  - Anropas med nyckelordet ``new``
-  - Allokerar och initialiserar ett objekt på heapen
-  - Returnerar en referens till objektet
+- En konstruktor:
+  - Anropas efter nyckelordet ``new``
+  - Initialiserar ett nytt objekt på heapen
 
 <!-- slide -->
 
@@ -253,10 +252,10 @@ En *Kortlek* kan definieras som en klass av objekt med:
 
 ### Exempel
 
-*Sten, sax, påse* är ett spel med två spelare. Varje spelare väljer i hemlighet ett föremål mellan *sten*, *sax* och *påse*. Spelarna visar samtidigt sitt föremål åt varandra. Om båda spelarna valt samma föremål så blir det lika och spelet börjar om. Om spelarna valt olika föremål, så vinner en av spelarna enligt regelverket:
-- sten besegrar sax
-- sax besegrar påse
-- påse besegrar sten
+*Sten, sax, påse* är ett spel med två spelare. Reglerna är att varje spelare i hemlighet väljer *sten*, *sax* och *påse*. Spelarna visar samtidigt sitt föremål åt varandra. Om båda spelarna valt samma föremål så blir det lika och spelet börjar om. Om spelarna valt olika föremål, så vinner en av spelarna enligt logiken:
+- Sten krossar sax.
+- Sax klipper sönder påse.
+- Påse fångar sten.
 
 <!-- slide -->
 
@@ -275,7 +274,6 @@ class Player
     + void SelectSecretItem()
 }
 
-Player "1" --* "1" Name
 Player "0..2" --* "1" Item
 
 class Game
@@ -301,7 +299,128 @@ enum Item
 
 <!-- slide -->
 
-### Exempel
+### Vanliga implementationer av egenskaper
+
+- Inkapsling av privata variabler
+- Automatisk implementation
+- Härledda egenskaper
+- Kortsyntax för ``get``/``set``
+- Ännu kortare syntax för egenskaper som bara har ``get``
+
+<!-- slide -->
+
+### Inkapsling av privata variabler
+
+```cs
+class Person {
+    private int age;
+
+    public int Age {
+        get { return age; }
+
+        private set {
+            if (value >= 0 <= 150) { 
+                age = value;
+            }
+        }
+    }
+}
+```
+
+<!-- slide -->
+
+Ibland blir inkapslingen mekanisk och meningslös:
+
+```cs
+class Person {
+    private bool driversLicense;
+
+    public bool DriversLicense {
+        get { return driversLicense; }
+
+        set { driversLicense = value; }
+    }
+}
+```
+
+<!-- slide -->
+
+### Automatisk implementation
+
+```cs
+class Person {
+    public bool DriversLicense {
+        get;
+        set;
+    }
+}
+```
+
+<!-- slide -->
+
+## Härledda egenskaper
+
+```cs
+class Array2D {
+    private int elements = new int[0];
+    private int columns = 0;
+    public int Columns {
+        get { return columns; }
+        set { columns = value; elements = new int[Columns * Rows]; }
+    }
+    public int Rows {
+        get { return elements.Length / Columns; }
+        set { elements = new int[value * Columns]; }
+    }
+}
+```
+
+<!-- slide -->
+
+### Kortformssyntax
+
+
+```cs
+class Person {
+    private int age;
+
+    public int Age {
+        get => age;
+
+        private set {
+            if (value >= 0 <= 150) { 
+                age = value;
+            }
+        }
+    }
+}
+```
+
+<!-- slide -->
+
+### Ännu kortare syntax
+
+```cs
+class Person {
+    private int age;
+
+    public int Age => age; 
+}
+```
+
+
+<!-- slide -->
+
+### Array-klassen och comparabels
+
+- Vi tittar närmare på:
+  - ``Array``-klassens medlemmar
+  - ``IComparable``-kontraktet
+  - ``IComparer``-kontraktet
+
+<!-- slide -->
+
+### Exempel 
 
 Poker är ett spel där en *dealer* har en *kortlek* med 52 *spelkort*. Varje kort i leken har en unik kombination av *rank* (*två*, *tre*, .., *nio*, *tio*, *knekt*, *dam*, *kung* eller *ess*) samt *färg* (*klöver*, *ruter*, *hjärter* eller *spader*).
 
@@ -351,7 +470,7 @@ Avgörande kort för olika typer av händer:
 
 ### Objektorienterad design
 
-<center>
+<center style="zoom:0.7">
 
 ```plantuml
 @startuml
@@ -362,7 +481,14 @@ class Card
     + Rank Rank
     + Suite Suite
     + Card(Rank, Suite)
+    + int CompareTo(Card)
 }
+
+interface "IComparable<Card>"
+{
+}
+
+Card ..|> "IComparable<Card>"
 
 enum Suite
 {
@@ -396,11 +522,18 @@ class Hand
 {
     + Card[] Cards
     + HandType Type
-    + Card[] ArbitrationCards
+    - Card[] ArbitrationCards
     + Hand()
     + void Recieve(Card)
     + void ThrowAway(Card[], Pile)
+    + int CompareTo(Hand)
 }
+
+interface "IComparable<Hand>"
+{
+}
+
+Hand ..|> "IComparable<Hand>"
 
 enum HandType
 {
@@ -443,6 +576,19 @@ class Dealer
 }
 
 Dealer "1" ..* "1" Deck
+Dealer "1" ..> "1" PlayerComparer
+
+interface "IComparer<Player>"
+{
+
+}
+
+class PlayerComparer
+{
+    int Compare(Player, Player)
+}
+
+PlayerComparer ..|> "IComparer<Player>"
 
 class Player 
 {
@@ -483,3 +629,4 @@ Game "1" ..o "*" Player
 ```
 
 </center>
+
