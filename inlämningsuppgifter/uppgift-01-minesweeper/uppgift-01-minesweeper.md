@@ -204,7 +204,7 @@ Följande sidor visar exempel på exakt förväntad utskrift från programmet f
 - [För många flaggor](exempel/too-many-flags.md)
 - [Felhantering](exempel/error-handling.md)
 
-Filer som användes för att skapa ovanstående sekver finns i följande [ziparkiv](./exempelkörningar/tests.zip). 
+Filer som användes för att skapa ovanstående sekver finns i följande [ziparkiv](./exempel/tests.zip). 
 För den som vill omdirigera standard in för att skicka in användarinput till applikationen från fil så är det bra att veta att konsolen har en egenskap ``IsInputRedirected`` som är sann om och endast om input är omdirigerat från tangentbordsinmatning till terminalen till något annat. Genom att på lämpligt ställe i lösningen lägga in koden:
 
 ```cs
