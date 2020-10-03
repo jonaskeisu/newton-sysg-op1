@@ -199,10 +199,10 @@ Funktionen ```BoobyTrapped``` tar två heltal ``row`` och ``column`` som argumen
 
 Följande sidor visar exempel på exakt förväntad utskrift från programmet för olika körningar och kommandosekvenser för spelet:
 
-- [Komplettering av spelet](exempelkörningar/game-completed.md)
-- [Game over](exempelkörningar/game-over.md)
-- [För många flaggor](exempelkörningar/too-many-flags.md)
-- [Felhantering](exempelkörningar/error-handling.md)
+- [Komplettering av spelet](exempel/game-completed.md)
+- [Game over](exempel/game-over.md)
+- [För många flaggor](exempel/too-many-flags.md)
+- [Felhantering](exempel/error-handling.md)
 
 Filer som användes för att skapa ovanstående sekver finns i följande [ziparkiv](./exempelkörningar/tests.zip). 
 För den som vill omdirigera standard in för att skicka in användarinput till applikationen från fil så är det bra att veta att konsolen har en egenskap ``IsInputRedirected`` som är sann om och endast om input är omdirigerat från tangentbordsinmatning till terminalen till något annat. Genom att på lämpligt ställe i lösningen lägga in koden:
