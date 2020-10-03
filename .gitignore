@@ -12,8 +12,8 @@
 .DS_Store
 *.html
 *.pdf
-!docs/*.pdf
-!docs/*.html
+!docs/**/*.pdf
+!docs/**/*.html
 out/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
