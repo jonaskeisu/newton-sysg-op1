@@ -311,6 +311,8 @@ enum Item
 
 ### Inkapsling av privata variabler
 
+Det är vanligt att värdet för en egenskap lagras i en specifik medlemsvariabel för endamålet. Egenskapen kapslar in medlemsvariabeln och säkerställer att värdet bara kan ändras från utsidan av objektet så som det är meningen. 
+
 ```cs
 class Person {
     private int age;
@@ -319,7 +321,7 @@ class Person {
         get { return age; }
 
         private set {
-            if (value >= 0 <= 150) { 
+            if (value >= 0 && value <= 150) { 
                 age = value;
             }
         }
@@ -329,7 +331,7 @@ class Person {
 
 <!-- slide -->
 
-Ibland blir inkapslingen mekanisk och meningslös:
+Ibland blir inkapslingen mekanisk, som i exemplet nedan. Då kan en automatisk implementation av egenskapen användas för att göra koden enklare att läsa. 
 
 ```cs
 class Person {
@@ -347,6 +349,8 @@ class Person {
 
 ### Automatisk implementation
 
+Om kroppen lämnas bort för samtliga accessormetoder genererar kompilatorn automatiskt en osynlig inkapslad medlemsvariabel för egenskapen.
+
 ```cs
 class Person {
     public bool DriversLicense {
@@ -359,6 +363,8 @@ class Person {
 <!-- slide -->
 
 ## Härledda egenskaper
+
+En egenskap måste inte kapsla in en specifik medlemsvariabel. Egenskapens värde kan också konstant eller vara härlett från värden på en eller flera medlemsvariabler, som för egenskapen ``Row`` i exemplet nedan.  
 
 ```cs
 class Array2D {
@@ -380,6 +386,7 @@ class Array2D {
 ### Kortformssyntax
 
 
+
 ```cs
 class Person {
     private int age;
@@ -388,7 +395,7 @@ class Person {
         get => age;
 
         private set {
-            if (value >= 0 <= 150) { 
+            if (value >= 0 && value <= 150) { 
                 age = value;
             }
         }
@@ -400,6 +407,8 @@ class Person {
 
 ### Ännu kortare syntax
 
+Egenskaper som bara har en ``get``-metod som kan skrivas med lambda-operatorn kan uttryckas ännu mer kompakt:
+
 ```cs
 class Person {
     private int age;
@@ -407,226 +416,3 @@ class Person {
     public int Age => age; 
 }
 ```
-
-
-<!-- slide -->
-
-### Array-klassen och comparabels
-
-- Vi tittar närmare på:
-  - ``Array``-klassens medlemmar
-  - ``IComparable``-kontraktet
-  - ``IComparer``-kontraktet
-
-<!-- slide -->
-
-### Exempel 
-
-Poker är ett spel där en *dealer* har en *kortlek* med 52 *spelkort*. Varje kort i leken har en unik kombination av *rank* (*två*, *tre*, .., *nio*, *tio*, *knekt*, *dam*, *kung* eller *ess*) samt *färg* (*klöver*, *ruter*, *hjärter* eller *spader*).
-
-Varje spelrunda går till på följande vis:
-- Dealern *blandar* kortleken. 
-- Dealern *delar* ut kort i taget laget runt från toppen av leken till *spelarna* till alla spelare fem kort på *handen*. 
-<!-- slide -->
-- Spelare erbjuds en i taget att *kasta* valfritt antal kort från sin hand i en *slaskhög* och *ersätts* då med lika många kort av dealern från toppen av kortleken.
-- Samtliga spelare *visar* sina händer. 
-- Dealern *utser vinnaren* som den spelaren som har den högsta handen.
-- Spelarna *ger tillbaka* sin hand till delearn som för tillbaka korten i kortleken. 
-- Dealern *tar slaskhögen* av kort och *för tillbaka* dem i kortleken. 
-
-
-<!-- slide -->
-
-<table style="zoom: 0.8">
-    <tr><th>Handtyper </th><th>Kommentar</th></tr>
-    <tr><td>Färgstege</td><td>Färg och stege</td></tr>
-    <tr><td>Fyrtal</td><td>Fyra kort med samma rank</td></tr>
-    <tr><td>Kåk</td><td>Triss och par</td></tr>
-    <tr><td>Färg</td><td>Alla kort har samma färg</td></tr>
-    <tr><td>Stege</td><td>Kortens ranker ligger i följd</td></tr>
-    <tr><td>Triss</td><td>Tre kort med samma rank</td></tr>
-    <tr><td>Två par</td><td>Två par</td></tr>
-    <tr><td>Par</td><td>Två kort med samma rank</td></tr>
-    <tr><td>Högsta kort</td><td>Inget av ovanstående</td></tr>
-</table>
-
-<!-- slide -->
-
-Om två spelare har samma typ av hand avgör ranken på korten på hand vinnaren i första hand och färgen i andra hand (*spader* är högst, följt av *hjärter*, *ruter* och sist *klöver*).
-
-<!-- slide -->
-
-Avgörande kort för olika typer av händer:
-
-- Färgstege, stege, färg - högsta kortet avgör
-- Fyrtal - högsta rank av fyrtal avgör
-- Triss - högsta rank av triss avgör
-- Två par - högsta rank av något par avgör, annars ranken av det andra paret, eller i sista hand det återstående kortet.
-- Par - högsta rank på paret avgör, annars rankerna av återstående kort, eller i sista hand färgerna av återstående kort
-- Högsta kort - rankerna på korten, eller i sista hand färgerna på korten
-
-
-<!-- slide -->
-
-### Objektorienterad design
-
-<center style="zoom:0.7">
-
-```plantuml
-@startuml
-left to right direction 
-
-class Card
-{
-    + Rank Rank
-    + Suite Suite
-    + Card(Rank, Suite)
-    + int CompareTo(Card)
-}
-
-interface "IComparable<Card>"
-{
-}
-
-Card ..|> "IComparable<Card>"
-
-enum Suite
-{
-    Clubs,
-    Diamonds,
-    Hearts,
-    Spader
-}
-
-enum Rank
-{
-    Two, 
-    Three,
-    Four,
-    Five,
-    Six,
-    Seven,
-    Eight,
-    Nine,
-    Ten,
-    Jack,
-    Queen,
-    King,
-    Ace
-}
-
-Card "4" --* "1" Rank
-Card "13" --* "1" Suite
-
-class Hand 
-{
-    + Card[] Cards
-    + HandType Type
-    - Card[] ArbitrationCards
-    + Hand()
-    + void Recieve(Card)
-    + void ThrowAway(Card[], Pile)
-    + int CompareTo(Hand)
-}
-
-interface "IComparable<Hand>"
-{
-}
-
-Hand ..|> "IComparable<Hand>"
-
-enum HandType
-{
-    Incomplete,
-    HighCard,
-    Pair,
-    TwoPairs,
-    ThreeOfAKind,
-    Straight,
-    Flush,
-    FullHouse,
-    FourOfAKind
-    StraightFlush
-}
-
-Hand "*" ..* "1" HandType
-Hand "0..1" --o "0..5" Card
-
-class Deck 
-{
-    - Card[] Cards
-    + Deck()
-    + void Shuffle()
-    + Card TakeCardFromTop()
-    + void ReturnCards(Card[])
-}
-
-Deck "0..1" --o "0..52" Card
-
-class Dealer
-{
-    - Deck Deck
-    + Dealer()
-    + void ShuffleDeck()
-    + void Deal(Player[])
-    + void ReplaceCards(Player[])
-    + void PresentWinner(Player[])
-    + void RecieveHand(Hand)
-    + void TakePile(Pile)
-}
-
-Dealer "1" ..* "1" Deck
-Dealer "1" ..> "1" PlayerComparer
-
-interface "IComparer<Player>"
-{
-
-}
-
-class PlayerComparer
-{
-    int Compare(Player, Player)
-}
-
-PlayerComparer ..|> "IComparer<Player>"
-
-class Player 
-{
-    + Hand Hand
-    + string Name
-    + Player(string)
-    + void RecieveDealtCard(Card)
-    + void ThrowCards(Pile)
-    + void RecieveReplacements(Card[])
-    + void ShowHand()
-    + void GiveBackHand(Dealer)
-}
-
-Player "*" ..* "1" Hand
-
-class Pile
-{
-    - Card[] Cards
-    + Pile()
-    + void Receive(Card[])
-    + void ReturnToDeck(Deck)
-}
-
-Pile "0..1" --o "0..52" Card
-
-class Game 
-{
-    - Dealer Dealer
-    - Player[] Players
-    + Game(Players[])
-    + Play()
-}
-
-Game "1" ..* "1" Dealer
-Game "1" ..o "*" Player
-
-@enduml
-```
-
-</center>
-
