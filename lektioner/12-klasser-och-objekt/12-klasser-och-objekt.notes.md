@@ -39,6 +39,10 @@ presentation:
   .reveal code {
     zoom: 90%;
   }
+  img[alt=relationer] {
+    width: 200px;
+  }
+}
 </style>
 
 
