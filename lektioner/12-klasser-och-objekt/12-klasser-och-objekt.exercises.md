@@ -363,20 +363,20 @@ Skriv en klass ``Bottle`` med följande egenskaper:
 - En publik klassmetod ``HowManyBottles()`` som returnerar en ``int`` som anger hur många instanser av ``Bottle`` som har skapats under programmets körtid.
 
 Koden nedan:
-```java
-class Bottle {
-  // your code here
-}
+```cs
+public class Program {
+    class Bottle {
+        // your code here
+    }
 
-public class Main {
-  public static void Main(string[] args) {
-    Bottle bottle1 = new Bottle();
-    Bottle bottle2 = new Bottle();
-    Bottle bottle3 = new Bottle();
-    Console.WriteLine(Bottle.HowManyBottles()); // should print 3
-    Bottle bottle4 = new Bottle();
-    Console.WriteLine(Bottle.HowManyBottles()); // should print 4
-  }
+    public static void Main(string[] args) {
+        Bottle bottle1 = new Bottle();
+        Bottle bottle2 = new Bottle();
+        Bottle bottle3 = new Bottle();
+        Console.WriteLine(Bottle.HowManyBottles()); // should print 3
+        Bottle bottle4 = new Bottle();
+        Console.WriteLine(Bottle.HowManyBottles()); // should print 4
+    }
 }
 ```
 
