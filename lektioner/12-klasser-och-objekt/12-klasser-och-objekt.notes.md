@@ -243,7 +243,7 @@ En *Kortlek* kan definieras som en klass av objekt med:
 
 <div style="margin-left: 1em; zoom: 1.8">
 
-![relationer](object-relationships.svg)
+![relationer](fig/object-relationships.svg)
 
 </div>
 </div>
