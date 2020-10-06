@@ -138,6 +138,7 @@ class Player
 
 Game "1" --o "2" Player
 Game "1" --o "1" Board
+Player "1" --o "1" Symbol
 
 class Board
 {
@@ -194,10 +195,10 @@ class Diagonal
 Board "1" --* "3" Row
 Board "1" --* "3" Column
 Board "1" --* "2" Diagonal
-Row "0..1" --* "3" Symbol
-Column "0..1" --* "3" Symbol
-Diagonal "0..1" --* "3" Symbol
-Diagonal "1" --* "2" Direction
+Row "0..3" --* "3" Symbol
+Column "0..3" --* "3" Symbol
+Diagonal "0..2" --* "3" Symbol
+Diagonal "1" --* "1" Direction
 ```
 
 </center>
@@ -239,6 +240,7 @@ class Player
 
 Game "1" --o "2" Player
 Game "1" --o "1" Board
+Player "1" --o "1" Symbol
 
 class Board
 {
@@ -308,8 +310,8 @@ Board "1" --* "3" Row
 Board "1" --* "3" Column
 Board "1" --* "2" Diagonal
 
-Line "0..1" --* "3" Symbol
-Diagonal "1" --* "2" Direction
+Line "0..8" --* "3" Symbol
+Diagonal "1" --* "1" Direction
 ```
 
 </center>
@@ -358,8 +360,8 @@ Koden nedan:
 static public void Main() {
     A objA = new A() { a = 1 };
     B objB = new B() { a = 2, b = 3 };
-    objA.Print();
-    objB.Print();
+    objA.PrintA();
+    objB.PrintB();
 }
 ```
 
@@ -374,9 +376,9 @@ a = 2, b = 3
 
 ## Tilldelning av ärvande typ
 
-- En variabel av typen ``A`` kan tilldelas objekt av vilken typ som helst som antingen är ``A`` eller som ärver från ``A``
+- En variabel av referenstypen ``A`` kan tilldelas referenser till objekt av typen ``A`` eller till objekt av typer som ärver från ``A``
 - Bara medlemmar som ingår i typen ``A`` kan användas via variabeln, även om den är tilldelad ett objekt av annan typ
-- Att en variabel kan tilldelas objekt av olika typer kallas *polymorphism*.
+- Att en variabel kan tilldelas referenser till objekt av olika typer kallas *polymorphism*.
 
 <!-- slide -->
 
@@ -393,38 +395,9 @@ static public void Main() {
 
 <!-- slide -->
 
-## Exempel
-
-```cs 
-class Circle {
-    public double Radius { get; set; }
-    public double Area => Radius*Radius*Math.PI;
-}
-
-enum Color { Red, Green, Blue }
-
-class ColoredCircle : Circle {
-    public Color Color { get; set; }
-}
-```
-
-<!-- slide -->
-
-```cs 
-static public void Main(){
-    Circle circle = new Circle() { Radius = 1.0 };
-    Circle circle2 = new ColoredCircle() { Radius = 1.5, Color = Color.Blue };
-    Console.WriteLine(circle.Area); // Skriver ut 3.14
-    Console.WriteLine(circle2.Area); // Skriver 7.07
-}
-```
-
-<!-- slide -->
-
 ## Arv i flera led
 
 - Klasser kan ärva i flera led
-- Om klassen ``B`` ärver klassen ``A`` så ärver ``B`` också alla klassen som  ``A``  ärver
 
 <!-- slide -->
 
@@ -434,12 +407,12 @@ class A { // Ärver automatiskt System.Object
     public void PrintA() => Console.WriteLine($"a = {a}");
 }
 
-class B : A { // B ärver A och System.Object
+class B : A { // B ärver medlemmar från A och System.Object
     public int b; 
     public void PrintB() => Console.WriteLine($"a = {a}, b = {b}");
 }
 
-class C : B { // C ärver B, A och System.Object
+class C : B { // C ärver medlemmar från B, A och System.Object
     public int c; 
     public void PrintC() => 
         Console.WriteLine($"a = {a}, b = {b}, c = {c}");
@@ -453,50 +426,11 @@ static public void Main() {
     A obj1 = new C() { a = 1, b = 2, c = 3 }; // OK, C ärver A via B
     C obj2 = new C() { a = 4, b = 4, c = 6 }; 
     obj1.PrintA(); // OK, skriver ut "a = 1"
+    obj1.PrintB(); // FEL, klassen A har ingen medlem PrintB()
     obj2.PrintA(); // OK, skriver ut "a = 4"
     obj2.PrintB(); // OK, skriver ut "a = 4, b = 5"
     obj2.PrintC(); // OK, skriver ut "a = 4, b = 5, c = 6"
 }
-```
-
-<!-- slide -->
-
-### Exempel 
-
-```cs 
-class Circle {
-    public double Radius { get; set; }
-    public double Area => Radius*Radius*Math.PI;
-}
-enum Color { Red, Green, Blue }
-class ColoredCircle : Circle {
-    public Color Color { get; set; }
-}
-class PositionedColoredCircle : ColoredCircle {
-    public double CenterX { get; set; }
-    public double CenterY { get; set; }
-}
-```
-
-<!-- slide -->
-
-Koden nedan: 
-
-```cs 
-PositionedColoredCircle circle = new PositionedColoredCircle() { 
-    Radius = 1, 
-    CenterX = 2.5, 
-    CenterY = -5 
-};
-Console.WriteLine(
-    $"Circle with area {circle.Area:0.##}, color {circle.Color} and " + 
-    $" position ({circle.CenterX}, {circle.CenterY})");
-```
-
-ger utskriften: 
-
-```text 
-Circle with area 3.14, color Red and position (2.5, -5)
 ```
 
 <!-- slide -->
@@ -536,11 +470,11 @@ static public void Main() {
     A obj1 = new A();
     A obj2 = new C(); // OK, implicit casting
     C obj3 = (C)obj2; // OK, explicit casting
-    D obj4 = (D)obj2; // OK men genererar fel vid körning!
+    D obj4 = (D)obj2; // Kompilerar men genererar fel vid körning!
     if (obj2 is C) { /* Koden här körs */ }
     if (obj2 is D) { /* Koden här körs inte */ }
-    C obj4 = obj2 as C; // Implicit casting
-    D obj5 = obj2 as D; // obj5 tilldelas null
+    C obj4 = obj2 as C; // obj2 castas till en typen C
+    D obj5 = obj2 as D; // casting kan ej genomföras, obj5 tilldelas null
     if (obj2 is C obj6) {
         // Koden här körs med en lokalt variabel obj6 av typen C
     }
@@ -598,7 +532,7 @@ Hello from C!
 
 ## Referns till basklassens medlem
 
-- En klass kan referera medlemmar i basklassen via nyckelordet ``base``
+- Medlemmar i en klass kan referera till medlemmar i klassens basklassen via nyckelordet ``base``
 
 <!-- slide -->
 
@@ -635,7 +569,7 @@ Hello from A!
 
 ## Protected
 
-- Åtkomstmodifieraren ``protected`` betyder att en modifierare är synlig för klassens medlemmar och alla ärvande klassers medlemmar
+- Åtkomstmodifieraren ``protected`` betyder att medlemmen är tillgänglig för den aktuella klassens medlemmar och alla ärvande klassers medlemmar
 
 <!-- slide -->
 
@@ -644,18 +578,18 @@ class A {
     protected int a = 1;
 }
 class B : A {
-    // OK, B ärver A så metoder i B får använda medlemmen a
+    // Koden nedan är ok, B ärver A så metoder i B får använda medlemmen a
     override public Print() => Console.WriteLine($"a = {a}");
 }
 // ..
 class Program {
-static public void Main() {
-    A obj1 = new A();
-    B obj2 = new B();
-    obj1.a = 2; // FEL!!! Klassen Program ärver inte A
-    obj2.a = 2; // FEL!!! Klassen Program ärver inte A
-    obj2.Print(); // OK, skriver ut "a = 1"
-    // ..
+    static public void Main() {
+        A obj1 = new A();
+        B obj2 = new B();
+        obj1.a = 2; // FEL!!! Klassen Program ärver inte A
+        obj2.a = 2; // FEL!!! Klassen Program ärver inte A
+        obj2.Print(); // OK, skriver ut "a = 1"
+        // ..
 ```
 
 <!-- slide -->
@@ -663,7 +597,7 @@ static public void Main() {
 ## Abstrakta basklasser
 
 - En klass med modifieraren ``abstract`` är *abstrakt* och kan inte instansieras
-- En abstrakt klass kan ha abstrakta egenskaper och metoder som då också har modifieraren ``abstract``
+- En abstrakt klass får ha abstrakta egenskaper och metoder som då också har modifieraren ``abstract``
 - En abstrakt medlem har en signatur men ingen kropp
 - En klass som ärvern en (eller flera) abstrakta klasser måste antingen själv också vara abstrakt eller överskugga alla ärvda abstrakta medlemmar 
 
@@ -671,12 +605,13 @@ static public void Main() {
 
 ```cs
 abstract class A 
-    protected int a = 1;
     abstract public int Value { get; set; }
     abstract public void Modify();
 }
 class B : A
 {
+    private int a = 1;
+
     override public int Value {
         get => a;
         set => a = value;
@@ -701,7 +636,7 @@ Console.WriteLine(obj1.Value); // OK, skriver ut "2"
 ## Defaultkonstruktor
 
 - En defaultkonstruktur är en konstruktor som inte tar några argument
-- En klass som inte definierar någon konstruktor får en *automatiskt* defaultkonstruktor som initierar alla medlemsvariabler till defaultvärdet för variabelns typ
+- En klass som inte definierar någon konstruktor får en *automatiskt* defaultkonstruktor som initierar alla medlemsvariabler för klassen till defaultvärdet för variabelns typ
 - Om någon konstruktor definieras i klassen så skapas ingen automatisk defaultkonstruktor
 
 <!-- slide -->
@@ -717,7 +652,7 @@ class B { // Ingen defaultkonstruktor skapas
         b = value;
     }
 }
-class C { // Explicit definierad defaultkonstruktor
+class C { // Egendefinierad defaultkonstruktor
     public int c;
     public C() {
         c = 3;
@@ -728,9 +663,9 @@ class C { // Explicit definierad defaultkonstruktor
 <!-- slide -->
 
 ```cs
-A obj1 = A(); // OK
+A obj1 = A(); // OK, automatgenererad defaultkonstruktor anropas
 B obj2 = B(); // FEL! B har ingen konstruktor utan argument
-C obj3 = C(); // OK
+C obj3 = C(); // OK, egendefinierad defaultkonstruktor anropas
 ```
 
 <!-- slide -->
