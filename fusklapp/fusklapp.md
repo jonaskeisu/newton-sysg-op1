@@ -92,6 +92,21 @@ Heltal som bara kan vara 0 eller positiva kallas *naturliga tal*.
 
 Den binära representationen av ``bool``-värden är inte definierad av .NET-standarden och kan därför variera.
 
+### Unicode 
+
+Standard med målsättning att täcka alla viktiga tecken i hel världen, inklusive alla språks alfabeten, symboler, emoijis, etc. Delar upp tecken i totalt 17 plan med upp till 65536 tecken i varje plan. Alla bokstäver och andra vanligt förekommande tecken i text finns i plan plan 0. Emoijis ligger i plan 1. 
+
+### Textkodning
+
+| Kodning | Egenskaper | 
+| --- | --- | 
+| ASCII | 1 byte per tecken, 128 tecken, engelska tecken |
+| ISO-8859-1 | 1 byte per tecken, 255 tecken, utökning av ASCII med tecken för språk med rötterna i Latin, t.ex. svenska. 
+| UTF-8 | 1-4 byte per tecken, kodning av Unicode-tecken, samtliga ASCII-tecken representeras med 1 byte | 
+| UTF-16 | 2 eller 4 byte per tecken, kodning av alla Unicode-tecken |
+| UTF-32 | 4 byte per tecken, kodning av alla Unicode-tecken | 
+
+
 ### Char
 
 Värden av typen ``char`` är ett tal i intervallet 0 - 65&nbsp; 536 som motsvarar ett tecken i [Unicode-plan 0](https://en.wikipedia.org/wiki/Plane_(Unicode)). 
@@ -209,14 +224,13 @@ Deklarerar en ny variabel i aktuellt scope.
 }
 ```
 
-### If-sats
+### If-else-sats
 
 ```cs
 if (<villkor>) 
-    <sats> [ 
+    <sats>  
 else 
     <sats>
-]
 ```
 
 ### Switch-sats
@@ -286,7 +300,7 @@ continue;
 Avsluta ett anrop till en metod. Om returtypen för metoden inte är ``void`` skall nyckelordet ``return`` följas av ett uttryck ger som beräknas till metodens resultat.
 
 ```cs
-return [ <resultat> ];
+return <resultat>;
 ```
 
 ### Uttryck som sats
@@ -296,5 +310,42 @@ Ett uttryck vars beräkning har sidoeffekt är följt av ett semikolon en giltig
 ```cs
 <uttryck>;
 ```
+
+## Uttrycksföreträde
+
+Företrädesnivåer för operatorer från högsta till lägsta.
+
+| Operator |
+| --- | 
+| ``f(x)``, ``x.y``, ``a[i]``, ``x++``, ``x--``, ``new`` |
+| ``-x``, ``++x``, ``--x``, ``!x``, ``^x``, ``~x`` |
+| ``switch`` | 
+| ``x * y``, ``x / y``, ``x % y`` | 
+| ``x + y``, ``x - y`` | 
+| ``x << y``, ``x >> y`` |
+| ``x <= y``, ``x < y``, ``x => y``, ``x > y``, ``as``, ``is`` |
+| ``x == y``, ``x != y`` |
+| ``x & y`` | 
+| ``x ^ y`` | 
+| <code>x &#124; y</code> |
+| ``x && y`` | 
+| <code>x &#124;&#124; y</code> |
+| ``c ? t : f`` | 
+| ``=``, ``+=``, ``-=``, ``*=``, ``/=``, ``x %= y``, ``x &= y``,<code>x &#124;= y</code>, ``x <<= y``, ``x >>= y`` |
+
+## Värdetyper vs. referenstyper
+
+I C# .NET är alla värden objekt och alla typer ärver från ``System.Object``. Alla taltyper, ``bool``, ``enum``,  ``char`` och alla typer definierade med nyckelordet ``struct`` är *värdetyper*. Alla fält, strängar och alla typer definierade med nyckelordet ``class`` är *referenstyper*.
+
+### Värdetyper
+
+För en variabel av värdetyp så lagras objektet direkt i variabelns minne. Objektet i variabelns minne skapas automatiskt på stacken när programmets körningen går in i scopet där variabeln är definierad. Objektet lagrat i variabel kasseras automatiskt när programmets körning lämnar scopet där variabeln är definierad.
+
+### Referenstyper
+
+För en variabel av referenstyp så lagras en referens till ett objekt på heapen eller ``null`` i variabelns minne. Ett objekt av referenstyp skapas på heapen med nyckelordet ``new`` som returnerar en referens till det nya objektet. Kopior av referensen till objektet kan lagras i variabler och fält med element av referenstyp. När en variabel av referenstyp går ur scope kasseras kopian av referensen, men inte det refererade objektet. När programmet inte längre lagrar några kopior av referensen till ett objekt på heapen så kasseras objektet automatiskt av garbage collectorn. 
+
+
+## Fält
 
 
