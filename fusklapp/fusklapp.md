@@ -189,7 +189,7 @@ Operatorer beräknar värden från värdet av andra uttryck som kallas operatorn
 | Shift | ``<<``, ``>>`` | 
 
 
-### Switchuttryck
+### Switch-uttryck
 
 Beräkning av ett värde genom mönstermatchning mot ett argumentvärde. 
 
@@ -211,7 +211,7 @@ Kod är en sekvens av *satser*. En sats är den minsta enheten av kod som kan k�
 Deklarerar en ny variabel i aktuellt scope. 
 
 ```cs
-<typ> <identifierare> [ = <initaliserare> ];
+<typ> <identifierare> = <initaliserare>;
 ``` 
 
 ### Blocksats
@@ -335,17 +335,123 @@ Företrädesnivåer för operatorer från högsta till lägsta.
 
 ## Värdetyper vs. referenstyper
 
-I C# .NET är alla värden objekt och alla typer ärver från ``System.Object``. Alla taltyper, ``bool``, ``enum``,  ``char`` och alla typer definierade med nyckelordet ``struct`` är *värdetyper*. Alla fält, strängar och alla typer definierade med nyckelordet ``class`` är *referenstyper*.
+Variabler är namngivet lagringsuttrymme i minnet för att lagra värden av en viss typ. För värdetyper är värdet som lagras i variabelns minne ett *objekt*. Ett objekt lagras i minnet som de aktuella värdena på objektets alla *medlemsvariabler*. För referenstyper är värdet som lagras i variabelns minne en *referens* till ett objekt som skapats med nyckelordet ``new`` och lagras i en minnesarea som kallas *heapen*.  
+
+```plantuml
+node " "Jonas", 42" as person
+note left
+    Värdetyp
+end note
+
+node "<referens>" as ref
+note left 
+    Referenstyp
+end note
+
+cloud Heap {
+    node " "Tesla", "ABC123" " as car
+}
+
+ref --> car
+```
+
 
 ### Värdetyper
 
-För en variabel av värdetyp så lagras objektet direkt i variabelns minne. Objektet i variabelns minne skapas automatiskt på stacken när programmets körningen går in i scopet där variabeln är definierad. Objektet lagrat i variabel kasseras automatiskt när programmets körning lämnar scopet där variabeln är definierad.
+Alla taltyper, ``bool``, ``char``, ``enum`` och typer skapade med nyckelordet ``struct`` är värdetyper. För en variabel av värdetyp så så skapas objektet i variabelns minne automatiskt när programmets körningen går in i kodblocket där variabeln är definierad. Objektet lagrat i variabelns minne kasseras automatiskt när programmets körning lämnar kodblocket där variabeln är definierad.
 
 ### Referenstyper
 
-För en variabel av referenstyp så lagras en referens till ett objekt på heapen eller ``null`` i variabelns minne. Ett objekt av referenstyp skapas på heapen med nyckelordet ``new`` som returnerar en referens till det nya objektet. Kopior av referensen till objektet kan lagras i variabler och fält med element av referenstyp. När en variabel av referenstyp går ur scope kasseras kopian av referensen, men inte det refererade objektet. När programmet inte längre lagrar några kopior av referensen till ett objekt på heapen så kasseras objektet automatiskt av garbage collectorn. 
+Alla fälttyper, ``string`` och alla typer skapade med nyckelordet ``class`` är referenstyper. En variabel av referenstyp lagrar en referens till ett objekt på heapen eller ``null`` i sitt minne. När programmets körning går in i kodblocket där variabeln är definierad skapas automatiskt variabelns minnesutrymme. Referens lagrad i variabelns minne kasseras automatisk när programmets körning lämnar kodblocket där variabeln är definierad. När det inte längre finns några kopior av referensen till ett objekt på heapen så kasseras objektet automatiskt av garbage collectorn. 
 
+
+### Kopiering av värden
+
+När ett värde av referenstyp kopieras skapas en ny kopia av en referens. När ett värde av värdetyp kopieras tilldelas varje medlemsvariabel för ett annat objekt av samma typ det aktuella värdet för motsvarande medlemsvariabel hos originalobjektets.
+
+```plantuml
+node " "Jonas", 42" as person1
+note left 
+    Original
+end note
+
+node " "Jonas", 42" as person2
+note left 
+    Kopia
+end note
+
+person1 ..> person2: Kopiering
+
+node "<referens>" as ref1
+note left 
+    Original
+end note
+node "<referens>" as ref2
+note right 
+    Kopia
+end note
+
+ref1 ..> ref2: Kopiering
+
+cloud Heap {
+    node " "Tesla", "ABC123" " as car
+}
+
+ref1 --> car
+ref2 --> car
+```
+
+
+Värden kopieras t.ex. när ett värde:
+- Tilldelas av en variabel, egenskap eller indexierare.
+- Returnerneras från en metod.
+- Används som argument till en metod.
+- Används som operand till en operator.
+
+## Defaultvärden
+
+Ett oiniterat värden har defaultvärde enligt typ. 
+
+| Typ | Defaultvärde
+| --- | --- | 
+| Alla taltyper | $0$ | 
+| ``enum`` | $0$ | 
+| ``char`` | ``'\0'`` | 
+| ``bool`` | ``false`` | 
+| Fält | ``null`` | 
+| ``class`` | ``null`` | 
+| ``struct`` | Medlemsvariabler har defaultvärde. |
 
 ## Fält
 
+Exempel på definition och initierare av fält:
+```cs 
+int[] numbers = { 1, 2, 3 }; // Endimensionellt fält
+string[,] texts = { // Tvådimensionellt fält
+    { "anna", "karl" }, 
+    { "jimmy", "daniel" }, 
+    { "fredrik", "veronica" }
+};
+```
 
+För fälten ovan är nedanstående villkor uppfyllda: 
+
+```cs
+numbers[0] == 1
+numbers[2] == 3
+texts[2, 1] == "veronica"
+numbers.Rank == 1
+numbers.Length == 3
+texts.Rank == 2
+texts.GetLength(0) == 3
+texts.GetLength(1) == 2
+```
+
+Skapa nya fält:
+
+```cs 
+new string[10]; // nytt fält av 10 strängreferenser
+new bool[5, 2]; // nytt fält med 5 rader och 2 kolumner av boolvärden
+```
+
+Element för nya fält utan initiering har defaultvärde.
