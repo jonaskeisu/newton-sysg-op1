@@ -1,0 +1,491 @@
+<!DOCTYPE html><html><head>
+      <title>uppgift-02-poker</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="inl%C3%A4mningsuppgift-2-poker">Inl&#xE4;mningsuppgift 2 - Poker</h1>
+
+<h2 class="mume-header" id="%C3%B6versikt">&#xD6;versikt</h2>
+
+<p>Uppgiften g&#xE5;r ut p&#xE5; att f&#xE4;rdigst&#xE4;lla ett klassbibliotek f&#xF6;r pokerspel.</p>
+<h2 class="mume-header" id="uppgiftsbeskrivning">Uppgiftsbeskrivning</h2>
+
+<p>F&#xF6;r att l&#xF6;sa uppgiften skall ni forka f&#xF6;ljande <a href="https://github.com/jonaskeisu/Poker">repo</a> p&#xE5; Github och skriva f&#xE4;rdigt ett klassbibliotek f&#xF6;r pokerspel.</p>
+<p>Repot best&#xE5;r av en solution <code>Poker</code> inneh&#xE5;llande tv&#xE5; projekt: ett klassbibliotek <code>PokerLib</code> och en konsolapplikation <code>PokerConsoleApp</code>.</p>
+<h3 class="mume-header" id="pokerlib">PokerLib</h3>
+
+<p>Klassbiblioteket <code>PokerLib</code> skall implementera logiken f&#xF6;r ett pokerspel. Biblioteket inneh&#xE5;ller publika gr&#xE4;nssnitt och typer, illustrerade av klassdiagrammet nedan.</p>
+<p><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" contentscripttype="application/ecmascript" contentstyletype="text/css" height="473px" preserveAspectRatio="none" style="width:976px;height:473px;" version="1.1" viewBox="0 0 976 473" width="976px" zoomAndPan="magnify"><defs><filter height="300%" id="fi6iyvyc5v1mu" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[71ae1ee46de9613bccb190056469201d]
+class Suite--><rect fill="#FEFECE" filter="url(#fi6iyvyc5v1mu)" height="99.8203" id="Suite" style="stroke: #A80036; stroke-width: 1.5;" width="66" x="899" y="111"/><ellipse cx="917.15" cy="127" fill="#EB937F" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M920.7643,133.5 L913.0445,133.5 L913.0445,121.1069 L920.7643,121.1069 L920.7643,123.2651 L915.4933,123.2651 L915.4933,125.938 L920.2662,125.938 L920.2662,128.0962 L915.4933,128.0962 L915.4933,131.3418 L920.7643,131.3418 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="27" x="931.85" y="131.5352">Suite</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="900" x2="964" y1="143" y2="143"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="31" x="905" y="157.6348">Clubs</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="54" x="905" y="170.5898">Diamonds</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="35" x="905" y="183.5449">Hearts</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="38" x="905" y="196.5">Spades</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="900" x2="964" y1="202.8203" y2="202.8203"/><!--MD5=[0f690a215a17a0cf4b9f948ca5dd1b3e]
+class Rank--><rect fill="#FEFECE" filter="url(#fi6iyvyc5v1mu)" height="216.416" id="Rank" style="stroke: #A80036; stroke-width: 1.5;" width="61" x="901.5" y="246"/><ellipse cx="916.5" cy="262" fill="#EB937F" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M920.1143,268.5 L912.3945,268.5 L912.3945,256.1069 L920.1143,256.1069 L920.1143,258.2651 L914.8433,258.2651 L914.8433,260.938 L919.6162,260.938 L919.6162,263.0962 L914.8433,263.0962 L914.8433,266.3418 L920.1143,266.3418 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="29" x="930.5" y="266.5352">Rank</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="902.5" x2="961.5" y1="278" y2="278"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="44" x="907.5" y="292.6348">Two = 2</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="31" x="907.5" y="305.5898">Three</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="25" x="907.5" y="318.5449">Four</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="21" x="907.5" y="331.5">Five</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="16" x="907.5" y="344.4551">Six</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="31" x="907.5" y="357.4102">Seven</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="27" x="907.5" y="370.3652">Eight</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="24" x="907.5" y="383.3203">Nine</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="20" x="907.5" y="396.2754">Ten</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="21" x="907.5" y="409.2305">Jack</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="35" x="907.5" y="422.1855">Queen</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="24" x="907.5" y="435.1406">King</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="20" x="907.5" y="448.0957">Ace</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="902.5" x2="961.5" y1="454.416" y2="454.416"/><!--MD5=[c649c52f85f5f86f72fc6c7d3290a51f]
+class HandType--><rect fill="#FEFECE" filter="url(#fi6iyvyc5v1mu)" height="177.5508" id="HandType" style="stroke: #A80036; stroke-width: 1.5;" width="112" x="727" y="8"/><ellipse cx="751" cy="24" fill="#EB937F" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M754.6143,30.5 L746.8945,30.5 L746.8945,18.1069 L754.6143,18.1069 L754.6143,20.2651 L749.3433,20.2651 L749.3433,22.938 L754.1162,22.938 L754.1162,25.0962 L749.3433,25.0962 L749.3433,28.3418 L754.6143,28.3418 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="60" x="767" y="28.5352">HandType</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="728" x2="838" y1="40" y2="40"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="51" x="733" y="54.6348">HighCard</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="20" x="733" y="67.5898">Pair</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="48" x="733" y="80.5449">TwoPairs</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="76" x="733" y="93.5">ThreeOfAKind</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="42" x="733" y="106.4551">Straight</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="29" x="733" y="119.4102">Flush</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="53" x="733" y="132.3652">FullHouse</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="70" x="733" y="145.3203">FourOfAKind</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="71" x="733" y="158.2754">StraightFlush</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="100" x="733" y="171.2305">RoyalStraightFlush</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="728" x2="838" y1="177.5508" y2="177.5508"/><!--MD5=[b3d1b7ce0b9aeb447f10a862a70f6cde]
+class ICard--><rect fill="#FEFECE" filter="url(#fi6iyvyc5v1mu)" height="73.9102" id="ICard" style="stroke: #A80036; stroke-width: 1.5;" width="81" x="742.5" y="221"/><ellipse cx="765.6" cy="237" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M762.0277,233.2651 L762.0277,231.1069 L769.4071,231.1069 L769.4071,233.2651 L766.9418,233.2651 L766.9418,241.3418 L769.4071,241.3418 L769.4071,243.5 L762.0277,243.5 L762.0277,241.3418 L764.4931,241.3418 L764.4931,233.2651 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="31" x="781.4" y="241.5352">ICard</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="743.5" x2="822.5" y1="253" y2="253"/><ellipse cx="753.5" cy="264" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="55" x="762.5" y="267.6348">Suite Suite</text><ellipse cx="753.5" cy="276.9551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="55" x="762.5" y="280.5898">Rank Rank</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="743.5" x2="822.5" y1="286.9102" y2="286.9102"/><!--MD5=[b18d62399d5bda014f91482f369a9d15]
+class IPlayer--><rect fill="#FEFECE" filter="url(#fi6iyvyc5v1mu)" height="112.7754" id="IPlayer" style="stroke: #A80036; stroke-width: 1.5;" width="137" x="530" y="121.5"/><ellipse cx="575.25" cy="137.5" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M571.6777,133.7651 L571.6777,131.6069 L579.0571,131.6069 L579.0571,133.7651 L576.5918,133.7651 L576.5918,141.8418 L579.0571,141.8418 L579.0571,144 L571.6777,144 L571.6777,141.8418 L574.1431,141.8418 L574.1431,133.7651 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="38" x="595.75" y="142.0352">IPlayer</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="531" x2="666" y1="153.5" y2="153.5"/><ellipse cx="541" cy="164.5" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="65" x="550" y="168.1348">string Name</text><ellipse cx="541" cy="177.4551" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="68" x="550" y="181.0898">ICard[] Hand</text><ellipse cx="541" cy="190.4102" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="111" x="550" y="194.0449">HandType HandType</text><ellipse cx="541" cy="203.3652" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="42" x="550" y="207">int Wins</text><ellipse cx="541" cy="216.3203" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="81" x="550" y="219.9551">ICard[] Discard</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="531" x2="666" y1="226.2754" y2="226.2754"/><!--MD5=[baa8ea5151357f746e72613a73923fcd]
+class IPokerGame--><rect fill="#FEFECE" filter="url(#fi6iyvyc5v1mu)" height="177.5508" id="IPokerGame" style="stroke: #A80036; stroke-width: 1.5;" width="246" x="224" y="89"/><ellipse cx="307.75" cy="105" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M304.1777,101.2651 L304.1777,99.1069 L311.5571,99.1069 L311.5571,101.2651 L309.0918,101.2651 L309.0918,109.3418 L311.5571,109.3418 L311.5571,111.5 L304.1777,111.5 L304.1777,109.3418 L306.6431,109.3418 L306.6431,101.2651 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="70" x="328.25" y="109.5352">IPokerGame</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="225" x2="469" y1="121" y2="121"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="84" x="230" y="135.6348">IPlayer[] Players</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="225" x2="469" y1="141.9551" y2="141.9551"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="85" x="230" y="156.5898">void RunGame()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="132" x="230" y="169.5449">void SaveAndExit(string)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="54" x="230" y="182.5">void Exit()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="97" x="230" y="195.4551">&#xAB;event&#xBB; NewDeal()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="205" x="230" y="208.4102">&#xAB;event&#xBB; SelectCardsToDiscard(IPlayer)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="234" x="230" y="221.3652">&#xAB;event&#xBB; RecievedReplacementCards(IPlayer)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="128" x="230" y="234.3203">&#xAB;event&#xBB; ShowAllHands()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="124" x="230" y="247.2754">&#xAB;event&#xBB; Winner(IPlayer)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="122" x="230" y="260.2305">&#xAB;event&#xBB; Draw(IPlayer[])</text><!--MD5=[26f2a2156f507389a727c473229338b4]
+class GameFactory--><rect fill="#FEFECE" filter="url(#fi6iyvyc5v1mu)" height="73.9102" id="GameFactory" style="stroke: #A80036; stroke-width: 1.5;" width="158" x="6" y="141"/><ellipse cx="43.95" cy="157" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M46.4231,163.1431 Q45.8421,163.4419 45.2029,163.5913 Q44.5638,163.7407 43.8582,163.7407 Q41.3514,163.7407 40.0315,162.0889 Q38.7117,160.437 38.7117,157.3159 Q38.7117,154.1865 40.0315,152.5347 Q41.3514,150.8828 43.8582,150.8828 Q44.5638,150.8828 45.2112,151.0322 Q45.8587,151.1816 46.4231,151.4805 L46.4231,154.2031 Q45.7923,153.6221 45.1988,153.3523 Q44.6053,153.0825 43.9744,153.0825 Q42.6297,153.0825 41.9449,154.1492 Q41.2601,155.2158 41.2601,157.3159 Q41.2601,159.4077 41.9449,160.4744 Q42.6297,161.541 43.9744,161.541 Q44.6053,161.541 45.1988,161.2712 Q45.7923,161.0015 46.4231,160.4204 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="75" x="63.05" y="161.5352">GameFactory</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="163" y1="173" y2="173"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="163" y1="181" y2="181"/><ellipse cx="17" cy="192" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="96" x="26" y="195.6348">IGame NewGame()</text><ellipse cx="17" cy="204.9551" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="132" x="26" y="208.5898">IGame LoadGame(string)</text><!--MD5=[7d19c8038d2902ec29a8561de4d6de47]
+link ICard to Rank--><path d="M823.78,283.98 C844.44,297.47 869.64,313.93 890.42,327.5 " fill="none" id="ICard-&gt;Rank" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="901.45,334.7,898.6097,328.0718,891.3989,328.1444,894.2393,334.7725,901.45,334.7" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[0ee7740b72946cdc28c038304df8fe16]
+link ICard to Suite--><path d="M823.78,231.75 C843.49,218.74 867.33,203.01 887.52,189.69 " fill="none" id="ICard-&gt;Suite" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="898.62,182.37,891.409,182.3326,888.6011,188.9746,895.8121,189.0119,898.62,182.37" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[28b27445fb2ce1904d0769116a5d1ced]
+link IPlayer to ICard--><path d="M667.2,207.68 C688.02,216.8 710.59,226.7 730.17,235.28 " fill="none" id="IPlayer-&gt;ICard" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#FFFFFF" points="742.24,240.57,738.3471,234.5,731.2467,235.7588,735.1396,241.8288,742.24,240.57" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[b41f9f83da068afb81f6350ee6afc224]
+link IPlayer to HandType--><path d="M667.2,147.95 C682.73,141.06 699.23,133.74 714.74,126.85 " fill="none" id="IPlayer-&gt;HandType" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="726.93,121.44,719.8235,120.216,715.9605,126.3051,723.0669,127.5291,726.93,121.44" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[b165af2ce229116ca89227e869d07dfa]
+link IPokerGame to IPlayer--><path d="M470.19,178 C485.88,178 501.63,178 516.44,178 " fill="none" id="IPokerGame-&gt;IPlayer" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#FFFFFF" points="529.74,178,523.74,174,517.74,178,523.74,182,529.74,178" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[a9081f5e491e1f686ce2552e21d56c08]
+link GameFactory to IPokerGame--><path d="M164.01,178 C181.24,178 199.92,178 218.54,178 " fill="none" id="GameFactory-&gt;IPokerGame" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="223.79,178,214.79,174,218.79,178,214.79,182,223.79,178" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[9d8449d8bd3e9b8a29ef84cce2c712c1]
+@startuml
+left to right direction
+enum Suite
+{
+    {static} Clubs
+    {static} Diamonds
+    {static} Hearts
+    {static} Spades
+}
+
+enum Rank
+{
+    {static} Two = 2
+    {static} Three
+    {static} Four
+    {static} Five
+    {static} Six
+    {static} Seven
+    {static} Eight
+    {static} Nine
+    {static} Ten
+    {static} Jack
+    {static} Queen
+    {static} King
+    {static} Ace
+}
+
+enum HandType
+{
+    {static} HighCard
+    {static} Pair
+    {static} TwoPairs
+    {static} ThreeOfAKind
+    {static} Straight
+    {static} Flush
+    {static} FullHouse
+    {static} FourOfAKind
+    {static} StraightFlush
+    {static} RoyalStraightFlush
+}
+
+
+interface ICard
+{
+    + Suite Suite
+    + Rank Rank
+}
+
+ICard - -* Rank
+ICard - -* Suite
+
+interface IPlayer
+{
+    + string Name
+    + ICard[] Hand
+    + HandType HandType
+    + int Wins
+    + ICard[] Discard
+}
+
+IPlayer - -o ICard
+IPlayer - -* HandType
+
+interface IPokerGame
+{
+    IPlayer[] Players
+    void RunGame()
+    void SaveAndExit(string)
+    void Exit()
+    <<event>> NewDeal()
+    <<event>> SelectCardsToDiscard(IPlayer)
+    <<event>> RecievedReplacementCards(IPlayer)
+    <<event>> ShowAllHands()
+    <<event>> Winner(IPlayer)
+    <<event>> Draw(IPlayer[])
+}
+
+IPokerGame - -o IPlayer
+
+class GameFactory
+{
+    {static} + IGame NewGame()
+    {static} + IGame LoadGame(string)
+}
+
+GameFactory - -> IPokerGame
+@enduml
+
+PlantUML version 1.2020.10(Sun May 17 11:35:57 CEST 2020)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 14.0.2+12-46
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: en
+Country: SE
+--></g></svg></p><p>Dessa gr&#xE4;nssnitt och typer f&#xE5;r inte modifieras med enda undantaget att att metoderna i klassen <a href="https://github.com/jonaskeisu/Poker/blob/main/PokerLib/GameFactory.cs">Poker.Lib.GameFactory</a> beh&#xF6;ver returnera objekt som implementerar gr&#xE4;nssnittet <a href="https://github.com/jonaskeisu/Poker/blob/main/PokerLib/IPokerGame.cs"><code>Poker.Lib.IPokerGame</code></a>.</p>
+<h3 class="mume-header" id="pokerconsoleapp">PokerConsoleApp</h3>
+
+<p>Konsolapplikationen anv&#xE4;nder klassbiblioteket f&#xF6;r att implementera ett pokerspel med konsolgr&#xE4;nssnitt.</p>
+<p><img src="fig/pokergui.png" alt="gui"></p>
+<p>Applikationen kan anv&#xE4;ndas f&#xF6;r f&#xF6;r att testa klassbiblioteket och det ing&#xE5;r inte i uppgiften att g&#xF6;ra n&#xE5;gra modififikationer i denna applikation.</p>
+<h3 class="mume-header" id="uppgiften">Uppgiften</h3>
+
+<p>Uppgiften g&#xE5;r ut p&#xE5; att f&#xE4;rdigst&#xE4;lla  <code>PokerLib</code> genom att ut&#xF6;ka biblioteket med  interna typer och/eller gr&#xE4;nssnitt. Innan ni b&#xF6;rjar skriva kod skall ni ut&#xF6;ka klassdiagrammet ovan med er objektorienterade design av klassbiblioteket och f&#xE5; detta diagram godk&#xE4;nt av l&#xE4;raren. Den slutgiltiga koden beh&#xF6;ver dock inte st&#xE4;mma exakt &#xF6;verens med den presenterade designen.</p>
+<h2 class="mume-header" id="poker">Poker</h2>
+
+<p>Det finns m&#xE5;nga varianter p&#xE5; poker. Ni skall implementera variant som beskrivs nedan.</p>
+<h3 class="mume-header" id="korlek">Korlek</h3>
+
+<p>Pokerspelet kr&#xE4;ver en <a href="https://sv.wikipedia.org/wiki/Fransk-engelsk_kortlek">fransk-engelsk kortlek</a> (utan jokerkort) med 52 kort och spelas av tv&#xE5; till fem spelare.</p>
+<h3 class="mume-header" id="spelets-g%C3%A5ng">Spelets g&#xE5;ng</h3>
+
+<h4 class="mume-header" id="ny-giv">Ny giv</h4>
+
+<p>Varje giv i spelet b&#xF6;rjar med att en dealer blandar kortleken och sedan delar ut kort fr&#xE5;n toppen p&#xE5;&#xA0;leken bordet runt till dess alla spelare har fem kort p&#xE5;&#xA0;handen. Korten delas ut med den anonyma baksidan upp&#xE5;t s&#xE5;&#xA0;rank och f&#xE4;rg &#xE4;r osynliga f&#xF6;r samtliga spela.</p>
+<p>Efter given plockar varje spelare upp och inspektrar sin hand utan att visa kortens framsida &#xE5;t de andra spelarna. De flesta spelare f&#xF6;redrar att sortera korten p&#xE5;&#xA0;handen i f&#xF6;rsta hand efter rank och i andra hand efter f&#xE4;rg f&#xF6;r att enklare kunna tolka sin hand.</p>
+<h4 class="mume-header" id="byte-av-kort">Byte av kort</h4>
+
+<p>Spelarna erbjuds sedan i turordning att sl&#xE4;nga valfritt antal kort fr&#xE5;n hand och ers&#xE4;tts med lika m&#xE5;nga kort av dealern fr&#xE5;n toppen av leken, &#xE5;ter igen utan att visa n&#xE5;gra kort till &#xF6;vriga spelare.</p>
+<h4 class="mume-header" id="showdown">Showdown</h4>
+
+<p>Till sist visar samtliga spelare sin hand och spelaren med b&#xE4;st hand vinner. Om en likv&#xE4;rdig b&#xE4;sta hand h&#xE5;lls av fler &#xE4;n en spelare s&#xE5;&#xA0;blir det lika och ingen spelare vinner.</p>
+<h4 class="mume-header" id="omstart">Omstart</h4>
+
+<p>Efter showdown ger alla spelare ger sin hand till dealern som &#xE5;terf&#xF6;r korten till leken tillsammans med alla kastade kort. Dealern blandar korten och spelet b&#xF6;rjar om med n&#xE4;sta giv.</p>
+<p>Hela spelets g&#xE5;ng illustreras av diagrammet nedan.</p>
+<p><!--?xml version="1.0" encoding="UTF-8" standalone="no"?--><svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" contentscripttype="application/ecmascript" contentstyletype="text/css" height="883px" preserveAspectRatio="none" style="width:415px;height:883px;" version="1.1" viewBox="0 0 415 883" width="415px" zoomAndPan="magnify"><defs><filter height="300%" id="flyt5bwwa29fa" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><ellipse cx="318" cy="18" fill="#000000" filter="url(#flyt5bwwa29fa)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="172" x="232" y="69"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="152" x="242" y="90.6016">Dealern blandar kortleken</text><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="141" x="188.5" y="144"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="121" x="198.5" y="165.6016">Dealern delar ut kort</text><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="139" x="166.5" y="232"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="119" x="176.5" y="253.6016">Inspekterar sin hand</text><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="158" x="44" y="307"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="138" x="54" y="328.6016">Kastar kort fr&#xE5;n handen</text><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="164" x="32" y="382"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="144" x="42" y="403.6016">F&#xE5;r nya kort fr&#xE5;n dealern</text><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="167" x="34.5" y="457"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="147" x="44.5" y="478.6016">Inspekterar sin hand igen</text><polygon fill="#FEFECE" filter="url(#flyt5bwwa29fa)" points="196,532,208,544,196,556,184,544,196,532" style="stroke: #A80036; stroke-width: 1.5;"/><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="172" x="110" y="610"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="152" x="120" y="631.6016">Alla spelare visar sin hand</text><polygon fill="#FEFECE" filter="url(#flyt5bwwa29fa)" points="196,685,208,697,196,709,184,697,196,685" style="stroke: #A80036; stroke-width: 1.5;"/><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="139" x="55.5" y="763"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="119" x="65.5" y="784.6016">Given har en vinnare</text><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="159" x="196.5" y="838"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="139" x="206.5" y="859.6016">Dealern samlar alla kort</text><rect fill="#FEFECE" filter="url(#flyt5bwwa29fa)" height="34.1328" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="123" x="214.5" y="763"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="224.5" y="784.6016">Given &#xE4;r oavgjord</text><!--MD5=[6b1cb46d62f0b7d98ba33deecafa905d]
+link start to Dealern blandar kortleken--><path d="M318,28.18 C318,37.27 318,51.53 318,63.49 " fill="none" id="start-&gt;Dealern blandar kortleken" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="318,68.79,322,59.79,318,63.79,314,59.79,318,68.79" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[e0e5ce6f3f6bb30b7f290c762c8460cd]
+link Dealern blandar kortleken to Dealern delar ut kort--><path d="M304.91,103.2 C296.2,113.98 284.69,128.21 275.38,139.73 " fill="none" id="Dealern blandar kortleken-&gt;Dealern delar ut kort" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="272.06,143.84,280.8299,139.3579,275.2043,139.9524,274.6098,134.3269,272.06,143.84" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[0b4c1348ae6bb2f992e9945556f99d58]
+link Dealern delar ut kort to Inspekterar sin hand--><path d="M254.67,178.18 C250.98,191.99 245.64,211.95 241.62,227 " fill="none" id="Dealern delar ut kort-&gt;Inspekterar sin hand" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="240.31,231.9,246.5122,224.2494,241.6099,227.0719,238.7873,222.1696,240.31,231.9" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="83" x="249" y="209.6348">F&#xF6;rsta spelaren</text><!--MD5=[f72428151041572c3447ef2e27df12d8]
+link Inspekterar sin hand to Kastar kort från handen--><path d="M211.2,266.02 C193.95,277.16 170.88,292.07 152.65,303.84 " fill="none" id="Inspekterar sin hand-&gt;Kastar kort fr&#xE5;n handen" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="148.13,306.76,157.86,305.2345,152.3294,304.0461,153.5178,298.5155,148.13,306.76" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[8909a161886b2db5fdfba2d9831b5518]
+link Kastar kort från handen to Får nya kort från dealern--><path d="M121,341.2 C119.71,351.69 118.01,365.46 116.61,376.82 " fill="none" id="Kastar kort fr&#xE5;n handen-&gt;F&#xE5;r nya kort fr&#xE5;n dealern" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="115.99,381.84,121.0664,373.4002,116.6049,376.878,113.1272,372.4164,115.99,381.84" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[82b5b8b41d1c613134159d49826e6081]
+link Får nya kort från dealern to Inspekterar sin hand igen--><path d="M114.89,416.2 C115.46,426.69 116.22,440.46 116.84,451.82 " fill="none" id="F&#xE5;r nya kort fr&#xE5;n dealern-&gt;Inspekterar sin hand igen" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="117.11,456.84,120.6163,447.6364,116.839,451.8474,112.628,448.0701,117.11,456.84" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[81352faa19d4c63f7d5f6c834ee8f4f7]
+link Inspekterar sin hand igen to #29884--><path d="M136.48,491.12 C152.03,504.66 173.65,523.51 186.1,534.37 " fill="none" id="Inspekterar sin hand igen-&gt;#29884" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="189.94,537.72,185.7984,528.7843,186.1762,534.4285,180.532,534.8063,189.94,537.72" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="160" x="16.2242" y="534.4737">Alla spelare har f&#xE5;tt byta kort?</text><!--MD5=[bbee7865414a56e1524506065a9db838]
+link #29884 to Inspekterar sin hand--><path d="M201.9,537.64 C213.03,526.92 236,501.57 236,475 C236,323 236,323 236,323 C236,305.62 236,285.91 236,271.35 " fill="none" id="#29884-&gt;Inspekterar sin hand" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="236,266.24,232,275.24,236,271.24,240,275.24,236,266.24" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="100" x="237" y="403.6348">NEJ (N&#xE4;sta spelare)</text><!--MD5=[4658b90ee1b1352b371483b025fe1c53]
+link #29884 to Alla spelare visar sin hand--><path d="M196,556.26 C196,568.76 196,589.21 196,604.74 " fill="none" id="#29884-&gt;Alla spelare visar sin hand" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="196,609.8,200,600.8,196,604.8,192,600.8,196,609.8" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="197" y="587.6348">JA</text><!--MD5=[da0562eab9bebde69f2f6e9d164222e4]
+link Alla spelare visar sin hand to #29890--><path d="M196,644.12 C196,654.92 196,669.08 196,679.88 " fill="none" id="Alla spelare visar sin hand-&gt;#29890" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="196,684.89,200,675.89,196,679.89,192,675.89,196,684.89" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="175" x="0.7656" y="679.4473">En ensam spelare har b&#xE4;st hand?</text><!--MD5=[25fc5c4f2ad760a06e1faec3b692ec80]
+link #29890 to Given har en vinnare--><path d="M190.66,704.09 C180.59,715.58 158.37,740.93 142.57,758.96 " fill="none" id="#29890-&gt;Given har en vinnare" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="139.1,762.91,148.0446,758.7876,142.3996,759.1533,142.0339,753.5083,139.1,762.91" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="168" y="740.6348">JA</text><!--MD5=[f67c7a8960e9991ba8cbf3258b6fdf15]
+link Given har en vinnare to Dealern samlar alla kort--><path d="M158.14,797.02 C181.76,808.44 213.55,823.81 238.17,835.71 " fill="none" id="Given har en vinnare-&gt;Dealern samlar alla kort" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="242.68,837.89,236.3127,830.3762,238.1769,835.7171,232.836,837.5812,242.68,837.89" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[9628e1af896343eefa3a98ec39deb901]
+link #29890 to Given är oavgjord--><path d="M201.5,703.57 C212.59,714.8 238.13,740.66 256.21,758.96 " fill="none" id="#29890-&gt;Given &#xE4;r oavgjord" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="260.17,762.97,256.6902,753.7564,256.656,759.4131,250.9992,759.3788,260.17,762.97" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="17" x="239" y="740.6348">NEJ</text><!--MD5=[238434b6a0bddefb8da0b2b06f5fc08d]
+link Given är oavgjord to Dealern samlar alla kort--><path d="M276,797.2 C276,807.69 276,821.46 276,832.82 " fill="none" id="Given &#xE4;r oavgjord-&gt;Dealern samlar alla kort" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="276,837.84,280,828.84,276,832.84,272,828.84,276,837.84" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[de8745ebcec5ce53db4eaaedf785a591]
+link Dealern samlar alla kort to Dealern blandar kortleken--><path d="M321.14,837.88 C344.83,826.23 369,807.79 369,781 C369,160 369,160 369,160 C369,139.23 354.95,120.15 341.6,106.71 " fill="none" id="Dealern samlar alla kort-&gt;Dealern blandar kortleken" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="337.86,103.07,341.4882,112.2262,341.4311,106.5696,347.0876,106.5125,337.86,103.07" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[0097b19c56c07c2beb1cca38e65662db]
+@startuml
+(*) - -> "Dealern blandar kortleken"
+- -> "Dealern delar ut kort"
+- -> [Första spelaren] "Inspekterar sin hand"
+- -> "Kastar kort från handen"
+- -> "Får nya kort från dealern"
+- -> "Inspekterar sin hand igen"
+if "Alla spelare har fått byta kort?"
+    - -> [NEJ (Nästa spelare)] "Inspekterar sin hand"
+else 
+endif
+- -> [JA] "Alla spelare visar sin hand"
+if "En ensam spelare har bäst hand?"
+    - -> [JA] "Given har en vinnare"
+    - -> "Dealern samlar alla kort"
+else 
+    - -> [NEJ] "Given är oavgjord"
+endif
+- -> "Dealern samlar alla kort"
+- -> "Dealern blandar kortleken"
+@enduml
+
+PlantUML version 1.2020.10(Sun May 17 11:35:57 CEST 2020)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 14.0.2+12-46
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: en
+Country: SE
+--></g></svg></p><h3 class="mume-header" id="j%C3%A4mf%C3%B6relse-av-hand">J&#xE4;mf&#xF6;relse av hand</h3>
+
+<p>De reglverket som skall anv&#xE4;ndas f&#xF6;r j&#xE4;mf&#xF6;relse av pokerh&#xE4;nder beskrivs <a href="https://sv.wikipedia.org/wiki/Pokerhand">h&#xE4;r</a>. Regelverket skall f&#xF6;ljas exakt.</p>
+<h2 class="mume-header" id="tekniska-krav-p%C3%A5-l%C3%B6sningen">Tekniska krav p&#xE5; l&#xF6;sningen</h2>
+
+<ul>
+<li>
+<p>N&#xE4;r spelet avslutas kan anv&#xE4;ndaren v&#xE4;lja att spara spelarnas namn och antal vinster till en fil som sedan kan laddas n&#xE4;sta g&#xE5;ng spelet startar upp.</p>
+</li>
+<li>
+<p>Korten p&#xE5;&#xA0;hand f&#xF6;r varje spelare skall vara sorterade i f&#xF6;rsta hand fr&#xE5;n l&#xE4;gsta till h&#xF6;gsta rank och i andra hand efter f&#xE4;rg.</p>
+</li>
+</ul>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
