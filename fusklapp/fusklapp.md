@@ -1,5 +1,122 @@
 # Fusklapp C# .NET
 
+## Exempelprojekt
+
+I texten hämtas exempel löpande från ett schackspel med följande typer.
+
+```plantuml
+class Object
+{
+    + string ToString()
+    + bool Equals()
+}
+
+class ValueType
+{
+}
+
+Object <|-- ValueType
+
+enum Color
+{
+    + White
+    + Black
+}
+
+class Position
+{
+    + int Row
+    + int Column
+    + Position(int, int)
+    {static} + implicit operator Position((int, int))
+    {static} + operator +(Position, Position)
+}
+
+class Board 
+{
+    - Piece[,] Pieces
+    {static} + int Rows
+    {static} + int Columns
+    + Board()
+    + Board(TextReader)
+    + bool MovePiece(Position, Position)
+    + Piece this[Position]
+    {static} + IsValidPosition(Position)
+}
+
+abstract Piece
+{
+    + Color Color
+    + Board Board
+    + Position Position
+    + Piece(Color, Board, Position)
+    {abstract} + bool IsLegalMove(Position)
+    + bool Move(Position)
+}
+
+Object <|-- Board
+Board "1" --* "32" Piece
+ValueType <|-- Position
+ValueType <|-- Color
+Piece --right* "1" Position
+Piece --left* "1" Color
+
+class Pawn
+{
+    + Pawn(Color, Board, Position)
+    + bool IsLegalMove(Position)
+    + bool Move(Position)
+    + string ToString()
+}
+
+class Rook
+{
+    + Pawn(Color, Board, Position)
+    + bool IsLegalMove(Position)
+    + bool Move(Position)
+    + string ToString()
+}
+
+class Knight
+{
+    + Pawn(Color, Board, Position)
+    + bool IsLegalMove(Position)
+    + bool Move(Position)
+    + string ToString()
+}
+
+class Bishop
+{
+    + Pawn(Color, Board, Position)
+    + bool IsLegalMove(Position)
+    + bool Move(Position)
+    + string ToString()
+}
+
+class Queen
+{
+    + Pawn(Color, Board, Position)
+    + bool IsLegalMove(Position)
+    + bool Move(Position)
+    + string ToString()
+}
+
+class King
+{
+    + Pawn(Color, Board, Position)
+    + bool IsLegalMove(Position)
+    + bool Move(Position)
+    + string ToString()
+}
+
+Piece <|-- Pawn
+Piece <|-- Rook
+Piece <|-- Knight
+Piece <|-- Bishop
+Piece <|-- Queen
+Piece <|-- King
+```
+
 ## Binär kodning och grundäggande typer
 
 ### Arbetsminnet
@@ -151,11 +268,141 @@ En variabel är ett namngivet lagringsutrymme i namngivet för att lagra värden
 
 ## Scope
 
-| Typ av scope | Kan innehålla |
-| --- | --- |
-| Kodblock | <ul><li>Lokala variabler</li><li>Lokala funktioner</li><li>Nästade kodblock</li><li>Parametrar</ul>
-| Klass eller struktur | <ul><li>Variabler</li><li>Metoder</li><li>Egenskaper</li><li>Nästade typer</li><li>Indexierare</li><li>Event</li><li>Operatorer</li> | 
-| ``namespace`` | <ul><li>Typdefinitioner</li><li>Nästade namespace</li></ul> | 
+Ett scope är en behållare av definitioner av identifierare.
+
+| Scope | Kan innehålla | 
+| --- | --- | 
+| Typ (class, struct, enum) | <ul><li>Variabler</li><li>Metoder</li><li>Egenskaper</li><li>Nästade typer</li><li>Event</li><li>Operatorer</li><li>Konstanter</li></ul> | 
+| Namespace | <ul><li>Typdefinitioner</li><li>Nästade namespace</li></ul> | 
+| Kodblock | <ul><li>Lokala variabler</li><li>Lokala funktioner</li><li>Nästade kodblock</li><li>Parametrar</ul> |
+| Instans | <ul><li>Variabler</li><li>Metoder</li><li>Egenskaper</li><li>Nästade typer</li><li>Indexierare</li><li>Event</li></ul> |
+
+### Compile-time vs. Run-time
+
+Namespace och typer är statiska scope som konstrueras vid kompilering av koden (*compile-time*). Kodblock och instanser är dynamiskt scope som skapas och kasseras under körningen av ett program (*run-time*). 
+
+### Synlighet för identifierare
+
+Varje identifierare är definierade i ett scope. Identifierare kan i sin tur vara scope med nästade definitioner av identifierare. På så sätt bilder scope och identifierare en trädstruktur. En identifierare är synlig i det scope där den är definierad samt i alla underliggande scope i denna trädstruktur. 
+
+Exempel:
+
+Om vi antar typerna för shackspelet och att vi kör följande program: 
+
+```cs 
+namespace Chess 
+{
+    class Program
+    {
+        static public void Main(string[] args)
+        {
+            Pawn pawn = new Pawn(Color.White, null, (1, 1));
+        }
+    }
+}
+```
+
+så kommer programmet efter instansiering av klassen ``Pawn`` innehålla följande struktur av identifierare och scope (övriga klasser för spelpjäser och typer utanför namespacet ``Chess`` har utelämnats). 
+
+<div style="zoom: 0.4">
+
+```plantuml
+
+rectangle "Chess" <<namespace>> as chessNS
+
+rectangle "Program" <<typ>> as programT
+chessNS <-- programT
+
+rectangle "Main(string[])" <<static metod>> as mainSM
+programT <-- mainSM
+
+rectangle "args" <<parameter>> as argsP
+mainSM <-- argsP
+
+rectangle "pawn" <<lokal variabel>> as pawnLV
+mainSM <-- pawnLV
+
+rectangle "Color" <<enum>> as colorT 
+chessNS <-- colorT
+
+rectangle "White" <<konstant>> as whiteC
+colorT <-- whiteC
+
+rectangle "Black" <<konstant>> as blackC
+colorT <-- blackC
+
+
+rectangle "Piece" <<class>> as pieceT
+chessNS <-- pieceT
+
+rectangle "Pawn" <<class>> as pawnC
+pieceT <-- pawnC
+
+
+rectangle "Board"  <<class>> as boardT
+chessNS <-- boardT
+
+rectangle "IsValidPosition(Position)" <<static metod>> as isValidPosM
+
+
+rectangle "Position" <<egenskap>> as posV
+rectangle "Position" <<struct>> as posT
+rectangle "operator +(Position, Position)" <<operator>> as posAdd
+posT <-- posAdd
+rectangle "implicit operator Position((int, int))" <<operator>> as posConv
+posT <-- posConv
+
+rectangle "Color" <<egenskap>> as  colorV
+rectangle "Row" <<egenskap>> as rowV
+rectangle "Column" <<egenskap>> as colV
+rectangle "RowCount" <<static egenskap>> as rowsP
+rectangle "ColumnCount" <<static egenskap>>as colsP
+
+pawnLV ..> pawnC : Instans av
+
+rectangle "Board" <<egenskap>> as boardV
+pieceT <-- boardV
+
+rectangle "IsLegalMove(Position)" <<metod>> as isLegalMoveM
+
+
+rectangle "Move(Position)" <<metod>> as moveM
+
+rectangle "Move(Position)" <<metod>> as baseMoveM
+
+
+skinparam rectangle {
+    backgroundColor<<namespace>> LightBlue
+    backgroundColor<<enum>> LightBlue
+    backgroundColor<<class>> LightBlue
+    backgroundColor<<struct>> LightBlue
+    backgroundColor<<konstant>> LightBlue
+    backgroundColor<<konstruktor>> LightBlue
+    backgroundColor<<operator>> LightBlue
+    backgroundColor<<static metod>> LightBlue
+    backgroundColor<<static egenskap>> LightBlue
+    backgroundColor<<typ>> LightBlue
+    backgroundColor<<static member>> LightBlue
+    backgroundColor<<egenskap>> LightGreen
+    backgroundColor<<metod>> LightGreen
+    backgroundColor<<lokal variabel>> Orange
+    backgroundColor<<parameter>> Orange
+}
+
+chessNS <-- posT
+
+boardT <-- rowsP
+boardT <-- colsP
+boardT <-- isValidPosM 
+pieceT <-- rowV
+pieceT <-- colV
+pieceT <-- colorV
+pawnC <-- moveM
+pawnC <-- isLegalMoveM
+pieceT <-- posV
+pieceT <-- baseMoveM
+```
+</div>
 
 
 ## Uttryck
@@ -455,3 +702,389 @@ new bool[5, 2]; // nytt fält med 5 rader och 2 kolumner av boolvärden
 ```
 
 Element för nya fält utan initiering har defaultvärde.
+
+## Konvertering
+
+Ett värde av typ ``B`` kan konverteras till ett värde av annan typ ``A`` endast om det finns en implicit eller explicit konverteringsgoperator från ``B`` till ``A``. 
+
+
+```cs
+// Kodraden nedan kräver ett automatiskt anrop till en 
+// implicit konverteringsoperator till typen A överlagrad
+// för en operand av typen B.  
+A a1 = <uttryck av typen B>; 
+
+// Kodraden nedan innehåller ett anrop till den explicit 
+// konverteringsoperator (A) till typen A överlagrad för 
+// en operand av typen B. 
+A a2 = (A)<uttryck av typen B>; 
+```
+
+### Användardefinierade konverteringsoperatorer
+
+```cs 
+struct B {
+    // ..
+    public static implicit operator B(A a) {
+        /* kod som returnerar ett motsvarande värde av typen A */
+    }
+
+    public static explicit operator C(A a) {
+        /* kod som returnerar ett motsvarande värde av typen C */
+    }
+    // ..
+```
+
+### Inbyggda konverteringsoperatorer
+
+X = Implicit konvertersopertor är inbyggd i språket.
+Blankt = Explicit konverteringsoperator är inbyggd i språket.
+
+| Från/Till | ``byte`` | ``sbyte`` | ``ushort`` | ``short`` | ``uint`` | ``int`` | ``ulong`` | ``long`` | ``enum`` | ``char`` | ``float`` | ``double`` |
+| --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | 
+| **``byte``**    |   |   |   | X |   | X |   | X |   |   | X | X |
+| **``ubyte``**   |   |   | X | X | X | X | X | X |   |   | X | X |    
+| **``ushort``**  |   |   |   |   | X | X | X | X |   |   | X | X |    
+| **``short``**   |   |   |   |   |   | X |   | X |   |   | X | X |
+| **``uint``**    |   |   |   |   |   |   | X | X |   |   | X | X |
+| **``int``**     |   |   |   |   |   |   |   | X |   |   | X | X |
+| **``ulong``**   |   |   |   |   |   |   |   |   |   |   | X | X |
+| **``long``**    |   |   |   |   |   |   |   |   |   |   | X | X |
+| **``enum``**    |   |   |   |   |   |   |   |   |   |   |   |   |
+| **``char``**    |   |   | X |   | X | X | X | X |   |   | X | X |
+| **``float``**   |   |   |   |   |   |   |   |   |   |   |   | X |
+| **``double``**  |   |   |   |   |   |   |   |   |   |   |   |   |
+
+## Funktioner
+
+En funktion består av en *signatur* och en kropp. 
+
+### Signatur
+
+Funktionens signatur innehåller:
+- En identifierare för funktionen. 
+- En lista av parametrar med typ och identifierare.
+- Typen på returvärdet (``void`` om inget värde returneras).
+
+Exempel:
+
+```cs
+bool IsPalindrome(string text)
+
+string Substring(string text, int starPosition, int length)
+
+void Sort(object[] objects)
+
+int Max(int[] numbers, int default)
+```
+
+### Kropp
+
+Kroppen för en funktion är ett kodblock som följer efter funktionens signatur. Funktionens parametrar kan användas som lokala variabler i funktionens kropp. För en funktion som inte har returtyp ``void`` måste varje programflöde genom funktionen sluta med satsen:
+
+``return <uttryck>;``
+
+Exempel: 
+
+```cs 
+bool IsPalindrome(string text) 
+{ 
+    for (int i = 0; i < text.Length / 2; ++i)
+    {
+        if (text[i] != text[text.Length - 1 - i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+int Max(int[] numbers, int default)
+{
+    if (numbers.Length == 0)
+    {
+        return default;
+    }
+    else 
+    {
+        int max = numbers[0];
+        for (int i = 1; i < numbers.Length; ++i)
+        {
+            if (numbers[i] > max)
+            {
+                max = numbers[i];
+            }
+        }
+        return max;
+    }
+}
+```
+
+### Anrop
+
+Ett funktionsanrop är ett uttryck som består av funktionens identifierare följt av en lista av uttryck som kallas argumentlista. Typen för och antalet argument måste matcha funktionens parameterlista. 
+
+Exempel:
+
+```cs 
+Substring("Jonas Keisu", 6, 5)
+
+IsPlandrom("tappat") 
+
+Max(new in[] { 1, 2, 3, 2, 1}, 0)
+```
+
+Värdet av ett funktionsanrop beräknas genom att argumentens värden beräknas och tilldelas funktionens parametrar. Därefter körs koden i funktionens kropp. Beräkningen är färdig när programflödet når en ``return``-sats med ett uttryck för beräkningens resultat. I exemplet ovan blir värdet av funktionsanropen  ``"Keisu"``, ``true`` respektive ``3``.
+
+## Objekt
+
+Ett objekt är en behållare av medlemmar.
+
+### Medlemmar
+
+Objekt kan ha följande sorters medlemmar: 
+- Medlemsvariabler
+- Metoder
+- Egenskaper
+- Konstruerare
+- Operatorer
+- Indexierare
+- Nästade typer
+- Event
+
+samt *konstanter* och *dekonstruerare* som vi inte går in på djupare i kursen.
+
+### Tillstånd
+
+Ett objekts tillstånd är informationen som lagras i datorns arbetsminne för att repsentera det specifika objektet. Ett objekts tillstånd består av  aktuella värdena på objektets medlemsvariabler. Två objekt med samma tillstånd är likvärdiga, men inte nödvändigtvis samma objekt. 
+
+
+## Klass
+
+En klass beskriver objekt med gemensamma medlemmar men är också själv ett objekt med egna medlemmar. En ny klass definieras med följande syntax:
+
+```cs
+<modifierare> class <identifierare>
+{
+    <modifierare> <medlem1>
+    <modifierare> <medlem2>
+    ..
+}
+```
+
+Exempel:
+
+```cs
+namespace Chess
+{
+    public class Board 
+    {
+        // Medlemsvariabel
+        private Chess.Piece[,] pieces; 
+        
+        // Egenskaper för klassen
+        static public int Rows => 8;
+        static public int Columns => 8;
+
+        // Konstruktor
+        public Board()
+        {
+            // Ställ upp ett nytt bräde
+            pieces = new Piece[Rows, Columns];
+            pieces[0, 0] = new Rook(Color.White, this, (0, 0));
+            pieces[0, 1] = new Knight(Color.White, this, (0, 1));
+            // ...
+        }
+
+        // Konstruktor
+        public Board(TextReader file)
+        {
+            // Återskapa brädets tillstånd från fil
+            pieces = new Piece[Rows, Columns];
+            var pieceType = file.ReadLine();
+            while (pieceType != null)
+            {
+                var color = file.ReadLine() == "white" ? White : Black;
+                var row = int.Parse(file.ReadLine());
+                var column = int.Parse(file.ReadLine());
+                pieces[row, column] = (pieceType) switch 
+                {
+                    "pawn" => new Pawn(color, this, (row, column)),
+                    "rook" => new Rook(color, this, (row, column)),
+                    // ...
+                };
+                pieceType = file.ReadLine();
+            }
+        }
+
+        // Indexierare
+        public Piece this[Position position]
+        {
+            get { return pieces[position.Row, position.Column]; }
+            internal set { pieces[position.Row, position.Column] = value; }
+        }
+
+        // Klassmetod
+         static public bool IsValidPosition(Position position) =>
+            position.Column >= 0 && position.Row >= 0
+            && position.Column < Columns && position.Row < Rows;
+       
+        // Instansmetod
+        public bool MovePiece(Position from, Position to) =>
+            IsValidPosition(from) // Giltig utgångsposition
+            && this[from] is Piece piece // Pjäs står på utgångspositionen
+            && piece.Color == activePlayer // Rätt färg på pjäsen
+            && piece.Move(to);
+
+        // ...
+    }
+}
+```
+
+### Instanser
+
+Objekt tillhörande en specifik klass kallas *instanser* av denna klass och deras medlemmar kallas *instansmedlemmar*. En ny instans av klassen skapas med nyckelordet ``new`` följt av ett anrop till en konstruktor för att initialisera instansen tillstånd. En instansmedlem refereras utanför klassen med punktoperatorn med en referens till instansen som första operand. 
+
+Exempel: 
+
+```cs 
+// Skapa ny instans från filinnehåll och tilldela referens till 'board'
+var board = new Board(File.OpenText("saved_board.txt"));
+
+// Anropa medlemsmetoden 'MovePiece' för instansen med referens lagrad i 'board'
+board.MovePiece(1, 3, 2, 3); 
+```
+
+Kroppen av en instansmedlem kan referera instansmedlemmar av samma klass direkt utan punktoperatorn. Det är då underförstått att referensen gäller samma instans som kroppen anropats för. 
+
+#### Klassmedlemmar
+
+Modiferaren ``static`` för en klassmedlem betyder att medlemmen tillhör klassen. Utan modifieraren ``static`` tillhör medlemmen instanser av typen.
+
+Exempel: 
+
+```cs 
+namespace Chess
+{
+    public class Board 
+    {
+        // ...
+        // Klassegenskaper
+        static public int Rows => 8;
+        static public int Columns => 8;
+        // ...
+        // Klassmetod 
+        static private bool IsValidPosition(int row, int column) =>
+            row >= 0 && row < Rows && column >= 0 && columns < Columns;
+        // ...
+```
+
+En klassmedlem refereras utanför klassen med punktoperatorn med klassens som första operand. 
+
+Exempel: 
+
+```cs 
+// Anrop till klassmetoden 'IsValidPosition'
+Chess.Board.IsValidPosition(6, 9); 
+
+// Läsning av klassegenskapen 'Rows'
+int boardRowCount = Chess.Board.Rows;
+```
+
+### Åtkomst
+
+En identifierare är endast användbar i kod där den är *synlig* och *åtkomlig*. En identifierare är synlig i scopet där den är definierad och i nästade scope till detta scope. Lokala variabler är åtkomliga överallt där de är synliga men bara efter att variabeln är tilldelad ett värde. Åtkomst för typer och medlemmar bestäms genom nedanstående modifierare. 
+
+| Modifierare | Åtkomlig för | Tillämpbar för |
+| --- | --- | --- |  
+| ``public`` | All kod | Typer och medlemmar | 
+| ``internal`` | Kod i samma assembly | Typer och medlemmar | 
+| ``protected`` | Kod i samma klass eller ärvande klasser | Medlemmar | 
+| ``private`` | Kod i samma klass/struktur | Medlemmar
+
+Defaultåtkomst är för typer ``internal`` och för medlemmar ``private``. 
+
+
+### Metoder
+
+En metod är en funktion som är definierad som en medlem i en klass eller struktur.  
+
+## Arv 
+
+En klass kan ärva en annan klass. Objekt av den ärvande klassen har alla medlemmar som objekt av den ärvda klassens objekt har plus medlemmarna definierade i den ärvande klassen. 
+
+En klass kan bara ärva en en annan klass, men många klasser kan ärva samma klass. Därför formar arv en trädstruktur (*hierarki*) av klasser. 
+
+En klass som inte explicit ärver en annan klass ärver automatiskt klassen ``System.Object``. Därför ligger ``System.Object`` alltid högst upp i hierarkin.
+
+```plantuml
+class Object 
+class Fordon
+class Moped
+class Bil
+class Taxi 
+class Ambulans
+Object <|-- Fordon
+Fordon <|-- Moped
+Fordon <|-- Bil
+Bil <|-- Taxi
+Bil <|-- Ambulans
+
+```
+
+#### Abstract
+
+En klass som har signaturer för medlemmar som saknar kropp är är abstrakt och måste ha modifieraren ``abstract``.  
+
+
+## Casting
+
+Casting konverterar typen på en referens. 
+
+### Up-cast
+
+Om klassen ``B`` ärver från typen ``A`` så kan en referens av typen ``B`` implicit castas till typen ``A``. 
+
+```cs 
+A a = <uttryck av typen B>; // Implicit up-cast
+```
+
+### Down-cast
+
+Om klassen ``B`` ärver från typen ``A`` så kan en referens av typen ``A`` explicit castas till typen ``B``. Om refensen inte refererar till objekt av typen ``B`` eller som ärver från typen ``B`` så genereras ett ``InvalidCastException``. 
+
+```cs
+B b = (B)<uttryck av typen A>; // Explicit down-cast
+```
+
+### Is
+
+Operatorn ``is`` tar en referens och en typ som operander och returnerar ett värde av typen ``bool``. Resultatet är ``true`` om referenens kan castas till operandtypen, annars ``false``.  
+
+#### Exempel
+
+```cs
+class A {}
+class B : A {}
+// ..
+A a = new A();
+B b = new B();
+bool x = a is B; // x = false
+bool y = b is A; // y = true
+```
+
+### As
+
+Operatorn ``as`` tar en referens och en typ som operander och returnerar en referens av operandtypen. Om referensen kan kastas till operandtypen så är resultatet den castade referensen, annars ``null``. 
+
+#### Exempel
+
+```cs
+class A {}
+class B : A {}
+// ..
+A a = new A();
+B b = new B();
+A x = b as A; // x tilldelas null
+B y = b as A; // y tilldelas referensen b castad till A
+```
