@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Fusklapp C# .NET</title>
+        <title>Funktionsobjekt och händelser</title>
         <style>
 /* From extension geeklearningio.graphviz-markdown-preview */
 div.graphviz {
@@ -584,1141 +584,328 @@ window.addEventListener('load', function () {
 
     </head>
     <body class="vscode-light">
-        <h1 id="fusklapp-c-net">Fusklapp C# .NET</h1>
-<h2 id="binär-kodning-och-grundäggande-typer">Binär kodning och grundäggande typer</h2>
-<h3 id="arbetsminnet">Arbetsminnet</h3>
-<p>Program lagrar information i datorn <em>arbetsminnet</em> som sekvenser av <em>bitar</em>.</p>
-<p>Ett annat ord för information är <em>data</em>.</p>
-<p>Arbetsminnet kallas ofta enbart för <em>minnet</em>.</p>
-<p>En <em>bit</em> är ett värde som bara kan vara <code>0</code> eller <code>1</code>.</p>
-<p>En <em>byte</em> är ett fält med 8 bitar, t.ex. <code>11010001</code>.</p>
-<p>Arbetsminnet består av fält av <em>bytes</em>.</p>
-<p>Längden av fältet anges av storleken på arbetsminnet.</p>
-<h3 id="talbaser">Talbaser</h3>
-<p>Ett tal har basen <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span> om representationen av talet kan innehålla <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span> olika unika symboler tilldelade värden <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>, .., <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B-2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>.</p>
-<p>Decimala har basen <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">B = 10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span> och kan innehålla symbolerna:</p>
-<h4 id="decimala-tal">Decimala tal</h4>
-<table>
-<thead>
-<tr>
-<th>Tecken</th>
-<th><code>0</code></th>
-<th><code>1</code></th>
-<th><code>2</code></th>
-<th><code>3</code></th>
-<th><code>4</code></th>
-<th><code>5</code></th>
-<th><code>6</code></th>
-<th><code>7</code></th>
-<th><code>8</code></th>
-<th><code>9</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Värde</td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn></mrow><annotation encoding="application/x-tex">9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span></span></span></span></td>
-</tr>
-</tbody>
-</table>
-<h4 id="binära-tal">Binära tal</h4>
-<p>Binära tal har basen <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">B = 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> och kan innehålla symbolerna:</p>
-<table>
-<thead>
-<tr>
-<th>Tecken</th>
-<th><code>0</code></th>
-<th><code>1</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Värde</td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></td>
-</tr>
-</tbody>
-</table>
-<h4 id="hexadecimala-tal">Hexadecimala tal</h4>
-<p>Hexadecimala tal har basen <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">B = 16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span></span></span></span> och kan innehålla symbolerna:</p>
-<table>
-<thead>
-<tr>
-<th>Tecken</th>
-<th><code>0</code></th>
-<th><code>1</code></th>
-<th><code>2</code></th>
-<th><code>3</code></th>
-<th><code>4</code></th>
-<th><code>5</code></th>
-<th><code>6</code></th>
-<th><code>7</code></th>
-<th><code>8</code></th>
-<th><code>9</code></th>
-<th><code>A</code></th>
-<th><code>B</code></th>
-<th><code>c</code></th>
-<th><code>D</code></th>
-<th><code>E</code></th>
-<th><code>F</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Värde</td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn></mrow><annotation encoding="application/x-tex">9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn></mrow><annotation encoding="application/x-tex">11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn></mrow><annotation encoding="application/x-tex">12</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>13</mn></mrow><annotation encoding="application/x-tex">13</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">3</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>14</mn></mrow><annotation encoding="application/x-tex">14</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span></span></span></span></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn></mrow><annotation encoding="application/x-tex">15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span></span></span></span></td>
-</tr>
-</tbody>
-</table>
-<h3 id="notation-för-tal-i-olika-baser">Notation för tal i olika baser</h3>
-<p>Ett tal <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> i talbasen skrivs <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><msub><mo stretchy="false">)</mo><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">(x)_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>. T.ex. gäller att:</p>
-<blockquote>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>F</mi><mi>F</mi><msub><mo stretchy="false">)</mo><mn>16</mn></msub><mo>=</mo><mo stretchy="false">(</mo><mn>11111111</mn><msub><mo stretchy="false">)</mo><mn>2</mn></msub><mo>=</mo><mo stretchy="false">(</mo><mn>255</mn><msub><mo stretchy="false">)</mo><mn>10</mn></msub></mrow><annotation encoding="application/x-tex">(FF)_{16} = (11111111)_{2} = (255)_{10}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">1</span><span class="mord">1</span><span class="mord">1</span><span class="mord">1</span><span class="mord">1</span><span class="mord">1</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
-</blockquote>
-<p>Skrivs ingen talbas ut för ett tal så är den normalt  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn></mrow><annotation encoding="application/x-tex">10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span></span></span></span>.</p>
-<h3 id="konvertering-till-talbas-10">Konvertering till talbas 10</h3>
-<p>Ett tal <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>S</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi>S</mi><mrow><mi>N</mi><mo>−</mo><mn>2</mn></mrow></msub><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><msub><mi>S</mi><mn>1</mn></msub><msub><mi>S</mi><mn>0</mn></msub><msub><mo stretchy="false">)</mo><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">(S_{N-1}S_{N-2}..S_1S_0)_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mord">.</span><span class="mord">.</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> kan konverteras till basen 10 genom formeln:</p>
-<blockquote>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>×</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><msub><mi>S</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>×</mo><msup><mi>B</mi><mn>2</mn></msup><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><msub><mi>S</mi><mn>1</mn></msub><mo>×</mo><msup><mi>B</mi><mn>1</mn></msup><mo>+</mo><msub><mi>S</mi><mn>1</mn></msub><mo>×</mo><msup><mi>B</mi><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">S_{N-1} × B^2 + S_{N-1} × B^2 + .. + S_1 × B^1 + S_1 × B^0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.891661em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></p>
-</blockquote>
-<p>T.ex. kan värdet <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mn>0</mn><mi>F</mi><mn>6</mn><msub><mo stretchy="false">)</mo><mn>16</mn></msub></mrow><annotation encoding="application/x-tex">(A0F6)_{16}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">A</span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord">6</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> konverteras till basen 10 på följande sätt:</p>
-<blockquote>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><msub><mo stretchy="false">)</mo><mn>16</mn></msub><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>3</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mn>0</mn><msub><mo stretchy="false">)</mo><mn>16</mn></msub><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>F</mi><msub><mo stretchy="false">)</mo><mn>16</mn></msub><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>1</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mn>6</mn><msub><mo stretchy="false">)</mo><mn>16</mn></msub><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>0</mn></msup><mo>=</mo></mrow><annotation encoding="application/x-tex">(A)_{16} × 16^3 + (0)_{16} × 16^2 + (F)_{16} × 16^1 + (6)_{16} × 16^0 =</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">A</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">6</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span> <br/>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>3</mn></msup><mo>+</mo><mn>0</mn><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>2</mn></msup><mo>+</mo><mn>15</mn><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>1</mn></msup><mo>+</mo><mn>6</mn><mo>×</mo><mn>1</mn><msup><mn>6</mn><mn>0</mn></msup><mo>=</mo></mrow><annotation encoding="application/x-tex">10 × 16^3 + 0 × 16^2 + 15 × 16^1 + 6 × 16^0 =</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span> <br/>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mo>×</mo><mn>4096</mn><mo>+</mo><mn>0</mn><mo>×</mo><mn>255</mn><mo>+</mo><mn>15</mn><mo>×</mo><mn>16</mn><mo>+</mo><mn>6</mn><mo>×</mo><mn>1</mn><mo>=</mo></mrow><annotation encoding="application/x-tex">10 × 4096 + 0 × 255 + 15 × 16 + 6 × 1 =</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span> <br/>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>41</mn><mtext> </mtext><mn>206</mn></mrow><annotation encoding="application/x-tex">41 206</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">1</span><span class="mord"> </span><span class="mord">2</span><span class="mord">0</span><span class="mord">6</span></span></span></span></p>
-</blockquote>
-<h3 id="antal-koder">Antal koder</h3>
-<p>Antalet unika koder som kan lagras i ett fält av längden <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> där elementen väljs bland <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span> unika symboler är <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>B</mi><mi>N</mi></msup></mrow><annotation encoding="application/x-tex">B^N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span>. T.ex. med två unika symboler <code>0</code> och <code>1</code> så kan ett fält med längden <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn></mrow><annotation encoding="application/x-tex">16</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span></span></span></span> representera <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>16</mn></msup><mo>=</mo><mn>65536</mn></mrow><annotation encoding="application/x-tex">2^{16} = 65536</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">5</span><span class="mord">5</span><span class="mord">3</span><span class="mord">6</span></span></span></span> binära koder.</p>
-<h3 id="grundläggande-typer">Grundläggande typer</h3>
-<p>Heltal som bara kan vara 0 eller positiva kallas <em>naturliga tal</em>.</p>
-<table>
-<thead>
-<tr>
-<th>Antal bytes</th>
-<th>Beskrivning</th>
-<th>Kodning</th>
-<th>.NET-typ</th>
-<th>Alias</th>
-<th>Range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Naturliga tal</td>
-<td>bas 2</td>
-<td><code>System.Byte</code></td>
-<td><code>byte</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>255</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 255]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span><span class="mclose">]</span></span></span></span></td>
-</tr>
-<tr>
-<td>1</td>
-<td>Heltal</td>
-<td>två-komplement</td>
-<td><code>System.SByte</code></td>
-<td><code>sbyte</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>128</mn><mo separator="true">,</mo><mn>127</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-128, 127]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">1</span><span class="mord">2</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">7</span><span class="mclose">]</span></span></span></span></td>
-</tr>
-<tr>
-<td>2</td>
-<td>Naturliga tal</td>
-<td>bas 2</td>
-<td><code>System.UInt16</code></td>
-<td><code>ushort</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>65536</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,  65536]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">6</span><span class="mord">5</span><span class="mord">5</span><span class="mord">3</span><span class="mord">6</span><span class="mclose">]</span></span></span></span></td>
-</tr>
-<tr>
-<td>2</td>
-<td>Heltal</td>
-<td>två-komplement</td>
-<td><code>System.Int16</code></td>
-<td><code>short</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>32768</mn><mo separator="true">,</mo><mn>32767</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-32768, 32767]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">3</span><span class="mord">2</span><span class="mord">7</span><span class="mord">6</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mord">7</span><span class="mord">6</span><span class="mord">7</span><span class="mclose">]</span></span></span></span></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Naturliga tal</td>
-<td>bas 2</td>
-<td><code>System.UInt32</code></td>
-<td><code>uint</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>4294967296</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 4294967296]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mord">2</span><span class="mord">9</span><span class="mord">4</span><span class="mord">9</span><span class="mord">6</span><span class="mord">7</span><span class="mord">2</span><span class="mord">9</span><span class="mord">6</span><span class="mclose">]</span></span></span></span></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Heltal</td>
-<td>två-komplement</td>
-<td><code>System.Int32</code></td>
-<td><code>int</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>2147483648</mn><mo separator="true">,</mo><mn>2147483647</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2147483648,  2147483647]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">2</span><span class="mord">1</span><span class="mord">4</span><span class="mord">7</span><span class="mord">4</span><span class="mord">8</span><span class="mord">3</span><span class="mord">6</span><span class="mord">4</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">1</span><span class="mord">4</span><span class="mord">7</span><span class="mord">4</span><span class="mord">8</span><span class="mord">3</span><span class="mord">6</span><span class="mord">4</span><span class="mord">7</span><span class="mclose">]</span></span></span></span></td>
-</tr>
-<tr>
-<td>8</td>
-<td>Naturliga tal</td>
-<td>bas 2</td>
-<td><code>System.UInt64</code></td>
-<td><code>ulong</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1.8</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>19</mn></msup><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 1.8 × 10^{19}]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">.</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">9</span></span></span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span> (ca.)</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Heltal</td>
-<td>två-komplement</td>
-<td><code>System.Int64</code></td>
-<td><code>long</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>9.2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>18</mn></msup><mo separator="true">,</mo><mn>9.2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>18</mn></msup><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-9.2 × 10^{18}, 9.2 × 10^{18}]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">9</span><span class="mord">.</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">8</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">9</span><span class="mord">.</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">8</span></span></span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span> (ca.)</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Tecken</td>
-<td>UTF-16</td>
-<td><code>System.Char</code></td>
-<td><code>char</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>65536</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,  65536]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">6</span><span class="mord">5</span><span class="mord">5</span><span class="mord">3</span><span class="mord">6</span><span class="mclose">]</span></span></span></span></td>
-</tr>
-<tr>
-<td></td>
-<td>Sanningsvärde</td>
-<td></td>
-<td><code>System.Boolean</code></td>
-<td><code>bool</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">false</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>r</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">true</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span></td>
-</tr>
-</tbody>
-</table>
-<p>Den binära representationen av <code>bool</code>-värden är inte definierad av .NET-standarden och kan därför variera.</p>
-<h3 id="unicode">Unicode</h3>
-<p>Standard med målsättning att omfatta alla tecken i hela världen, inklusive alla alfabeten, symboler, emoijis, etc. Består av totalt 17 plan med upp till 65536 tecken i varje plan. T.ex. finns alla bokstäver och andra vanligt förekommande tecken i text i plan 0, emoijis ligger i plan 1, etc.</p>
-<h3 id="textkodning">Textkodning</h3>
-<table>
-<thead>
-<tr>
-<th>Kodning</th>
-<th>Egenskaper</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ASCII</td>
-<td>1 byte per tecken, 128 tecken, inkluderar engelska alfabetet.</td>
-</tr>
-<tr>
-<td>ISO-8859-1</td>
-<td>1 byte per tecken, 255 tecken, utökning av ASCII med tecken för språk med rötterna i det Latinska alfabetet, t.ex. svenska.</td>
-</tr>
-<tr>
-<td>UTF-8</td>
-<td>1-4 byte per tecken, kodning av alla Unicode-tecken, bakåtkompatibel med ASCII-standarden.</td>
-</tr>
-<tr>
-<td>UTF-16</td>
-<td>2 byte per tecken, kodning av alla Unicode-tecken i plan 0. Kan även koda vilket tecken som helst utanför plan 0 med hjälp av ett surrogatpar av tecken.</td>
-</tr>
-<tr>
-<td>UTF-32</td>
-<td>4 byte per tecken, kodning av alla Unicode-tecken.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="char">Char</h3>
-<p>Värden av typen <code>char</code> lagras i minnet som 16-bitars heltal i intervallet 0 - 65 536. Alla värden som inte binärt börjar med <code>11011</code> representerar ett tecken i <a href="https://en.wikipedia.org/wiki/Plane_(Unicode)">Unicode-plan 0</a>.</p>
-<h3 id="string">String</h3>
-<p>En sträng är ett fält av element av typen <code>char</code>.</p>
-<h3 id="surrogatpar">Surrogatpar</h3>
-<p>Det finns inga teckenkoder i Unicode plan 0 som på binär form börjar med sekvensen <code>11011</code>, men i en UTF-16-sträng bildar ett tecken på  binär form:</p>
-<blockquote>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>110110</mn><msub><mi>x</mi><mn>9</mn></msub><msub><mi>x</mi><mn>8</mn></msub><msub><mi>x</mi><mn>7</mn></msub><msub><mi>x</mi><mn>6</mn></msub><msub><mi>x</mi><mn>5</mn></msub><msub><mi>x</mi><mn>4</mn></msub><msub><mi>x</mi><mn>3</mn></msub><msub><mi>x</mi><mn>2</mn></msub><msub><mi>x</mi><mn>1</mn></msub><msub><mi>x</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">110110x_9x_8x_7x_6x_5x_4x_3x_2x_1x_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79444em;vertical-align:-0.15em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord">0</span><span class="mord">1</span><span class="mord">1</span><span class="mord">0</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
-</blockquote>
-<p>följt av ett tecken på binär form:</p>
-<blockquote>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>110110</mn><msub><mi>y</mi><mn>9</mn></msub><msub><mi>y</mi><mn>8</mn></msub><msub><mi>y</mi><mn>7</mn></msub><msub><mi>y</mi><mn>6</mn></msub><msub><mi>y</mi><mn>5</mn></msub><msub><mi>y</mi><mn>4</mn></msub><msub><mi>y</mi><mn>3</mn></msub><msub><mi>y</mi><mn>2</mn></msub><msub><mi>y</mi><mn>1</mn></msub><msub><mi>y</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">110110y_9y_8y_7y_6y_5y_4y_3y_2y_1y_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord">0</span><span class="mord">1</span><span class="mord">1</span><span class="mord">0</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
-</blockquote>
-<p>ett <em>surrogatpar</em> som kodar tecknet:</p>
-<blockquote>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>5</mn></msub><msub><mi>x</mi><mn>4</mn></msub><msub><mi>x</mi><mn>3</mn></msub><msub><mi>x</mi><mn>2</mn></msub><msub><mi>x</mi><mn>1</mn></msub><msub><mi>x</mi><mn>0</mn></msub><msub><mi>y</mi><mn>9</mn></msub><msub><mi>y</mi><mn>8</mn></msub><msub><mi>y</mi><mn>7</mn></msub><msub><mi>y</mi><mn>6</mn></msub><msub><mi>y</mi><mn>5</mn></msub><msub><mi>y</mi><mn>4</mn></msub><msub><mi>y</mi><mn>3</mn></msub><msub><mi>y</mi><mn>2</mn></msub><msub><mi>y</mi><mn>1</mn></msub><msub><mi>y</mi><mn>0</mn></msub><msub><mo stretchy="false">)</mo><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">(x_5x_4x_3x_2x_1x_0y_9y_8y_7y_6y_5y_4y_3y_2y_1y_0)_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
-</blockquote>
-<p>i Unicode-plan nummer:</p>
-<blockquote>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>9</mn></msub><msub><mi>x</mi><mn>8</mn></msub><msub><mi>x</mi><mn>7</mn></msub><msub><mi>x</mi><mn>6</mn></msub><msub><mo stretchy="false">)</mo><mn>2</mn></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">(x_9x_8x_7x_6)_2 + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
-</blockquote>
-<h2 id="identifierare">Identifierare</h2>
-<p>Ett namn som definieras av kod kallas för en <em>identifierare</em>.</p>
-<p>T.ex. kan en identifierare namnge:</p>
+        <hr>
+<h2 id="presentationwidth-1200height-600theme-serifcsscenter-falseslidenumber-true">presentation:
+width: 1200
+height: 600
+theme: 'serif.css'
+center: false
+slideNumber: true</h2>
+<style type="text/css">
+  .reveal h1 {
+    display: inline;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .reveal p {
+    text-align: left;
+  }
+  .reveal ul {
+    display: block;
+  }
+  .reveal ol {
+    display: block;
+  }
+  .reveal section {
+    resize: false;
+    width: 100%;
+    height: 100;
+    text-align: left;
+   
+  }
+  .reveal pre {
+    zoom: 110%;
+  }
+  div.slides{
+    # border: 1px solid black;
+  }
+  .reveal code {
+    zoom: 90%;
+  }
+</style>
+<!-- slide -->
+<h1 id="funktionsobjekt-och-händelser">Funktionsobjekt och händelser</h1>
+<!-- slide -->
+<h2 id="funktionsobjekt">Funktionsobjekt</h2>
 <ul>
-<li>En lokal variabel</li>
-<li>En medlem</li>
-<li>En typ (<code>enum</code>, <code>struct</code> eller <code>class</code>)</li>
-<li>Ett namespace</li>
-<li>En funktion</li>
-<li>En parameter</li>
+<li>En <em>delegat</em> är ett objekt som lagrar en referens till en funktion</li>
+<li>När en delegat anropas så anropas den den refererade funktionen</li>
 </ul>
-<h2 id="scope">Scope</h2>
-<p>Ett scope är en behållare av identifierare och varje identifierare är definierad i ett scope.</p>
-<p>Olika typer av scope beskrivs av tabellen nedan.</p>
-<table>
-<thead>
-<tr>
-<th>Scope</th>
-<th>Kan innehålla</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Typ</td>
-<td><ul><li>Variabler</li><li>Metoder</li><li>Egenskaper</li><li>Nästade typer</li><li>Event</li><li>Operatorer</li><li>Konstanter</li><li>Indexierare</ul></td>
-</tr>
-<tr>
-<td>Namespace</td>
-<td><ul><li>Typdefinitioner</li><li>Nästade namespace</li></ul></td>
-</tr>
-<tr>
-<td>Kodblock</td>
-<td><ul><li>Lokala variabler</li><li>Lokala funktioner</li><li>Nästade kodblock</li><li>Parametrar</ul></td>
-</tr>
-</tbody>
-</table>
-<h2 id="synlighet">Synlighet</h2>
-<p>En identifierare är <em>synlig</em> i:</p>
+<!-- slide -->
+<h2 id="delegattyper">Delegattyper</h2>
 <ul>
-<li>Scopet där den definieras.</li>
-<li>Alla nästade scope till scopet där den är definierad.</li>
+<li>Typen för en delegat för funktioner som tar argument av typerna <code>&lt;T1&gt;</code>, <code>&lt;T2&gt;</code>, osv. och med returtyp <code>&lt;R&gt;</code> är:</li>
 </ul>
-<p>Omvänt, i ett scope är en identifierare synliga om den är:</p>
+<pre><code class="language-cs"><div>Func&lt;T1, T2, .., R&gt;
+</div></code></pre>
+<!-- slide -->
+<h2 id="varför-behövs-delegater">Varför behövs delegater?</h2>
 <ul>
-<li>Definierade i det aktuella scopet.</li>
-<li>Definierad i ett ovanliggande scope.</li>
+<li>Vi demonstrerar behovet med ett exempel.</li>
 </ul>
-<h2 id="uttryck">Uttryck</h2>
-<p>Ett uttryck är ett komplett segment kod som kan beräknas till ett värde. Ett uttryck är inte fristående kod utan måste ingå i en sats.</p>
-<h3 id="litteraler">Litteraler</h3>
-<p>Litteraler är konkreta värden som beskrivs boktstavligen i koden, t.ex. <code>0</code>, <code>1</code>, <code>3.14</code>, <code>7e-10</code>, <code>true</code>, <code>false</code>, <code>&quot;abc&quot;</code> och <code>'a'</code>.</p>
-<h3 id="variabler">Variabler</h3>
-<p>En synlig och åtkomlig variabel är ett uttryck som beräknas till värdet lagrat i variabeln minne. En variabel får endast användas efter att den blivit tilldelad. Tilldening av en variabel i samma sats som definierar variabeln kallas för <em>initalisering</em>.</p>
-<h3 id="metodanrop">Metodanrop</h3>
-<p>Ett anrop till en synlig och åtkomlig metod är ett uttryck som beräknas genom att anropets argument beräknas och tilldelas metodens parametrar varefter metodens kropp körs. Resultatet blir värdet av uttrycket som metoden returnerar.</p>
-<h3 id="operatoruttryck">Operatoruttryck</h3>
-<p>Operatorer beräknar värden från värdet av andra uttryck som kallas operatorns operander. Exempel på operatorer är:</p>
-<table>
-<thead>
-<tr>
-<th>Kategori</th>
-<th>Exempel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tilldelning</td>
-<td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code></td>
-</tr>
-<tr>
-<td>Aritmetisk</td>
-<td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>++</code>, <code>--</code></td>
-</tr>
-<tr>
-<td>Jämförelse</td>
-<td><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code>, <code>!=</code></td>
-</tr>
-<tr>
-<td>Logiska</td>
-<td><code>&amp;&amp;</code>, <code>||</code>, <code>!</code></td>
-</tr>
-<tr>
-<td>Bitvisa</td>
-<td><code>|</code>, <code>&amp;</code>, <code>^</code>, <code>~</code></td>
-</tr>
-<tr>
-<td>Shift</td>
-<td><code>&lt;&lt;</code>, <code>&gt;&gt;</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="switch-uttryck">Switch-uttryck</h3>
-<p>Beräkning av ett värde genom mönstermatchning mot ett argumentvärde.</p>
-<pre><code class="language-cs"><div>(&lt;argument&gt;) <span class="hljs-keyword">switch</span> {
-    &lt;mönster&gt; =&gt; &lt;resultat&gt;,
-    &lt;mönster&gt; =&gt; &lt;resultat&gt;,
-    ..
-    _ =&gt; &lt;resultat&gt;
-}
-</div></code></pre>
-<h2 id="satser">Satser</h2>
-<p>Kod är en sekvens av <em>satser</em>. En sats är den minsta enheten av kod som kan köras självständigt.</p>
-<h3 id="variabeldefinition">Variabeldefinition</h3>
-<p>Deklarerar en ny variabel i aktuellt scope.</p>
-<pre><code class="language-cs"><div>&lt;typ&gt; &lt;identifierare&gt; = &lt;initaliserare&gt;;
-</div></code></pre>
-<h3 id="blocksats">Blocksats</h3>
-<pre><code class="language-cs"><div>{
-    &lt;sats1&gt;
-    &lt;sats2&gt;
-    ...
-}
-</div></code></pre>
-<h3 id="if-else-sats">If-else-sats</h3>
-<pre><code class="language-cs"><div><span class="hljs-keyword">if</span> (&lt;villkor&gt;) 
-    &lt;sats&gt;  
-<span class="hljs-keyword">else</span> 
-    &lt;sats&gt;
-</div></code></pre>
-<h3 id="switch-sats">Switch-sats</h3>
-<pre><code class="language-cs"><div><span class="hljs-keyword">switch</span> (&lt;argument&gt;) {
-    <span class="hljs-keyword">case</span> &lt;mönster&gt;: 
-        &lt;kod&gt;
-        <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> &lt;mönster&gt;
-        &lt;kod&gt;
-        <span class="hljs-keyword">break</span>;
-    ..
-    <span class="hljs-keyword">default</span>:
-        &lt;kod&gt;;
-        <span class="hljs-keyword">break</span>;
-}
-</div></code></pre>
-<h3 id="for-sats">For-sats</h3>
-<pre><code class="language-cs"><div><span class="hljs-keyword">for</span> (&lt;initalisering&gt;; &lt;villkor&gt;; &lt;stegning&gt;)
-    &lt;sats&gt;
-</div></code></pre>
-<h3 id="foreach-sats">Foreach-sats</h3>
-<pre><code class="language-cs"><div><span class="hljs-keyword">foreach</span> (&lt;variabel&gt; <span class="hljs-keyword">in</span> &lt;IEnumerable&gt;)
-    &lt;sats&gt;
-</div></code></pre>
-<h3 id="while-sats">While-sats</h3>
-<pre><code class="language-cs"><div><span class="hljs-keyword">while</span> (&lt;villkor&gt;)
-    &lt;sats&gt;
-</div></code></pre>
-<h3 id="do-while-sats">Do-while-sats</h3>
-<pre><code class="language-cs"><div><span class="hljs-keyword">do</span>
-    &lt;sats&gt;
-<span class="hljs-keyword">while</span> (&lt;villkor&gt;);
-</div></code></pre>
-<h3 id="break">Break</h3>
-<p>Hoppa ut kroopen på en loop- eller switch-sats.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">break</span>;
-</div></code></pre>
-<h3 id="continue">Continue</h3>
-<p>Hoppa direkt till slutet på kroppen för en loop-sats.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">continue</span>;
-</div></code></pre>
-<h3 id="return">Return</h3>
-<p>Avsluta ett anrop till en metod. Om returtypen för metoden inte är <code>void</code> skall nyckelordet <code>return</code> följas av ett uttryck ger som beräknas till metodens resultat.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">return</span> &lt;resultat&gt;;
-</div></code></pre>
-<h3 id="uttryck-som-sats">Uttryck som sats</h3>
-<p>Ett uttryck vars beräkning har sidoeffekt är följt av ett semikolon en giltig sats.</p>
-<pre><code class="language-cs"><div>&lt;uttryck&gt;;
-</div></code></pre>
-<h2 id="uttrycksföreträde">Uttrycksföreträde</h2>
-<p>Företrädesnivåer för operatorer från högsta till lägsta.</p>
-<table>
-<thead>
-<tr>
-<th>Operator</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>f(x)</code>, <code>x.y</code>, <code>a[i]</code>, <code>x++</code>, <code>x--</code>, <code>new</code></td>
-</tr>
-<tr>
-<td><code>-x</code>, <code>++x</code>, <code>--x</code>, <code>!x</code>, <code>^x</code>, <code>~x</code></td>
-</tr>
-<tr>
-<td><code>switch</code></td>
-</tr>
-<tr>
-<td><code>x * y</code>, <code>x / y</code>, <code>x % y</code></td>
-</tr>
-<tr>
-<td><code>x + y</code>, <code>x - y</code></td>
-</tr>
-<tr>
-<td><code>x &lt;&lt; y</code>, <code>x &gt;&gt; y</code></td>
-</tr>
-<tr>
-<td><code>x &lt;= y</code>, <code>x &lt; y</code>, <code>x =&gt; y</code>, <code>x &gt; y</code>, <code>as</code>, <code>is</code></td>
-</tr>
-<tr>
-<td><code>x == y</code>, <code>x != y</code></td>
-</tr>
-<tr>
-<td><code>x &amp; y</code></td>
-</tr>
-<tr>
-<td><code>x ^ y</code></td>
-</tr>
-<tr>
-<td><code>x | y</code></td>
-</tr>
-<tr>
-<td><code>x &amp;&amp; y</code></td>
-</tr>
-<tr>
-<td><code>x || y</code></td>
-</tr>
-<tr>
-<td><code>c ? t : f</code></td>
-</tr>
-<tr>
-<td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>x %= y</code>, <code>x &amp;= y</code>,<code>x |= y</code>, <code>x &lt;&lt;= y</code>, <code>x &gt;&gt;= y</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="variabel">Variabel</h2>
-<p>Variabler är namngivet lagringsuttrymme i minnet för att lagra värden av en viss typ.</p>
-<h3 id="värdetyper">Värdetyper</h3>
-<p>För värdetyper är värdet som lagras i variabelns minne ett <em>objekt</em>. Ett objekt lagras i minnet som de aktuella värdena på objektets alla <em>medlemsvariabler</em>.</p>
-
-<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/oyjFILLGKb3ooizBB5RIKJ0nKb98B5OeI2qgpi_ZoiilILN8IKqhuL80Wh33IufIKaig2xXIyr8KG79S0000"><p>Exempel på värdetyper:</p>
-<ul>
-<li>Alla taltyper (<code>byte</code>, <code>int</code>, <code>float</code>, <code>double</code>, <code>enum</code>, <code>char</code>, m.fl.)</li>
-<li>Booleans (<code>bool</code>)</li>
-<li>Användardefinierade strukturer (<code>struct</code>)</li>
-</ul>
-<h3 id="referenstyper">Referenstyper</h3>
-<p>För referenstyper är värdet som lagras i variabelns minne en <em>referens</em> till ett objekt som skapats med nyckelordet <code>new</code> och som ligger lagrat på <em>heapen</em>.</p>
-
-<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/BOmn3eCm54FtVmhhpp2qh0YfxS9SSO68c2dwGKaOggftRuZmzcphMVI4ZeaR4orF2fTHIImM8d0h4DIyhqFvx4BpE6UHDSJ3OwRRyMqtQphemXoSTj37ytMx3xKvlQjByXEfUlJzrF0F"><p>Exempel på referenstyper:</p>
-<ul>
-<li>Strängar (<code>string</code>)</li>
-<li>Fält (<code>&lt;typ&gt;[]</code>)</li>
-<li>Användardefinierade klasser (<code>class</code>)</li>
-</ul>
-<h3 id="null">Null</h3>
-<p>Nyckelordet <code>null</code> är värdet på en referens som inte refererar till något värde.</p>
-<h3 id="kopiering-av-värden">Kopiering av värden</h3>
-<p>När ett värde av referenstyp kopieras skapas en ny kopia av en referens. När ett värde av värdetyp kopieras tilldelas varje medlemsvariabel för kopian aktuella värdet för motsvarande medlemsvariabel hos originalet.</p>
-
-<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/ZO_12i8m44Jl-OebPrjezIGIK2-Y1o_-mD9iQo1iIb9Fuh-RX5PKg9ZRP6VUphBJ11BaqJ46kO1LBG43zEI3uqgm6mWijGC8YE_iJMSOhI3Ma6OYEdu0wc_0oVK6tzBZ7YXBDKNMsKJUS3VHDvvQyiH1PNPKVpIRYuwTelywKohnSwFa_gZJM7VJS23iuPwZq_KN2XRZzNAxsrVrClwaRGrwyHXvHQ6oJioNU080"><p>Värden kopieras t.ex. när ett värde:</p>
-<ul>
-<li>Tilldelas av en variabel, egenskap eller indexierare.</li>
-<li>Returnerneras från en metod.</li>
-<li>Används som argument till en metod.</li>
-<li>Används som operand till en operator.</li>
-</ul>
-<h2 id="defaultvärden">Defaultvärden</h2>
-<p>Ett oiniterat värden har defaultvärde enligt typ.</p>
-<table>
-<thead>
-<tr>
-<th>Typ</th>
-<th>Defaultvärde</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Alla taltyper</td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></td>
-</tr>
-<tr>
-<td><code>enum</code></td>
-<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></td>
-</tr>
-<tr>
-<td><code>char</code></td>
-<td><code>'\0'</code></td>
-</tr>
-<tr>
-<td><code>bool</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td>Fält</td>
-<td><code>null</code></td>
-</tr>
-<tr>
-<td><code>class</code></td>
-<td><code>null</code></td>
-</tr>
-<tr>
-<td><code>struct</code></td>
-<td>Medlemsvariabler har defaultvärde.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="fält">Fält</h2>
-<p>Exempel på definition och initierare av fält:</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">int</span>[] numbers = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> }; <span class="hljs-comment">// Endimensionellt fält</span>
-<span class="hljs-keyword">string</span>[,] texts = { <span class="hljs-comment">// Tvådimensionellt fält</span>
-    { <span class="hljs-string">"anna"</span>, <span class="hljs-string">"karl"</span> }, 
-    { <span class="hljs-string">"jimmy"</span>, <span class="hljs-string">"daniel"</span> }, 
-    { <span class="hljs-string">"fredrik"</span>, <span class="hljs-string">"veronica"</span> }
-};
-</div></code></pre>
-<p>För fälten ovan är nedanstående villkor uppfyllda:</p>
-<pre><code class="language-cs"><div>numbers[<span class="hljs-number">0</span>] == <span class="hljs-number">1</span>
-numbers[<span class="hljs-number">2</span>] == <span class="hljs-number">3</span>
-texts[<span class="hljs-number">2</span>, <span class="hljs-number">1</span>] == <span class="hljs-string">"veronica"</span>
-numbers.Rank == <span class="hljs-number">1</span>
-numbers.Length == <span class="hljs-number">3</span>
-texts.Rank == <span class="hljs-number">2</span>
-texts.GetLength(<span class="hljs-number">0</span>) == <span class="hljs-number">3</span>
-texts.GetLength(<span class="hljs-number">1</span>) == <span class="hljs-number">2</span>
-</div></code></pre>
-<p>Skapa nya fält:</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">new</span> <span class="hljs-keyword">string</span>[<span class="hljs-number">10</span>]; <span class="hljs-comment">// nytt fält av 10 strängreferenser</span>
-<span class="hljs-keyword">new</span> <span class="hljs-keyword">bool</span>[<span class="hljs-number">5</span>, <span class="hljs-number">2</span>]; <span class="hljs-comment">// nytt fält med 5 rader och 2 kolumner av boolvärden</span>
-</div></code></pre>
-<p>Element för nya fält utan initiering har defaultvärde.</p>
-<h2 id="konvertering">Konvertering</h2>
-<p>Ett värde av typ <code>B</code> kan konverteras till ett värde av annan typ <code>A</code> endast om det finns en implicit eller explicit konverteringsgoperator från <code>B</code> till <code>A</code>.</p>
-<pre><code class="language-cs"><div><span class="hljs-comment">// Kodraden nedan kräver ett automatiskt anrop till en </span>
-<span class="hljs-comment">// implicit konverteringsoperator till typen A överlagrad</span>
-<span class="hljs-comment">// för en operand av typen B.  </span>
-A a1 = &lt;uttryck av typen B&gt;; 
-
-<span class="hljs-comment">// Kodraden nedan innehåller ett anrop till den explicit </span>
-<span class="hljs-comment">// konverteringsoperator (A) till typen A överlagrad för </span>
-<span class="hljs-comment">// en operand av typen B. </span>
-A a2 = (A)&lt;uttryck av typen B&gt;; 
-</div></code></pre>
-<h3 id="användardefinierade-konverteringsoperatorer">Användardefinierade konverteringsoperatorer</h3>
-<pre><code class="language-cs"><div><span class="hljs-keyword">struct</span> B {
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">operator</span> <span class="hljs-title">B</span>(<span class="hljs-params">A a</span>)</span> {
-        <span class="hljs-comment">/* kod som returnerar ett motsvarande värde av typen A */</span>
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">explicit</span> <span class="hljs-keyword">operator</span> <span class="hljs-title">C</span>(<span class="hljs-params">A a</span>)</span> {
-        <span class="hljs-comment">/* kod som returnerar ett motsvarande värde av typen C */</span>
-    }
-    <span class="hljs-comment">// ..</span>
-</div></code></pre>
-<h3 id="inbyggda-konverteringsoperatorer">Inbyggda konverteringsoperatorer</h3>
-<p>X = Implicit konvertersopertor är inbyggd i språket.
-Blankt = Explicit konverteringsoperator är inbyggd i språket.</p>
-<table>
-<thead>
-<tr>
-<th>Från/Till</th>
-<th style="text-align:center"><code>byte</code></th>
-<th style="text-align:center"><code>sbyte</code></th>
-<th style="text-align:center"><code>ushort</code></th>
-<th style="text-align:center"><code>short</code></th>
-<th style="text-align:center"><code>uint</code></th>
-<th style="text-align:center"><code>int</code></th>
-<th style="text-align:center"><code>ulong</code></th>
-<th style="text-align:center"><code>long</code></th>
-<th style="text-align:center"><code>enum</code></th>
-<th style="text-align:center"><code>char</code></th>
-<th style="text-align:center"><code>float</code></th>
-<th style="text-align:center"><code>double</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><code>byte</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>ubyte</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>ushort</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>short</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>uint</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>int</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>ulong</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>long</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>enum</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td><strong><code>char</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>float</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">X</td>
-</tr>
-<tr>
-<td><strong><code>double</code></strong></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-<h2 id="funktioner">Funktioner</h2>
-<p>En funktion består av en <em>signatur</em> och en kropp.</p>
-<h3 id="signatur">Signatur</h3>
-<p>Funktionens signatur innehåller:</p>
-<ul>
-<li>En identifierare för funktionen.</li>
-<li>En lista av parametrar med typ och identifierare.</li>
-<li>Typen på returvärdet (<code>void</code> om inget värde returneras).</li>
-</ul>
-<p>Syntax:</p>
-<pre><code class="language-cs"><div>&lt;returtyp&gt; &lt;identifierare&gt;(&lt;parameterlista&gt;)
-</div></code></pre>
-<h4 id="exempel">Exempel</h4>
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">IsPalindrome</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> text</span>)
-
-<span class="hljs-keyword">string</span> <span class="hljs-title">Substring</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> text, <span class="hljs-keyword">int</span> starPosition, <span class="hljs-keyword">int</span> length</span>)
-
-<span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params"><span class="hljs-keyword">object</span>[] objects</span>)
-
-<span class="hljs-keyword">int</span> <span class="hljs-title">Max</span>(<span class="hljs-params"><span class="hljs-keyword">int</span>[] numbers, <span class="hljs-keyword">int</span> <span class="hljs-keyword">default</span></span>)
-</span></div></code></pre>
-<h3 id="kropp">Kropp</h3>
-<p>Kroppen för en funktion är ett kodblock som följer efter funktionens signatur. Funktionens parametrar kan användas som lokala variabler i funktionens kropp. För en funktion som inte har returtyp <code>void</code> måste varje programflöde genom funktionen sluta med satsen:</p>
-<p><code>return &lt;uttryck&gt;;</code></p>
-<h4 id="exempel-1">Exempel</h4>
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">IsPalindrome</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> text</span>)</span>  { 
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; text.Length / <span class="hljs-number">2</span>; ++i) 
-        <span class="hljs-keyword">if</span> (text[i] != text[text.Length - <span class="hljs-number">1</span> - i])
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Max</span>(<span class="hljs-params"><span class="hljs-keyword">int</span>[] numbers, <span class="hljs-keyword">int</span> <span class="hljs-keyword">default</span></span>)</span> {
-    <span class="hljs-keyword">if</span> (numbers.Length == <span class="hljs-number">0</span>)
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">default</span>;
-    <span class="hljs-keyword">else</span> 
-    {
-        <span class="hljs-keyword">int</span> max = numbers[<span class="hljs-number">0</span>];
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; numbers.Length; ++i)
-            <span class="hljs-keyword">if</span> (numbers[i] &gt; max)
-                max = numbers[i];
-        <span class="hljs-keyword">return</span> max;
-    }
-}
-</div></code></pre>
-<h3 id="anrop">Anrop</h3>
-<p>Ett funktionsanrop är ett uttryck som består av funktionens identifierare följt av en lista av uttryck som kallas argumentlista. Typen för och antalet argument måste matcha funktionens parameterlista.</p>
-<p>Värdet av ett funktionsanrop beräknas genom att:</p>
-<ul>
-<li>Argumentens värden beräknas och tilldelas funktionens parametrar.</li>
-<li>Koden i funktionens kropp körs till programflödet når en <code>return</code>-sats.</li>
-<li>Uttrycket i returnsatsen beräknas som funktionsanropets resultat.</li>
-</ul>
-<h4 id="exempel-2">Exempel</h4>
-<pre><code class="language-cs"><div>Substring(<span class="hljs-string">"Jonas Keisu"</span>, <span class="hljs-number">6</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">// Anropet beräknas till "Keisu"</span>
-
-IsPalindrom(<span class="hljs-string">"tappat"</span>) <span class="hljs-comment">// Anropet beräknas till true</span>
-
-Max(<span class="hljs-keyword">new</span> <span class="hljs-keyword">in</span>[] { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>}, <span class="hljs-number">0</span>) <span class="hljs-comment">// Anropet beräknas till 3</span>
-</div></code></pre>
-<h2 id="objekt">Objekt</h2>
-<p>Ett objekt är en behållare av medlemmar.</p>
-<h2 id="medlemmar">Medlemmar</h2>
-<p>Objekt kan ha följande sorters medlemmar:</p>
-<ul>
-<li>Variabler</li>
-<li>Metoder</li>
-<li>Egenskaper</li>
-<li>Konstruerare</li>
-<li>Operatorer</li>
-<li>Indexierare</li>
-<li>Nästade typer</li>
-<li>Event</li>
-</ul>
-<p>samt <em>konstanter</em> och <em>dekonstruerare</em> som vi inte går in på djupare i kursen.</p>
-<h2 id="klass">Klass</h2>
-<p>En klass beskriver objekt med gemensamma medlemmar men är också själv ett objekt med egna medlemmar. En ny klass definieras med följande syntax:</p>
-<pre><code class="language-cs"><div>&lt;modifierare&gt; <span class="hljs-keyword">class</span> &lt;<span class="hljs-title">identifierare</span>&gt;
+<!-- slide -->
+<p>Antag att vi har en klass för kontakter:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Contact</span>
 {
-    &lt;modifierare&gt; &lt;medlem1&gt;
-    &lt;modifierare&gt; &lt;medlem2&gt;
-    ..
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Age { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Email { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
 }
 </div></code></pre>
-<p>Exempel:</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> carCount = <span class="hljs-number">0</span>; 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> horsePowers;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> model;
-
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> CarCount {
-        <span class="hljs-keyword">get</span> =&gt; carCount;
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span> =&gt; carCount = <span class="hljs-keyword">value</span>;
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Car</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> model, <span class="hljs-keyword">int</span> horsePowers</span>)</span> {
-        <span class="hljs-keyword">this</span>.model = model;
-        <span class="hljs-keyword">this</span>.horsePowers = horsePowers;
-    }
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Drive</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-keyword">if</span> (horsePower &lt; <span class="hljs-number">400</span>)
-            System.Console.WriteLine(<span class="hljs-string">"Wrooom"</span>);
-        <span class="hljs-keyword">else</span> 
-            System.Console.WriteLine(<span class="hljs-string">"WROOOM"</span>);
-    }
+<p>och en lista med kontater av typen <code>List&lt;Contact&gt;</code>.</p>
+<!-- slide -->
+<p>Vi kanske vill hitta alla kontakter yngre än 40:</p>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> List&lt;Contact&gt; <span class="hljs-title">YoungerThan40</span>(<span class="hljs-params">List&lt;Contact&gt; contacts</span>)</span> {
+    List&lt;Contact&gt; result = <span class="hljs-keyword">new</span> List&lt;Contact&gt;();
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> contact <span class="hljs-keyword">in</span> contacts)
+        <span class="hljs-keyword">if</span> (contact.Age &lt; <span class="hljs-number">40</span>)
+            result.Add(contact);
+    <span class="hljs-keyword">return</span> result;
 }
 </div></code></pre>
-<h3 id="metoder">Metoder</h3>
-<p>En metod är en funktion som är definierad som en medlem i en klass eller struktur.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-comment">// ...</span>
-    <span class="hljs-comment">// Metod</span>
-§   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Drive</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-keyword">if</span> (horsePower &lt; <span class="hljs-number">400</span>)
-            System.Console.WriteLine(<span class="hljs-string">"Wrooom"</span>);
-        <span class="hljs-keyword">else</span> 
-            System.Console.WriteLine(<span class="hljs-string">"WROOOM"</span>);
-    }
+<!-- slide -->
+<p>Vi kanske också vill hitta alla kontakter som har en e-postadress som slutar på något speciellt, t.ex. &quot;@gmail.com&quot;:</p>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> List&lt;Contact&gt; <span class="hljs-title">EmailEndsWith</span>(<span class="hljs-params">List&lt;Contact&gt; contacts, <span class="hljs-keyword">string</span> postfix</span>)</span> {
+    List&lt;Contact&gt; result = <span class="hljs-keyword">new</span> List&lt;Contact&gt;();
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> contact <span class="hljs-keyword">in</span> contacts)
+        <span class="hljs-keyword">if</span> (contact.Email.EndsWith(postfix))
+            result.Add(contact);
+    <span class="hljs-keyword">return</span> result;
 }
 </div></code></pre>
-<h3 id="instanser">Instanser</h3>
-<p>Objekt tillhörande en klass kallas <em>instanser</em> av klassen och deras medlemmar kallas <em>instansmedlemmar</em>. Alla medlemmar i en klass som inte har modifieraren <code>static</code> är instansmedlemmar.</p>
-<h4 id="tillstånd">Tillstånd</h4>
-<p>Tillståndet av en instans är aktuella värden på instansen medlemsvariabler.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-comment">// 'carCount' har modifieraren static, är inte en medelemsvariabel för </span>
-    <span class="hljs-comment">// instansen och dess värde ingår därför inte i tillståndet för en instans</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> carCount = <span class="hljs-number">0</span>; 
-
-    <span class="hljs-comment">// 'horsePowers' och 'model' har inte modifieraren static, är medlemsvariabler</span>
-    <span class="hljs-comment">// för instansen och deras värde ingår därför i tillståndet för en instans</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> horsePowers;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> model;
-    <span class="hljs-comment">// ..</span>
-</div></code></pre>
-<p>Två instanser med identiskt tillstånd är likvärdiga, men behöver inte var samma objekt.</p>
-<pre><code class="language-cs"><div><span class="hljs-comment">// Två objekt med livärdigt tillstånd</span>
-<span class="hljs-keyword">var</span> car1 = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">"Volvo"</span>, <span class="hljs-number">350</span>);
-<span class="hljs-keyword">var</span> car2 = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">"Volvo"</span>, <span class="hljs-number">350</span>);
-</div></code></pre>
-
-<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/oyjFILL8JYmovCg3ieouadFoIrCKb39I4mkK5Agv5800BAcae1IMdrEMhwIZO6ngeAIGMAoGdvHbI4Y14LSj5yW61LrTEuW6a2qmdX4N0000"><h4 id="konstruktor">Konstruktor</h4>
-<p>En konstruktor är en metod som initierar tillståndet för ett ny instans skapad med <code>new</code>-operatorn. En konstruktor har ingen returtyp (inte ens <code>void</code>) i signaturen och samma identifierare som typen den är definierad i.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-comment">// Konstruktor</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Car</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> model, <span class="hljs-keyword">int</span> horsePowers</span>)</span> {
-        <span class="hljs-keyword">this</span>.model = model;
-        <span class="hljs-keyword">this</span>.horsePowers = horsePowers;
-    }
-    <span class="hljs-comment">// ..</span>
-</div></code></pre>
-<h4 id="this">This</h4>
-<p>I kroppen till en instansmetod är nyckelordet <code>this</code> ett uttryck för den instans som metoden har anropats för. Nyckelordet <code>this</code> används ofta för att särskilja instansmedlemmar och metodparametrar med samma namn.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> mode;
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Car</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> model, <span class="hljs-keyword">int</span> horsePowers</span>)</span> {
-        <span class="hljs-comment">// I kodraden nedan refererar 'this.model' i vänsterledet till </span>
-        <span class="hljs-comment">// medlemsvariabeln 'model', men 'model' i högerledet refererar </span>
-        <span class="hljs-comment">// till metodens parameter 'model'</span>
-        <span class="hljs-keyword">this</span>.model = model;
-        <span class="hljs-comment">// ..</span>
-    }
-    <span class="hljs-comment">// ..</span>
-</div></code></pre>
-<h4 id="referens-till-instansmedlemmar">Referens till instansmedlemmar</h4>
-<p>En instansmedlem kan endast refereras via en instans med hjälp av punktoperatorn.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">var</span> car = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">"Volvo"</span>, <span class="hljs-number">350</span>);
-<span class="hljs-comment">// Referens till instansmedlemmen 'Drive()' för instansen 'car'</span>
-car.Drive(); 
-</div></code></pre>
-<p>Om kod i kroppen av en instansmedlem refefererar en instansmedlem i samma typ utan punktoperatorn är det underförstått att referensen gäller samma instans som kroppen anropats anropats för, d.v.s. värdet av <code>this</code>.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> horsePowers;
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Drive</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-comment">// 'horsePower' på nästa kodrad tolkas som 'this.horsePower'</span>
-        <span class="hljs-keyword">if</span> (horsePower &lt; <span class="hljs-number">400</span>)
-            System.Console.WriteLine(<span class="hljs-string">"Wrooom"</span>);
-        <span class="hljs-keyword">else</span> 
-            System.Console.WriteLine(<span class="hljs-string">"WROOOM"</span>);
-    }
+<p>Vi ser att filtreringsfunktioner har mycket gemensam logik.</p>
+<!-- slide -->
+<p>Bättre lösning:</p>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> List&lt;Contact&gt; <span class="hljs-title">FilterContacts</span>(<span class="hljs-params">List&lt;Contact&gt; contacts, 
+        Func&lt;Contact, <span class="hljs-keyword">bool</span>&gt; filter</span>)</span> {
+    List&lt;Contact&gt; result = <span class="hljs-keyword">new</span> List&lt;Contact&gt;();
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> contact <span class="hljs-keyword">in</span> contacts)
+        <span class="hljs-keyword">if</span> (filter(contact))
+            result.Add(contact);
+    <span class="hljs-keyword">return</span> result;
 }
 </div></code></pre>
-<h3 id="static">Static</h3>
-<p>En medlem med modifieraren <code>static</code> tillhör klassen istället för klassens instanser. Klassen fungerar som ett namespace för sina statiska medlemmar.</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-comment">// Medlemsvariabel för klassen</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> carCount; 
-
-    <span class="hljs-comment">// Egenskap för klassen</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> CarCount {
-        <span class="hljs-keyword">get</span> =&gt; carCount; 
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span> =&gt; carCount = <span class="hljs-keyword">value</span>;
-    }
-
-    <span class="hljs-comment">// Konstruktor</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Car</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> model, <span class="hljs-keyword">int</span> horsePowers</span>)</span> {
-        <span class="hljs-keyword">this</span>.model = mode;
-        <span class="hljs-keyword">this</span>.horsePowers = horsePowers;
-        <span class="hljs-comment">// Nästat scope till klassen 'Car' där 'CarCount' är </span>
-        <span class="hljs-comment">// definierad, så 'CarCount' är synlig här.</span>
-        ++CarCount;         
-    }
-    <span class="hljs-comment">// ..</span>
+<!-- slide -->
+<h2 id="tilldelning-av-delegater">Tilldelning av delegater</h2>
+<p>Delegater kan tilldelas från:</p>
+<ul>
+<li>Statiska metoder</li>
+<li>Anrop av instansmetoder</li>
+<li>Lokala funktioner</li>
+<li>Lambda-funktioner</li>
+</ul>
+<!-- slide -->
+<h2 id="tilldelning-från-statisk-metod">Tilldelning från statisk metod</h2>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">YoungerThan40</span>(<span class="hljs-params">Contact contact</span>)</span> =&gt; contact.Age &lt; <span class="hljs-number">40</span>;
+</div></code></pre>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+    List&lt;Contact&gt; contacts = <span class="hljs-comment">// ..</span>
+    <span class="hljs-keyword">var</span> selection = FilterContacts(contacts, YoungerThan40);
 }
+</div></code></pre>
+<!-- slide -->
+<h2 id="tilldelning-från-instansmetod">Tilldelning från instansmetod</h2>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">ContactFilter</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> postfix;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ContactFilter</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> postfix</span>)</span> {
+        <span class="hljs-keyword">this</span>.postfix = postfix;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">EmailEndsWith</span>(<span class="hljs-params">Contact contact</span>)</span> =&gt; 
+        contacts.EndsWith(postfix);
+}
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+    List&lt;Contact&gt; contacts = <span class="hljs-comment">// ..</span>
+    ContactFilter filter = <span class="hljs-keyword">new</span> ContactFilter(<span class="hljs-string">"@gmail.com"</span>);
+    <span class="hljs-keyword">var</span> selection = FilterContacts(contacts, filter.EmailEndsWith);
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="tilldelning-från-lokal-funktion">Tilldelning från lokal funktion</h2>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">youngerThan40</span>(<span class="hljs-params">Contact contact</span>)</span> =&gt; contact.Age &lt; <span class="hljs-number">40</span>;
+    List&lt;Contact&gt; contacts = <span class="hljs-comment">// ..</span>
+    <span class="hljs-keyword">var</span> selection = FilterContacts(contacts, youngerThan40);
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="tilldelning-från-lokal-funktion-igen">Tilldelning från lokal funktion igen</h2>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">hasGmailAddress</span>(<span class="hljs-params">Contact contact</span>)</span> =&gt; 
+        contact.Email.EndsWith(<span class="hljs-string">"@gmail.com"</span>);
+    List&lt;Contact&gt; contacts = <span class="hljs-comment">// ..</span>
+    <span class="hljs-keyword">var</span> selection = FilterContacts(contacts, hasGmailAddress);
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="lambdafunktion">Lambdafunktion</h2>
+<p>En anonym funktion kan skapas med hjälp av lambdaoperator (<code>=&gt;</code>)</p>
+<p>Syntax:</p>
+<pre><code class="language-cs"><div>&lt;argumentlista&gt; =&gt; &lt;uttryck | kodblock&gt;
+</div></code></pre>
+<!-- slide -->
+<h3 id="exempel">Exempel</h3>
+<pre><code class="language-cs"><div>Func&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; negate = i =&gt; -i;
 
-<span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+Func&lt;<span class="hljs-keyword">double</span>, <span class="hljs-keyword">double</span>, <span class="hljs-keyword">double</span>&gt; <span class="hljs-keyword">add</span> = (a, b) =&gt; a + b;
+
+Func&lt;<span class="hljs-keyword">string</span>, <span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; charCounter = (txt, c) =&gt; 
     {
-        <span class="hljs-keyword">var</span> volvo = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">"Volvo"</span>, <span class="hljs-number">407</span>);
-        <span class="hljs-keyword">var</span> tesla = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">"Tesla"</span>, <span class="hljs-number">600</span>);
-        <span class="hljs-comment">// 'CarCount' är inte synlig i detta scope, men klassen `Car` är </span>
-        <span class="hljs-comment">// synlig och 'CarCount' kan refereras med punktnotation.</span>
-        <span class="hljs-keyword">var</span> carCount = Car.CarCount; 
-    }
-}
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> tc <span class="hljs-keyword">in</span> txt)
+            <span class="hljs-keyword">if</span> (c == tc)
+                ++count;
+        <span class="hljs-keyword">return</span> count;            
+    };
 </div></code></pre>
-<h3 id="åtkomst">Åtkomst</h3>
-<p>En identifierare kan användas i kod där den är <em>synlig</em> och <em>åtkomlig</em>.</p>
-<p>Åtkomst för typer och medlemmar bestäms genom modifierarna i tabellen nedan.</p>
-<table>
-<thead>
-<tr>
-<th>Modifierare</th>
-<th>Åtkomlig för</th>
-<th>Tillämpbar för</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>public</code></td>
-<td>All kod</td>
-<td>Typer och medlemmar</td>
-</tr>
-<tr>
-<td><code>internal</code></td>
-<td>Kod i samma assembly</td>
-<td>Typer och medlemmar</td>
-</tr>
-<tr>
-<td><code>protected</code></td>
-<td>Kod i samma klass eller ärvande klasser</td>
-<td>Medlemmar</td>
-</tr>
-<tr>
-<td><code>private</code></td>
-<td>Kod i samma klass/struktur</td>
-<td>Medlemmar</td>
-</tr>
-</tbody>
-</table>
-<p>Defaultåtkomst är för typer <code>internal</code> och för medlemmar <code>private</code>.</p>
-<p>Exempel:</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> carCount = <span class="hljs-number">0</span>; 
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> CarCount =&gt; carCount;
-    <span class="hljs-comment">// ..</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Car</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> model, <span class="hljs-keyword">int</span> horsePowers</span>)</span> {
-        <span class="hljs-comment">// Både 'carCount' och 'CarCount' är synlig och åtkomlig =&gt; användbara</span>
-        <span class="hljs-comment">// ..</span>
-    }
-    <span class="hljs-comment">// ..</span>
-}
+<!-- slide -->
+<h2 id="tilldelning-från-lambdafunktion">Tilldelning från lambdafunktion</h2>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+    List&lt;Contact&gt; contacts = <span class="hljs-comment">// ..</span>
+    <span class="hljs-keyword">var</span> selection = FilterContacts(contacts, c =&gt; c.Age &lt; <span class="hljs-number">40</span>);
+    <span class="hljs-keyword">var</span> selection2 = FilterContacts(contacts, 
+        c =&gt; c.Email.EndsWith(<span class="hljs-string">"@gmail.com"</span>));
 
-<span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
-        <span class="hljs-comment">// Varken 'carCount' eller 'CarCount' är synlig</span>
-        <span class="hljs-comment">// 'Car.carCount' är synlig men inte åtkomlig =&gt; ej användbar</span>
-        <span class="hljs-comment">// 'Car.CarCount' är både synlig och åtkomlig =&gt; användbar</span>
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="findall">FindAll</h2>
+<ul>
+<li>Listor har redan en metod <code>FindAll</code> som tar ett argument av typen <code>Predicate&lt;T&gt;</code></li>
+<li><code>Predicate&lt;T&gt;</code> är typen för en delegat som tar ett argument av typen <code>T</code> och returnerar ett värde av typen <code>bool</code>.</li>
+</ul>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+    List&lt;Contact&gt; contacts = <span class="hljs-comment">// ..</span>
+    <span class="hljs-keyword">var</span> selection = contacts.FindAll(c =&gt; c.Age &lt; <span class="hljs-number">40</span>);
+    <span class="hljs-keyword">var</span> selection2 = contacts.FindAll(c =&gt; 
+        c.Email.EndsWith(<span class="hljs-string">"@gmail.com"</span>));
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="action">Action</h2>
+<p><code>Action&lt;T1, T2, ..&gt;</code> är typen för delegater som tar argument av typerna <code>T1</code>, <code>T2</code>, osv. och inte returnerar något värde.</p>
+<!-- slide -->
+<h3 id="exempel-1">Exempel</h3>
+<p>Koden:</p>
+<pre><code class="language-cs"><div>Action&lt;<span class="hljs-keyword">int</span>&gt; printNumber = i =&gt; Console.WriteLine(i);
+<span class="hljs-keyword">int</span>[] numbers = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
+<span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">int</span> num <span class="hljs-keyword">in</span> numbers) 
+    printNumber(num);
+</div></code></pre>
+<p>ger utskriften:</p>
+<pre><code class="language-text"><code><div>1
+2
+3
+</div></code></code></pre>
+<!-- slide -->
+<h2 id="vad-skriver-programmet-ut">Vad skriver programmet ut?</h2>
+<pre><code class="language-cs"><div>List&lt;Action&gt; actions = <span class="hljs-keyword">new</span> List&lt;Action&gt;();
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) 
+    actions.Add(() =&gt; Console.WriteLine(i));
+
+<span class="hljs-keyword">foreach</span> (Action action <span class="hljs-keyword">in</span> actions) 
+    action();
+</div></code></pre>
+<!-- slide -->
+<p>Programmet skriver ut:</p>
+<pre><code class="language-text"><code><div>0
+1
+2
+3
+4
+</div></code></code></pre>
+<!-- slide -->
+<h2 id="closures">Closures</h2>
+<ul>
+<li>Varje gång en funktion tilldelas en delegat fångar funktionen aktuella värden på använda variabler i yttre scope i något som kallas ett <em>closure</em></li>
+<li>När funktionen anropas hämtas värden på variabler i yttre scope från den specifika funktionensreferensen closure</li>
+</ul>
+<!-- slide -->
+<h3 id="delegate">Delegate</h3>
+<ul>
+<li>Användre kan definiera egna delegattyper med nyckelordet <code>delegate</code>:</li>
+</ul>
+<pre><code class="language-cs"><div><span class="hljs-keyword">delegate</span> &lt;signatur&gt;;
+</div></code></pre>
+<ul>
+<li>Namnet på delegattypen är identifieren för funktionen i signaturen.</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel-2">Exempel</h3>
+<pre><code class="language-cs"><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">MyApp</span> {
+    <span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">double</span> <span class="hljs-title">BinaryDoubleOperator</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> a, doubl b</span>)</span>;
+    <span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">IntegerProessor</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> a</span>)</span>;
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span> {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
+            BinaryDoubleOperator op = (a, b) =&gt; a * b;
+            <span class="hljs-keyword">double</span> c = op(a, b);
+            IntegerProcess proc = a =&gt; Console.WriteLine(a);
+            <span class="hljs-keyword">int</span>[] numbers = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>};
+            <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">int</span> num <span class="hljs-keyword">in</span> numbers)
+                proc(num);
+        }
     }
 }
 </div></code></pre>
-<h2 id="arv">Arv</h2>
-<p>En klass kan ärva en annan klass. Objekt av den ärvande klassen har alla medlemmar som objekt av den ärvda klassens objekt har plus medlemmarna definierade i den ärvande klassen.</p>
-<p>En klass kan bara ärva en en annan klass, men många klasser kan ärva samma klass. Därför formar arv en trädstruktur (<em>hierarki</em>) av klasser.</p>
-<p>En klass som inte explicit ärver en annan klass ärver automatiskt klassen <code>System.Object</code>. Därför ligger <code>System.Object</code> alltid högst upp i hierarkin.</p>
+<!-- slide -->
+<h2 id="händelser">Händelser</h2>
+<ul>
+<li>En <em>händelse</em> (eng. <em>event</em>) är något specifikt som kan hända med ett objekt under programmets körning</li>
+<li>Användare av objektet kan registrera delegater som <em>lyssnare</em> till händelser</li>
+<li>Varje gång händelsen inträffar så anropas händelsens alla lyssnare</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel-3">Exempel</h3>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnProcessNumber</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> number</span>)</span>;
 
-<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/bL71Zi8W4Btp5IHUQDG_y6AyU6dMR8ttAPsutKLeW6PDr7zt2YsjwyP44WAyUJFlpI0LECS_oc-KdhCBuxJct7bRwoFVco9SHCPk34f2WLW7_AgbmaIkjITcKpI8rGJAuRoZsg2FQ3UcrJx4PaEw8CwY8sO1lmpbRwDy3ZzOK6OLz6Lmcfk6LA9qk8liqVD_IHkmVrlBJOLgudPhhCET-KNhUfIIH2G7cnElBxNsSAwJM6NQKY7_18yzqeL5X1VykVnGPNqgMmLQZbDEo7kcMF-rg-jocNwkFoCO9_e0TVEY7H-XeVGQZR4x"><h4 id="abstract">Abstract</h4>
-<p>En klass som har signaturer för medlemmar som saknar kropp är är abstrakt och måste ha modifieraren <code>abstract</code>.</p>
-<h2 id="casting">Casting</h2>
-<p>Casting konverterar typen på en referens.</p>
-<h3 id="up-cast">Up-cast</h3>
-<p>Om klassen <code>B</code> ärver från typen <code>A</code> så kan en referens av typen <code>B</code> implicit castas till typen <code>A</code>.</p>
-<pre><code class="language-cs"><div>A a = &lt;uttryck av typen B&gt;; <span class="hljs-comment">// Implicit up-cast</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> count;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> OnProcessNumber Tick; <span class="hljs-comment">// Definition av event</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Increment</span>(<span class="hljs-params"></span>)</span> {
+        ++count;
+        <span class="hljs-keyword">if</span> (Tick != <span class="hljs-literal">null</span>) <span class="hljs-comment">// Null-kontroll innan anrop!</span>
+            Tick(count);
+    }
+}
 </div></code></pre>
-<h3 id="down-cast">Down-cast</h3>
-<p>Om klassen <code>B</code> ärver från typen <code>A</code> så kan en referens av typen <code>A</code> explicit castas till typen <code>B</code>. Om refensen inte refererar till objekt av typen <code>B</code> eller som ärver från typen <code>B</code> så genereras ett <code>InvalidCastException</code>.</p>
-<pre><code class="language-cs"><div>B b = (B)&lt;uttryck av typen A&gt;; <span class="hljs-comment">// Explicit down-cast</span>
+<!-- slide -->
+<pre><code class="language-cs"><div><span class="hljs-keyword">int</span> tickCounter = <span class="hljs-number">0</span>;
+
+Counter counter = <span class="hljs-keyword">new</span> Counter();
+
+counter.Tick += i =&gt; Console.WriteLine(<span class="hljs-string">$"Got tick: <span class="hljs-subst">{i}</span>"</span>);
+counter.Tick += i =&gt; ++tickCounter;
+
+Console.WriteLine(<span class="hljs-string">$"Tick counter: <span class="hljs-subst">{tickCounter}</span>"</span>);
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i)
+    counter.Increment();
+
+Console.WriteLine(<span class="hljs-string">$"Tick counter: <span class="hljs-subst">{tickCounter}</span>"</span>);
 </div></code></pre>
-<h3 id="is">Is</h3>
-<p>Operatorn <code>is</code> tar en referens och en typ som operander och returnerar ett värde av typen <code>bool</code>. Resultatet är <code>true</code> om referenens kan castas till operandtypen, annars <code>false</code>.</p>
-<h4 id="exempel-3">Exempel</h4>
-<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> {}
-<span class="hljs-keyword">class</span> <span class="hljs-title">B</span> : <span class="hljs-title">A</span> {}
-<span class="hljs-comment">// ..</span>
-A a = <span class="hljs-keyword">new</span> A();
-B b = <span class="hljs-keyword">new</span> B();
-<span class="hljs-keyword">bool</span> x = a <span class="hljs-keyword">is</span> B; <span class="hljs-comment">// x = false</span>
-<span class="hljs-keyword">bool</span> y = b <span class="hljs-keyword">is</span> A; <span class="hljs-comment">// y = true</span>
-</div></code></pre>
-<h3 id="as">As</h3>
-<p>Operatorn <code>as</code> tar en referens och en typ som operander och returnerar en referens av operandtypen. Om referensen kan kastas till operandtypen så är resultatet den castade referensen, annars <code>null</code>.</p>
+<!-- slide -->
+<p>Programmet ger utskriften:</p>
+<pre><code class="language-text"><code><div>Tick counter: 0
+Got tick: 1
+Got tick: 2
+Got tick: 3
+Got tick: 4
+Got tick: 5
+Tick counter: 5
+</div></code></code></pre>
+<!-- slide -->
+<h2 id="händelser-och-ramverk">Händelser och ramverk</h2>
+<ul>
+<li>Händerser används ofta för att koppla applikationer till ramverkskod</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel---gamelib">Exempel - GameLib</h3>
+<center>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/ZL91JiCm4Bpx5JuwGFg2g1AgK44SW3OI1yJ1TPRMa7YHxRGWuEyuiPquj0ToYNSoEpExZgYvCNJzhgK5yaMeUywfL9O-oihkaleQv7Pd0-3vp5WjrVRfcMeyc8py429wkNiqqafK4y4L7f9gWNNRgAw5RvmC5vRURLv1sA77YzEIRmCGLKTvZnS5x47P-PoMKhonBC1UZaNoHH1COlef76_mz4XSnrzvbxcMnccneJERD1vPUdXYxJaqpy_6EG9MVETv4eeCnvuTGeNi9NmShMhTlmBM4Ow6FvMaT-tbYBiOq2zS0BsvKcq3cc_gyQ-8c4LDbs37YgKx5Q20XfxBgcBUnUzf1GtkOGAb-xs5JxP0PR06Typ-Pnkcm6vrdJSXINOtt6mMSHzmoPjnfAvW_UVejaTPqLMhs0GeDLT-aoMUu3-qqleqdQ2xBOoUlm00"></center>
 
     </body>
     </html>

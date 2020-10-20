@@ -607,7 +607,7 @@ Värdet av ett funktionsanrop beräknas genom att:
 ```cs 
 Substring("Jonas Keisu", 6, 5) // Anropet beräknas till "Keisu"
 
-IsPlandrom("tappat") // Anropet beräknas till true
+IsPalindrom("tappat") // Anropet beräknas till true
 
 Max(new in[] { 1, 2, 3, 2, 1}, 0) // Anropet beräknas till 3
 ```
@@ -616,7 +616,7 @@ Max(new in[] { 1, 2, 3, 2, 1}, 0) // Anropet beräknas till 3
 
 Ett objekt är en behållare av medlemmar.
 
-### Medlemmar
+## Medlemmar
 
 Objekt kan ha följande sorters medlemmar: 
 - Variabler
@@ -629,11 +629,6 @@ Objekt kan ha följande sorters medlemmar:
 - Event
 
 samt *konstanter* och *dekonstruerare* som vi inte går in på djupare i kursen.
-
-### Tillstånd
-
-Ett objekts tillstånd är informationen som lagras i datorns arbetsminne för att repsentera det specifika objektet. Ett objekts tillstånd består av  aktuella värdena på objektets medlemsvariabler. Två objekt med samma tillstånd är likvärdiga, men inte nödvändigtvis samma objekt. 
-
 
 ## Klass
 
@@ -648,104 +643,195 @@ En klass beskriver objekt med gemensamma medlemmar men är också själv ett ob
 }
 ```
 
+Exempel:
+
+```cs
+class Car {
+    private static int carCount = 0; 
+    private int horsePowers;
+    private string model;
+
+    public static CarCount {
+        get => carCount;
+        private set => carCount = value;
+    }
+
+    public Car(string model, int horsePowers) {
+        this.model = model;
+        this.horsePowers = horsePowers;
+    }
+
+    public void Drive() {
+        if (horsePower < 400)
+            System.Console.WriteLine("Wrooom");
+        else 
+            System.Console.WriteLine("WROOOM");
+    }
+}
+```
+
+### Metoder
+
+En metod är en funktion som är definierad som en medlem i en klass eller struktur.  
+
+```cs
+class Car {
+    // ...
+    // Metod
+§   public void Drive() {
+        if (horsePower < 400)
+            System.Console.WriteLine("Wrooom");
+        else 
+            System.Console.WriteLine("WROOOM");
+    }
+}
+```
 
 ### Instanser
 
-Objekt tillhörande en klass kallas *instanser* av klassen och deras medlemmar kallas *instansmedlemmar*. 
+Objekt tillhörande en klass kallas *instanser* av klassen och deras medlemmar kallas *instansmedlemmar*. Alla medlemmar i en klass som inte har modifieraren ``static`` är instansmedlemmar.
 
-#### New
+#### Tillstånd
 
-En ny instans av klassen skapas på heapen med nyckelordet ``new`` följt av ett anrop till en konstruktor för att initialisera instansen tillstånd. 
+Tillståndet av en instans är aktuella värden på instansen medlemsvariabler.
 
-#### Referens till instansmedlemmar
+```cs
+class Car {
+    // 'carCount' har modifieraren static, är inte en medelemsvariabel för 
+    // instansen och dess värde ingår därför inte i tillståndet för en instans
+    private static int carCount = 0; 
 
-En instansmedlem kan endast refereras via en instans, t.ex. med hjälp av punktoperatorn med en instans som första operand. I kroppen av en instansmedlem kan instansmedlemmar av samma klass refereras direkt utan punktoperatorn med betydelsen att refererens gäller samma instans som kroppen anropats för.
+    // 'horsePowers' och 'model' har inte modifieraren static, är medlemsvariabler
+    // för instansen och deras värde ingår därför i tillståndet för en instans
+    private int horsePowers;
+    private string model;
+    // ..
+```
+
+Två instanser med identiskt tillstånd är likvärdiga, men behöver inte var samma objekt. 
+
+```cs 
+// Två objekt med livärdigt tillstånd
+var car1 = new Car("Volvo", 350);
+var car2 = new Car("Volvo", 350);
+```
+
+```plantuml
+node car1
+node car2
+cloud "heap" {
+    node " "Volvo", 350" as obj1
+    node " "Volvo", 350" as obj2
+}
+car1 --> obj1
+car2 --> obj2
+```
+
+#### Konstruktor
+
+En konstruktor är en metod som initierar tillståndet för ett ny instans skapad med ``new``-operatorn. En konstruktor har ingen returtyp (inte ens ``void``) i signaturen och samma identifierare som typen den är definierad i. 
+
+```cs 
+class Car {
+    // ..
+    // Konstruktor
+    public Car(string model, int horsePowers) {
+        this.model = model;
+        this.horsePowers = horsePowers;
+    }
+    // ..
+```
 
 #### This
 
-I kroppen till en instansmetod är nyckelordet ``this`` ett uttryck för den instans som metoden har anropats för. Nyckelordet ``this`` används t.ex. för att särskilja på instansmedlemmar och metodparametrar med samma namn. 
-
-#### Exempel
+I kroppen till en instansmetod är nyckelordet ``this`` ett uttryck för den instans som metoden har anropats för. Nyckelordet ``this`` används ofta för att särskilja instansmedlemmar och metodparametrar med samma namn. 
 
 ```cs 
-class Program {
-    class Car {
-        // Värdena på medlemmsvariablerna 'model' och 'horsePower' för  instansen
-        // utgör tillståndet på en instans av Car.
-        private string model;
-        private int horsePowers;
-
-        // Konstruktor
-        public Car(string model, int horsePowers) {
-            // Identifieraren 'model' refererar till konstruktorn parameter 'model',
-            // men 'this.model' refererar till medlemsvariabeln 'model' för instansen.
-            this.model = model;
-            this.horsePowers = horsePowers;
-        }
-
-        // Instansmetod
-        public void Drive() {
-            // För anropet 'car.Drive()' nedan refererar kommer 'horsePower' på 
-            // nästa kodrad referera till 'car.horsePower'.
-            if (horsePower < 400)
-                System.Console.WriteLine("Wrooom");
-            else 
-                System.Console.WriteLine("WROOOM");
-        }
+class Car {
+    private string mode;
+    // ..
+    public Car(string model, int horsePowers) {
+        // I kodraden nedan refererar 'this.model' i vänsterledet till 
+        // medlemsvariabeln 'model', men 'model' i högerledet refererar 
+        // till metodens parameter 'model'
+        this.model = model;
+        // ..
     }
+    // ..
+```
 
-    public static void Main(string[] args) {
-        // Ny instans av klassen Car skapas på heapen och en referens till instansen
-        // tilldelas variabeln 'car'.
-        Car car = new Car("Tesla", 600); 
-        // Medlemmen 'Drive()' anropas för instansen 'car'
-        car.Drive();
+
+#### Referens till instansmedlemmar
+
+En instansmedlem kan endast refereras via en instans med hjälp av punktoperatorn. 
+
+```cs
+var car = new Car("Volvo", 350);
+// Referens till instansmedlemmen 'Drive()' för instansen 'car'
+car.Drive(); 
+```
+
+Om kod i kroppen av en instansmedlem refefererar en instansmedlem i samma typ utan punktoperatorn är det underförstått att referensen gäller samma instans som kroppen anropats anropats för, d.v.s. värdet av ``this``. 
+
+```cs
+class Car {
+    // ..
+    private int horsePowers;
+    // ..
+    public void Drive() {
+        // 'horsePower' på nästa kodrad tolkas som 'this.horsePower'
+        if (horsePower < 400)
+            System.Console.WriteLine("Wrooom");
+        else 
+            System.Console.WriteLine("WROOOM");
     }
 }
 ```
 
 ### Static
 
-En medlem med modifieraren ``static`` tillhör klassen istället för klassens instanser. För statiska medlemmar fungerar klassen som ett namespace. I klassens scope och nästade scope till klassen är statiska medlemmar synliga. Från andra scope kan en statisk medlem refereras med punktoperatorn via klassens namn.
-
-#### Exempel
+En medlem med modifieraren ``static`` tillhör klassen istället för klassens instanser. Klassen fungerar som ett namespace för sina statiska medlemmar.
 
 ```cs 
-class Program {
-    class Car {
-        // ..
-        // Medlemsvariabel för klassen
-        private static int carCount; 
+class Car {
+    // ..
+    // Medlemsvariabel för klassen
+    private static int carCount; 
 
-        // Egenskap för klassen
-        public static int CarCount {
-            get => carCount; 
-            private set => carCount = value;
-        }
-
-        // Konstruktor
-        public Car(string model, int horsePowers) {
-            this.model = mode;
-            this.horsePowers = horsePowers;
-            // Nästat scope till klassen 'Car' där egenskapen 'CarCount' är synlig.
-            ++CarCount;         
-        }
-        // ..
+    // Egenskap för klassen
+    public static int CarCount {
+        get => carCount; 
+        private set => carCount = value;
     }
 
+    // Konstruktor
+    public Car(string model, int horsePowers) {
+        this.model = mode;
+        this.horsePowers = horsePowers;
+        // Nästat scope till klassen 'Car' där 'CarCount' är 
+        // definierad, så 'CarCount' är synlig här.
+        ++CarCount;         
+    }
+    // ..
+}
+
+class Program {
     public static void Main(string[] args)
     {
         var volvo = new Car("Volvo", 407);
         var tesla = new Car("Tesla", 600);
-        // Klassen 'Car' är synlig i detta scope men inte egenskapen 'CarCount', 
-        // så  'CarCount' måste refereras via klassnamnet 'Car' med punktnotation.
+        // 'CarCount' är inte synlig i detta scope, men klassen `Car` är 
+        // synlig och 'CarCount' kan refereras med punktnotation.
         var carCount = Car.CarCount; 
     }
+}
 ```
 
 ### Åtkomst
 
-En identifierare kan endast användas i kod där den är *synlig* och *åtkomlig*. Åtkomst för typer och medlemmar bestäms genom modifierarna i tabellen nedan. 
+En identifierare kan användas i kod där den är *synlig* och *åtkomlig*. 
+
+Åtkomst för typer och medlemmar bestäms genom modifierarna i tabellen nedan. 
 
 | Modifierare | Åtkomlig för | Tillämpbar för |
 | --- | --- | --- |  
@@ -756,10 +842,29 @@ En identifierare kan endast användas i kod där den är *synlig* och *åtkomlig
 
 Defaultåtkomst är för typer ``internal`` och för medlemmar ``private``. 
 
+Exempel: 
 
-### Metoder
+```cs
+class Car {
+    private static int carCount = 0; 
+    // ..
+    public static CarCount => carCount;
+    // ..
+    public Car(string model, int horsePowers) {
+        // Både 'carCount' och 'CarCount' är synlig och åtkomlig => användbara
+        // ..
+    }
+    // ..
+}
 
-En metod är en funktion som är definierad som en medlem i en klass eller struktur.  
+class Program {
+    public static void Main(string[] args) {
+        // Varken 'carCount' eller 'CarCount' är synlig
+        // 'Car.carCount' är synlig men inte åtkomlig => ej användbar
+        // 'Car.CarCount' är både synlig och åtkomlig => användbar
+    }
+}
+```
 
 ## Arv 
 
@@ -771,16 +876,44 @@ En klass som inte explicit ärver en annan klass ärver automatiskt klassen ``Sy
 
 ```plantuml
 class Object 
-class Fordon
+{
+    + string ToString()
+}
+abstract Vehicle
+{
+    + int TopSpeed
+    + int MaxPassangerCount
+    # Vehicle(int, int)
+    {abstract} + string MakeSound()
+}
 class Moped
-class Bil
-class Taxi 
-class Ambulans
-Object <|-- Fordon
-Fordon <|-- Moped
-Fordon <|-- Bil
-Bil <|-- Taxi
-Bil <|-- Ambulans
+{
+    Moped()
+    + string MakeSound()
+}
+class Car
+{
+    + string Model
+    + int HorsePowers
+    + Car(string, int, int)
+    + string MakeSound()
+}
+class Taxi
+{
+    + double Rate
+    + Taxi(double, string, int, int)
+}
+class Ambulance
+{
+    + Ambulance(string, int, int)
+    + string MakeSound()
+}
+
+Object <|-- Vehicle
+Vehicle <|-- Moped
+Vehicle <|-- Car
+Car <|-- Taxi
+Car <|-- Ambulance
 
 ```
 
