@@ -713,7 +713,7 @@ slideNumber: true</h2>
         <span class="hljs-keyword">this</span>.postfix = postfix;
     }
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">EmailEndsWith</span>(<span class="hljs-params">Contact contact</span>)</span> =&gt; 
-        contacts.EndsWith(postfix);
+        contact.Email.EndsWith(postfix);
 }
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
     List&lt;Contact&gt; contacts = <span class="hljs-comment">// ..</span>

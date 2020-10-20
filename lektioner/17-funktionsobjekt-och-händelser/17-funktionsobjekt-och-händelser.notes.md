@@ -164,7 +164,7 @@ class ContactFilter {
         this.postfix = postfix;
     }
     public bool EmailEndsWith(Contact contact) => 
-        contacts.EndsWith(postfix);
+        contact.Email.EndsWith(postfix);
 }
 public static void Main(string[] args) {
     List<Contact> contacts = // ..
