@@ -322,25 +322,6 @@ var allButTenFirstNames = byName.Skip(10);
 
 <!-- slide -->
 
-### Skip
-
-Ta alla utom ett visst antal element från början på samlingen.
-
-Signatur:
-
-```cs
-IEnumerable<V> Skip<TSource>(this IEnumerable<V> source, int count)
-```
-
-Exempel:
-
-```cs
-var byName = contacts.OrderBy(c => c.Name);
-var allButTenFirstNames = byName.Skip(10);
-```
-
-<!-- slide -->
-
 ### TakeWhile
 
 Ta element från början så länge ett villkor är uppfyllt.
@@ -381,41 +362,41 @@ var namesAfterA = byName.SkipWhile(c => c.Name.CompareTo("b") < 0);
 
 ### Any
 
-Sant om något eleement i listan är sant. 
+Sant om en funktion returnerar sant för något element i listan är sant. 
 
 Signatur:
 
 ```cs
-bool Any(IEnumerable<bool> source)
+bool Any(IEnumerable<V> source, Func<V, bool>)
 ```
 
 Exempel:
 
 ```cs 
 var someoneHasGmail = 
-    contacts.Select(c => c.Email.EndsWith("@gmail.com")).Any();
+    contacts.Any(c => c.Email.EndsWith("@gmail.com"));
 var someoneIsReallyOld = 
-    contacts.Select(c => c.Age >= 90).Any();
+    contacts.Any(c => c.Age >= 90);
 ```
 <!-- slide -->
 
 ### All
 
-Sant om alla element i listan är sanna. 
+Sant om en funktion retturnerar sant för alla element i listan är sanna. 
 
 Signatur:
 
 ```cs
-bool All(IEnumerable<bool> source)
+bool All(IEnumerable<bool> source, Func<V, bool>)
 ```
 
 Exempel:
 
 ```cs 
 var everyoneIsFromBitaddict = 
-    contacts.Select(c => c.Email.EndsWith("@bitaddict.se")).All();
+    contacts.All(c => c.Email.EndsWith("@bitaddict.se");
 var everyoneIsMiddleAged = 
-    contacts.Select(c => c.Age >= 35 && c.Age < 50).All();
+    contacts.All(c => c.Age >= 35 && c.Age < 50);
 ```
 
 <!-- slide -->

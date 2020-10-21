@@ -823,16 +823,6 @@ colorNames.GetValueOrDefault(Color.Purple, <span class="hljs-string">"Okänd"</s
 <span class="hljs-keyword">var</span> allButTenFirstNames = byName.Skip(<span class="hljs-number">10</span>);
 </div></code></pre>
 <!-- slide -->
-<h3 id="skip-1">Skip</h3>
-<p>Ta alla utom ett visst antal element från början på samlingen.</p>
-<p>Signatur:</p>
-<pre><code class="language-cs"><div>IEnumerable&lt;V&gt; Skip&lt;TSource&gt;(<span class="hljs-keyword">this</span> IEnumerable&lt;V&gt; source, <span class="hljs-keyword">int</span> count)
-</div></code></pre>
-<p>Exempel:</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">var</span> byName = contacts.OrderBy(c =&gt; c.Name);
-<span class="hljs-keyword">var</span> allButTenFirstNames = byName.Skip(<span class="hljs-number">10</span>);
-</div></code></pre>
-<!-- slide -->
 <h3 id="takewhile">TakeWhile</h3>
 <p>Ta element från början så länge ett villkor är uppfyllt.</p>
 <p>Signatur:</p>
@@ -854,27 +844,27 @@ colorNames.GetValueOrDefault(Color.Purple, <span class="hljs-string">"Okänd"</s
 </div></code></pre>
 <!-- slide -->
 <h3 id="any">Any</h3>
-<p>Sant om något eleement i listan är sant.</p>
+<p>Sant om en funktion returnerar sant för något element i listan är sant.</p>
 <p>Signatur:</p>
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Any</span>(<span class="hljs-params">IEnumerable&lt;<span class="hljs-keyword">bool</span>&gt; source</span>)
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Any</span>(<span class="hljs-params">IEnumerable&lt;V&gt; source, Func&lt;V, <span class="hljs-keyword">bool</span>&gt;</span>)
 </span></div></code></pre>
 <p>Exempel:</p>
 <pre><code class="language-cs"><div><span class="hljs-keyword">var</span> someoneHasGmail = 
-    contacts.Select(c =&gt; c.Email.EndsWith(<span class="hljs-string">"@gmail.com"</span>)).Any();
+    contacts.Any(c =&gt; c.Email.EndsWith(<span class="hljs-string">"@gmail.com"</span>));
 <span class="hljs-keyword">var</span> someoneIsReallyOld = 
-    contacts.Select(c =&gt; c.Age &gt;= <span class="hljs-number">90</span>).Any();
+    contacts.Any(c =&gt; c.Age &gt;= <span class="hljs-number">90</span>);
 </div></code></pre>
 <!-- slide -->
 <h3 id="all">All</h3>
-<p>Sant om alla element i listan är sanna.</p>
+<p>Sant om en funktion retturnerar sant för alla element i listan är sanna.</p>
 <p>Signatur:</p>
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">All</span>(<span class="hljs-params">IEnumerable&lt;<span class="hljs-keyword">bool</span>&gt; source</span>)
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">All</span>(<span class="hljs-params">IEnumerable&lt;<span class="hljs-keyword">bool</span>&gt; source, Func&lt;V, <span class="hljs-keyword">bool</span>&gt;</span>)
 </span></div></code></pre>
 <p>Exempel:</p>
 <pre><code class="language-cs"><div><span class="hljs-keyword">var</span> everyoneIsFromBitaddict = 
-    contacts.Select(c =&gt; c.Email.EndsWith(<span class="hljs-string">"@bitaddict.se"</span>)).All();
+    contacts.All(c =&gt; c.Email.EndsWith(<span class="hljs-string">"@bitaddict.se"</span>);
 <span class="hljs-keyword">var</span> everyoneIsMiddleAged = 
-    contacts.Select(c =&gt; c.Age &gt;= <span class="hljs-number">35</span> &amp;&amp; c.Age &lt; <span class="hljs-number">50</span>).All();
+    contacts.All(c =&gt; c.Age &gt;= <span class="hljs-number">35</span> &amp;&amp; c.Age &lt; <span class="hljs-number">50</span>);
 </div></code></pre>
 <!-- slide -->
 <h3 id="reverse">Reverse</h3>
