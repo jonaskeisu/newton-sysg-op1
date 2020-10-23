@@ -851,7 +851,7 @@ Detaljnivån i klassdiagram ska vara hög nog att inkludera:
 
 ---
 
-# Övning
+### Övning
 
 Implementera klasserna `Person`, `Student`, `Professor` och `Address` enligt följande konceptuella UML-diagram:
 - Tolka fritt lämpliga namn, synligheter, typer och signaturer fritt för attributer och metoder.
