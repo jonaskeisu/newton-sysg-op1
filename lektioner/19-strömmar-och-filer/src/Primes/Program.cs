@@ -12,9 +12,9 @@ namespace Primes
         {
             // Skapa bytefält av primtal LINQ
             byte[] primes = 
-                Enumerable.Range(2, 1000).
+                Enumerable.Range(2, 254).
                 Where(n => !Enumerable.Range(2, n - 2).Any(d => n % d == 0)).
-                TakeWhile(n => n < 256).Select(n => (byte)n).ToArray();
+                Select(n => (byte)n).ToArray();
 
             // Spara bytefältet till fil
             Stream stream = File.Open("primes.bin", FileMode.Create);

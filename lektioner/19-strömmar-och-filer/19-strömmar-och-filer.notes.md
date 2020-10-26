@@ -159,7 +159,7 @@ return 00101100 10010011 01100011 ..
 
 ```cs
 Stream stream = File.Open("data.bin", FileMode.Open);
-var data = new byte[] { 0b00101100, 0b10010011 ob01100011, 0b00101100 };
+var data = new byte[] { 0b00101100, 0b10010011, 0b00101100 };
 // Aktuellt värde på stream.Position är 0
 
 // Skriv över byte på position 0 .. 2
@@ -274,9 +274,9 @@ static void GeneratePrimesFile(string fileName)
 {
     // Skapa bytefält av primtal LINQ
     byte[] primes = 
-        Enumerable.Range(2, 1000).
+        Enumerable.Range(2, 254).
         Where(n => !Enumerable.Range(2, n - 2).Any(d => n % d == 0)).
-        TakeWhile(n => n < 256).Select(n => (byte)n).ToArray();
+        Select(n => (byte)n).ToArray();
 
     // Spara bytefältet till fil
     Stream stream = File.Open(fileName, FileMode.Create);
@@ -632,13 +632,13 @@ class Employee
 ```cs
 static void Main(string[] args) {
     const string fileName = "employees.bin";
-    LoadDb(fileName);
+    LoadBinaryFile(fileName);
     if (args.Length > 1)
         switch (args[0])
         {
             case "add":
                 AddEmployee(args[1..]);
-                SaveDb(fileName);
+                SaveBinaryFile(fileName);
                 break;
             case "find":
                 System.Console.WriteLine(employeeDb.Find(
@@ -650,15 +650,15 @@ static void Main(string[] args) {
 <!-- slide -->
 
 ```cs
-static List<Employee> employeeDb = new List<Employee>();
+static List<Employee> employees = new List<Employee>();
 
-static void LoadDb(string fileName)
+static void LoadBinaryFile(string fileName)
 {
     var stream = File.Open(fileName, FileMode.OpenOrCreate);
     IFormatter formatter = new BinaryFormatter();
-    while(stream.Position < stream.Length)
+    while (stream.Position < stream.Length)
     {
-        employeeDb.Add((Employee)formatter.Deserialize(stream));
+        employees.Add((Employee)formatter.Deserialize(stream));
     }
     stream.Close();
 }
@@ -667,11 +667,11 @@ static void LoadDb(string fileName)
 <!-- slide -->
 
 ```cs
-static void SaveDb(string fileName)
+static void SaveBinaryFile(string fileName)
 {
     var stream = File.Open(fileName, FileMode.Create);
     IFormatter formatter = new BinaryFormatter();
-    foreach (Employee employee in employeeDb)
+    foreach (Employee employee in employees)
     {
         formatter.Serialize(stream, employee);
     }

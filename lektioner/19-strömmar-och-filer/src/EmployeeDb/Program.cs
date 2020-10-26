@@ -24,25 +24,25 @@ namespace EmployeeDb
 
     class Program
     {
-        static List<Employee> employeeDb = new List<Employee>();
+        static List<Employee> employees = new List<Employee>();
 
-        static void LoadDb(string fileName)
+        static void LoadBinaryFile(string fileName)
         {
             using (var stream = File.Open(fileName, FileMode.OpenOrCreate))
             {
                 IFormatter formatter = new BinaryFormatter();
                 while (stream.Position < stream.Length)
                 {
-                    employeeDb.Add((Employee)formatter.Deserialize(stream));
+                    employees.Add((Employee)formatter.Deserialize(stream));
                 }
             }
         }
 
-        static void SaveDb(string fileName)
+        static void SaveBinaryFile(string fileName)
         {
             var stream = File.Open(fileName, FileMode.Create);
             IFormatter formatter = new BinaryFormatter();
-            foreach (Employee employee in employeeDb)
+            foreach (Employee employee in employees)
             {
                 formatter.Serialize(stream, employee);
             }
@@ -52,8 +52,8 @@ namespace EmployeeDb
         static void AddEmployee(params string[] data)
         {
             CultureInfo cultureInfo = new CultureInfo("se-SE");
-            int id = employeeDb.Select(e => e.Id).DefaultIfEmpty().Max() + 1;
-            employeeDb.Add(new Employee()
+            int id = employees.Select(e => e.Id).DefaultIfEmpty().Max() + 1;
+            employees.Add(new Employee()
             {
                 Id = id,
                 Name = data[0],
@@ -65,17 +65,17 @@ namespace EmployeeDb
         static void Main(string[] args)
         {
             const string fileName = "employees.bin";
-            LoadDb(fileName);
+            LoadBinaryFile(fileName);
             if (args.Length > 1)
             {
                 switch (args[0])
                 {
                     case "add":
                         AddEmployee(args[1..]);
-                        SaveDb(fileName);
+                        SaveBinaryFile(fileName);
                         break;
                     case "find":
-                        var employee = employeeDb.Find(e => e.Id == int.Parse(args[1]));
+                        var employee = employees.Find(e => e.Id == int.Parse(args[1]));
                         System.Console.WriteLine(employee);
                         break;
                     default:

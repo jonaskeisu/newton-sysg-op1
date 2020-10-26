@@ -682,7 +682,7 @@ stream.Read(data, <span class="hljs-number">0</span>, data.Length)
 <!-- slide -->
 <h3 id="exempel">Exempel</h3>
 <pre><code class="language-cs"><div>Stream stream = File.Open(<span class="hljs-string">"data.bin"</span>, FileMode.Open);
-<span class="hljs-keyword">var</span> data = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[] { <span class="hljs-number">0b00101100</span>, <span class="hljs-number">0b10010011</span> ob01100011, <span class="hljs-number">0b00101100</span> };
+<span class="hljs-keyword">var</span> data = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[] { <span class="hljs-number">0b00101100</span>, <span class="hljs-number">0b10010011</span>, <span class="hljs-number">0b00101100</span> };
 <span class="hljs-comment">// Aktuellt värde på stream.Position är 0</span>
 
 <span class="hljs-comment">// Skriv över byte på position 0 .. 2</span>
@@ -744,9 +744,9 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 {
     <span class="hljs-comment">// Skapa bytefält av primtal LINQ</span>
     <span class="hljs-keyword">byte</span>[] primes = 
-        Enumerable.Range(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>).
+        Enumerable.Range(<span class="hljs-number">2</span>, <span class="hljs-number">254</span>).
         Where(n =&gt; !Enumerable.Range(<span class="hljs-number">2</span>, n - <span class="hljs-number">2</span>).Any(d =&gt; n % d == <span class="hljs-number">0</span>)).
-        TakeWhile(n =&gt; n &lt; <span class="hljs-number">256</span>).Select(n =&gt; (<span class="hljs-keyword">byte</span>)n).ToArray();
+        Select(n =&gt; (<span class="hljs-keyword">byte</span>)n).ToArray();
 
     <span class="hljs-comment">// Spara bytefältet till fil</span>
     Stream stream = File.Open(fileName, FileMode.Create);
@@ -947,13 +947,13 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 <!-- slide -->
 <pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span> {
     <span class="hljs-keyword">const</span> <span class="hljs-keyword">string</span> fileName = <span class="hljs-string">"employees.bin"</span>;
-    LoadDb(fileName);
+    LoadBinaryFile(fileName);
     <span class="hljs-keyword">if</span> (args.Length &gt; <span class="hljs-number">1</span>)
         <span class="hljs-keyword">switch</span> (args[<span class="hljs-number">0</span>])
         {
             <span class="hljs-keyword">case</span> <span class="hljs-string">"add"</span>:
                 AddEmployee(args[<span class="hljs-number">1.</span>.]);
-                SaveDb(fileName);
+                SaveBinaryFile(fileName);
                 <span class="hljs-keyword">break</span>;
             <span class="hljs-keyword">case</span> <span class="hljs-string">"find"</span>:
                 System.Console.WriteLine(employeeDb.Find(
@@ -962,25 +962,25 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
     <span class="hljs-comment">// ..</span>
 </div></code></pre>
 <!-- slide -->
-<pre><code class="language-cs"><div><span class="hljs-keyword">static</span> List&lt;Employee&gt; employeeDb = <span class="hljs-keyword">new</span> List&lt;Employee&gt;();
+<pre><code class="language-cs"><div><span class="hljs-keyword">static</span> List&lt;Employee&gt; employees = <span class="hljs-keyword">new</span> List&lt;Employee&gt;();
 
-<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">LoadDb</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName</span>)</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">LoadBinaryFile</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName</span>)</span>
 {
     <span class="hljs-keyword">var</span> stream = File.Open(fileName, FileMode.OpenOrCreate);
     IFormatter formatter = <span class="hljs-keyword">new</span> BinaryFormatter();
-    <span class="hljs-keyword">while</span>(stream.Position &lt; stream.Length)
+    <span class="hljs-keyword">while</span> (stream.Position &lt; stream.Length)
     {
-        employeeDb.Add((Employee)formatter.Deserialize(stream));
+        employees.Add((Employee)formatter.Deserialize(stream));
     }
     stream.Close();
 }
 </div></code></pre>
 <!-- slide -->
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SaveDb</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName</span>)</span>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SaveBinaryFile</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName</span>)</span>
 {
     <span class="hljs-keyword">var</span> stream = File.Open(fileName, FileMode.Create);
     IFormatter formatter = <span class="hljs-keyword">new</span> BinaryFormatter();
-    <span class="hljs-keyword">foreach</span> (Employee employee <span class="hljs-keyword">in</span> employeeDb)
+    <span class="hljs-keyword">foreach</span> (Employee employee <span class="hljs-keyword">in</span> employees)
     {
         formatter.Serialize(stream, employee);
     }
