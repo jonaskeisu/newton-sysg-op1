@@ -225,7 +225,7 @@ enum FileMode
     CreateNew
     Create
     Open
-    OpenOrCreateexisterar
+    OpenOrCreate
     Truncate
     Append
 }
