@@ -26,17 +26,11 @@ namespace Primes
         {
             int index = position - 1;
             Stream stream = File.Open(fileName, FileMode.Open);
-            if (index < stream.Length)
-            {
-                stream.Seek(index, SeekOrigin.Begin);
-                byte[] prime = new byte[1];
-                stream.Read(prime, 0, 1);
-                stream.Close();
-                return prime[0];
-            }
-            else 
-                throw new IndexOutOfRangeException(
-                    "Index out of file bounds");
+            stream.Seek(index, SeekOrigin.Begin);
+            byte[] prime = new byte[1];
+            stream.Read(prime, 0, 1);
+            stream.Close();
+            return prime[0];
         }
 
         static void Main(string[] args)

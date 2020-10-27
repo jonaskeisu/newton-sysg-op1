@@ -29,16 +29,10 @@ namespace IntPrimes
             int index = position - 1;
             FileStream stream = File.Open(fileName, FileMode.Open);
             BinaryReader reader = new BinaryReader(stream);
-            if (index * sizeof(int) < stream.Length)
-            {
-                stream.Seek(index * sizeof(int), SeekOrigin.Begin);
-                int prime = reader.ReadInt32();
-                stream.Close();
-                return prime;
-            }
-            else 
-                throw new IndexOutOfRangeException(
-                    "Index out of file bounds");
+            stream.Seek(index * sizeof(int), SeekOrigin.Begin);
+            int prime = reader.ReadInt32();
+            stream.Close();
+            return prime;
         }
 
         static void Main(string[] args)

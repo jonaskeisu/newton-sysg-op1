@@ -633,7 +633,7 @@ slideNumber: true</h2>
 <li>Strömmar är en abstraktion för att läsa data från och skriva data till ett medium, utan att behöva veta vad detta medium är</li>
 <li>Ett medium kan vara t.ex.:
 <ul>
-<li>En fil på hårddisken</li>
+<li>En fil i det lokala filssysteet</li>
 <li>Isolerad lagringsplats för applikationen</li>
 <li>En applikation på en annan dator på ett nätverk</li>
 <li>En minnesarea på datorn</li>
@@ -665,7 +665,7 @@ stream.Write(data, <span class="hljs-number">0</span>, data.Length)
 </div></code></pre>
 <center style="margin-top: 1em; zoom: 1.2">
 
-<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/PSn12i9030NGVKwH2pZERAKCU01NBbn7cqLepPGqBNWnB-35d564Wfz0_Y9vj7YXcyjApbWKZjCqoa0kHN6NyUpsUjuF60B656EgsPJOIam8fgMzhsou0G1hBYREmDfZku4lsEWJzx9yw82fINN-RJ3snHH_kvDCwZJYF9YiIdXzEC_TNZAy0G00"></center>
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/IomjoKzCBiaiIon9LSZFut8iACZ9p4uioSpFKz2rKmWkAJgyBTTAGKzFmS3GmC0G290O1Y26WQ425qGPI8DlQafcALY3de8XI1w8C7Lm5QMMb1RbAS1f0000"></center>
 <!-- slide -->
 <h2 id="läsning-från-ström">Läsning från ström</h2>
 <pre><code class="language-cs"><div><span class="hljs-keyword">var</span> data = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1000</span>]; <span class="hljs-comment">// buffer size = 1000</span>
@@ -673,11 +673,11 @@ stream.Read(data, <span class="hljs-number">0</span>, data.Length)
 </div></code></pre>
 <center style="margin-top: 1em; zoom: 1.2">
 
-<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/ZOon3S8m44LxJ_4N8DWjYYmn00rCS90hBEnpv9oZi0ypi40M8uQ6ab-zBpqzgfhffc4cPMGnnt6CuKuQic3dST6olj81VV295f0eHLmVoXD85N5zJjJlWpT5SWlCNF2JCDXsPXeCou2cc6-njKyyX9fCOQr5OAsppbaBrsX3V6w3hljFUWC0"></center>
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/IomjoKzCBiaiIon9LSZFut8iACZ9p4uioSpFKz2rKmWkAJgyBTTAmIRJpkVmacA5fCgIr68R_KmxBeWCI8rlQafcQIvNKMf9QL6UWe61eO6XeO61WY681MGgWBaWXfuUSOe0"></center>
 <!-- slide -->
 <h2 id="automatisk-positionering">Automatisk positionering</h2>
 <ul>
-<li>Anrop till <code>Read</code>/<code>Write</code> uppdaterar automatiskt aktuell position för random access-strömmar.</li>
+<li>Anrop till <code>Read</code>/<code>Write</code> uppdaterar automatiskt aktuell position i strömmen.</li>
 </ul>
 <!-- slide -->
 <h3 id="exempel">Exempel</h3>
@@ -685,17 +685,19 @@ stream.Read(data, <span class="hljs-number">0</span>, data.Length)
 <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[] { <span class="hljs-number">0b00101100</span>, <span class="hljs-number">0b10010011</span>, <span class="hljs-number">0b00101100</span> };
 <span class="hljs-comment">// Aktuellt värde på stream.Position är 0</span>
 
-<span class="hljs-comment">// Skriv över byte på position 0 .. 2</span>
+<span class="hljs-comment">// Skriv över byte på position 0, 1, 2</span>
 stream.Write(data, <span class="hljs-number">0</span>, data.Length);
 <span class="hljs-comment">// Aktuellt värde på stream.Position är 3</span>
 
-<span class="hljs-comment">// Läs byte på position 3 .. 4</span>
+<span class="hljs-comment">// Läs byte på position 3, 4</span>
 stream.Read(data, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>);
 <span class="hljs-comment">// Aktuellt värde på stream.Position är 5</span>
 </div></code></pre>
 <!-- slide -->
 <h2 id="seek">Seek</h2>
-<p>Seek-metoden sätter manuellt aktuell position.</p>
+<ul>
+<li>Seek-metoden sätter manuellt aktuell position i strömmen.</li>
+</ul>
 <!-- slide -->
 <h3 id="exempel-1">Exempel</h3>
 <pre><code class="language-cs"><div><span class="hljs-comment">// 4 byte före slutet på strömmen</span>
@@ -755,21 +757,16 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 }
 </div></code></pre>
 <!-- slide -->
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> <span class="hljs-title">LookupPrimeInFile</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName, <span class="hljs-keyword">int</span> position</span>)</span> {
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> <span class="hljs-title">LookupPrimeInFile</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName, <span class="hljs-keyword">int</span> position</span>)</span>
+{
     <span class="hljs-keyword">int</span> index = position - <span class="hljs-number">1</span>;
     Stream stream = File.Open(fileName, FileMode.Open);
-    <span class="hljs-keyword">if</span> (index &lt; stream.Length)
-    {
-        stream.Seek(index, SeekOrigin.Begin);
-        <span class="hljs-keyword">byte</span>[] prime = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1</span>];
-        stream.Read(prime, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
-        stream.Close();
-        <span class="hljs-keyword">return</span> prime[<span class="hljs-number">0</span>];
-    }
-    <span class="hljs-keyword">else</span> 
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IndexOutOfRangeException(
-            <span class="hljs-string">"Index out of file bounds"</span>);
-}   
+    stream.Seek(index, SeekOrigin.Begin);
+    <span class="hljs-keyword">byte</span>[] prime = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1</span>];
+    stream.Read(prime, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+    stream.Close();
+    <span class="hljs-keyword">return</span> prime[<span class="hljs-number">0</span>];
+}}   
 </div></code></pre>
 <!-- slide -->
 <h2 id="binaryreader-och-binarywriter">BinaryReader och BinaryWriter</h2>
@@ -811,20 +808,15 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 }
 </div></code></pre>
 <!-- slide -->
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">LookupPrimeInFile</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName, <span class="hljs-keyword">int</span> position</span>)</span> {
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">LookupPrimeInFile</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName, <span class="hljs-keyword">int</span> position</span>)</span>
+{
     <span class="hljs-keyword">int</span> index = position - <span class="hljs-number">1</span>;
     FileStream stream = File.Open(fileName, FileMode.Open);
     BinaryReader reader = <span class="hljs-keyword">new</span> BinaryReader(stream);
-    <span class="hljs-keyword">if</span> (index * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>) &lt; stream.Length)
-    {
-        stream.Seek(index * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>), SeekOrigin.Begin);
-        <span class="hljs-keyword">int</span> prime = reader.ReadInt32();
-        stream.Close();
-        <span class="hljs-keyword">return</span> prime;
-    }
-    <span class="hljs-keyword">else</span> 
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IndexOutOfRangeException(
-            <span class="hljs-string">"Index out of file bounds"</span>);
+    stream.Seek(index * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>), SeekOrigin.Begin);
+    <span class="hljs-keyword">int</span> prime = reader.ReadInt32();
+    stream.Close();
+    <span class="hljs-keyword">return</span> prime;
 }
 </div></code></pre>
 <!-- slide -->
@@ -875,25 +867,28 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 {
     <span class="hljs-keyword">var</span> stream = File.Open(fileName, FileMode.OpenOrCreate);
     TextReader reader = <span class="hljs-keyword">new</span> StreamReader(stream);
-    <span class="hljs-keyword">while</span>(stream.Position &lt; stream.Length)
+    <span class="hljs-keyword">string</span> line; 
+    <span class="hljs-keyword">while</span>((line = reader.ReadLine()) != <span class="hljs-literal">null</span>)
     {
-        employees.Add(Deserialize(reader));
+        employees.Add(Deserialize(line));
     }
     reader.Close();
 }
 </div></code></pre>
 <!-- slide -->
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> Employee <span class="hljs-title">Deserialize</span>(<span class="hljs-params">TextReader reader</span>)</span>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> Employee <span class="hljs-title">Deserialize</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> line</span>)</span>
 {
+    <span class="hljs-comment">// Tolka rad på formatet: &lt;id&gt; "&lt;namn&gt;" &lt;email&gt; &lt;birthday&gt;"</span>
+    Regex re = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"(\d+) ""([^""]+)"" (\S+) (\S+)"</span>); 
     CultureInfo cultureInfo = <span class="hljs-keyword">new</span> CultureInfo(<span class="hljs-string">"se-SE"</span>);
-    <span class="hljs-keyword">var</span> parts = reader.ReadLine().Split(<span class="hljs-string">'"'</span>);
-    Employee employee = <span class="hljs-keyword">new</span> Employee();
-    employee.Id = <span class="hljs-keyword">int</span>.Parse(parts[<span class="hljs-number">0</span>].Trim());
-    employee.Name = parts[<span class="hljs-number">1</span>];
-    <span class="hljs-keyword">var</span> subparts = parts[<span class="hljs-number">2</span>].Trim().Split(<span class="hljs-string">' '</span>);
-    employee.Email = subparts[<span class="hljs-number">0</span>];
-    employee.Birthday = DateTime.Parse(subparts[<span class="hljs-number">1</span>], cultureInfo);
-    <span class="hljs-keyword">return</span> employee;
+    Match match = re.Match(line);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Employee()
+    {
+        Id = <span class="hljs-keyword">int</span>.Parse(match.Groups[<span class="hljs-number">1</span>].Value),
+        Name = match.Groups[<span class="hljs-number">2</span>].Value,
+        Email = match.Groups[<span class="hljs-number">3</span>].Value,
+        Birthday = DateTime.Parse(match.Groups[<span class="hljs-number">4</span>].Value, cultureInfo)
+    };
 }
 </div></code></pre>
 <!-- slide -->
@@ -903,22 +898,26 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
     TextWriter writer = <span class="hljs-keyword">new</span> StreamWriter(stream);
     <span class="hljs-keyword">foreach</span> (Employee employee <span class="hljs-keyword">in</span> employees)
     {
-        Serialize(writer, employee);
+        writer.WriteLine(Serialize(employee));
     }
     writer.Close();
 }
 </div></code></pre>
 <!-- slide -->
-<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Serialize</span>(<span class="hljs-params">TextWriter writer, Employee employee</span>)</span>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> <span class="hljs-title">Serialize</span>(<span class="hljs-params">Employee employee</span>)</span>
 {
-    writer.WriteLine(String.Join(<span class="hljs-string">" "</span>,
-        employee.Id,
-        <span class="hljs-string">"\""</span> + employee.Name + <span class="hljs-string">"\""</span>,
-        employee.Email, 
-        employee.Birthday.ToString(<span class="hljs-string">"yyyy-MM-dd"</span>)
-    ));
+    <span class="hljs-comment">// Skapa rad på formatet: &lt;id&gt; "&lt;namn&gt;" &lt;email&gt; &lt;birthday&gt;"</span>
+    <span class="hljs-keyword">return</span> 
+        <span class="hljs-string">$"<span class="hljs-subst">{employee.Id}</span> \"<span class="hljs-subst">{employee.Name}</span>\" <span class="hljs-subst">{employee.Email}</span> "</span> 
+        + <span class="hljs-string">$"<span class="hljs-subst">{employee.Birthday:yyyy-MM-dd}</span>"</span>;
 }
 </div></code></pre>
+<!-- slide -->
+<h2 id="serialsering">Serialsering</h2>
+<ul>
+<li>Processen att göra om ett objekt till en bytesekvens kallas <em>serialisering</em></li>
+<li>Processen att göra om en bytesekvens till ett objekt kallas <em>deserialisering</em></li>
+</ul>
 <!-- slide -->
 <h2 id="automatisk-serialisering">Automatisk serialisering</h2>
 <ul>
@@ -1006,10 +1005,11 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 {
     <span class="hljs-keyword">var</span> stream = File.Open(fileName, FileMode.OpenOrCreate);
     TextReader reader = <span class="hljs-keyword">new</span> StreamReader(stream);
-    <span class="hljs-keyword">while</span>(stream.Position &lt; stream.Length)
+    <span class="hljs-keyword">string</span> line; 
+    <span class="hljs-keyword">while</span>((line = reader.ReadLine()) != <span class="hljs-literal">null</span>)
     {
         <span class="hljs-comment">// OOPS! Raden nedan kan kasta exception!</span>
-        employees.Add(Deserialize(reader));
+        employees.Add(Deserialize(line));
     }
     <span class="hljs-comment">// .. och isf anropas aldrig reader.Close()</span>
     reader.Close();
@@ -1020,12 +1020,17 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 <ul>
 <li>Ett <code>using</code>-block säkerställer att metoden <code>Dispose()</code> anropas automatiskt för ett objekt innan programflödet lämnar blocket</li>
 </ul>
-<pre><code class="language-cs"><div><span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> obj = ... )
+<pre><code class="language-cs"><div><span class="hljs-keyword">using</span> (&lt;typ&gt; obj1 = ... )
+<span class="hljs-keyword">using</span> (&lt;typ&gt; obj2 = ... )
+...
 {
-    <span class="hljs-comment">// Kod som använder obj ..</span>
-    <span class="hljs-comment">// Innan blocket lämnas anropas alltid automatiskt obj.Dispose()</span>
+    <span class="hljs-comment">// Kod som använder obj1 och obj2 ..</span>
+    <span class="hljs-comment">// Innan blocket lämnas anropas alltid automatiskt först </span>
+    <span class="hljs-comment">// obj2.Dispose(), sedan obj1.Dispose()</span>
 }
 </div></code></pre>
+<!-- slide -->
+<h2 id="strömmar-och-dispose">Strömmar och <code>Dispose()</code></h2>
 <ul>
 <li>För en ström anropar metoden <code>Dispose()</code> i sin tur <code>Close()</code></li>
 </ul>
@@ -1034,13 +1039,13 @@ stream.Seek(<span class="hljs-number">8</span>, SeekOrigin.Current);
 <pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">LoadTextFile</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> fileName</span>)</span>
 {
     <span class="hljs-keyword">using</span>(<span class="hljs-keyword">var</span> stream = File.Open(fileName, FileMode.OpenOrCreate)) 
+    <span class="hljs-keyword">using</span>(<span class="hljs-keyword">var</span> reader = <span class="hljs-keyword">new</span> StreamReader(stream))
     {
-        TextReader reader = <span class="hljs-keyword">new</span> StreamReader(stream);
-        <span class="hljs-keyword">while</span>(stream.Position &lt; stream.Length)
-        {
-            employees.Add(Deserialize(reader));
-        }
-        <span class="hljs-comment">// Innan blocket lämnas anropas alltid automatiskt reader.Close()</span>
+        <span class="hljs-keyword">string</span> line; 
+        <span class="hljs-keyword">while</span>((line = reader.ReadLine()) != <span class="hljs-literal">null</span>)
+            employees.Add(Deserialize(line));
+        <span class="hljs-comment">// Innan blocket lämnas anropas alltid automatiskt först </span>
+        <span class="hljs-comment">// reader.Close() och sedan stream.Close()</span>
     }
 }
 </div></code></pre>

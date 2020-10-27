@@ -51,7 +51,7 @@ presentation:
 
 - Strömmar är en abstraktion för att läsa data från och skriva data till ett medium, utan att behöva veta vad detta medium är
 - Ett medium kan vara t.ex.:
-  - En fil på hårddisken
+  - En fil i det lokala filssysteet
   - Isolerad lagringsplats för applikationen 
   - En applikation på en annan dator på ett nätverk
   - En minnesarea på datorn
@@ -113,12 +113,9 @@ stream.Write(data, 0, data.Length)
 ```plantuml
 autoactivate on
 Applikation -> Ström: .. 01001111 01001111 00001101 
-rnote over Applikation
-    Write
-end note
 Ström -> Medium: ... 10001001 01001111 00001101
 return 
-return <i>antal skrivna bytes</i>
+return 
 ```
 
 </center>
@@ -136,10 +133,7 @@ stream.Read(data, 0, data.Length)
 
 ```plantuml
 autoactivate on
-Applikation -> Ström: <i>max antal bytes att läsa</i>
-rnote over Applikation
-    Read
-end note
+Applikation -> Ström: <i>Läs bytes</i>
 Ström -> Medium
 return 00101100 10010011 01100011 ..
 return 00101100 10010011 01100011 ..
@@ -151,7 +145,7 @@ return 00101100 10010011 01100011 ..
 
 ## Automatisk positionering 
 
-- Anrop till ``Read``/``Write`` uppdaterar automatiskt aktuell position för random access-strömmar.
+- Anrop till ``Read``/``Write`` uppdaterar automatiskt aktuell position i strömmen.
 
 <!-- slide -->
 
@@ -162,11 +156,11 @@ Stream stream = File.Open("data.bin", FileMode.Open);
 var data = new byte[] { 0b00101100, 0b10010011, 0b00101100 };
 // Aktuellt värde på stream.Position är 0
 
-// Skriv över byte på position 0 .. 2
+// Skriv över byte på position 0, 1, 2
 stream.Write(data, 0, data.Length);
 // Aktuellt värde på stream.Position är 3
 
-// Läs byte på position 3 .. 4
+// Läs byte på position 3, 4
 stream.Read(data, 0, 2);
 // Aktuellt värde på stream.Position är 5
 ```
@@ -175,7 +169,7 @@ stream.Read(data, 0, 2);
 
 ## Seek
 
-Seek-metoden sätter manuellt aktuell position.
+- Seek-metoden sätter manuellt aktuell position i strömmen.
 
 <!-- slide -->
 
@@ -288,21 +282,16 @@ static void GeneratePrimesFile(string fileName)
 <!-- slide -->
 
 ```cs
-static byte LookupPrimeInFile(string fileName, int position) {
+static byte LookupPrimeInFile(string fileName, int position)
+{
     int index = position - 1;
     Stream stream = File.Open(fileName, FileMode.Open);
-    if (index < stream.Length)
-    {
-        stream.Seek(index, SeekOrigin.Begin);
-        byte[] prime = new byte[1];
-        stream.Read(prime, 0, 1);
-        stream.Close();
-        return prime[0];
-    }
-    else 
-        throw new IndexOutOfRangeException(
-            "Index out of file bounds");
-}   
+    stream.Seek(index, SeekOrigin.Begin);
+    byte[] prime = new byte[1];
+    stream.Read(prime, 0, 1);
+    stream.Close();
+    return prime[0];
+}}   
 ```
 
 <!-- slide -->
@@ -398,20 +387,15 @@ static void GeneratePrimesFile(string fileName)
 <!-- slide -->
 
 ```cs
-static int LookupPrimeInFile(string fileName, int position) {
+static int LookupPrimeInFile(string fileName, int position)
+{
     int index = position - 1;
     FileStream stream = File.Open(fileName, FileMode.Open);
     BinaryReader reader = new BinaryReader(stream);
-    if (index * sizeof(int) < stream.Length)
-    {
-        stream.Seek(index * sizeof(int), SeekOrigin.Begin);
-        int prime = reader.ReadInt32();
-        stream.Close();
-        return prime;
-    }
-    else 
-        throw new IndexOutOfRangeException(
-            "Index out of file bounds");
+    stream.Seek(index * sizeof(int), SeekOrigin.Begin);
+    int prime = reader.ReadInt32();
+    stream.Close();
+    return prime;
 }
 ```
 
@@ -528,9 +512,10 @@ static void LoadTextFile(string fileName)
 {
     var stream = File.Open(fileName, FileMode.OpenOrCreate);
     TextReader reader = new StreamReader(stream);
-    while(stream.Position < stream.Length)
+    string line; 
+    while((line = reader.ReadLine()) != null)
     {
-        employees.Add(Deserialize(reader));
+        employees.Add(Deserialize(line));
     }
     reader.Close();
 }
@@ -539,17 +524,19 @@ static void LoadTextFile(string fileName)
 <!-- slide -->
 
 ```cs
-static Employee Deserialize(TextReader reader)
+static Employee Deserialize(string line)
 {
+    // Tolka rad på formatet: <id> "<namn>" <email> <birthday>"
+    Regex re = new Regex(@"(\d+) ""([^""]+)"" (\S+) (\S+)"); 
     CultureInfo cultureInfo = new CultureInfo("se-SE");
-    var parts = reader.ReadLine().Split('"');
-    Employee employee = new Employee();
-    employee.Id = int.Parse(parts[0].Trim());
-    employee.Name = parts[1];
-    var subparts = parts[2].Trim().Split(' ');
-    employee.Email = subparts[0];
-    employee.Birthday = DateTime.Parse(subparts[1], cultureInfo);
-    return employee;
+    Match match = re.Match(line);
+    return new Employee()
+    {
+        Id = int.Parse(match.Groups[1].Value),
+        Name = match.Groups[2].Value,
+        Email = match.Groups[3].Value,
+        Birthday = DateTime.Parse(match.Groups[4].Value, cultureInfo)
+    };
 }
 ```
 
@@ -562,7 +549,7 @@ static void SaveTextFile(string fileName)
     TextWriter writer = new StreamWriter(stream);
     foreach (Employee employee in employees)
     {
-        Serialize(writer, employee);
+        writer.WriteLine(Serialize(employee));
     }
     writer.Close();
 }
@@ -571,16 +558,21 @@ static void SaveTextFile(string fileName)
 <!-- slide -->
 
 ```cs
-static void Serialize(TextWriter writer, Employee employee)
+static string Serialize(Employee employee)
 {
-    writer.WriteLine(String.Join(" ",
-        employee.Id,
-        "\"" + employee.Name + "\"",
-        employee.Email, 
-        employee.Birthday.ToString("yyyy-MM-dd")
-    ));
+    // Skapa rad på formatet: <id> "<namn>" <email> <birthday>"
+    return 
+        $"{employee.Id} \"{employee.Name}\" {employee.Email} " 
+        + $"{employee.Birthday:yyyy-MM-dd}";
 }
 ```
+
+<!-- slide -->
+
+## Serialsering
+
+- Processen att göra om ett objekt till en bytesekvens kallas *serialisering*
+- Processen att göra om en bytesekvens till ett objekt kallas *deserialisering*
 
 <!-- slide -->
 
@@ -703,10 +695,11 @@ static void LoadTextFile(string fileName)
 {
     var stream = File.Open(fileName, FileMode.OpenOrCreate);
     TextReader reader = new StreamReader(stream);
-    while(stream.Position < stream.Length)
+    string line; 
+    while((line = reader.ReadLine()) != null)
     {
         // OOPS! Raden nedan kan kasta exception!
-        employees.Add(Deserialize(reader));
+        employees.Add(Deserialize(line));
     }
     // .. och isf anropas aldrig reader.Close()
     reader.Close();
@@ -720,12 +713,19 @@ static void LoadTextFile(string fileName)
 - Ett ``using``-block säkerställer att metoden ``Dispose()`` anropas automatiskt för ett objekt innan programflödet lämnar blocket
 
 ```cs
-using (var obj = ... )
+using (<typ> obj1 = ... )
+using (<typ> obj2 = ... )
+...
 {
-    // Kod som använder obj ..
-    // Innan blocket lämnas anropas alltid automatiskt obj.Dispose()
+    // Kod som använder obj1 och obj2 ..
+    // Innan blocket lämnas anropas alltid automatiskt först 
+    // obj2.Dispose(), sedan obj1.Dispose()
 }
 ```
+
+<!-- slide -->
+
+## Strömmar och ``Dispose()`` 
 
 - För en ström anropar metoden ``Dispose()`` i sin tur ``Close()``
 
@@ -737,13 +737,13 @@ using (var obj = ... )
 static void LoadTextFile(string fileName)
 {
     using(var stream = File.Open(fileName, FileMode.OpenOrCreate)) 
+    using(var reader = new StreamReader(stream))
     {
-        TextReader reader = new StreamReader(stream);
-        while(stream.Position < stream.Length)
-        {
-            employees.Add(Deserialize(reader));
-        }
-        // Innan blocket lämnas anropas alltid automatiskt reader.Close()
+        string line; 
+        while((line = reader.ReadLine()) != null)
+            employees.Add(Deserialize(line));
+        // Innan blocket lämnas anropas alltid automatiskt först 
+        // reader.Close() och sedan stream.Close()
     }
 }
 ```

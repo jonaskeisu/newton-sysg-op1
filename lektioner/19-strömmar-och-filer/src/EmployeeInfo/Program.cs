@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.RegularExpressions;
 
 namespace EmployeeInfo
 {
@@ -17,7 +18,7 @@ namespace EmployeeInfo
 
         public override string ToString()
         {
-            return $"{Name} <{Email}> {Birthday.ToString("yyyy-MM-dd")}";
+            return $"{Name} <{Email}> {Birthday:yyyy-MM-dd}";
         }
     }
 
@@ -25,36 +26,37 @@ namespace EmployeeInfo
     {
         static List<Employee> employees = new List<Employee>();
 
-        static void Serialize(TextWriter writer, Employee employee)
+        static string Serialize(Employee employee)
         {
-            writer.WriteLine(String.Join(" ",
-                employee.Id,
-                "\"" + employee.Name + "\"",
-                employee.Email, 
-                employee.Birthday.ToString("yyyy-MM-dd")
-            ));
+            // Skapa rad på formatet: <id> "<namn>" <email> <birthday>"
+            return 
+                $"{employee.Id} \"{employee.Name}\" {employee.Email} " 
+                + $"{employee.Birthday:yyyy-MM-dd}";
         }
 
-        static Employee Deserialize(TextReader reader)
+        static Employee Deserialize(string line)
         {
+            // Tolka rad på formatet: <id> "<namn>" <email> <birthday>"
+            Regex re = new Regex(@"(\d+) ""([^""]+)"" (\S+) (\S+)"); 
             CultureInfo cultureInfo = new CultureInfo("se-SE");
-            var parts = reader.ReadLine().Split('"');
-            Employee employee = new Employee();
-            employee.Id = int.Parse(parts[0].Trim());
-            employee.Name = parts[1];
-            var subparts = parts[2].Trim().Split(' ');
-            employee.Email = subparts[0];
-            employee.Birthday = DateTime.Parse(subparts[1], cultureInfo);
-            return employee;
+            Match match = re.Match(line);
+            return new Employee()
+            {
+                Id = int.Parse(match.Groups[1].Value),
+                Name = match.Groups[2].Value,
+                Email = match.Groups[3].Value,
+                Birthday = DateTime.Parse(match.Groups[4].Value, cultureInfo)
+            };
         }
 
         static void LoadTextFile(string fileName)
         {
             var stream = File.Open(fileName, FileMode.OpenOrCreate);
             TextReader reader = new StreamReader(stream);
-            while(stream.Position < stream.Length)
+            string line; 
+            while((line = reader.ReadLine()) != null)
             {
-                employees.Add(Deserialize(reader));
+                employees.Add(Deserialize(line));
             }
             reader.Close();
         }
@@ -65,7 +67,7 @@ namespace EmployeeInfo
             TextWriter writer = new StreamWriter(stream);
             foreach (Employee employee in employees)
             {
-                Serialize(writer, employee);
+                writer.WriteLine(Serialize(employee));
             }
             writer.Close();
         }
