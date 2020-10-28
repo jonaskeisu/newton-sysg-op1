@@ -15,7 +15,7 @@ namespace IntPrimes
                 Where(n => !Enumerable.Range(2, n - 2).Any(d => n % d == 0));
 
             // Spara talen till fil
-            FileStream stream = File.Open("primes.bin", FileMode.Create);
+            FileStream stream = File.Open(fileName, FileMode.Create);
             BinaryWriter writer = new BinaryWriter(stream);
             foreach (int prime in primes)
             {

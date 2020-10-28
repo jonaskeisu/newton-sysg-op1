@@ -34,7 +34,7 @@ presentation:
     zoom: 110%;
   }
   div.slides{
-    border: 1px solid black;
+    # border: 1px solid black;
   }
   .reveal code {
     zoom: 90%;
@@ -291,7 +291,7 @@ static byte LookupPrimeInFile(string fileName, int position)
     stream.Read(prime, 0, 1);
     stream.Close();
     return prime[0];
-}}   
+}  
 ```
 
 <!-- slide -->
@@ -374,7 +374,7 @@ static void GeneratePrimesFile(string fileName)
         Enumerable.Range(2, 1000).
         Where(n => !Enumerable.Range(2, n - 2).Any(d => n % d == 0));
     // Spara talen till fil
-    FileStream stream = File.Open("primes.bin", FileMode.Create);
+    FileStream stream = File.Open(fileName, FileMode.Create);
     BinaryWriter writer = new BinaryWriter(stream);
     foreach (int prime in primes)
     {
