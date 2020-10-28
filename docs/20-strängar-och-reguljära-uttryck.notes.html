@@ -862,7 +862,7 @@ grouping.IsMatch(<span class="hljs-string">"abc ab"</span>); <span class="hljs-c
 <!-- slide -->
 <h2 id="referens-till-gruppmatching">Referens till gruppmatching</h2>
 <p>Mönstret <code>\k</code> matchar samma sträng som matchad av grupp nummer <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>:</p>
-<pre><code class="language-cs"><div>Regex groupMatchReference = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"^(a.c).*\1*$"</span>);
+<pre><code class="language-cs"><div>Regex groupMatchReference = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"^(a.c).*\1$"</span>);
 
 groupMatchReference.IsMatch(<span class="hljs-string">"abc def abc"</span>); <span class="hljs-comment">// true</span>
 groupMatchReference.IsMatch(<span class="hljs-string">"a ca c"</span>); <span class="hljs-comment">// true</span>
@@ -890,7 +890,7 @@ Regex notDigitCharacter = <span class="hljs-keyword">new</span> Regex(<span clas
 <!-- slide -->
 <h3 id="hämta-ut-text-matchande-specifika-grupper">Hämta ut text matchande specifika grupper</h3>
 <p>Ur en matchning av ett reguljärt uttryck kan texten matchande specifika grupper hämtas ut via gruppens index:</p>
-<pre><code class="language-cs"><div>Regex validLine = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"^(\d+) ""(\w+)"" (\d{4}-\d{2}-\d{2})$"</span>);
+<pre><code class="language-cs"><div>Regex validLine = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"^(\d+) ""([a-zA-Z ]+)"" (\d{4}-\d{2}-\d{2})$"</span>);
 <span class="hljs-keyword">var</span> line = <span class="hljs-string">"123 \"Jonas Keisu\" 1978-05-17"</span>;
 <span class="hljs-keyword">if</span> (validLine.IsMatch(line))
 {
@@ -917,7 +917,7 @@ re.IsMatch(<span class="hljs-string">"Hello!"</span>); <span class="hljs-comment
 <li>Följande kod byter ord inom citattecken till ord inom apostrofer:</li>
 </ul>
 <pre><code class="language-cs"><div><span class="hljs-keyword">var</span> line2 = <span class="hljs-string">"\"To be or not to be\", William Shakespear"</span>;
-<span class="hljs-keyword">var</span> newLine = Regex.Replace(line2, <span class="hljs-string">@"""([^""])*)"""</span>, <span class="hljs-string">@"'$1'"</span>);
+<span class="hljs-keyword">var</span> newLine = Regex.Replace(line2, <span class="hljs-string">@"""([^""]*)"""</span>, <span class="hljs-string">@"'$1'"</span>);
 <span class="hljs-comment">// "'To be or not to be', William Shakespear"</span>
 </div></code></pre>
 <p><em>OBS: I råa strängar (med prefix <code>@</code>) är escapesekvensen för tecknet <code>&quot;</code> två citattecken (<code>&quot;&quot;</code>) och inte <code>\&quot;</code>.</em></p>

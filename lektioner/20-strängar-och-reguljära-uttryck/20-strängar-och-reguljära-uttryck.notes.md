@@ -396,7 +396,7 @@ grouping.IsMatch("abc ab"); // false
 Mönstret ``\k`` matchar samma sträng som matchad av grupp nummer $k$: 
 
 ```cs
-Regex groupMatchReference = new Regex(@"^(a.c).*\1*$");
+Regex groupMatchReference = new Regex(@"^(a.c).*\1$");
 
 groupMatchReference.IsMatch("abc def abc"); // true
 groupMatchReference.IsMatch("a ca c"); // true
@@ -437,7 +437,7 @@ Regex notDigitCharacter = new Regex(@"\D");
 Ur en matchning av ett reguljärt uttryck kan texten matchande specifika grupper hämtas ut via gruppens index:
 
 ```cs
-Regex validLine = new Regex(@"^(\d+) ""(\w+)"" (\d{4}-\d{2}-\d{2})$");
+Regex validLine = new Regex(@"^(\d+) ""([a-zA-Z ]+)"" (\d{4}-\d{2}-\d{2})$");
 var line = "123 \"Jonas Keisu\" 1978-05-17";
 if (validLine.IsMatch(line))
 {
@@ -471,7 +471,7 @@ re.IsMatch("Hello!"); // true, men mönstret matchar bara "Hello"
 - Följande kod byter ord inom citattecken till ord inom apostrofer: 
 ```cs
 var line2 = "\"To be or not to be\", William Shakespear";
-var newLine = Regex.Replace(line2, @"""([^""])*)""", @"'$1'");
+var newLine = Regex.Replace(line2, @"""([^""]*)""", @"'$1'");
 // "'To be or not to be', William Shakespear"
 ```
 *OBS: I råa strängar (med prefix ``@``) är escapesekvensen för tecknet ``"`` två citattecken (``""``) och inte ``\"``.*
