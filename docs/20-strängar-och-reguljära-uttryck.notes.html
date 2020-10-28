@@ -707,9 +707,9 @@ str.Substring(<span class="hljs-number">28</span>, <span class="hljs-number">9</
 <!-- slide -->
 <h3 id="replace"><code>Replace(..)</code></h3>
 <p>Byt ut alla förekomster av en delsträng till något annat:</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">string</span> str7 = <span class="hljs-string">"Life is full of problems."</span>;
+<pre><code class="language-cs"><div><span class="hljs-keyword">string</span> str = <span class="hljs-string">"Life is full of problems."</span>;
 
-str7.Replace(<span class="hljs-string">"problems"</span>, <span class="hljs-string">"opportunities"</span>); 
+str.Replace(<span class="hljs-string">"problems"</span>, <span class="hljs-string">"opportunities"</span>); 
 <span class="hljs-comment">// "Life is full of opportunities."</span>
 </div></code></pre>
 <!-- slide -->
@@ -779,59 +779,59 @@ re.IsMatch(<span class="hljs-string">"lätt som abc!"</span>); <span class="hljs
 <!-- slide -->
 <h3 id="valfritt-mönster">Valfritt mönster</h3>
 <p>Ett mönster följt av <code>?</code> kan förekomma noll eller en gång:</p>
-<pre><code class="language-cs"><div>Regex zeroOrOneTime = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"a?b"</span>);
+<pre><code class="language-cs"><div>Regex zeroOrOneTime = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@" a? b"</span>);
 
-zeroOrOneTime.IsMatch(<span class="hljs-string">"b"</span>); <span class="hljs-comment">// true</span>
-zeroOrOneTime.IsMatch(<span class="hljs-string">"ab"</span>); <span class="hljs-comment">// true</span>
-zeroOrOneTime.IsMatch(<span class="hljs-string">"aab"</span>); <span class="hljs-comment">// false</span>
-zeroOrOneTime.IsMatch(<span class="hljs-string">"aaab"</span>); <span class="hljs-comment">// false</span>
+zeroOrOneTime.IsMatch(<span class="hljs-string">"  b"</span>); <span class="hljs-comment">// true</span>
+zeroOrOneTime.IsMatch(<span class="hljs-string">" a b"</span>); <span class="hljs-comment">// true</span>
+zeroOrOneTime.IsMatch(<span class="hljs-string">" aa b"</span>); <span class="hljs-comment">// false</span>
+zeroOrOneTime.IsMatch(<span class="hljs-string">" aaa b"</span>); <span class="hljs-comment">// false</span>
 </div></code></pre>
 <!-- slide -->
 <h3 id="upprepade-mönster">Upprepade mönster</h3>
 <p>Ett mönster följt av <code>*</code> kan förekomma noll eller fler gånger:</p>
-<pre><code class="language-cs"><div>Regex zeroOrManyTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"a*b"</span>);
+<pre><code class="language-cs"><div>Regex zeroOrManyTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@" a* b"</span>);
 
-zeroOrManyTimes.IsMatch(<span class="hljs-string">"b"</span>); <span class="hljs-comment">// true</span>
-zeroOrManyTimes.IsMatch(<span class="hljs-string">"ab"</span>); <span class="hljs-comment">// true</span>
-zeroOrManyTimes.IsMatch(<span class="hljs-string">"aab"</span>); <span class="hljs-comment">// true</span>
-zeroOrManyTimes.IsMatch(<span class="hljs-string">"aaab"</span>); <span class="hljs-comment">// true</span>
+zeroOrManyTimes.IsMatch(<span class="hljs-string">"  b"</span>); <span class="hljs-comment">// true</span>
+zeroOrManyTimes.IsMatch(<span class="hljs-string">" a b"</span>); <span class="hljs-comment">// true</span>
+zeroOrManyTimes.IsMatch(<span class="hljs-string">" aa b"</span>); <span class="hljs-comment">// true</span>
+zeroOrManyTimes.IsMatch(<span class="hljs-string">" aaa b"</span>); <span class="hljs-comment">// true</span>
 </div></code></pre>
 <!-- slide -->
 <p>Ett mönster följt av <code>+</code> kan förekomma en eller fler gånger:</p>
-<pre><code class="language-cs"><div>Regex oneOrManyTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"a+b"</span>);
+<pre><code class="language-cs"><div>Regex oneOrManyTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@" a+ b"</span>);
 
-oneOrManyTimes.IsMatch(<span class="hljs-string">"b"</span>); <span class="hljs-comment">// false</span>
-oneOrManyTimes.IsMatch(<span class="hljs-string">"ab"</span>); <span class="hljs-comment">// true</span>
-oneOrManyTimes.IsMatch(<span class="hljs-string">"aab"</span>); <span class="hljs-comment">// true</span>
-oneOrManyTimess.IsMatch(<span class="hljs-string">"aaab"</span>); <span class="hljs-comment">// true</span>
+oneOrManyTimes.IsMatch(<span class="hljs-string">"  b"</span>); <span class="hljs-comment">// false</span>
+oneOrManyTimes.IsMatch(<span class="hljs-string">" a b"</span>); <span class="hljs-comment">// true</span>
+oneOrManyTimes.IsMatch(<span class="hljs-string">" aa b"</span>); <span class="hljs-comment">// true</span>
+oneOrManyTimess.IsMatch(<span class="hljs-string">" aaa b"</span>); <span class="hljs-comment">// true</span>
 </div></code></pre>
 <!-- slide -->
 <p>Ett mönster följt av <code>{j}</code> måste förekomma exakt <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> gånger:</p>
-<pre><code class="language-cs"><div>Regex exactNumberOfTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"a{2}b"</span>);
+<pre><code class="language-cs"><div>Regex exactNumberOfTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@" a{2} b"</span>);
 
-exactNumberOfTimes.IsMatch(<span class="hljs-string">"b"</span>); <span class="hljs-comment">// false</span>
-exactNumberOfTimes.IsMatch(<span class="hljs-string">"ab"</span>); <span class="hljs-comment">// false</span>
-exactNumberOfTimes.IsMatch(<span class="hljs-string">"aab"</span>); <span class="hljs-comment">// true</span>
-exactNumberOfTimes.IsMatch(<span class="hljs-string">"aaab"</span>); <span class="hljs-comment">// false</span>
+exactNumberOfTimes.IsMatch(<span class="hljs-string">"  b"</span>); <span class="hljs-comment">// false</span>
+exactNumberOfTimes.IsMatch(<span class="hljs-string">" a b"</span>); <span class="hljs-comment">// false</span>
+exactNumberOfTimes.IsMatch(<span class="hljs-string">" aa b"</span>); <span class="hljs-comment">// true</span>
+exactNumberOfTimes.IsMatch(<span class="hljs-string">" aaa b"</span>); <span class="hljs-comment">// false</span>
 </div></code></pre>
 <!-- slide -->
 <p>Ett mönster följt av <code>{j,}</code> måste förekomma <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> eller fler gånger:</p>
-<pre><code class="language-cs"><div>Regex atLeastNumberOfTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"a{2,}b"</span>);
+<pre><code class="language-cs"><div>Regex atLeastNumberOfTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@" a{2,} b"</span>);
 
-atLeastNumberOfTimes.IsMatch(<span class="hljs-string">"b"</span>); <span class="hljs-comment">// false</span>
-atLeastNumberOfTimes.IsMatch(<span class="hljs-string">"ab"</span>); <span class="hljs-comment">// false</span>
-atLeastNumberOfTimes.IsMatch(<span class="hljs-string">"aab"</span>); <span class="hljs-comment">// true</span>
-atLeastNumberOfTimes.IsMatch(<span class="hljs-string">"aaab"</span>); <span class="hljs-comment">// true</span>
+atLeastNumberOfTimes.IsMatch(<span class="hljs-string">"  b"</span>); <span class="hljs-comment">// false</span>
+atLeastNumberOfTimes.IsMatch(<span class="hljs-string">" a b"</span>); <span class="hljs-comment">// false</span>
+atLeastNumberOfTimes.IsMatch(<span class="hljs-string">" aa b"</span>); <span class="hljs-comment">// true</span>
+atLeastNumberOfTimes.IsMatch(<span class="hljs-string">" aaa b"</span>); <span class="hljs-comment">// true</span>
 </div></code></pre>
 <!-- slide -->
 <p>Ett mönster följt av <code>{j,k}</code> måste förekomma mellan <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> och <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span> gånger:</p>
-<pre><code class="language-cs"><div>Regex rangeOfNumberOfTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"a{2,3}b"</span>);
+<pre><code class="language-cs"><div>Regex rangeOfNumberOfTimes = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@" a{2,3} b"</span>);
 
-rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">"b"</span>); <span class="hljs-comment">// false</span>
-rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">"ab"</span>); <span class="hljs-comment">// false</span>
-rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">"aab"</span>); <span class="hljs-comment">// true</span>
-rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">"aaab"</span>); <span class="hljs-comment">// true</span>
-rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">"aaaab"</span>); <span class="hljs-comment">// false</span>
+rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">"  b"</span>); <span class="hljs-comment">// false</span>
+rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">" a b"</span>); <span class="hljs-comment">// false</span>
+rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">" aa b"</span>); <span class="hljs-comment">// true</span>
+rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">" aaa b"</span>); <span class="hljs-comment">// true</span>
+rangeOfNumberOfTimes.IsMatch(<span class="hljs-string">" aaaa b"</span>); <span class="hljs-comment">// false</span>
 </div></code></pre>
 <!-- slide -->
 <h3 id="ankare">Ankare</h3>

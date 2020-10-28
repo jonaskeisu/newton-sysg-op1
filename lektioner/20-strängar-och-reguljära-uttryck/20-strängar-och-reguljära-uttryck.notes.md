@@ -170,9 +170,9 @@ str.Substring(28, 9); // "brown dog"
 Byt ut alla förekomster av en delsträng till något annat: 
 
 ```cs
-string str7 = "Life is full of problems.";
+string str = "Life is full of problems.";
 
-str7.Replace("problems", "opportunities"); 
+str.Replace("problems", "opportunities"); 
 // "Life is full of opportunities."
 ```
 
@@ -273,12 +273,12 @@ re.IsMatch("lätt som abc!"); // true
 Ett mönster följt av ``?`` kan förekomma noll eller en gång:
 
 ```cs
-Regex zeroOrOneTime = new Regex(@"a?b");
+Regex zeroOrOneTime = new Regex(@" a? b");
 
-zeroOrOneTime.IsMatch("b"); // true
-zeroOrOneTime.IsMatch("ab"); // true
-zeroOrOneTime.IsMatch("aab"); // false
-zeroOrOneTime.IsMatch("aaab"); // false
+zeroOrOneTime.IsMatch("  b"); // true
+zeroOrOneTime.IsMatch(" a b"); // true
+zeroOrOneTime.IsMatch(" aa b"); // false
+zeroOrOneTime.IsMatch(" aaa b"); // false
 ```
 
 <!-- slide -->
@@ -288,12 +288,12 @@ zeroOrOneTime.IsMatch("aaab"); // false
 Ett mönster följt av ``*`` kan förekomma noll eller fler gånger:
 
 ```cs
-Regex zeroOrManyTimes = new Regex(@"a*b");
+Regex zeroOrManyTimes = new Regex(@" a* b");
 
-zeroOrManyTimes.IsMatch("b"); // true
-zeroOrManyTimes.IsMatch("ab"); // true
-zeroOrManyTimes.IsMatch("aab"); // true
-zeroOrManyTimes.IsMatch("aaab"); // true
+zeroOrManyTimes.IsMatch("  b"); // true
+zeroOrManyTimes.IsMatch(" a b"); // true
+zeroOrManyTimes.IsMatch(" aa b"); // true
+zeroOrManyTimes.IsMatch(" aaa b"); // true
 ```
 
 <!-- slide -->
@@ -301,12 +301,12 @@ zeroOrManyTimes.IsMatch("aaab"); // true
 Ett mönster följt av ``+`` kan förekomma en eller fler gånger:
 
 ```cs
-Regex oneOrManyTimes = new Regex(@"a+b");
+Regex oneOrManyTimes = new Regex(@" a+ b");
 
-oneOrManyTimes.IsMatch("b"); // false
-oneOrManyTimes.IsMatch("ab"); // true
-oneOrManyTimes.IsMatch("aab"); // true
-oneOrManyTimess.IsMatch("aaab"); // true
+oneOrManyTimes.IsMatch("  b"); // false
+oneOrManyTimes.IsMatch(" a b"); // true
+oneOrManyTimes.IsMatch(" aa b"); // true
+oneOrManyTimess.IsMatch(" aaa b"); // true
 ```
 
 <!-- slide -->
@@ -314,12 +314,12 @@ oneOrManyTimess.IsMatch("aaab"); // true
 Ett mönster följt av ``{j}`` måste förekomma exakt $j$ gånger: 
 
 ```cs
-Regex exactNumberOfTimes = new Regex(@"a{2}b");
+Regex exactNumberOfTimes = new Regex(@" a{2} b");
 
-exactNumberOfTimes.IsMatch("b"); // false
-exactNumberOfTimes.IsMatch("ab"); // false
-exactNumberOfTimes.IsMatch("aab"); // true
-exactNumberOfTimes.IsMatch("aaab"); // false
+exactNumberOfTimes.IsMatch("  b"); // false
+exactNumberOfTimes.IsMatch(" a b"); // false
+exactNumberOfTimes.IsMatch(" aa b"); // true
+exactNumberOfTimes.IsMatch(" aaa b"); // false
 ```
 
 <!-- slide -->
@@ -327,12 +327,12 @@ exactNumberOfTimes.IsMatch("aaab"); // false
 Ett mönster följt av ``{j,}`` måste förekomma $j$ eller fler gånger: 
 
 ```cs
-Regex atLeastNumberOfTimes = new Regex(@"a{2,}b");
+Regex atLeastNumberOfTimes = new Regex(@" a{2,} b");
 
-atLeastNumberOfTimes.IsMatch("b"); // false
-atLeastNumberOfTimes.IsMatch("ab"); // false
-atLeastNumberOfTimes.IsMatch("aab"); // true
-atLeastNumberOfTimes.IsMatch("aaab"); // true
+atLeastNumberOfTimes.IsMatch("  b"); // false
+atLeastNumberOfTimes.IsMatch(" a b"); // false
+atLeastNumberOfTimes.IsMatch(" aa b"); // true
+atLeastNumberOfTimes.IsMatch(" aaa b"); // true
 ```
 
 <!-- slide -->
@@ -340,13 +340,13 @@ atLeastNumberOfTimes.IsMatch("aaab"); // true
 Ett mönster följt av ``{j,k}`` måste förekomma mellan $j$ och $k$ gånger: 
 
 ```cs
-Regex rangeOfNumberOfTimes = new Regex(@"a{2,3}b");
+Regex rangeOfNumberOfTimes = new Regex(@" a{2,3} b");
 
-rangeOfNumberOfTimes.IsMatch("b"); // false
-rangeOfNumberOfTimes.IsMatch("ab"); // false
-rangeOfNumberOfTimes.IsMatch("aab"); // true
-rangeOfNumberOfTimes.IsMatch("aaab"); // true
-rangeOfNumberOfTimes.IsMatch("aaaab"); // false
+rangeOfNumberOfTimes.IsMatch("  b"); // false
+rangeOfNumberOfTimes.IsMatch(" a b"); // false
+rangeOfNumberOfTimes.IsMatch(" aa b"); // true
+rangeOfNumberOfTimes.IsMatch(" aaa b"); // true
+rangeOfNumberOfTimes.IsMatch(" aaaa b"); // false
 ```
 
 <!-- slide -->
