@@ -670,9 +670,9 @@ str.IndexOf(<span class="hljs-string">"elephant"</span>); <span class="hljs-comm
 <!-- slide -->
 <h3 id="trim"><code>Trim()</code></h3>
 <p>Ta bort blanka tecken i ytterkanterna:</p>
-<pre><code class="language-cs"><div><span class="hljs-keyword">string</span> str5 = <span class="hljs-string">"   padded word   "</span>;
+<pre><code class="language-cs"><div><span class="hljs-keyword">string</span> str = <span class="hljs-string">"   padded word   "</span>;
 
-str5.Trim(); <span class="hljs-comment">// "padded word"</span>
+str.Trim(); <span class="hljs-comment">// "padded word"</span>
 </div></code></pre>
 <!-- slide -->
 <h3 id="join"><code>Join(..)</code></h3>
@@ -935,7 +935,7 @@ re.IsMatch(<span class="hljs-string">"Hello!"</span>); <span class="hljs-comment
 <pre><code class="language-cs"><div>Regex validPassword = <span class="hljs-keyword">new</span> Regex(<span class="hljs-string">@"(?=.*\d)(?=.*[A-Z]).{8,20}"</span>);
 validPassword.IsMatch(<span class="hljs-string">"password123"</span>); <span class="hljs-comment">// false</span>
 validPassword.IsMatch(<span class="hljs-string">"Password!"</span>); <span class="hljs-comment">// false</span>
-validPassword.IsMatch(<span class="hljs-string">"Pass!"</span>); <span class="hljs-comment">// false</span>
+validPassword.IsMatch(<span class="hljs-string">"Pass123"</span>); <span class="hljs-comment">// false</span>
 validPassword.IsMatch(<span class="hljs-string">"Password123"</span>); <span class="hljs-comment">// true</span>
 </div></code></pre>
 <!-- slide -->

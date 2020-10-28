@@ -113,9 +113,9 @@ str.IndexOf("elephant"); // -1
 Ta bort blanka tecken i ytterkanterna:
 
 ```cs
-string str5 = "   padded word   ";
+string str = "   padded word   ";
 
-str5.Trim(); // "padded word"
+str.Trim(); // "padded word"
 ```
 
 <!-- slide -->
@@ -489,7 +489,7 @@ var newLine = Regex.Replace(line2, @"""([^""])*)""", @"'$1'");
 Regex validPassword = new Regex(@"(?=.*\d)(?=.*[A-Z]).{8,20}");
 validPassword.IsMatch("password123"); // false
 validPassword.IsMatch("Password!"); // false
-validPassword.IsMatch("Pass!"); // false
+validPassword.IsMatch("Pass123"); // false
 validPassword.IsMatch("Password123"); // true
 ```
 
