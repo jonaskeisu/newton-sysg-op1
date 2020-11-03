@@ -182,9 +182,7 @@ Resultat
 
 <image style="border: none; zoom: 1" src="fig/red%20green%20blue%20buttons.png"/>
 </div>
-
 </div>
-
 
 <!-- slide -->
 
@@ -198,11 +196,76 @@ Resultat
 
 <!-- slide -->
 
+<center>
+
+<image style="border: none; zoom: 0.5" src="fig/window%20panel%20control.png"/>
+
+</center>
+
+<!-- slide -->
+
 ## Händelser för grafiska komponenter
 
 - Ramverken översätter aktivitet med mus och tangentbord för aktivt fönster till lättolkade händelser för fönstrets komponenter
 - T.ex. knappen är *klickad*, textet i fältet är *ändrad*, fönstret har *ändrat storlek*
 - Applikationens logik skapas genom att C#-kod koppas som lyssnare till dessa händelser
+
+<!-- slide -->
+
+## "Koden bakom"
+
+- Attributet ``x:Class`` säger i vilken klass "koden bakom" för en XAML-komponent ligger. 
+- I konstruktorn för klassen finns ett anrop till ``InitializeComponent()``-metod som körs när komponenten är initialiserad vid uppstart av Avalonia-applikationen
+- Efter denna rad kan vi t.ex. hitta och spara undan referens till  komponenter i ett fönster fönstret samt koppla lyssnare till deras händelser händelser
+
+<!-- slide -->
+
+### Exempel
+
+Innehållet i ``MainWindow.xaml.cs``: 
+```cs
+namespace Example {
+    public class MainWindow : Window {
+        public MainWindow() {
+            InitializeComponent();
+            // Kod som hitta och lagrar referenser komponenter samt 
+            // registrerar lyssnare för deras händelser kan skriva här
+        }
+        private void InitializeComponent() {
+            AvaloniaXamlLoader.Load(this);
+        }
+    }
+}
+```
+
+<!-- slide -->
+
+## Event-handlers
+
+- En event-handler i ett ramverk för fönsterapplikationer tar som regel två argument: 
+  - Ett objekt som skickade eventet (*sender*)
+  - Ett objekt som innehåller information om händelsen (*e*)
+
+<!-- slide -->
+
+### Exempel
+
+```cs
+public class MainWindow : Window {
+    Button[] buttons;
+    public MainWindow() {
+            buttons = new[] { "Red", "Green", "Blue" }
+                .Select(s => this.FindControl<Button>(s + " button"))
+                .ToArray(); // Spara referenser till alla tre knappar
+            foreach (Button b in buttons) {
+                var bg = b.Background;
+                b.Click += (sender, e) => { // Registera lyssnare ..
+                    foreach (Button b in buttons) 
+                        b.Background = bg; // .. som sätter knappens 
+                };               // originalfärg på samtliga knappar.
+            }
+    // ...
+```
 
 <!-- slide -->
 
@@ -226,6 +289,34 @@ Resultat
 
 <!-- slide -->
 
+### Exempel
+
+```xml
+<Image Width="200" Source="/Assets/cat.png"/>
+...
+<TextBlock>Etikett</TextBlock>
+<TextBox Width="100">Textfält</TextBox>
+...
+<Button>Knapp</Button>
+<RadioButton IsChecked="true"> Radioknapp 1</RadioButton>
+<RadioButton>Radioknapp 2</RadioButton>
+<CheckBox IsChecked="true">Checkbox</CheckBox> 
+...
+<Slider Width="100"/>
+...
+<Calendar/>
+```
+
+<!-- slide -->
+
+<center style="margin-top: 2em">
+
+<image style="border: none; zoom: 1.7" src="fig/avalonia%20controls.png"/>
+
+</center>
+
+<!-- slide -->
+
 ## Paneler
 
 - En panel används för att arrangera (*layout*) en grupp sammanhörande grafiska komponenter
@@ -237,15 +328,118 @@ Resultat
 - Vanliga exempel på paneler är:
   - Stack
   - Dock
-  - Flow
+  - Wrap
   - Grid 
 
 <!-- slide -->
 
-## "Koden bakom"
+### StackPanel
 
-- I "koden bakom" XAML-dokumentet finns en ``OnInitialize``-metod som körs när komponenten är initialiserad vid uppstart av Avalonia-applikationen
-- Här kan vi t.ex. hitta och spara undan referens till  komponenter i ett fönster fönstret samt koppla lyssnare till deras händelser händelser
+```xml
+<StackPanel>
+    <TextBlock Background="#FF0000">Text 1</TextBlock>
+    <TextBlock Background="#0080FF">Text 2</TextBlock>
+    <TextBlock Background="#0000FF">Text 3</TextBlock>
+    <TextBlock Background="#8000FF">Text 4</TextBlock>
+    <TextBlock Background="#FF00FF">Text 5</TextBlock>
+    <TextBlock Background="#FF0080">Text 6</TextBlock>
+    <TextBlock Background="#FF0000">Text 7</TextBlock>
+    <TextBlock Background="#FF8000">Text 8</TextBlock>
+    <TextBlock Background="#FFFF00">Text 9</TextBlock>
+    <TextBlock Background="#80FF00">Text 10</TextBlock>
+    <TextBlock Background="#00FF00">Text 11</TextBlock>
+    <TextBlock Background="#00FF80">Text 12</TextBlock>
+</StackPanel>
+```
+
+<!-- slide -->
+
+<center>
+
+<image style="border: none; zoom: 0.7" src="fig/stack%20layout.png"/>
+
+</center>
+
+<!-- slide -->
+
+### WrapPanel
+
+```xml
+<WrapPanel>
+    <TextBlock Background="#FF0000">Text 1</TextBlock>
+    <TextBlock Background="#0080FF">Text 2</TextBlock>
+    <TextBlock Background="#0000FF">Text 3</TextBlock>
+    <TextBlock Background="#8000FF">Text 4</TextBlock>
+    <TextBlock Background="#FF00FF">Text 5</TextBlock>
+    <TextBlock Background="#FF0080">Text 6</TextBlock>
+    <TextBlock Background="#FF0000">Text 7</TextBlock>
+    <TextBlock Background="#FF8000">Text 8</TextBlock>
+    <TextBlock Background="#FFFF00">Text 9</TextBlock>
+    <TextBlock Background="#80FF00">Text 10</TextBlock>
+    <TextBlock Background="#00FF00">Text 11</TextBlock>
+    <TextBlock Background="#00FF80">Text 12</TextBlock>
+</WrapPanel>
+```
+
+<!-- slide -->
+
+<center>
+
+<image style="border: none; zoom: 1.9" src="fig/wrap%20layout.png"/>
+
+</center>
+
+<!-- slide -->
+
+### DockPanel
+
+```xml
+<DockPanel>
+    <TextBlock DockPanel.Dock="Left" Background="#FF0000">Text 1</TextBlock>
+    <TextBlock DockPanel.Dock="Right" Background="#0080FF">Text 2</TextBlock>
+    <TextBlock DockPanel.Dock="Top" Background="#0000FF">Text 3</TextBlock>
+    <TextBlock DockPanel.Dock="Bottom" Background="#8000FF">Text 4</TextBlock>
+    <TextBlock Background="#FF00FF">Text 5</TextBlock>
+</DockPanel>
+```
+
+<!-- slide -->
+
+<center>
+
+<image style="border: none;" src="fig/dock%20layout.png"/>
+
+</center>
+
+<!-- slide -->
+
+### Grid
+
+<div style="zoom: 1">
+
+```xml
+<Grid ColumnDefinitions="1*, 1*, 1*" RowDefinitions="1*, 1*, 1*, 1*">
+    <TextBlock Grid.Row="0" Grid.Column="0" Background="#FF0000">Text 1</TextBlock>
+    <TextBlock Grid.Row="0" Grid.Column="1" Background="#0080FF">Text 2</TextBlock>
+    <TextBlock Grid.Row="0" Grid.Column="2"  Background="#0000FF">Text 3</TextBlock>
+    <TextBlock Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" 
+               Grid.ColumnSpan="2" Background="#8000FF">Text 4</TextBlock>
+    <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" 
+               Background="#FF00FF">Text 5</TextBlock>
+    <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" 
+               Background="#FF0080">Text 6</TextBlock>
+</Grid>
+```
+
+</div>
+
+<!-- slide -->
+
+<center>
+
+<image style="border: none;" src="fig/grid%20layout.png"/>
+
+</center>
 
 <!-- slide -->
 

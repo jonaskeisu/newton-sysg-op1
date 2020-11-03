@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DockLayout.MainWindow"
+        Title="DockLayout">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Left" Background="#FF0000">Text 1</TextBlock>
+        <TextBlock DockPanel.Dock="Right" Background="#0080FF">Text 2</TextBlock>
+        <TextBlock DockPanel.Dock="Top" Background="#0000FF">Text 3</TextBlock>
+        <TextBlock DockPanel.Dock="Bottom" Background="#8000FF">Text 4</TextBlock>
+        <TextBlock Background="#FF00FF">Text 5</TextBlock>
+    </DockPanel>
+</Window>

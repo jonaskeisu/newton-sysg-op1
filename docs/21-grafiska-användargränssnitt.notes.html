@@ -744,12 +744,66 @@ Resultat
 </li>
 </ul>
 <!-- slide -->
+<center>
+<image style="border: none; zoom: 0.5" src="fig/window%20panel%20control.png"/>
+</center>
+<!-- slide -->
 <h2 id="händelser-för-grafiska-komponenter">Händelser för grafiska komponenter</h2>
 <ul>
 <li>Ramverken översätter aktivitet med mus och tangentbord för aktivt fönster till lättolkade händelser för fönstrets komponenter</li>
 <li>T.ex. knappen är <em>klickad</em>, textet i fältet är <em>ändrad</em>, fönstret har <em>ändrat storlek</em></li>
 <li>Applikationens logik skapas genom att C#-kod koppas som lyssnare till dessa händelser</li>
 </ul>
+<!-- slide -->
+<h2 id="koden-bakom">&quot;Koden bakom&quot;</h2>
+<ul>
+<li>Attributet <code>x:Class</code> säger i vilken klass &quot;koden bakom&quot; för en XAML-komponent ligger.</li>
+<li>I konstruktorn för klassen finns ett anrop till <code>InitializeComponent()</code>-metod som körs när komponenten är initialiserad vid uppstart av Avalonia-applikationen</li>
+<li>Efter denna rad kan vi t.ex. hitta och spara undan referens till  komponenter i ett fönster fönstret samt koppla lyssnare till deras händelser händelser</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel-1">Exempel</h3>
+<p>Innehållet i <code>MainWindow.xaml.cs</code>:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Example</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MainWindow</span> : <span class="hljs-title">Window</span> {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MainWindow</span>(<span class="hljs-params"></span>)</span> {
+            InitializeComponent();
+            <span class="hljs-comment">// Kod som hitta och lagrar referenser komponenter samt </span>
+            <span class="hljs-comment">// registrerar lyssnare för deras händelser kan skriva här</span>
+        }
+        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InitializeComponent</span>(<span class="hljs-params"></span>)</span> {
+            AvaloniaXamlLoader.Load(<span class="hljs-keyword">this</span>);
+        }
+    }
+}
+</div></code></pre>
+<!-- slide -->
+<h2 id="event-handlers">Event-handlers</h2>
+<ul>
+<li>En event-handler i ett ramverk för fönsterapplikationer tar som regel två argument:
+<ul>
+<li>Ett objekt som skickade eventet (<em>sender</em>)</li>
+<li>Ett objekt som innehåller information om händelsen (<em>e</em>)</li>
+</ul>
+</li>
+</ul>
+<!-- slide -->
+<h3 id="exempel-2">Exempel</h3>
+<pre><code class="language-cs"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MainWindow</span> : <span class="hljs-title">Window</span> {
+    Button[] buttons;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MainWindow</span>(<span class="hljs-params"></span>)</span> {
+            buttons = <span class="hljs-keyword">new</span>[] { <span class="hljs-string">"Red"</span>, <span class="hljs-string">"Green"</span>, <span class="hljs-string">"Blue"</span> }
+                .Select(s =&gt; <span class="hljs-keyword">this</span>.FindControl&lt;Button&gt;(s + <span class="hljs-string">" button"</span>))
+                .ToArray(); <span class="hljs-comment">// Spara referenser till alla tre knappar</span>
+            <span class="hljs-keyword">foreach</span> (Button b <span class="hljs-keyword">in</span> buttons) {
+                <span class="hljs-keyword">var</span> bg = b.Background;
+                b.Click += (sender, e) =&gt; { <span class="hljs-comment">// Registera lyssnare ..</span>
+                    <span class="hljs-keyword">foreach</span> (Button b <span class="hljs-keyword">in</span> buttons) 
+                        b.Background = bg; <span class="hljs-comment">// .. som sätter knappens </span>
+                };               <span class="hljs-comment">// originalfärg på samtliga knappar.</span>
+            }
+    <span class="hljs-comment">// ...</span>
+</div></code></pre>
 <!-- slide -->
 <h2 id="kontroller">Kontroller</h2>
 <ul>
@@ -775,6 +829,26 @@ Resultat
 </li>
 </ul>
 <!-- slide -->
+<h3 id="exempel-3">Exempel</h3>
+<pre><code class="language-xml"><div><span class="hljs-tag">&lt;<span class="hljs-name">Image</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">"200"</span> <span class="hljs-attr">Source</span>=<span class="hljs-string">"/Assets/cat.png"</span>/&gt;</span>
+...
+<span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span>&gt;</span>Etikett<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">TextBox</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">"100"</span>&gt;</span>Textfält<span class="hljs-tag">&lt;/<span class="hljs-name">TextBox</span>&gt;</span>
+...
+<span class="hljs-tag">&lt;<span class="hljs-name">Button</span>&gt;</span>Knapp<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RadioButton</span> <span class="hljs-attr">IsChecked</span>=<span class="hljs-string">"true"</span>&gt;</span> Radioknapp 1<span class="hljs-tag">&lt;/<span class="hljs-name">RadioButton</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RadioButton</span>&gt;</span>Radioknapp 2<span class="hljs-tag">&lt;/<span class="hljs-name">RadioButton</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CheckBox</span> <span class="hljs-attr">IsChecked</span>=<span class="hljs-string">"true"</span>&gt;</span>Checkbox<span class="hljs-tag">&lt;/<span class="hljs-name">CheckBox</span>&gt;</span> 
+...
+<span class="hljs-tag">&lt;<span class="hljs-name">Slider</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">"100"</span>/&gt;</span>
+...
+<span class="hljs-tag">&lt;<span class="hljs-name">Calendar</span>/&gt;</span>
+</div></code></pre>
+<!-- slide -->
+<center style="margin-top: 2em">
+<image style="border: none; zoom: 1.7" src="fig/avalonia%20controls.png"/>
+</center>
+<!-- slide -->
 <h2 id="paneler">Paneler</h2>
 <ul>
 <li>En panel används för att arrangera (<em>layout</em>) en grupp sammanhörande grafiska komponenter</li>
@@ -786,17 +860,87 @@ Resultat
 <ul>
 <li>Stack</li>
 <li>Dock</li>
-<li>Flow</li>
+<li>Wrap</li>
 <li>Grid</li>
 </ul>
 </li>
 </ul>
 <!-- slide -->
-<h2 id="koden-bakom">&quot;Koden bakom&quot;</h2>
-<ul>
-<li>I &quot;koden bakom&quot; XAML-dokumentet finns en <code>OnInitialize</code>-metod som körs när komponenten är initialiserad vid uppstart av Avalonia-applikationen</li>
-<li>Här kan vi t.ex. hitta och spara undan referens till  komponenter i ett fönster fönstret samt koppla lyssnare till deras händelser händelser</li>
-</ul>
+<h3 id="stackpanel">StackPanel</h3>
+<pre><code class="language-xml"><div><span class="hljs-tag">&lt;<span class="hljs-name">StackPanel</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0000"</span>&gt;</span>Text 1<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0080FF"</span>&gt;</span>Text 2<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0000FF"</span>&gt;</span>Text 3<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#8000FF"</span>&gt;</span>Text 4<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF00FF"</span>&gt;</span>Text 5<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0080"</span>&gt;</span>Text 6<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0000"</span>&gt;</span>Text 7<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF8000"</span>&gt;</span>Text 8<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FFFF00"</span>&gt;</span>Text 9<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#80FF00"</span>&gt;</span>Text 10<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#00FF00"</span>&gt;</span>Text 11<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#00FF80"</span>&gt;</span>Text 12<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">StackPanel</span>&gt;</span>
+</div></code></pre>
+<!-- slide -->
+<center>
+<image style="border: none; zoom: 0.7" src="fig/stack%20layout.png"/>
+</center>
+<!-- slide -->
+<h3 id="wrappanel">WrapPanel</h3>
+<pre><code class="language-xml"><div><span class="hljs-tag">&lt;<span class="hljs-name">WrapPanel</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0000"</span>&gt;</span>Text 1<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0080FF"</span>&gt;</span>Text 2<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0000FF"</span>&gt;</span>Text 3<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#8000FF"</span>&gt;</span>Text 4<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF00FF"</span>&gt;</span>Text 5<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0080"</span>&gt;</span>Text 6<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0000"</span>&gt;</span>Text 7<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF8000"</span>&gt;</span>Text 8<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FFFF00"</span>&gt;</span>Text 9<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#80FF00"</span>&gt;</span>Text 10<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#00FF00"</span>&gt;</span>Text 11<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#00FF80"</span>&gt;</span>Text 12<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">WrapPanel</span>&gt;</span>
+</div></code></pre>
+<!-- slide -->
+<center>
+<image style="border: none; zoom: 1.9" src="fig/wrap%20layout.png"/>
+</center>
+<!-- slide -->
+<h3 id="dockpanel">DockPanel</h3>
+<pre><code class="language-xml"><div><span class="hljs-tag">&lt;<span class="hljs-name">DockPanel</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">DockPanel.Dock</span>=<span class="hljs-string">"Left"</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0000"</span>&gt;</span>Text 1<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">DockPanel.Dock</span>=<span class="hljs-string">"Right"</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0080FF"</span>&gt;</span>Text 2<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">DockPanel.Dock</span>=<span class="hljs-string">"Top"</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0000FF"</span>&gt;</span>Text 3<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">DockPanel.Dock</span>=<span class="hljs-string">"Bottom"</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#8000FF"</span>&gt;</span>Text 4<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF00FF"</span>&gt;</span>Text 5<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">DockPanel</span>&gt;</span>
+</div></code></pre>
+<!-- slide -->
+<center>
+<image style="border: none;" src="fig/dock%20layout.png"/>
+</center>
+<!-- slide -->
+<h3 id="grid">Grid</h3>
+<div style="zoom: 1">
+<pre><code class="language-xml"><div><span class="hljs-tag">&lt;<span class="hljs-name">Grid</span> <span class="hljs-attr">ColumnDefinitions</span>=<span class="hljs-string">"1*, 1*, 1*"</span> <span class="hljs-attr">RowDefinitions</span>=<span class="hljs-string">"1*, 1*, 1*, 1*"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Grid.Row</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">Grid.Column</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0000"</span>&gt;</span>Text 1<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Grid.Row</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">Grid.Column</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0080FF"</span>&gt;</span>Text 2<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Grid.Row</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">Grid.Column</span>=<span class="hljs-string">"2"</span>  <span class="hljs-attr">Background</span>=<span class="hljs-string">"#0000FF"</span>&gt;</span>Text 3<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Grid.Row</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">Grid.Column</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">Grid.RowSpan</span>=<span class="hljs-string">"2"</span> 
+               <span class="hljs-attr">Grid.ColumnSpan</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">Background</span>=<span class="hljs-string">"#8000FF"</span>&gt;</span>Text 4<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Grid.Row</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">Grid.Column</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">Grid.RowSpan</span>=<span class="hljs-string">"2"</span> 
+               <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF00FF"</span>&gt;</span>Text 5<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextBlock</span> <span class="hljs-attr">Grid.Row</span>=<span class="hljs-string">"3"</span> <span class="hljs-attr">Grid.Column</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">Grid.ColumnSpan</span>=<span class="hljs-string">"4"</span> 
+               <span class="hljs-attr">Background</span>=<span class="hljs-string">"#FF0080"</span>&gt;</span>Text 6<span class="hljs-tag">&lt;/<span class="hljs-name">TextBlock</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Grid</span>&gt;</span>
+</div></code></pre>
+</div>
+<!-- slide -->
+<center>
+<image style="border: none;" src="fig/grid%20layout.png"/>
+</center>
 <!-- slide -->
 <h2 id="komplett-exempel---miniräknare">Komplett exempel - Miniräknare</h2>
 <!-- slide -->

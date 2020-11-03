@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="WrapLayout.MainWindow"
+        Title="WrapLayout">
+     <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Height" Value="20"/>
+        </Style>
+    </Window.Styles>
+    <WrapPanel>
+        <TextBlock Background="#FF0000">Text 1</TextBlock>
+        <TextBlock Background="#0080FF">Text 2</TextBlock>
+        <TextBlock Background="#0000FF">Text 3</TextBlock>
+        <TextBlock Background="#8000FF">Text 4</TextBlock>
+        <TextBlock Background="#FF00FF">Text 5</TextBlock>
+        <TextBlock Background="#FF0080">Text 6</TextBlock>
+        <TextBlock Background="#FF0000">Text 7</TextBlock>
+        <TextBlock Background="#FF8000">Text 8</TextBlock>
+        <TextBlock Background="#FFFF00">Text 9</TextBlock>
+        <TextBlock Background="#80FF00">Text 10</TextBlock>
+        <TextBlock Background="#00FF00">Text 11</TextBlock>
+        <TextBlock Background="#00FF80">Text 12</TextBlock>
+    </WrapPanel>
+</Window>
