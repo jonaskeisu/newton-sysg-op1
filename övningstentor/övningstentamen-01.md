@@ -3,6 +3,7 @@
 ### Uppgift 1 (2p)
 
 a) Vad är det decimala värdet av unsigned bytevärdet ``1000001``? (1p)
+
 b) Vad är det decimala värdet av signed bytevärdet ``1000001``? (1p)
 
 ### Uppgift 2 (11p)
@@ -10,17 +11,25 @@ b) Vad är det decimala värdet av signed bytevärdet ``1000001``? (1p)
 Förklara följande begrepp: 
 
 a) Variabeldeklaration (1p)
+
 b) Variabelinitiering (1p)
+
 c) Uttryck (1p)
+
 d) Sats (1p)
+
 e) Operator (2p)
+
 f) Funktion (2p)
+
 g) Funktionsanrop (2p)
+
 h) Konvertering (1p)
 
 ### Uppgift 3 (4p)
 
 a) Skriv en statisk metod som kontrollerar om ett fält av integers är symmetriskt, dvs samma framlänges och baklänges, med hjälp av en ``for``-loop. (2p)
+
 b) Skriv om metoden så att den är generisk med elementtypen i fältet som typparameter.  (2p)
 
 ### Uppgift 4 (3p)
@@ -121,18 +130,30 @@ c) Skriv en ny klass för turbobilar vars accelerationsförmåga ökar med 50% e
 Förklara följande begrepp: 
 
 a) Klass (1p)
+
 b) Instans (1p)
+
 c) Medlemsvariabel (1p)
+
 d) Metod (1p)
+
 e) Egenskap (1p)
+
 f) Arv (1p)
 g) Överlagring (1p)
+
 h) Överskuggning (1p)
+
 i) Castning (1p)
+
 j) Gränssnitt (1p)
+
 k) Delegattyp (1p)
+
 l) Event (1p)
+
 m) Lambdafunktion (1p)
+
 
 ### Uppgift 8 (5p)
 
