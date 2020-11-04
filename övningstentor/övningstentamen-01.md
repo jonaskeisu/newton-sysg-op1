@@ -140,6 +140,7 @@ d) Metod (1p)
 e) Egenskap (1p)
 
 f) Arv (1p)
+
 g) Överlagring (1p)
 
 h) Överskuggning (1p)
