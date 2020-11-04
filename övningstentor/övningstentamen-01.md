@@ -2,9 +2,9 @@
 
 ### Uppgift 1 (2p)
 
-a) Vad är det decimala värdet av unsigned bytevärdet ``1000001``? (1p)
+a) Vad är det decimala värdet av unsigned bytevärdet ``10000001``? (1p)
 
-b) Vad är det decimala värdet av signed bytevärdet ``1000001``? (1p)
+b) Vad är det decimala värdet av signed bytevärdet ``10000001``? (1p)
 
 ### Uppgift 2 (11p)
 
@@ -100,7 +100,7 @@ c)
 ```cs
 uint RectangleArea(ushort width, ushort height)
 {
-    return RectangleArea(width - 1) + height;
+    return RectangleArea(width - 1, height) + height;
 }
 ```
 
@@ -173,15 +173,15 @@ och en lista ``movies`` av typen ``List<Movie>``. Använd LINQ för att med en k
 
 ### Uppgift 9 (6p)
 
-En *rastrerare* ritar en approximation av geometrisk form, t.ex. en cirkel eller en linje, på en skärmyta genom att färglägga pixlar. Varje pixel på ytan identifieras via indexet på dess rad respektive kolumn i skärmytan. 
+En *rastrerare* ritar en approximation av geometrisk form, t.ex. en cirkel eller en linje, på en skärmyta genom att färglägga punkter i ett rutnät. Dessa punkter kallas för pixlar. Varje pixel på ytan identifieras via indexet på dess rad respektive kolumn i skärmytan. 
 
 Antag att API för rastrering tar ett objekt som uppfyller följande gränssnitt som argument: 
 
 ```cs
 interface IScreen
 {
-    Clear();
-    ColorPixel(int row, int column);
+    void Clear();
+    void ColorPixel(int row, int column);
     event OnColorPixel ColoringOutsideScreen;
 }
 ```
@@ -192,7 +192,7 @@ Ovanstående gränssnitt beror på följande delegattyp:
 delegate void OnColorPixel(int row, int column);
 ```
 
-Skriv en klass ``ConsoleScreen`` som implementrar gränssnittet ovan genom att skriva ut ``X`` i textfönstret på angiven position. Tips: Utnyttja nedanstående metoder och egenskaper i klassen ``Console``:
+Skriv en klass ``ConsoleScreen`` som implementrar gränssnittet ovan genom att skriva ut ``X`` i konsolfönstret på angiven position när metoden ``ColorPixel`` anropas. Tips: Utnyttja nedanstående metoder och egenskaper i klassen ``Console``:
 
 ```cs
 public static void Clear ();
@@ -206,13 +206,13 @@ public static int WindowHeight { get; set; }
 
 ### Uppgift 10 (10p)
 
-En rubiks kub är en tredimensionell kub bestående av 3 x 3 x 3 block. De yttre ytorna av blocken har från början färger enligt nedanstående bild. 
+En rubiks kub är en tredimensionell kub bestående av 3 x 3 x 3 block. De yttre ytorna av blocken har för en orörd kub färger enligt nedanstående bild. 
 
 <image width="400" src="fig/rubiks_cube.png"/>
 
-Kuben kan modifieras genom 90 graders rotation av ett av tre blockplan, i tre olika dimensioner. 
+Kuben kan modifieras genom 90 graders rotation av något ett av tre blockplan för var och en av tre axlar.
 
-Kuben är korrekt om varje sida av kuben har en enda färg. 
+Vi säger att kuben är *korrekt* om varje sida av kuben har en enda färg, t.ex. så som i utgångsläget. 
 
 a) Rita ett klassdiagram för en rubiks kub. Kuben i diagrammet skall ha metoder för att: 
 

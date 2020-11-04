@@ -586,8 +586,8 @@ window.addEventListener('load', function () {
     <body class="vscode-light">
         <h1 id="tentamen---newton---op1">Tentamen - Newton - OP1</h1>
 <h3 id="uppgift-1-2p">Uppgift 1 (2p)</h3>
-<p>a) Vad är det decimala värdet av unsigned bytevärdet <code>1000001</code>? (1p)</p>
-<p>b) Vad är det decimala värdet av signed bytevärdet <code>1000001</code>? (1p)</p>
+<p>a) Vad är det decimala värdet av unsigned bytevärdet <code>10000001</code>? (1p)</p>
+<p>b) Vad är det decimala värdet av signed bytevärdet <code>10000001</code>? (1p)</p>
 <h3 id="uppgift-2-11p">Uppgift 2 (11p)</h3>
 <p>Förklara följande begrepp:</p>
 <p>a) Variabeldeklaration (1p)</p>
@@ -652,7 +652,7 @@ window.addEventListener('load', function () {
 <p>c)</p>
 <pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">uint</span> <span class="hljs-title">RectangleArea</span>(<span class="hljs-params"><span class="hljs-keyword">ushort</span> width, <span class="hljs-keyword">ushort</span> height</span>)</span>
 {
-    <span class="hljs-keyword">return</span> RectangleArea(width - <span class="hljs-number">1</span>) + height;
+    <span class="hljs-keyword">return</span> RectangleArea(width - <span class="hljs-number">1</span>, height) + height;
 }
 </div></code></pre>
 <p>(1p)</p>
@@ -692,19 +692,19 @@ DateTime birthday = DateTime.Parse(Console.ReadLine());
 </div></code></pre>
 <p>och en lista <code>movies</code> av typen <code>List&lt;Movie&gt;</code>. Använd LINQ för att med en kodrad skapa ett fält av strängar som innehåller titlarna på alla filmer i <code>movies</code> producerade före år 2000 och som både hade skådespelarna Arnold Schwarzenegger och Danny DeVito.</p>
 <h3 id="uppgift-9-6p">Uppgift 9 (6p)</h3>
-<p>En <em>rastrerare</em> ritar en approximation av geometrisk form, t.ex. en cirkel eller en linje, på en skärmyta genom att färglägga pixlar. Varje pixel på ytan identifieras via indexet på dess rad respektive kolumn i skärmytan.</p>
+<p>En <em>rastrerare</em> ritar en approximation av geometrisk form, t.ex. en cirkel eller en linje, på en skärmyta genom att färglägga punkter i ett rutnät. Dessa punkter kallas för pixlar. Varje pixel på ytan identifieras via indexet på dess rad respektive kolumn i skärmytan.</p>
 <p>Antag att API för rastrering tar ett objekt som uppfyller följande gränssnitt som argument:</p>
 <pre><code class="language-cs"><div><span class="hljs-keyword">interface</span> <span class="hljs-title">IScreen</span>
 {
-    Clear();
-    ColorPixel(<span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> column);
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Clear</span>(<span class="hljs-params"></span>)</span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ColorPixel</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> column</span>)</span>;
     <span class="hljs-keyword">event</span> OnColorPixel ColoringOutsideScreen;
 }
 </div></code></pre>
 <p>Ovanstående gränssnitt beror på följande delegattyp:</p>
 <pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnColorPixel</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> column</span>)</span>;
 </div></code></pre>
-<p>Skriv en klass <code>ConsoleScreen</code> som implementrar gränssnittet ovan genom att skriva ut <code>X</code> i textfönstret på angiven position. Tips: Utnyttja nedanstående metoder och egenskaper i klassen <code>Console</code>:</p>
+<p>Skriv en klass <code>ConsoleScreen</code> som implementrar gränssnittet ovan genom att skriva ut <code>X</code> i konsolfönstret på angiven position när metoden <code>ColorPixel</code> anropas. Tips: Utnyttja nedanstående metoder och egenskaper i klassen <code>Console</code>:</p>
 <pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Clear</span> (<span class="hljs-params"></span>)</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetCursorPosition</span> (<span class="hljs-params"><span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top</span>)</span>;
@@ -714,10 +714,10 @@ DateTime birthday = DateTime.Parse(Console.ReadLine());
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> WindowHeight { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
 </div></code></pre>
 <h3 id="uppgift-10-10p">Uppgift 10 (10p)</h3>
-<p>En rubiks kub är en tredimensionell kub bestående av 3 x 3 x 3 block. De yttre ytorna av blocken har från början färger enligt nedanstående bild.</p>
+<p>En rubiks kub är en tredimensionell kub bestående av 3 x 3 x 3 block. De yttre ytorna av blocken har för en orörd kub färger enligt nedanstående bild.</p>
 <image width="400" src="fig/rubiks_cube.png"/>
-<p>Kuben kan modifieras genom 90 graders rotation av ett av tre blockplan, i tre olika dimensioner.</p>
-<p>Kuben är korrekt om varje sida av kuben har en enda färg.</p>
+<p>Kuben kan modifieras genom 90 graders rotation av något ett av tre blockplan för var och en av tre axlar.</p>
+<p>Vi säger att kuben är <em>korrekt</em> om varje sida av kuben har en enda färg, t.ex. så som i utgångsläget.</p>
 <p>a) Rita ett klassdiagram för en rubiks kub. Kuben i diagrammet skall ha metoder för att:</p>
 <ul>
 <li>Konstruera en ny kub.</li>
