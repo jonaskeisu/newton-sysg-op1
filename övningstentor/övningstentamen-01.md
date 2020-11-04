@@ -218,7 +218,7 @@ a) Rita ett klassdiagram för en rubiks kub. Kuben i diagrammet skall ha metoder
 
 - Konstruera en ny kub. 
 - Rotera ett plan i någon dimension. 
-- Läsa ut färgen på en av de 6 x 6 blockyta på främre, bakre, övre, undre, vänstra eller högra sidan.   
+- Läsa ut färgen på någon av de 3 x 3 blockytorna på främre, bakre, övre, undre, vänstra eller högra sidan.   
 
 samt en egenskap som säger om kuben är korrekt. (4p)
 
