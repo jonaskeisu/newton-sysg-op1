@@ -34,7 +34,7 @@ presentation:
     zoom: 110%;
   }
   div.slides{
-    border: 1px solid black;
+    # border: 1px solid black;
   }
   .reveal code {
     zoom: 90%;
