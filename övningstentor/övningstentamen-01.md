@@ -192,7 +192,7 @@ Ovanstående gränssnitt beror på följande delegattyp:
 delegate void OnColorPixel(int row, int column);
 ```
 
-Skriv en klass ``ConsoleScreen`` som implementrar gränssnittet ovan genom att skriva ut ``X`` i textfönstret på angiven position. Tips: Utnyttja nedanstående metoder och egenskaper:
+Skriv en klass ``ConsoleScreen`` som implementrar gränssnittet ovan genom att skriva ut ``X`` i textfönstret på angiven position. Tips: Utnyttja nedanstående metoder och egenskaper i klassen ``Console``:
 
 ```cs
 public static void Clear ();
