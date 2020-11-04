@@ -186,7 +186,7 @@ public static int WindowHeight { get; set; }
 
 En rubiks kub är en tredimensionell kub bestående av 3 x 3 x 3 block. De yttre ytorna av blocken har från början färger enligt nedanstående bild. 
 
-<img width="400" src="fig/rubiks_cube.png"/>
+<image width="400" src="fig/rubiks_cube.png"/>
 
 Kuben kan modifieras genom 90 graders rotation av ett av tre blockplan, i tre olika dimensioner. 
 
