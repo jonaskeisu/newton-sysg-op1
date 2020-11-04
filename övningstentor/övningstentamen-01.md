@@ -1,11 +1,11 @@
-## Tentamen Newton - OP1
+# Tentamen - Newton - OP1
 
-## Uppgift 1 (2p)
+### Uppgift 1 (2p)
 
 a) Vad är det decimala värdet av unsigned bytevärdet ``1000001``? (1p)
 b) Vad är det decimala värdet av signed bytevärdet ``1000001``? (1p)
 
-## Uppgift 2 (11p)
+### Uppgift 2 (11p)
 
 Förklara följande begrepp: 
 
@@ -18,12 +18,12 @@ f) Funktion (2p)
 g) Funktionsanrop (2p)
 h) Konvertering (1p)
 
-## Uppgift 3 (4p)
+### Uppgift 3 (4p)
 
 a) Skriv en statisk metod som kontrollerar om ett fält av integers är symmetriskt, dvs samma framlänges och baklänges, med hjälp av en ``for``-loop. (2p)
 b) Skriv om metoden så att den är generisk med elementtypen i fältet som typparameter.  (2p)
 
-## Uppgift 4 (3p)
+### Uppgift 4 (3p)
 
 a) Vad skriver följande program ut? Varför? (2p)
 
@@ -55,7 +55,7 @@ namespace App
 
 b) Modifera parametern till metoden ``Birthday`` så att koden fungerar som tänkt. Behöver koden några ytterligare ändringar? (1p)
 
-## Uppgift 4 (3p)
+### Uppgift 4 (3p)
 
 Rätta felet i koderna nedan:
 
@@ -97,7 +97,7 @@ uint RectangleArea(ushort width, ushort height)
 
 (1p)
 
-## Uppgift 5 (3p)
+### Uppgift 5 (3p)
 
 Koden nedan läser in ett datum från användaren, men kraschar p.g.a. ett ``FormatException`` om datumet inte har ett korrekt format. Skriv om koden så felet hanteras genom att användaren ombes skriva in datumet på nytt. 
 
@@ -106,7 +106,7 @@ Console.Write("Skriv in ditt födelsedatum:");
 DateTime birthday = DateTime.Parse(Console.ReadLine());
 ```
 
-## Uppgift 6 (7p)
+### Uppgift 6 (7p)
 
 Bilar kan ha olika accelerationsförmåga och olika toppfart. Fart är hur långt bilen rör sig i antal meter per sekund. Accelerationen är ökningen av farten per sekund. 
 
@@ -116,7 +116,7 @@ b) Skriv en klass för ett bilrace. Konstruktorn skall ta ett fält av bilar som
 
 c) Skriv en ny klass för turbobilar vars accelerationsförmåga ökar med 50% efter att turbon laddat upp (tar 3 sekunder). Klassen för turbobilar skall ärva klassen bil och överskugga metoden ``Tick``. Beskriv även eventuella nödvändiga modifikationer i klassen bil. (3p)
 
-## Uppgift 7 (13p)
+### Uppgift 7 (13p)
 
 Förklara följande begrepp: 
 
@@ -134,7 +134,7 @@ k) Delegattyp (1p)
 l) Event (1p)
 m) Lambdafunktion (1p)
 
-## Uppgift 8 (5p)
+### Uppgift 8 (5p)
 
 Antag följande klass:
 
@@ -149,7 +149,7 @@ class Movie
 
 och en lista ``movies`` av typen ``List<Movie>``. Använd LINQ för att med en kodrad skapa ett fält av strängar som innehåller titlarna på alla filmer i ``movies`` producerade före år 2000 och som både hade skådespelarna Arnold Schwarzenegger och Danny DeVito.  
 
-## Uppgift 9 (6p)
+### Uppgift 9 (6p)
 
 En *rastrerare* ritar en approximation av geometrisk form, t.ex. en cirkel eller en linje, på en skärmyta genom att färglägga pixlar. Varje pixel på ytan identifieras via indexet på dess rad respektive kolumn i skärmytan. 
 
@@ -182,11 +182,11 @@ public static int WindowWidth { get; set; }
 public static int WindowHeight { get; set; }
 ```
 
-## Uppgift 10 (10p)
+### Uppgift 10 (10p)
 
 En rubiks kub är en tredimensionell kub bestående av 3 x 3 x 3 block. De yttre ytorna av blocken har från början färger enligt nedanstående bild. 
 
-<img src="fig/rubiks_cube.png"/>
+<img width="400" src="fig/rubiks_cube.png"/>
 
 Kuben kan modifieras genom 90 graders rotation av ett av tre blockplan, i tre olika dimensioner. 
 
