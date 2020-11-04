@@ -222,7 +222,7 @@ a) Rita ett klassdiagram för en rubiks kub. Kuben i diagrammet skall ha metoder
 
 samt en egenskap som säger om kuben är korrekt. (4p)
 
-b) Skriv komplett kod för för typerna i ditt diagram. (6p)
+b) Skriv komplett kod för typerna i ditt diagram. (6p)
 
 
 
