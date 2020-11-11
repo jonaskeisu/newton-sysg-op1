@@ -9,8 +9,11 @@ Ett lagringsutrymme i datorn där man kan lagra värden av specifik typ.
 En variabel har:
 - Ett namn
 - En typ
+- Ett lagrat värde
 
 Exempel:
+
+Bilden nedan illustrerar en variabel med namnet ``age``, typen ``int`` och som lagrar värdet ``42``: 
 
 ```plantuml
 node " " as var {
