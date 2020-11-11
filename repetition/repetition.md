@@ -138,8 +138,8 @@ Syntax:
 
 ```cs
 {
-    <sats 1>;
-    <sats 2>;
+    <sats1>;
+    <sats2>;
     ...
 }
 ```
