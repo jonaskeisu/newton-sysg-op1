@@ -95,7 +95,8 @@ body.marp-vscode blockquote {
 }
 
 </style>
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
@@ -109,7 +110,7 @@ body.marp-vscode blockquote {
 .task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
         
-        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
         <script type="text/javascript">
 /* From extension geeklearningio.graphviz-markdown-preview */
 /*
@@ -582,7 +583,7 @@ window.addEventListener('load', function () {
 </script>
 
     </head>
-    <body class="vscode-light">
+    <body class="vscode-body vscode-light">
         <h1 id="repetition">Repetition</h1>
 <h2 id="variabel">Variabel</h2>
 <p>Vad är en variabel?</p>
@@ -645,8 +646,8 @@ Count(arr) <span class="hljs-comment">// funktionsanrop -  beräknas genom att k
 <span class="hljs-number">123.0f</span> <span class="hljs-comment">// litteral av typen float</span>
 <span class="hljs-literal">false</span> <span class="hljs-comment">// litteral av typen bool</span>
 <span class="hljs-literal">true</span> <span class="hljs-comment">// litteral av typen bool</span>
-<span class="hljs-string">"hej"</span> <span class="hljs-comment">// litteral av typen string</span>
-<span class="hljs-string">'x'</span> <span class="hljs-comment">// litteral av typen char</span>
+<span class="hljs-string">&quot;hej&quot;</span> <span class="hljs-comment">// litteral av typen string</span>
+<span class="hljs-string">&#x27;x&#x27;</span> <span class="hljs-comment">// litteral av typen char</span>
 </div></code></pre>
 <h3 id="sats">Sats</h3>
 <p>En <em>sats</em> (<em>statement</em>) är det minsta segementet kod som kan köras ensamt (isolerat).</p>
@@ -792,7 +793,7 @@ x || y
 <p>där <code>&lt;villkor&gt;</code> är ett uttryck av typen <code>bool</code> och uttrycken <code>&lt;operand2&gt;</code> och <code>&lt;operand3&gt;</code> kan ha vilken typ som helt men de måste ha <em>samma</em> typ. Uttrycket har samma typ som <code>&lt;operand2&gt;</code> och <code>&lt;operand3&gt;</code> och beräknas som: om <code>&lt;villkor&gt;</code> beräknas till <code>true</code>, så är värdet på uttrycket det beräknade värdet av <code>&lt;operand2&gt;</code>, annars det beräknade värdet av <code>&lt;operand3&gt;</code>.</p>
 <p>Exempel:</p>
 <p>Följande är ett uttryck:</p>
-<pre><code class="language-cs"><div>(age &gt; <span class="hljs-number">40</span>) ? <span class="hljs-string">"gammal"</span> : <span class="hljs-string">"ung"</span>
+<pre><code class="language-cs"><div>(age &gt; <span class="hljs-number">40</span>) ? <span class="hljs-string">&quot;gammal&quot;</span> : <span class="hljs-string">&quot;ung&quot;</span>
 </div></code></pre>
 <p>av typen <code>string</code> som beräknas genom att villkoret <code>(age &gt; 40)</code> först beräknas och om värdet är <code>true</code> så blir hela resultatet <code>&quot;gammal&quot;</code>, annars <code>&quot;ung&quot;</code>.</p>
 <h2 id="scope">Scope</h2>
@@ -892,6 +893,638 @@ x || y
 <p>Vi kan tvinga ett värde att konverteras till en &quot;mindre rymlig&quot; typ genom explicit konvertering.</p>
 <pre><code class="language-cs"><div><span class="hljs-keyword">int</span> x = (<span class="hljs-keyword">int</span>)<span class="hljs-number">3.14</span>;
 <span class="hljs-keyword">string</span> tal = (<span class="hljs-keyword">string</span>)<span class="hljs-number">999</span>;
+</div></code></pre>
+<h2 id="klasser">Klasser</h2>
+<p>Vad är en klass?</p>
+<ul>
+<li>Ett namngivet scope - en behållare för deklarationer av identifierare</li>
+<li>En mall för hur man skapar objekt (instanser) tillhörande klassen</li>
+</ul>
+<p>En stats som deklararerar en klass använder nyckelordet <code>class</code>.</p>
+<p>Exempel:</p>
+<pre><code class="language-cs"><div>namspace Program
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> <span class="hljs-comment">// Person är en identifierare av typen klass deklarerad i scopet Program</span>
+    {
+        <span class="hljs-comment">// variabeldeklaration i scopet Person</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name; 
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age; 
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> email; 
+    }
+}
+</div></code></pre>
+<p>Identifierare deklararerade i en klass kallas för <em>medlemmar</em>.</p>
+<h2 id="klass-som-mall-för-att-skapa-objekt-i-minnet">Klass som mall för att skapa objekt i minnet</h2>
+<p>Funktioner deklarerade i en klass (medlemsfunktion) kalls för <em>metoder</em>.</p>
+<p>Ett objekt skapat från klassen som mall består i datorns minne som en ny kopia av de variabler som är deklarerade i klassen.</p>
+<p>Ett nytt objekt tillhörande en klass skapas med syntaxen:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">new</span> &lt;klass&gt;(&lt;parameterlista för konstruktor&gt;)
+</div></code></pre>
+<p>som är ett uttryck av typen <code>&lt;klass&gt;</code> som beräknas till en referens till ett nytt objekt i datorns minne.</p>
+<p>Om ingen konstruktor är deklarerad i klassen skapas automatiskt en <em>defaultkonstruktor</em> som inte har några parametrar och som initierar alla objektets variabler till defaultvärde efter typ.</p>
+<p>Exempel:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Program</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+    {
+        <span class="hljs-comment">// som ovan</span>
+        <span class="hljs-comment">// ...</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        Person jonas = <span class="hljs-keyword">new</span> Person();
+        Person karl = <span class="hljs-keyword">new</span> Person(); 
+        <span class="hljs-comment">// Brytpunkt 1 </span>
+        jonas.name = <span class="hljs-string">&quot;Jonas&quot;</span>;
+        jonas.age = <span class="hljs-number">42</span>;
+        jonas.email = <span class="hljs-string">&quot;jonas.keisu@bitaddict.se&quot;</span>;
+        karl.name = <span class="hljs-string">&quot;Karl&quot;</span>;
+        karl.age = <span class="hljs-number">27</span>;
+        karl.email = <span class="hljs-string">&quot;karl.svensson@bitaddict.se&quot;</span>;
+        <span class="hljs-comment">// Brytpunkt 2</span>
+        <span class="hljs-comment">// .. mer kod        </span>
+    }
+}
+</div></code></pre>
+<p>Efter brytpunkt 1 så ligger följande objekt lagrade i datorns minne:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/oq_AIaqkKSZApqiiLgZcKW22lCJSL0LRXRpId1mmFp4Tn3K0irDp4pDpO9ArN5pv4EtPYKKvfEi60000"><p>Efter brytpunkt 2 så innehåller objekten i minnet följande värden:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/oq_AIaqkKSZApqiiLgZcKW22lCJSL0LR1IKla9WIM2Wn7IHYOWJcfEOcPkQ0580rwMMdPXQNEYHbbYIcf6Gcb-WLfofnrN9nvKCCpauioa4prnieX6oiaJcgiI0jUiLbgNd5nVbv60O30000"><p>Aktuellt värde på ett objekts variabler kallas för objektets <em>tillstånd</em>.</p>
+<p>Två objekt kan ha samma tillstånd vilket betyder att de är likvärdiga men det behöver inte vara samma objekt.</p>
+<pre><code class="language-cs"><div>Person jonas = <span class="hljs-keyword">new</span> Person();
+Person karl = <span class="hljs-keyword">new</span> Person(); 
+jonas.name = <span class="hljs-string">&quot;Jonas&quot;</span>;
+jonas.age = <span class="hljs-number">42</span>;
+jonas.email = <span class="hljs-string">&quot;jonas.keisu@bitaddict.se&quot;</span>;
+karl.name = <span class="hljs-string">&quot;Jonas&quot;</span>;
+karl.age = <span class="hljs-number">42</span>;
+karl.email = <span class="hljs-string">&quot;jonas.keisu@bitaddict.se&quot;</span>;
+<span class="hljs-comment">// De två objekten ovan har samma tillstånd nu</span>
+</div></code></pre>
+<p>Ett objekt som är skapat med en klass som mall kallas för en <em>instans</em> (eng. <em>instance</em>) av klassen. T.ex. innehåller variablerna i exemplet ovan referenser till instanser av klassen <code>Person</code>.</p>
+<h2 id="metoder">Metoder</h2>
+<p>En funktion som är en medlem i en klass kallas för <em>metod</em>.</p>
+<p>Motivation till metoder:</p>
+<p>Om vi har en klass som samlar variabler som beskriver t.ex. en person:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name; 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age; 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> email; 
+}
+</div></code></pre>
+<p>så vill vi säker ha funktioner som gör olika saker med objekt tillhörande klassen, t.ex.</p>
+<pre><code class="language-cs"><div><span class="hljs-comment">// Skriver ut personinformation</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PersonPrintInfo</span>(<span class="hljs-params">Person person</span>)</span>
+{
+    Console.WriteLine(<span class="hljs-string">$&quot;Name: <span class="hljs-subst">{person.name}</span> Age: <span class="hljs-subst">{person.age}</span>, Email: <span class="hljs-subst">{person.email}</span>&quot;</span>);
+}
+
+<span class="hljs-comment">// Ökar personens ålder med 1</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PersonBirthday</span>(<span class="hljs-params">Person person</span>)</span>
+{
+    person.age += <span class="hljs-number">1</span>; 
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PersonSayHelloTo</span>(<span class="hljs-params">Person person, Person otherPerson</span>)</span>
+{
+    Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{person.name}</span> says &#x27;Hello&#x27; to <span class="hljs-subst">{otherPerson.name}</span>);
+}
+
+// .. 
+Person jonas = new Person();
+Person karl = new Person(); 
+jonas.name = &quot;</span>Jonas<span class="hljs-string">&quot;;
+jonas.age = 42;
+jonas.email = &quot;</span>jonas.keisu@bitaddict.se<span class="hljs-string">&quot;;
+karl.name = &quot;</span>Karl<span class="hljs-string">&quot;;
+karl.age = 27;
+karl.email = &quot;</span>karl.svensson@bitaddict.se<span class="hljs-string">&quot;;
+
+PersonPrintInfo(jonas);
+PersonBirthday(jonas);
+PersonSayHelloTo(jonas, karl);
+</span></div></code></pre>
+<p>Vi ser ett mönster! Alla funktioner ovan tar som första parameter en referens till en <em>aktuell</em> person. Det är väldigt vanligt förekommande att ha funktioner som arbetar på ett aktuell objekt. Så vanligt att det finns ett speciellt sätt att skapa sådana funktioner i C#, genom att göra funktionerna till metoder för objektets klass.</p>
+<p>Som metoder i klassen <code>Person</code> blir ovanstående kod:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name; 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age; 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> email; 
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintInfo</span>(<span class="hljs-params"></span>)</span>
+    {
+        Console.WriteLine(<span class="hljs-string">$&quot;Name: <span class="hljs-subst">{<span class="hljs-keyword">this</span>.name}</span> Age: <span class="hljs-subst">{<span class="hljs-keyword">this</span>.age}</span>, Email: <span class="hljs-subst">{<span class="hljs-keyword">this</span>.email}</span>&quot;</span>);
+    }
+
+    <span class="hljs-comment">// Ökar personens ålder med 1</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Birthday</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.age += <span class="hljs-number">1</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SayHelloTo</span>(<span class="hljs-params">Person otherPerson</span>)</span>
+    {
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{<span class="hljs-keyword">this</span>.name}</span> says &#x27;Hello&#x27; to <span class="hljs-subst">{otherPerson.name}</span>);
+    }
+}
+</span></div></code></pre>
+<p>där nyckelordet <code>this</code> ersätter parametern motsvarande det aktuella objektet. Anrop till metoder görs med hjälp av punktoperatorn med följande syntax:</p>
+<pre><code class="language-cs"><div>&lt;aktuellt objekt&gt; . &lt;metod&gt;(&lt;argumentlista&gt;)
+</div></code></pre>
+<p>där vid anropet <code>&lt;objekt&gt;</code> tilldelas <code>this</code> och argumentens värden tilldelas metodens parameterar innan metodens kropp körs.</p>
+<pre><code class="language-cs"><div>Person jonas = <span class="hljs-keyword">new</span> Person();
+Person karl = <span class="hljs-keyword">new</span> Person(); 
+jonas.name = <span class="hljs-string">&quot;Jonas&quot;</span>;
+jonas.age = <span class="hljs-number">42</span>;
+jonas.email = <span class="hljs-string">&quot;jonas.keisu@bitaddict.se&quot;</span>;
+karl.name = <span class="hljs-string">&quot;Karl&quot;</span>;
+karl.age = <span class="hljs-number">27</span>;
+karl.email = <span class="hljs-string">&quot;karl.svensson@bitaddict.se&quot;</span>;
+
+<span class="hljs-comment">// PersonPrintInfo(jonas) blir som metodanrop: </span>
+jonas.PrintInfo();
+<span class="hljs-comment">// PersonBirthday(jonas) blir som metodanrop: </span>
+jonas.Birthday();
+<span class="hljs-comment">// PersonSayHelloTo(jonas, karl) blir som metodanrop:</span>
+jonas.SayHelloTo(karl);
+</div></code></pre>
+<h2 id="implicit-referens-till-this">Implicit referens till this</h2>
+<p>Alla medlemmar till klassen är synliga i scopet för en metods kropp. Om vi använder namnet av en medlem för objekt av klassen i kroppen för en metod <em>utan</em> aktuellt objekt och punktoperator, så är det underförstått (implicit) att att det aktuella objektet är <code>this.</code>.</p>
+<p>Vi kan alltså skriva koden ovan på följande sätt:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name; 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age; 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> email; 
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintInfo</span>(<span class="hljs-params"></span>)</span>
+    {
+        Console.WriteLine(<span class="hljs-string">$&quot;Name: <span class="hljs-subst">{name}</span> Age: <span class="hljs-subst">{age}</span>, Email: <span class="hljs-subst">{email}</span>&quot;</span>);
+    }
+
+    <span class="hljs-comment">// Ökar personens ålder med 1</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Birthday</span>(<span class="hljs-params"></span>)</span>
+    {
+        age += <span class="hljs-number">1</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SayHelloTo</span>(<span class="hljs-params">Person otherPerson</span>)</span>
+    {
+        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{name}</span> says &#x27;Hello&#x27; to <span class="hljs-subst">{otherPerson.name}</span>);
+    }
+}
+</span></div></code></pre>
+<p>Notera att koden ser likadan ut, förutom att vi tagit bort <code>this.</code> framför namnen på det aktuella objektets medlemmar i metodernas kroppar.</p>
+<h2 id="ibland-är-det-inte-korrekt-att-ta-bort-this">Ibland är det inte korrekt att ta bort this.</h2>
+<p>Ta inte bort <code>this.</code> i kroppen till en metod om det finns en parameter till metoden som har samma identifierare som en variabel eller egenskap för aktuellt objekt.</p>
+<p>T.ex. skulle nedanstående metod <code>AddAge</code> inte längre göra rätt sak om vi tar bort <code>this.</code> framför <code>age</code> i vänsterledet av tilldelningen.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age; 
+    <span class="hljs-comment">// .. samma som ovan</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">AddAge</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> age</span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.age = age;
+    }
+}
+</div></code></pre>
+<h3 id="egenskaper">Egenskaper</h3>
+<p>En <em>egenskap</em> (eng. <em>property</em>) för ett objekt är något som objektet har, t.ex. namn, färg, storlek och antal. De operationer som är tillåtna för en egenskap är att hämta egenskapens värde och sätta  egenskapens värde. Detta skulle vi kunna göra med två metoder per egenskap.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-comment">// Sätt/hämta egenskapen Name</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetName</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-comment">// .. </span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetName</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// .. </span>
+    }
+
+    <span class="hljs-comment">// Sätt/hämta egenskapen Age</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAge</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-comment">// .. </span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">GetAge</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// .. </span>
+    }
+
+    <span class="hljs-comment">// Sätt/hämta egenskapen Email</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEmail</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-comment">// .. </span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetEmail</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// .. </span>
+    }
+}
+</div></code></pre>
+<p>Typiskt lagras aktuellt värde för var och en av ett objekts egenskaper i variabler för objektet.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> name;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age; 
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> email; 
+
+    <span class="hljs-comment">// De två metoderna för egenskapen Name</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetName</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">value</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetName</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name; 
+    }
+
+    <span class="hljs-comment">// De två metoderna för egenskapen Age</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAge</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.age = <span class="hljs-keyword">value</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">GetAge</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> age;
+    }
+
+    <span class="hljs-comment">// De två metoderna för egenskapen Email</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEmail</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.email = <span class="hljs-keyword">value</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetEmail</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> email; 
+    }
+}
+</div></code></pre>
+<p>Egenskaper används för att <em>kapsla in</em> tillståndet för ett objekt. De kan användas för att kontrollera hur kod utanför objektets klass kan uppdatera ett objekts tillstånd.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-comment">// .. som ovan</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAge</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span> || age &gt; <span class="hljs-number">150</span>)
+        {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ValueException(<span class="hljs-string">&quot;Not valid age&quot;</span>);
+        }
+        <span class="hljs-keyword">this</span>.age = <span class="hljs-keyword">value</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEmail</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (!Regex.IsMatch(<span class="hljs-keyword">value</span>, <span class="hljs-string">@&quot;^[^@\s]+@[^@\s]+\.[^@\s]+$&quot;</span>))
+        {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ValueException(<span class="hljs-string">&quot;Not a valid email string&quot;</span>);
+        }
+        <span class="hljs-keyword">this</span>.email = <span class="hljs-keyword">value</span>;  
+    }
+}
+</div></code></pre>
+<p>Kod som använder egenskaperna ovan kan se ut t.ex. såhär:</p>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    Person jonas = <span class="hljs-keyword">new</span> Person();
+    jonas.SetName(<span class="hljs-string">&quot;Jonas&quot;</span>);
+    jonas.SetAge(<span class="hljs-number">42</span>);
+    jonas.SetEmail(<span class="hljs-string">&quot;jonas.keisubitaddict.se&quot;</span>); <span class="hljs-comment">// Kastar exception!!</span>
+}
+</div></code></pre>
+<p>Det är allmänt ansett att variabler för klassobjekt ALLTID skall kapslas, dvs endast tillåta läsning och skrivning för variablerna via egenskaper.</p>
+<h2 id="egenskaper-som-är-readwrite-only">Egenskaper som är read/write only</h2>
+<p>En egenskap kan vara <em>read only</em> och saknar då <code>Set..</code>-metod.</p>
+<p>En egenskap kan också vara <em>write only</em> och saknar då <code>Get..</code>-metod.</p>
+<h2 id="syntax-för-egenskaper-i-c">Syntax för egenskaper i C#</h2>
+<p>Syntaxen i C# för t.ex. egenskapen:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-comment">// .. </span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetName</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">value</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetName</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">GetAge</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.age;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetAge</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span> || age &gt; <span class="hljs-number">150</span>)
+        {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ValueException(<span class="hljs-string">&quot;Not valid age&quot;</span>);
+        }
+        <span class="hljs-keyword">this</span>.age = <span class="hljs-keyword">value</span>; 
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetEmail</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.email;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetEmail</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-keyword">value</span></span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (!Regex.IsMatch(<span class="hljs-keyword">value</span>, <span class="hljs-string">@&quot;^[^@\s]+@[^@\s]+\.[^@\s]+$&quot;</span>))
+        {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ValueException(<span class="hljs-string">&quot;Not a valid email string&quot;</span>);
+        }
+        <span class="hljs-keyword">this</span>.email = <span class="hljs-keyword">value</span>;  
+    }
+
+    <span class="hljs-comment">// .. </span>
+}
+</div></code></pre>
+<p>är:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-comment">// ..</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Name 
+    {
+        <span class="hljs-keyword">set</span> 
+        {
+            <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">value</span>;
+        }
+
+        <span class="hljs-keyword">get</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Age
+    {
+        <span class="hljs-keyword">set</span>
+        {
+            <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span> || age &gt; <span class="hljs-number">150</span>)
+            {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ValueException(<span class="hljs-string">&quot;Not valid age&quot;</span>);
+            }
+            <span class="hljs-keyword">this</span>.age = <span class="hljs-keyword">value</span>; 
+        }
+
+        <span class="hljs-keyword">get</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.age;
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Email
+    {
+        <span class="hljs-keyword">set</span>
+        {
+            <span class="hljs-keyword">if</span> (!Regex.IsMatch(<span class="hljs-keyword">value</span>, <span class="hljs-string">@&quot;^[^@\s]+@[^@\s]+\.[^@\s]+$&quot;</span>))
+            {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ValueException(<span class="hljs-string">&quot;Not a valid email string&quot;</span>);
+            }
+            <span class="hljs-keyword">this</span>.email = <span class="hljs-keyword">value</span>;  
+        }
+
+        <span class="hljs-keyword">get</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.email;
+        }
+    }
+
+    <span class="hljs-comment">// ..</span>
+}
+</div></code></pre>
+<p>Koden som sätter egenskapernas värde blir i C#:</p>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    Person jonas = <span class="hljs-keyword">new</span> Person();
+    jonas.Name = <span class="hljs-string">&quot;Jonas&quot;</span>;
+    jonas.Age = <span class="hljs-number">42</span>;
+    jonas.Email = <span class="hljs-string">&quot;jonas.keisubitaddict.se&quot;</span>; <span class="hljs-comment">// Kastar exception!!</span>
+
+    Console.WriteLine(jonas.Name);
+}
+</div></code></pre>
+<h2 id="automatiskt-implementerade-egenskaper">Automatiskt implementerade egenskaper</h2>
+<p>I C# kan man istället för att skriva t.ex.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> name;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Name
+    {
+        <span class="hljs-keyword">get</span> 
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+        }
+
+        <span class="hljs-keyword">set</span>
+        {
+            <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">value</span>;
+        }
+    }
+}
+</div></code></pre>
+<p>istället skriva:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Name 
+    { 
+        <span class="hljs-keyword">get</span>; 
+        <span class="hljs-keyword">set</span>; 
+    }
+}
+</div></code></pre>
+<p>För denna kod skapar kompilatorn automatiskt en anonym medlemsvariabel som används för att spara undan värdet på egenskapen <code>Name</code>. För programmeraren är nu <code>Name</code> både en egenskap och en medlemsvariabel och skall ses som en del av objektens tillstånd.</p>
+<h2 id="konstruerare">Konstruerare</h2>
+<p>Konstruerare är metoder med det speciella syftet att initiera tillståndet för ett nytt objekt skapat i minnet med nyckelordet <code>new</code>.</p>
+<p>En konstruerare har alltid samma namn som klassen den är deklarerad i och får inte ha en resultattyp (int ens <code>void</code>).</p>
+<p>Exempel:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> name;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age; 
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> email; 
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">string</span> email</span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.Name = name;
+        <span class="hljs-keyword">this</span>.Age = age; 
+        <span class="hljs-keyword">this</span>.Email = email; 
+    }
+
+    <span class="hljs-comment">// ..</span>
+}
+
+<span class="hljs-comment">// ..</span>
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    <span class="hljs-comment">// Person jonas = new Person(); // INTE längre tillåtet</span>
+    Person jonas = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;Jonas&quot;</span>, <span class="hljs-number">42</span>, <span class="hljs-string">&quot;jonas.keisu@bitaddict.se&quot;</span>);
+}
+</div></code></pre>
+<h2 id="tillgång">Tillgång</h2>
+<p>För att kod skall kunna använda en identifierare så måste:</p>
+<ul>
+<li>Identifieraren vara synlig i kodens scope.</li>
+<li>Vara tillgänglig (eng. <em>accessable</em>) för koden.</li>
+</ul>
+<p>Tillgängligheten för identifierare bestäms av <em>modifierare</em> (eng. <em>modifiers</em>) som föregår deklarationen av identifieraren. De viktigaste modifierarna för tillgänglighet är:</p>
+<ul>
+<li><code>public</code> - Tillgänglig i all kod</li>
+<li><code>private</code> - Tillgänglig endast för kod i samma klass</li>
+<li><code>internal</code> - Tillgänglig i all kod i samma assembly</li>
+<li><code>protected</code> - Tillgänglig endast för kod i samma klass eller i ärvande klass</li>
+</ul>
+<p>Standardtillgänglighet (om ingen modifierare för detta anges) för typdeklarationer är <code>internal</code> och för klassmedlemmar <code>private</code>.</p>
+<h2 id="strukturer">Strukturer</h2>
+<p>En struktur är, precis som klasser, en programmerardeklarerad typ. Strukturer fungerar väldigt likt klasser men med några viktiga skillnader:</p>
+<ul>
+<li>Strukturer deklareras med nyckelordet <code>struct</code> istället för <code>class</code></li>
+<li>Strukturer är värdetyper, men klasser är referenstyper</li>
+<li>Strukturer kan inte ärva</li>
+<li>Strukturer kan inte överlagra defaultkonstruktorn</li>
+<li>Strukturer kan inte initilisera medlemsvariabler vid deklaration</li>
+</ul>
+<h2 id="värdetyper-vs-referenstyper">Värdetyper vs. referenstyper</h2>
+<p>För en värdetyp lagras objektet i en variabel av typen.</p>
+<p>För en referenstyp så lagras en <em>referens</em> (ibland kallat <em>pekare</em>) till objektet i en variabel av typen.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Program</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Person1</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name, <span class="hljs-keyword">int</span> age</span>)</span>
+        {
+            <span class="hljs-keyword">this</span>.name = name;
+            <span class="hljs-keyword">this</span>.age = age;
+        }
+    }
+
+    <span class="hljs-keyword">struct</span> Person2
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name, <span class="hljs-keyword">int</span> age</span>)</span>
+        {
+            <span class="hljs-keyword">this</span>.name = name;
+            <span class="hljs-keyword">this</span>.age = age;
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        Person1 karl = <span class="hljs-keyword">new</span> Person1(<span class="hljs-string">&quot;karl&quot;</span>, <span class="hljs-number">27</span>);
+        Person2 jonas = <span class="hljs-keyword">new</span> Person2(<span class="hljs-string">&quot;jonas&quot;</span>, <span class="hljs-number">42</span>);
+        Person1 karl2 = karl;
+        Person2 jonas2 = jonas;
+        <span class="hljs-comment">// Brytpunkt</span>
+        <span class="hljs-comment">// ..</span>
+    }
+}
+
+</div></code></pre>
+<p>Vid brytpunkten kommer följande vara lagrat i datorns minne:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/uyfFoafDBb78JYpAKQZcKW02ZQBKjDIYrBnYJQvQBYuaUIEi2c0gb80miLW1o8CgoqlCJLMmLV06wWJp4zD1N2Dpa2QmTRgwTY3bN12pOJoOULdvUK3ZK8nIyWA9AI6PPcA4v4Qm3YEYj000"><p>Antag att vi efter brytpunkten hade följande kod:</p>
+<pre><code class="language-cs"><div><span class="hljs-comment">// ..</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        <span class="hljs-comment">// ..</span>
+        <span class="hljs-comment">// Brytpunkt</span>
+        jonas2.Age = <span class="hljs-number">43</span>;
+        karl2.Age = <span class="hljs-number">28</span>;
+        <span class="hljs-comment">// Brytpunkt 2</span>
+        Console.WriteLine(<span class="hljs-string">$&quot;The Karls: <span class="hljs-subst">{karl.age}</span> <span class="hljs-subst">{karl2.age}</span>&quot;</span>);
+        Console.WriteLine(<span class="hljs-string">$&quot;The Jonas: <span class="hljs-subst">{jonas.age}</span> <span class="hljs-subst">{jonas2.age}</span>&quot;</span>);
+    }
+</div></code></pre>
+<p>Vid brytpunkt 2 har vi då följande värden lagrade i minnet:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/uyfFoafDBb78JYpAKQZcKW02ZQBKjDIYrBnYJQvQBYuaUIEi2c0gb80miLW1o8CgoqlCJLMmLV06wWJp4zD1N2CBa2QmTRgwTY3bN12pOJoOULdvUK3ZK8nIyWA9AI6PPcA4v4Qm3YE2Meo1MW00"><p>och sedan får vi följande utskrift:</p>
+<pre><code class="language-console"><div>The Karls: 28 28
+The Jonas: 42 43
+</div></code></pre>
+<p>Alla de grundläggande enkla typerna, t.ex.: <code>int</code>, <code>byte</code>, <code>float</code>, <code>double</code>, <code>boolean</code> och <code>char</code> är värdetyper.</p>
+<p>Alla fälttyper är referenstyper.</p>
+<p>Ett till exempel:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Program</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        <span class="hljs-keyword">int</span>[] a = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>};
+        <span class="hljs-keyword">double</span> b = <span class="hljs-number">15.0</span>;
+        <span class="hljs-keyword">int</span>[] a2 = a;
+        <span class="hljs-keyword">double</span> b2 = b;
+    }
+}
+</div></code></pre>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/uyfFoafDBb58LAZcKW02ZQBKjDIYrBnYJQvQBYwOf15MMPYq4X0c5Yi0UL1brOOw2aOw2iQr85M92hgwTY19Bg0nC2PCQn9KXw6fdW6IXKb6gE80"><h2 id="static">Static</h2>
+<p>Lägger man till modifieraren <code>static</code> på en medlem i en klass eller struktur så ingår inte längre medlemmen i mallen för hur objekt av typen skapas eller vilka medlemmar som objekten har. Istället så tillhör medlemmen själva klassen. Det är precis som att deklarera t.ex. en lokal variabel eller funktion men i klassens scope.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">TicTacToe</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">TicTacToeBoard</span>
+    {
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">char</span>[,] symbols = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-number">3</span>, <span class="hljs-number">3</span>];
+
+        <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">CheckValid</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> column</span>)</span>
+        {
+            <span class="hljs-keyword">return</span> row &gt;= <span class="hljs-number">0</span> &amp;&amp; row &lt; <span class="hljs-number">3</span> &amp;&amp; column &gt;= <span class="hljs-number">0</span> &amp;&amp; columns &lt; <span class="hljs-number">3</span>;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">char</span> <span class="hljs-title">GetSymbol</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> column</span>)</span>
+        {
+            <span class="hljs-keyword">if</span> (!CheckValid(row, column))
+            {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">&quot;Not valid position on board&quot;</span>);
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.symbols[row, column];
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">AskUserForRowIndex</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// ..</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">AskUserForColumnIndex</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-comment">// ..</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        TicTacToeBoard board = <span class="hljs-keyword">new</span> TicTacToeBoard();
+        <span class="hljs-comment">// .. </span>
+        <span class="hljs-keyword">int</span> column = AskUserForColumnIndex();
+        <span class="hljs-keyword">int</span> row = AskUserForRowIndex(); 
+        <span class="hljs-keyword">if</span> (TicTacToeBoard.CheckValid(row, column))
+        {
+            Console.WriteLine(board.GetSymbol(row, column));
+        }
+    }
+}
 </div></code></pre>
 
     </body>

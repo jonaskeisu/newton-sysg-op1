@@ -500,6 +500,900 @@ int x = (int)3.14;
 string tal = (string)999;
 ```
 
+## Klasser
+
+Vad är en klass? 
+
+- Ett namngivet scope - en behållare för deklarationer av identifierare
+- En mall för hur man skapar objekt (instanser) tillhörande klassen
+
+En stats som deklararerar en klass använder nyckelordet ``class``. 
+
+Exempel: 
+
+```cs
+namspace Program
+{
+    class Person // Person är en identifierare av typen klass deklarerad i scopet Program
+    {
+        // variabeldeklaration i scopet Person
+        public string name; 
+        public int age; 
+        public string email; 
+    }
+}
+```
+
+Identifierare deklararerade i en klass kallas för *medlemmar*. 
+
+## Klass som mall för att skapa objekt i minnet
+
+Funktioner deklarerade i en klass (medlemsfunktion) kalls för *metoder*. 
+
+Ett objekt skapat från klassen som mall består i datorns minne som en ny kopia av de variabler som är deklarerade i klassen. 
+
+Ett nytt objekt tillhörande en klass skapas med syntaxen: 
+
+```cs
+new <klass>(<parameterlista för konstruktor>)
+```
+
+som är ett uttryck av typen ``<klass>`` som beräknas till en referens till ett nytt objekt i datorns minne.
+
+Om ingen konstruktor är deklarerad i klassen skapas automatiskt en *defaultkonstruktor* som inte har några parametrar och som initierar alla objektets variabler till defaultvärde efter typ. 
+
+Exempel:
+
+```cs
+namespace Program
+{
+    class Person
+    {
+        // som ovan
+        // ...
+    }
+
+    public static void Main(string[] args)
+    {
+        Person jonas = new Person();
+        Person karl = new Person(); 
+        // Brytpunkt 1 
+        jonas.name = "Jonas";
+        jonas.age = 42;
+        jonas.email = "jonas.keisu@bitaddict.se";
+        karl.name = "Karl";
+        karl.age = 27;
+        karl.email = "karl.svensson@bitaddict.se";
+        // Brytpunkt 2
+        // .. mer kod        
+    }
+}
+```
+
+Efter brytpunkt 1 så ligger följande objekt lagrade i datorns minne:
+
+```plantuml
+object jonas {
+    name = null
+    age = 0
+    email = null
+}
+
+object karl {
+    name = null
+    age = 0
+    email = null
+}
+```
+
+Efter brytpunkt 2 så innehåller objekten i minnet följande värden:
+
+```plantuml
+object jonas {
+    name = "Jonas"
+    age = 42
+    email = "jonas.keisu@bitaddict.se"
+}
+
+object karl {
+    name = "Karl"
+    age = 27
+    email = "karl.svensson@bitaddict.se"
+}
+```
+
+Aktuellt värde på ett objekts variabler kallas för objektets *tillstånd*. 
+
+Två objekt kan ha samma tillstånd vilket betyder att de är likvärdiga men det behöver inte vara samma objekt. 
+
+```cs
+Person jonas = new Person();
+Person karl = new Person(); 
+jonas.name = "Jonas";
+jonas.age = 42;
+jonas.email = "jonas.keisu@bitaddict.se";
+karl.name = "Jonas";
+karl.age = 42;
+karl.email = "jonas.keisu@bitaddict.se";
+// De två objekten ovan har samma tillstånd nu
+```
+
+Ett objekt som är skapat med en klass som mall kallas för en *instans* (eng. *instance*) av klassen. T.ex. innehåller variablerna i exemplet ovan referenser till instanser av klassen ``Person``. 
+
+## Metoder
+
+En funktion som är en medlem i en klass kallas för *metod*.
+
+Motivation till metoder: 
+
+Om vi har en klass som samlar variabler som beskriver t.ex. en person: 
+
+```cs
+class Person
+{
+    public string name; 
+    public int age; 
+    public string email; 
+}
+```
+
+så vill vi säker ha funktioner som gör olika saker med objekt tillhörande klassen, t.ex. 
+
+```cs
+// Skriver ut personinformation
+void PersonPrintInfo(Person person)
+{
+    Console.WriteLine($"Name: {person.name} Age: {person.age}, Email: {person.email}");
+}
+
+// Ökar personens ålder med 1
+void PersonBirthday(Person person)
+{
+    person.age += 1; 
+}
+
+void PersonSayHelloTo(Person person, Person otherPerson)
+{
+    Console.WriteLine($"{person.name} says 'Hello' to {otherPerson.name});
+}
+
+// .. 
+Person jonas = new Person();
+Person karl = new Person(); 
+jonas.name = "Jonas";
+jonas.age = 42;
+jonas.email = "jonas.keisu@bitaddict.se";
+karl.name = "Karl";
+karl.age = 27;
+karl.email = "karl.svensson@bitaddict.se";
+
+PersonPrintInfo(jonas);
+PersonBirthday(jonas);
+PersonSayHelloTo(jonas, karl);
+```
+
+Vi ser ett mönster! Alla funktioner ovan tar som första parameter en referens till en *aktuell* person. Det är väldigt vanligt förekommande att ha funktioner som arbetar på ett aktuell objekt. Så vanligt att det finns ett speciellt sätt att skapa sådana funktioner i C#, genom att göra funktionerna till metoder för objektets klass. 
+
+Som metoder i klassen ``Person`` blir ovanstående kod: 
+
+```cs 
+class Person
+{
+    public string name; 
+    public int age; 
+    public string email; 
+
+    void PrintInfo()
+    {
+        Console.WriteLine($"Name: {this.name} Age: {this.age}, Email: {this.email}");
+    }
+
+    // Ökar personens ålder med 1
+    void Birthday()
+    {
+        this.age += 1; 
+    }
+
+    void SayHelloTo(Person otherPerson)
+    {
+        Console.WriteLine($"{this.name} says 'Hello' to {otherPerson.name});
+    }
+}
+```
+
+där nyckelordet ``this`` ersätter parametern motsvarande det aktuella objektet. Anrop till metoder görs med hjälp av punktoperatorn med följande syntax:
+
+```cs
+<aktuellt objekt> . <metod>(<argumentlista>)
+```
+
+där vid anropet ``<objekt>`` tilldelas ``this`` och argumentens värden tilldelas metodens parameterar innan metodens kropp körs. 
+
+```cs
+Person jonas = new Person();
+Person karl = new Person(); 
+jonas.name = "Jonas";
+jonas.age = 42;
+jonas.email = "jonas.keisu@bitaddict.se";
+karl.name = "Karl";
+karl.age = 27;
+karl.email = "karl.svensson@bitaddict.se";
+
+// PersonPrintInfo(jonas) blir som metodanrop: 
+jonas.PrintInfo();
+// PersonBirthday(jonas) blir som metodanrop: 
+jonas.Birthday();
+// PersonSayHelloTo(jonas, karl) blir som metodanrop:
+jonas.SayHelloTo(karl);
+```
+
+## Implicit referens till this
+
+Alla medlemmar till klassen är synliga i scopet för en metods kropp. Om vi använder namnet av en medlem för objekt av klassen i kroppen för en metod *utan* aktuellt objekt och punktoperator, så är det underförstått (implicit) att att det aktuella objektet är ``this.``. 
+
+Vi kan alltså skriva koden ovan på följande sätt: 
+
+```cs 
+class Person
+{
+    public string name; 
+    public int age; 
+    public string email; 
+
+    void PrintInfo()
+    {
+        Console.WriteLine($"Name: {name} Age: {age}, Email: {email}");
+    }
+
+    // Ökar personens ålder med 1
+    void Birthday()
+    {
+        age += 1; 
+    }
+
+    void SayHelloTo(Person otherPerson)
+    {
+        Console.WriteLine($"{name} says 'Hello' to {otherPerson.name});
+    }
+}
+```
+
+Notera att koden ser likadan ut, förutom att vi tagit bort ``this.`` framför namnen på det aktuella objektets medlemmar i metodernas kroppar.
+
+## Ibland är det inte korrekt att ta bort this.
+
+Ta inte bort ``this.`` i kroppen till en metod om det finns en parameter till metoden som har samma identifierare som en variabel eller egenskap för aktuellt objekt. 
+
+T.ex. skulle nedanstående metod ``AddAge`` inte längre göra rätt sak om vi tar bort ``this.`` framför ``age`` i vänsterledet av tilldelningen. 
+
+```cs 
+class Person
+{
+    public string name;
+    public int age; 
+    // .. samma som ovan
+    void AddAge(int age)
+    {
+        this.age = age;
+    }
+}
+```
+
+### Egenskaper 
+
+En *egenskap* (eng. *property*) för ett objekt är något som objektet har, t.ex. namn, färg, storlek och antal. De operationer som är tillåtna för en egenskap är att hämta egenskapens värde och sätta  egenskapens värde. Detta skulle vi kunna göra med två metoder per egenskap. 
+
+```cs
+class Person
+{
+    // Sätt/hämta egenskapen Name
+    public void SetName(string value)
+    {
+        // .. 
+    }
+
+    public string GetName()
+    {
+        // .. 
+    }
+
+    // Sätt/hämta egenskapen Age
+    public void SetAge(int value)
+    {
+        // .. 
+    }
+
+    public int GetAge()
+    {
+        // .. 
+    }
+
+    // Sätt/hämta egenskapen Email
+    public void SetEmail(string value)
+    {
+        // .. 
+    }
+
+    public string GetEmail()
+    {
+        // .. 
+    }
+}
+```
+
+Typiskt lagras aktuellt värde för var och en av ett objekts egenskaper i variabler för objektet. 
+
+```cs
+class Person
+{
+    private string name;
+    private int age; 
+    private string email; 
+
+    // De två metoderna för egenskapen Name
+    public void SetName(string value)
+    {
+        this.name = value; 
+    }
+
+    public string GetName()
+    {
+        return this.name; 
+    }
+
+    // De två metoderna för egenskapen Age
+    public void SetAge(int value)
+    {
+        this.age = value; 
+    }
+
+    public int GetAge()
+    {
+        return age;
+    }
+
+    // De två metoderna för egenskapen Email
+    public void SetEmail(string value)
+    {
+        this.email = value; 
+    }
+
+    public string GetEmail()
+    {
+        return email; 
+    }
+}
+```
+
+Egenskaper används för att *kapsla in* tillståndet för ett objekt. De kan användas för att kontrollera hur kod utanför objektets klass kan uppdatera ett objekts tillstånd. 
+
+```cs
+class Person
+{
+    // .. som ovan
+    public void SetAge(int value)
+    {
+        if (age < 0 || age > 150)
+        {
+            throw new ValueException("Not valid age");
+        }
+        this.age = value; 
+    }
+
+    public void SetEmail(string value)
+    {
+        if (!Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            throw new ValueException("Not a valid email string");
+        }
+        this.email = value;  
+    }
+}
+```
+
+Kod som använder egenskaperna ovan kan se ut t.ex. såhär: 
+
+```cs
+public void Main(string[] args)
+{
+    Person jonas = new Person();
+    jonas.SetName("Jonas");
+    jonas.SetAge(42);
+    jonas.SetEmail("jonas.keisubitaddict.se"); // Kastar exception!!
+}
+```
+
+Det är allmänt ansett att variabler för klassobjekt ALLTID skall kapslas, dvs endast tillåta läsning och skrivning för variablerna via egenskaper. 
+
+## Egenskaper som är read/write only
+
+En egenskap kan vara *read only* och saknar då ``Set..``-metod. 
+
+En egenskap kan också vara *write only* och saknar då ``Get..``-metod.
+
+
+## Syntax för egenskaper i C#
+
+Syntaxen i C# för t.ex. egenskapen: 
+
+```cs
+class Person
+{
+    // .. 
+
+    public void SetName(string value)
+    {
+        this.name = value; 
+    }
+
+    public string GetName()
+    {
+        return this.name; 
+    }
+
+    public int GetAge()
+    {
+        return this.age;
+    }
+
+    public void SetAge(int value)
+    {
+        if (age < 0 || age > 150)
+        {
+            throw new ValueException("Not valid age");
+        }
+        this.age = value; 
+    }
+
+    public string GetEmail()
+    {
+        return this.email;
+    }
+
+    public void SetEmail(string value)
+    {
+        if (!Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            throw new ValueException("Not a valid email string");
+        }
+        this.email = value;  
+    }
+
+    // .. 
+}
+```
+
+är: 
+
+```cs
+class Person
+{
+    // ..
+
+    public string Name 
+    {
+        set 
+        {
+            this.name = value;
+        }
+
+        get
+        {
+            return this.name;
+        }
+    }
+
+    public int Age
+    {
+        set
+        {
+            if (age < 0 || age > 150)
+            {
+                throw new ValueException("Not valid age");
+            }
+            this.age = value; 
+        }
+
+        get
+        {
+            return this.age;
+        }
+    }
+
+    public string Email
+    {
+        set
+        {
+            if (!Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                throw new ValueException("Not a valid email string");
+            }
+            this.email = value;  
+        }
+
+        get
+        {
+            return this.email;
+        }
+    }
+
+    // ..
+}
+```
+
+Koden som sätter egenskapernas värde blir i C#: 
+
+```cs
+public void Main(string[] args)
+{
+    Person jonas = new Person();
+    jonas.Name = "Jonas";
+    jonas.Age = 42;
+    jonas.Email = "jonas.keisubitaddict.se"; // Kastar exception!!
+
+    Console.WriteLine(jonas.Name);
+}
+```
+
+## Automatiskt implementerade egenskaper
+
+I C# kan man istället för att skriva t.ex. 
+
+```cs
+class Person
+{
+    private string name;
+
+    public string Name
+    {
+        get 
+        {
+            return this.name;
+        }
+
+        set
+        {
+            this.name = value;
+        }
+    }
+}
+```
+
+istället skriva:
+
+```cs
+class Person
+{
+    public string Name 
+    { 
+        get; 
+        set; 
+    }
+}
+```
+
+För denna kod skapar kompilatorn automatiskt en anonym medlemsvariabel som används för att spara undan värdet på egenskapen ``Name``. För programmeraren är nu ``Name`` både en egenskap och en medlemsvariabel och skall ses som en del av objektens tillstånd. 
+
+## Konstruerare 
+
+Konstruerare är metoder med det speciella syftet att initiera tillståndet för ett nytt objekt skapat i minnet med nyckelordet ``new``. 
+
+En konstruerare har alltid samma namn som klassen den är deklarerad i och får inte ha en resultattyp (int ens ``void``).
+
+Exempel: 
+
+```cs
+class Person
+{
+    private string name;
+    private int age; 
+    private string email; 
+
+    public Person(string name, int age, string email)
+    {
+        this.Name = name;
+        this.Age = age; 
+        this.Email = email; 
+    }
+
+    // ..
+}
+
+// ..
+
+public void Main(string[] args)
+{
+    // Person jonas = new Person(); // INTE längre tillåtet
+    Person jonas = new Person("Jonas", 42, "jonas.keisu@bitaddict.se");
+}
+```
+
+## Tillgång
+
+För att kod skall kunna använda en identifierare så måste:
+- Identifieraren vara synlig i kodens scope. 
+- Vara tillgänglig (eng. *accessable*) för koden.
+
+Tillgängligheten för identifierare bestäms av *modifierare* (eng. *modifiers*) som föregår deklarationen av identifieraren. De viktigaste modifierarna för tillgänglighet är: 
+
+- ``public`` - Tillgänglig i all kod 
+- ``private`` - Tillgänglig endast för kod i samma klass
+- ``internal`` - Tillgänglig i all kod i samma assembly 
+- ``protected`` - Tillgänglig endast för kod i samma klass eller i ärvande klass
+
+Standardtillgänglighet (om ingen modifierare för detta anges) för typdeklarationer är ``internal`` och för klassmedlemmar ``private``.
+
+## Strukturer
+
+En struktur är, precis som klasser, en programmerardeklarerad typ. Strukturer fungerar väldigt likt klasser men med några viktiga skillnader: 
+
+- Strukturer deklareras med nyckelordet ``struct`` istället för ``class``
+- Strukturer är värdetyper, men klasser är referenstyper
+- Strukturer kan inte ärva 
+- Strukturer kan inte överlagra defaultkonstruktorn
+- Strukturer kan inte initilisera medlemsvariabler vid deklaration 
+
+## Värdetyper vs. referenstyper
+
+För en värdetyp lagras objektet i en variabel av typen. 
+
+För en referenstyp så lagras en *referens* (ibland kallat *pekare*) till objektet i en variabel av typen. 
+
+```cs 
+namespace Program
+{
+    class Person1
+    {
+        public string name;
+        public int age;
+
+        public Person(string name, int age)
+        {
+            this.name = name;
+            this.age = age;
+        }
+    }
+
+    struct Person2
+    {
+        public string name;
+        public int age;
+
+        public Person(string name, int age)
+        {
+            this.name = name;
+            this.age = age;
+        }
+    }
+
+    public void Main(string[] args)
+    {
+        Person1 karl = new Person1("karl", 27);
+        Person2 jonas = new Person2("jonas", 42);
+        Person1 karl2 = karl;
+        Person2 jonas2 = jonas;
+        // Brytpunkt
+        // ..
+    }
+}
+
+```
+
+Vid brytpunkten kommer följande vara lagrat i datorns minne:
+
+
+```plantuml
+
+object karl {
+    (referens)
+}
+
+object karl2 {
+    (referens)
+}
+
+
+object " " as obj {
+    name = Karl
+    age = 27
+}
+
+karl --> obj
+karl2 --> obj
+
+object jonas {
+    name = "Jonas"
+    age = 42
+}
+
+object jonas2 {
+    name = "Jonas"
+    age = 42
+}
+```
+
+Antag att vi efter brytpunkten hade följande kod:
+
+```cs
+// ..
+    public void Main(string[] args)
+    {
+        // ..
+        // Brytpunkt
+        jonas2.Age = 43;
+        karl2.Age = 28;
+        // Brytpunkt 2
+        Console.WriteLine($"The Karls: {karl.age} {karl2.age}");
+        Console.WriteLine($"The Jonas: {jonas.age} {jonas2.age}");
+    }
+```
+
+Vid brytpunkt 2 har vi då följande värden lagrade i minnet:
+
+```plantuml
+
+object karl {
+    (referens)
+}
+
+object karl2 {
+    (referens)
+}
+
+
+object " " as obj {
+    name = Karl
+    age = 28
+}
+
+karl --> obj
+karl2 --> obj
+
+object jonas {
+    name = "Jonas"
+    age = 42
+}
+
+object jonas2 {
+    name = "Jonas"
+    age = 43
+}
+```
+
+och sedan får vi följande utskrift:
+
+```console
+The Karls: 28 28
+The Jonas: 42 43
+```
+
+Alla de grundläggande enkla typerna, t.ex.: ``int``, ``byte``, ``float``, ``double``, ``boolean`` och ``char`` är värdetyper. 
+
+Alla fälttyper är referenstyper.
+
+Ett till exempel:
+
+```cs
+namespace Program
+{
+    public void Main(string[] args)
+    {
+        int[] a = { 1, 2, 3};
+        double b = 15.0;
+        int[] a2 = a;
+        double b2 = b;
+    }
+}
+```
+```plantuml
+
+object a {
+    (referens)
+}
+
+object a2 {
+    (referens)
+}
+
+
+object " " as obj {
+    {1, 2, 3}
+}
+
+a --> obj
+a2 --> obj
+
+object b {
+    15.0
+}
+
+object b2 {
+    15.0
+}
+```
+
+## Static 
+
+Lägger man till modifieraren ``static`` på en medlem i en klass eller struktur så ingår inte längre medlemmen i mallen för hur objekt av typen skapas eller vilka medlemmar som objekten har. Istället så tillhör medlemmen själva klassen. Det är precis som att deklarera t.ex. en lokal variabel eller funktion men i klassens scope. 
+
+```cs 
+namespace TicTacToe
+{
+    class TicTacToeBoard
+    {
+        private char[,] symbols = new char[3, 3];
+
+        static public bool CheckValid(int row, int column)
+        {
+            return row >= 0 && row < 3 && column >= 0 && columns < 3;
+        }
+
+        public char GetSymbol(int row, int column)
+        {
+            if (!CheckValid(row, column))
+            {
+                throw new ArgumentException("Not valid position on board");
+            }
+            return this.symbols[row, column];
+        }
+    }
+
+    public static int AskUserForRowIndex()
+    {
+        // ..
+    }
+
+    public static int AskUserForColumnIndex()
+    {
+        // ..
+    }
+
+    public static void Main(string[] args)
+    {
+        TicTacToeBoard board = new TicTacToeBoard();
+        // .. 
+        int column = AskUserForColumnIndex();
+        int row = AskUserForRowIndex(); 
+        if (TicTacToeBoard.CheckValid(row, column))
+        {
+            Console.WriteLine(board.GetSymbol(row, column));
+        }
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
