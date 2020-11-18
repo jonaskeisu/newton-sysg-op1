@@ -1693,7 +1693,7 @@ The Jonas: 42 43
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.CalcCost(month) + <span class="hljs-number">60000</span> + BonusPercentage * revenue;
         }
     }
-    
+
     <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
     {
         <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
@@ -1741,6 +1741,354 @@ The Jonas: 42 43
 <p>Varje klass kan bara ärva en annan klass, men många klasser kan ärva från samma klass.</p>
 <p>I en arvsrelation mellan två klasser kallas den ärvda klassen <em>basklass</em> (eng. <em>base class</em>), <em>super class</em> eller <em>förälderklass</em> (eng. <em>parent class</em>). Den ärvande klassen kallas <em>barnklass</em> (eng. <em>child class</em>) eller underklass (eng. <em>sub class</em>).</p>
 <p>Exempel:</p>
+<pre><code class="language-cs"><div>
+<span class="hljs-comment">// EmployeeWithCar ärver Employee</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">EmployeeWithCar</span> : <span class="hljs-title">Employee</span> 
+{
+    <span class="hljs-comment">// .. </span>
+}
+
+<span class="hljs-comment">// Consultant ärver Employee</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">Consultant</span> : <span class="hljs-title">Employee</span> 
+{
+    <span class="hljs-comment">// .. </span>
+}
+
+<span class="hljs-comment">// SalesRep ärver EmployeeWithCar</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">SalesRep</span> : <span class="hljs-title">EmployeeWithCar</span>
+{
+    <span class="hljs-comment">// .. </span>
+}
+
+
+<span class="hljs-comment">// SaleMgr ärver EmployeeWithCar</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">SalesMgr</span> : <span class="hljs-title">EmployeeWithCar</span>
+{
+    <span class="hljs-comment">// .. </span>
+}
+</div></code></pre>
+<p>Om en klass inte har en förälderklass angiven i deklarationen, så ärver klassen automatiskt från klass <code>System.Object</code>. I C# finns det ett alias/nyckelord <code>object</code> för <code>System.Object</code>.</p>
+<h2 id="polymorfism">Polymorfism</h2>
+<p>Ordet <em>polymorfism</em> kommer från de två Grekiska orden <em>poly</em>, som betyder <em>många</em>, och <em>morf</em>, som betyder <em>form</em>. Ordet betyder alltså att något kan ha många former.</p>
+<p>Inom objektorienterad programmering står polymorfism för att istället för ett uttryck av t.ex. typen <code>A</code> så kan man använda ett uttryck av vilken klass som helst som ärver från <code>A</code> (även en klass som ärver från <code>A</code> via flera led).</p>
+<p>Exempel:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/Iyv9B2vMS5Ievb80Wioy4eL4hbekhcImi1EIS192s1b9E1aaxAXWKwEhg-34vGHXE7C10000"><pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> a;
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">B</span> : <span class="hljs-title">A</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> b;
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">C</span> : <span class="hljs-title">b</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> c;
+}
+</div></code></pre>
+<p>På grund av polymorfism är följande kod giltig:</p>
+<pre><code class="language-cs"><div>A obj = <span class="hljs-keyword">new</span> B();
+A obj2 = <span class="hljs-keyword">new</span> C();
+obj.a = <span class="hljs-number">1</span>; <span class="hljs-comment">// Giltig kod</span>
+obj2.c = <span class="hljs-number">1</span>; <span class="hljs-comment">// FEL! obj2 är ett uttryck av typen A, objekt av typen A har ingen medlem c </span>
+</div></code></pre>
+<h2 id="överskuggning">Överskuggning</h2>
+<p>Överlagring (eng. <em>overloading</em>) betyder att man deklarerar flera metoder parallellt med samma identifierare i ett scope. Med <em>överskuggning</em> (eng. <em>override</em>) så ersätter en ärvande klass en ärvd medlem. Den medlemmen som ersätts måste ha modifieraren <code>virtual</code>. Den ersättande medlemmen måste ha exakt samma signatur som den ersatta medlemmen, men med modifieraren <code>override</code> istället för <code>virtual</code>.  I kroppen för en överskuggande medlem kan den överskuggade medlemmen användas via nyckelordet <code>base</code>.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span>
+{
+    <span class="hljs-comment">// ..</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcCost</span>(<span class="hljs-params">DateTime month</span>)</span>
+    {
+        <span class="hljs-keyword">return</span> FixedCost + (HasInsurance ? <span class="hljs-number">5000</span> : <span class="hljs-number">0</span>);
+    }
+
+    <span class="hljs-comment">// ..</span>
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">EmployeeWithCar</span> : <span class="hljs-title">Employee</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> CarCost { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcCost</span>(<span class="hljs-params">DateTime month</span>)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.CalcCost(month) + <span class="hljs-keyword">this</span>.CarCost;
+    }
+}
+
+<span class="hljs-comment">// ..</span>
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    Employee emp1 = <span class="hljs-keyword">new</span> Employee();
+    Employee emp2 = <span class="hljs-keyword">new</span> EmployeeWithCar();
+    <span class="hljs-keyword">double</span> cost1 = emp1.CalcCost(); <span class="hljs-comment">// Kommer anropa Employee.CalcCost</span>
+    <span class="hljs-keyword">double</span> cost2 = emp2.CalcCost(); <span class="hljs-comment">// Kommer anropa EmployeeWithCar.CalcCost som har överskuggat (dvs ersatt) Employee.CalcCost för objekt av klassen EmpoloyeeWithCar</span>
+}
+</div></code></pre>
+<h2 id="anrop-av-basklassen-konstruktor">Anrop av basklassen konstruktor</h2>
+<p>En ärvande klass kan anropa konstruktorn för klassen den ärver från med hjälp av nyckelordet <code>base</code>.</p>
+<p>Exempel:</p>
+<pre><code class="language-cs"><div>
+<span class="hljs-keyword">class</span> <span class="hljs-title">A</span> 
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> a;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Value
+    {
+        <span class="hljs-keyword">get</span> 
+        { 
+            <span class="hljs-keyword">return</span> a;
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">A</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> a</span>)</span>
+    {
+        <span class="hljs-keyword">this</span>.a = a; 
+    }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">B</span> : <span class="hljs-title">A</span> 
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> b; 
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> OtherValue
+    {
+        <span class="hljs-keyword">get</span>
+        {
+            <span class="hljs-keyword">return</span> b;
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">B</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b</span>) : <span class="hljs-title">base</span>(<span class="hljs-params">a</span>)</span>
+    {
+        <span class="hljs-comment">// this.a = a; &lt;-- Ej giltig kod, för medlemmen a är private för klassen A</span>
+        <span class="hljs-keyword">this</span>.b = b;
+    }
+}
+
+<span class="hljs-comment">// ..</span>
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    B obj = <span class="hljs-keyword">new</span> B(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+    Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">{obj.Value}</span> <span class="hljs-subst">{obj.OtherValue}</span>&quot;</span>); <span class="hljs-comment">// ger utskrift: 1 2</span>
+}
+</div></code></pre>
+<h2 id="castning">Castning</h2>
+<p><em>Castning</em> (eng. <em>casting</em>) betyder att programmeraren ber att få byta typ på en objektreferens. Det finns två sorters castning:</p>
+<ul>
+<li>Uppcastning (eng. <em>up casting</em>)</li>
+<li>Nedcastning (eng. <em>down casting</em>)</li>
+</ul>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/Iyv9B2vMS5Ievb80Wioy4eL4hbekhcImi0kIS0f2s0b9E0aXx8mad0mITbImgT7LLN22CLoud20CPou0"><p>Uppcastning sker <em>uppåt</em> i hierarkin (trädstrukturen) från en ärvande typ till en ärvd typ. Nedcastning sker <em>neråt</em> i hierarkin, från en ärvd typ till en ärvande typ. Uppkastning sker automatiskt (implicit) vid behov och kan aldrig misslyckas.</p>
+<p>Exempel:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> a;
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">D</span> : <span class="hljs-title">A</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> d;
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">B</span> : <span class="hljs-title">A</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> b;
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">C</span> : <span class="hljs-title">B</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> c;
+}
+
+<span class="hljs-comment">// .. </span>
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    A obj = <span class="hljs-keyword">new</span> C(); <span class="hljs-comment">// automatisk uppcastning</span>
+    B obj2 = (B)obj; <span class="hljs-comment">// nedcastning, kommer att lyckas för obj referar ett objekt av klassen C, som ärver B</span>
+    A obj3 = <span class="hljs-keyword">new</span> D(); <span class="hljs-comment">// automatisk uppcastning</span>
+    B obj4 = (B)obj3; <span class="hljs-comment">// giltig kod, men kommer att kasta ett InvalidCastException</span>
+}
+</div></code></pre>
+<h2 id="exceptions">Exceptions</h2>
+<p>Ett <em>exception</em> är ett sätt för kod att signalera att en kritisk försättning inte är uppfylld och avbryta det ordinarie programflödet. Det kallas att koden <em>kastar</em> (eng. <em>throws</em>) ett exception.</p>
+<p>Exempel:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> name;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age; 
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Name 
+    {
+        <span class="hljs-keyword">get</span> 
+        {
+            <span class="hljs-keyword">return</span> name;
+        }
+
+        <span class="hljs-keyword">set</span> 
+        {
+            <span class="hljs-keyword">if</span> (name == <span class="hljs-literal">null</span>)
+            {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NullReferenceException(<span class="hljs-string">&quot;Name is not allowed to be null.&quot;</span>);
+            }
+            name = <span class="hljs-keyword">value</span>; 
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Age 
+    {
+        <span class="hljs-keyword">get</span> 
+        {
+            <span class="hljs-keyword">return</span> age;
+        }
+
+        <span class="hljs-keyword">set</span>
+        {
+            <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span>)
+            {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> System.ArgumentException(<span class="hljs-string">&quot;Age is not allowe to be negative.&quot;</span>);
+            }
+            age = <span class="hljs-keyword">value</span>; 
+        }
+    }
+}
+</div></code></pre>
+<p>För att hantera ett exception, så måste koden som kan kasta detta exception placeras in en <code>try-catch</code>-sats.</p>
+<p>Exempel:</p>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    List&lt;Person&gt; persons = <span class="hljs-keyword">new</span> List&lt;Person&gt;();
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; ++i)
+    {
+        Person person = <span class="hljs-keyword">new</span> Person();
+        Console.Write(<span class="hljs-string">&quot;Skriv in personens namn: &quot;</span>);
+        <span class="hljs-keyword">try</span> 
+        {
+            person.Name = Console.ReadLine();
+        }
+        <span class="hljs-keyword">catch</span> (System.NullReferenceException)
+        {
+            Environment.Exit(<span class="hljs-number">0</span>);
+        }
+
+        <span class="hljs-keyword">bool</span> illegalAge = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">do</span> 
+        {
+            Console.Write(<span class="hljs-string">&quot;Skriv in personens ålder: &quot;</span>);
+            <span class="hljs-keyword">try</span>
+            {
+                illegalAge = <span class="hljs-literal">false</span>;
+                person.Age = <span class="hljs-keyword">int</span>.Parse(Console.ReadLine());
+            }
+            <span class="hljs-keyword">catch</span> (System.ArgumentEception)
+            {
+                illegalAge = <span class="hljs-literal">true</span>;
+                Console.WriteLine(<span class="hljs-string">&quot;Ålder kan inte vara negativ. Försök igen.&quot;</span>);
+            }
+            <span class="hljs-keyword">catch</span> (System.FormatException)
+            {
+                illegalAge = <span class="hljs-literal">true</span>;
+                Console.WriteLine(<span class="hljs-string">&quot;Texten var inte ett heltal. Försök igen.&quot;</span>);
+            }
+            <span class="hljs-keyword">catch</span> (System.ArgumentNullException)
+            {
+                Environment.Exit(<span class="hljs-number">0</span>);
+            }
+            <span class="hljs-keyword">catch</span> (System.OverflowException)
+            {
+                illegalAge = <span class="hljs-literal">true</span>;
+                Console.WriteLine(<span class="hljs-string">&quot;Talet är för stort för att representera en giltig ålder. Försök igen.&quot;</span>);
+            }
+        } <span class="hljs-keyword">while</span> (illegalAge);
+        persons.Add(person);
+    }
+}
+</div></code></pre>
+<h2 id="gränssnitt">Gränssnitt</h2>
+<p>Ett <em>gränssnitt</em> (eng. <em>interface</em>) är ett kontrakt som anger vilka medlemar som en klass som uppfyller gränssnittet förbinder sig att deklarera.</p>
+<p>Ett gränssnitt liknar en klass, men innehåller bara signaturer för medlemmmar. Det betyder att medlemmarna har ingen kodkropp.</p>
+<p>Gränssnitt används ofta t.ex. för att separera algoritmer (strategier för beräkning) från typerna på objekten som ingår i algoritmen.</p>
+<p>Exempel:</p>
+<p>En sorteringsalgoritm kan sortera ett fält av objekt, vilka som helst, så länge objekten har en metod som tillåter att algoritmen kan avgöra om ett av objekten är mindre än ett annat objekt.</p>
+<p>Detta krav på objektens klass kan uttryckas som ett gränssnitt:</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">interface</span> <span class="hljs-title">ICanCheckLessThan</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">IsLessThan</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> otherObject</span>)</span>;
+}
+</div></code></pre>
+<p>Sorteringsalgortimen kan nu skrivas:</p>
+<pre><code class="language-cs"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">ICanCheckLessThan[] objs</span>)</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Swap</span>(<span class="hljs-params"><span class="hljs-keyword">ref</span> <span class="hljs-keyword">object</span> a, <span class="hljs-keyword">ref</span> <span class="hljs-keyword">object</span> b</span>)</span>
+    {
+        <span class="hljs-keyword">object</span> temp = a; 
+        a = b; 
+        b = temp;
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = objs.Length - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>)
+    {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt;= i; ++j)
+        {
+            <span class="hljs-keyword">if</span> (!objs[j].IsLessThan(obj[j + <span class="hljs-number">1</span>]))
+            {
+                Swap(<span class="hljs-keyword">ref</span> objs[j], <span class="hljs-keyword">ref</span> objs[j + <span class="hljs-number">1</span>]);
+            }
+        }
+    }
+}
+</div></code></pre>
+<p>Vi kan skriva olika klasser som uppfyller gränssnittet.</p>
+<pre><code class="language-cs"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> : <span class="hljs-title">ICanCheckLessThan</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> name;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age;
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">IsLessThan</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> otherObject</span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (otherObject <span class="hljs-keyword">is</span> Person otherPerson)
+        {
+            <span class="hljs-keyword">return</span> age &lt; otherPerson.age;
+        }
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">&quot;Can only compare with other persons.&quot;</span>);
+    }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> : <span class="hljs-title">ICanCheckLessThan</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> registration; 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> horsePowers; 
+
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">IsLessThan</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> otherObject</span>)</span>
+    {
+        <span class="hljs-keyword">if</span> (otherObject <span class="hljs-keyword">is</span> Car otherCar)
+        {
+            <span class="hljs-keyword">return</span> horsePowers &lt; otherCar.horsePowers;
+        }
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">&quot;Can only compare with other car.&quot;</span>);
+    }
+}
+
+<span class="hljs-comment">// .. </span>
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    Person[] persons = <span class="hljs-keyword">new</span> Person[] {
+        <span class="hljs-keyword">new</span> Person() { name = <span class="hljs-string">&quot;Jonas&quot;</span>, age = <span class="hljs-number">42</span> },
+        <span class="hljs-keyword">new</span> Person() { name = <span class="hljs-string">&quot;Lukas&quot;</span>, age = <span class="hljs-number">54</span> },
+        <span class="hljs-keyword">new</span> Person() { name = <span class="hljs-string">&quot;Louisa&quot;</span>, age = <span class="hljs-number">30</span> },
+    };
+
+    Car[] cars = <span class="hljs-keyword">new</span> Cars[] {
+        <span class="hljs-keyword">new</span> Car() { registration = <span class="hljs-string">&quot;FJC16U&quot;</span>, horsePowers = <span class="hljs-number">600</span> },
+        <span class="hljs-keyword">new</span> Car() { registration = <span class="hljs-string">&quot;ZCK719&quot;</span>, horsePowers = <span class="hljs-number">407</span> },
+        <span class="hljs-keyword">new</span> Car() { registration = <span class="hljs-string">&quot;ABC123&quot;</span>, horsePowers = <span class="hljs-number">500</span> }
+    };
+
+    Sort(person);
+    Sort(cars);
+}
+</div></code></pre>
+<p>I koden kan man använda ett gränssnitt som en typ, t.ex. för en variabel. Man kan tilldela variabeln vilken objekt som tillhör en klass som uppfyller gränssnittet.</p>
 
     </body>
     </html>

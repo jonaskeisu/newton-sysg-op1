@@ -1595,7 +1595,7 @@ namespace ProfitCalculator
             return base.CalcCost(month) + 60000 + BonusPercentage * revenue;
         }
     }
-    
+
     class Program
     {
         public static void Main(string[] args)
@@ -1650,17 +1650,443 @@ I en arvsrelation mellan två klasser kallas den ärvda klassen *basklass* (eng
 
 Exempel: 
 
+```cs
+
+// EmployeeWithCar ärver Employee
+class EmployeeWithCar : Employee 
+{
+    // .. 
+}
+
+// Consultant ärver Employee
+class Consultant : Employee 
+{
+    // .. 
+}
+
+// SalesRep ärver EmployeeWithCar
+class SalesRep : EmployeeWithCar
+{
+    // .. 
+}
 
 
+// SaleMgr ärver EmployeeWithCar
+class SalesMgr : EmployeeWithCar
+{
+    // .. 
+}
+```
+
+Om en klass inte har en förälderklass angiven i deklarationen, så ärver klassen automatiskt från klass ``System.Object``. I C# finns det ett alias/nyckelord ``object`` för ``System.Object``.
+
+## Polymorfism
+
+Ordet *polymorfism* kommer från de två Grekiska orden *poly*, som betyder *många*, och *morf*, som betyder *form*. Ordet betyder alltså att något kan ha många former. 
+
+Inom objektorienterad programmering står polymorfism för att istället för ett uttryck av t.ex. typen ``A`` så kan man använda ett uttryck av vilken klass som helst som ärver från ``A`` (även en klass som ärver från ``A`` via flera led). 
+
+Exempel: 
+
+```plantuml
+class A {
+    int a
+}
+
+class B {
+    int b
+}
+
+class C {
+    int c
+}
+
+A <|-- B
+B <|-- C
+```
 
 
+```cs
+class A {
+    public int a;
+}
+
+class B : A {
+    public int b;
+}
+
+class C : b {
+    public int c;
+}
+```
+
+På grund av polymorfism är följande kod giltig:
+
+```cs
+A obj = new B();
+A obj2 = new C();
+obj.a = 1; // Giltig kod
+obj2.c = 1; // FEL! obj2 är ett uttryck av typen A, objekt av typen A har ingen medlem c 
+```
+
+## Överskuggning
+
+Överlagring (eng. *overloading*) betyder att man deklarerar flera metoder parallellt med samma identifierare i ett scope. Med *överskuggning* (eng. *override*) så ersätter en ärvande klass en ärvd medlem. Den medlemmen som ersätts måste ha modifieraren ``virtual``. Den ersättande medlemmen måste ha exakt samma signatur som den ersatta medlemmen, men med modifieraren ``override`` istället för ``virtual``.  I kroppen för en överskuggande medlem kan den överskuggade medlemmen användas via nyckelordet ``base``. 
 
 
+```cs
+class Employee
+{
+    // ..
+
+    public virtual double CalcCost(DateTime month)
+    {
+        return FixedCost + (HasInsurance ? 5000 : 0);
+    }
+
+    // ..
+}
+
+class EmployeeWithCar : Employee
+{
+    public double CarCost { get; set; }
+
+    public override double CalcCost(DateTime month)
+    {
+        return base.CalcCost(month) + this.CarCost;
+    }
+}
+
+// ..
+
+public static void Main(string[] args)
+{
+    Employee emp1 = new Employee();
+    Employee emp2 = new EmployeeWithCar();
+    double cost1 = emp1.CalcCost(); // Kommer anropa Employee.CalcCost
+    double cost2 = emp2.CalcCost(); // Kommer anropa EmployeeWithCar.CalcCost som har överskuggat (dvs ersatt) Employee.CalcCost för objekt av klassen EmpoloyeeWithCar
+}
+```
+
+## Anrop av basklassen konstruktor
+
+En ärvande klass kan anropa konstruktorn för klassen den ärver från med hjälp av nyckelordet ``base``.
+
+Exempel: 
+
+```cs
+
+class A 
+{
+    private int a;
+
+    public int Value
+    {
+        get 
+        { 
+            return a;
+        }
+    }
+
+    public A(int a)
+    {
+        this.a = a; 
+    }
+}
+
+class B : A 
+{
+    private int b; 
+
+    public int OtherValue
+    {
+        get
+        {
+            return b;
+        }
+    }
+
+    public B(int a, int b) : base(a)
+    {
+        // this.a = a; <-- Ej giltig kod, för medlemmen a är private för klassen A
+        this.b = b;
+    }
+}
+
+// ..
+
+public static void Main(string[] args)
+{
+    B obj = new B(1, 2);
+    Console.WriteLine($"{obj.Value} {obj.OtherValue}"); // ger utskrift: 1 2
+}
+```
+
+## Castning 
+
+*Castning* (eng. *casting*) betyder att programmeraren ber att få byta typ på en objektreferens. Det finns två sorters castning: 
+- Uppcastning (eng. *up casting*)
+- Nedcastning (eng. *down casting*)
 
 
+```plantuml
+class A {
+    int a
+}
 
+class D {
+    int d
+}
 
+class B {
+    int b
+}
 
+class C {
+    int c
+}
+
+A <|-- B
+A <|-- D
+B <|-- C
+```
+
+Uppcastning sker *uppåt* i hierarkin (trädstrukturen) från en ärvande typ till en ärvd typ. Nedcastning sker *neråt* i hierarkin, från en ärvd typ till en ärvande typ. Uppkastning sker automatiskt (implicit) vid behov och kan aldrig misslyckas. 
+
+Exempel: 
+
+```cs
+class A {
+    public int a;
+}
+
+class D : A {
+    public int d;
+}
+
+class B : A {
+    public int b;
+}
+
+class C : B {
+    public int c;
+}
+
+// .. 
+
+public static void Main(string[] args)
+{
+    A obj = new C(); // automatisk uppcastning
+    B obj2 = (B)obj; // nedcastning, kommer att lyckas för obj referar ett objekt av klassen C, som ärver B
+    A obj3 = new D(); // automatisk uppcastning
+    B obj4 = (B)obj3; // giltig kod, men kommer att kasta ett InvalidCastException
+}
+```
+
+## Exceptions
+
+Ett *exception* är ett sätt för kod att signalera att en kritisk försättning inte är uppfylld och avbryta det ordinarie programflödet. Det kallas att koden *kastar* (eng. *throws*) ett exception. 
+
+Exempel: 
+
+```cs
+class Person
+{
+    private string name;
+    private int age; 
+
+    public string Name 
+    {
+        get 
+        {
+            return name;
+        }
+
+        set 
+        {
+            if (name == null)
+            {
+                throw new NullReferenceException("Name is not allowed to be null.");
+            }
+            name = value; 
+        }
+    }
+
+    public int Age 
+    {
+        get 
+        {
+            return age;
+        }
+
+        set
+        {
+            if (age < 0)
+            {
+                throw new System.ArgumentException("Age is not allowe to be negative.");
+            }
+            age = value; 
+        }
+    }
+}
+```
+
+För att hantera ett exception, så måste koden som kan kasta detta exception placeras in en ``try-catch``-sats. 
+
+Exempel: 
+
+```cs
+public static void Main(string[] args)
+{
+    List<Person> persons = new List<Person>();
+    for (int i = 0; i < 3; ++i)
+    {
+        Person person = new Person();
+        Console.Write("Skriv in personens namn: ");
+        try 
+        {
+            person.Name = Console.ReadLine();
+        }
+        catch (System.NullReferenceException)
+        {
+            Environment.Exit(0);
+        }
+
+        bool illegalAge = false;
+        do 
+        {
+            Console.Write("Skriv in personens ålder: ");
+            try
+            {
+                illegalAge = false;
+                person.Age = int.Parse(Console.ReadLine());
+            }
+            catch (System.ArgumentEception)
+            {
+                illegalAge = true;
+                Console.WriteLine("Ålder kan inte vara negativ. Försök igen.");
+            }
+            catch (System.FormatException)
+            {
+                illegalAge = true;
+                Console.WriteLine("Texten var inte ett heltal. Försök igen.");
+            }
+            catch (System.ArgumentNullException)
+            {
+                Environment.Exit(0);
+            }
+            catch (System.OverflowException)
+            {
+                illegalAge = true;
+                Console.WriteLine("Talet är för stort för att representera en giltig ålder. Försök igen.");
+            }
+        } while (illegalAge);
+        persons.Add(person);
+    }
+}
+```
+
+## Gränssnitt
+
+Ett *gränssnitt* (eng. *interface*) är ett kontrakt som anger vilka medlemar som en klass som uppfyller gränssnittet förbinder sig att deklarera. 
+
+Ett gränssnitt liknar en klass, men innehåller bara signaturer för medlemmmar. Det betyder att medlemmarna har ingen kodkropp. 
+
+Gränssnitt används ofta t.ex. för att separera algoritmer (strategier för beräkning) från typerna på objekten som ingår i algoritmen. 
+
+Exempel:
+
+En sorteringsalgoritm kan sortera ett fält av objekt, vilka som helst, så länge objekten har en metod som tillåter att algoritmen kan avgöra om ett av objekten är mindre än ett annat objekt. 
+
+Detta krav på objektens klass kan uttryckas som ett gränssnitt: 
+
+```cs 
+interface ICanCheckLessThan
+{
+    bool IsLessThan(object otherObject);
+}
+```
+
+Sorteringsalgortimen kan nu skrivas: 
+
+```cs
+public static void Sort(ICanCheckLessThan[] objs)
+{
+    void Swap(ref object a, ref object b)
+    {
+        object temp = a; 
+        a = b; 
+        b = temp;
+    }
+
+    for (int i = objs.Length - 2; i >= 0)
+    {
+        for (int j = 0; j <= i; ++j)
+        {
+            if (!objs[j].IsLessThan(obj[j + 1]))
+            {
+                Swap(ref objs[j], ref objs[j + 1]);
+            }
+        }
+    }
+}
+```
+
+Vi kan skriva olika klasser som uppfyller gränssnittet.
+
+```cs
+class Person : ICanCheckLessThan
+{
+    public string name;
+    public int age;
+
+    bool IsLessThan(object otherObject)
+    {
+        if (otherObject is Person otherPerson)
+        {
+            return age < otherPerson.age;
+        }
+        throw new ArgumentException("Can only compare with other persons.");
+    }
+}
+
+class Car : ICanCheckLessThan
+{
+    public string registration; 
+    public int horsePowers; 
+
+    bool IsLessThan(object otherObject)
+    {
+        if (otherObject is Car otherCar)
+        {
+            return horsePowers < otherCar.horsePowers;
+        }
+        throw new ArgumentException("Can only compare with other car.");
+    }
+}
+
+// .. 
+
+public static void Main(string[] args)
+{
+    Person[] persons = new Person[] {
+        new Person() { name = "Jonas", age = 42 },
+        new Person() { name = "Lukas", age = 54 },
+        new Person() { name = "Louisa", age = 30 },
+    };
+
+    Car[] cars = new Cars[] {
+        new Car() { registration = "FJC16U", horsePowers = 600 },
+        new Car() { registration = "ZCK719", horsePowers = 407 },
+        new Car() { registration = "ABC123", horsePowers = 500 }
+    };
+
+    Sort(person);
+    Sort(cars);
+}
+```
+
+I koden kan man använda ett gränssnitt som en typ, t.ex. för en variabel. Man kan tilldela variabeln vilken objekt som tillhör en klass som uppfyller gränssnittet. 
 
 
 
