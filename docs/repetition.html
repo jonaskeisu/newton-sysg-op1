@@ -1526,6 +1526,221 @@ The Jonas: 42 43
     }
 }
 </div></code></pre>
+<h1 id="exempel-på-objektorienterad-design">Exempel på objektorienterad design</h1>
+<p>Ett konsultföretag har anställda. Anställda är antingen konsulter, säljare eller säljchefer. En konsult är antingen junior eller senior, vilket påverkar lönen för konsulten men också timtaxan när konsulten är på uppdrag. Det är säljarnas ansvar att hitta uppdrag ute hos kunder åt konsulterna. Ett uppdrag har en utsträckning i tiden. Säljaren som hittat ett uppdrag åt en konsult får varje månad en procentuell bonus av intäkterna från uppdraget medan uppdraget pågår. En säljchef får varje månad en procentuell bonus av hela företagets intäkter. Alla anställda anställda har samma fasta kostnader utöver lön varje månad som täcker t.ex. kontor, it och telefoni. Säljare och säljchefer har dessutom olika tjänstebil som kostar företaget ytterligare varje månad. Systemet skall räkna ut resultatet för företaget (intäkter minus kostnader) för en specifik månad.</p>
+<h3 id="klassdiagram">Klassdiagram</h3>
+<div style="zoom: 1">
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/hPFDIWCn4CVl-nH3JbhOebSj1RjMK2f8L_2SPeSQo2PBabrQQc--Ya_I5pFx_S6AHTpJxCmlCvF_J9YWni0oJeJQ8yB10_S5AawetDTkNJWFnbBBsH4YbMu4mWFVOHGeOs-BSCQrJQceem4LB0zUt5EBhpp6ov-eDMOeK-o0HyzpdXYMkmGrHybmvHXHDVUKIgxAba8iJCUpuXg1aYOLbafRiSCCxNyHLXbgpIFyfUanRBHhrXFpZTltW6glRAKvg_CAvvPlaePKe5bZ0hri2oLJyuAQeRHqYt_B-hpL_vkrNfyowOeREwircUVggC8qRVJE6BwLiIitXyBEJTENBPSy7-vOmVPy9NQZLeX2LFlRMGwNIQMwMe8w7uIMQjjtBMLKE3PA2NWqTypoR33pvkdCFdo_K-G6oEbJ0qeoG0RhCS9LaHAlht8MvqRPuRnw4EIQWEyh85SmdSA4D3quEAHnBAWc3Tm3MsMxgDVHqlSdmsVcq0KQU_hIG3FYVGC0"></div>
+<h3 id="kod">Kod</h3>
+<pre><code class="language-cs"><div><span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">ProfitCalculator</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Company</span>
+    {
+        <span class="hljs-keyword">public</span> List&lt;Employee&gt; Employees { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> List&lt;Assignment&gt; Assignments { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Company</span>(<span class="hljs-params"></span>)</span>
+        {
+            Employees = <span class="hljs-keyword">new</span> List&lt;Employee&gt;();
+            Assignments = <span class="hljs-keyword">new</span> List&lt;Assignment&gt;();
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcResult</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">double</span> revenue = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">double</span> cost = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">foreach</span> (Employee employee <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.Employees)
+            {
+                revenue += employee.CalcRevenue(month);
+                cost += employee.CalcCost(month);
+            }
+            <span class="hljs-keyword">return</span> revenue - cost;
+        }
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Assignment</span>
+    {
+        <span class="hljs-keyword">public</span> SalesRep Seller { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> Consultant Resource { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> DateTime Start { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> DateTime End { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">IsActive</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">return</span> Start &lt;= month &amp;&amp; End &gt;= month;
+        }
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> HasInsurance { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> FixedCost
+        {
+            <span class="hljs-keyword">get</span>
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-number">10000</span>;
+            }
+        }
+
+        <span class="hljs-keyword">public</span> Company Employer { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcCost</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">return</span> FixedCost + (HasInsurance ? <span class="hljs-number">5000</span> : <span class="hljs-number">0</span>);
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcRevenue</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+    }
+
+    <span class="hljs-keyword">enum</span> ExperienceLevel
+    {
+        Junior,
+        Senior
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Consultant</span> : <span class="hljs-title">Employee</span>
+    {
+        <span class="hljs-keyword">public</span> ExperienceLevel Experience { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcCost</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.CalcCost(month) + (<span class="hljs-keyword">this</span>.Experience) <span class="hljs-keyword">switch</span>
+            {
+                ExperienceLevel.Junior =&gt; <span class="hljs-number">30000</span>,
+                _ =&gt; <span class="hljs-number">45000</span>,
+            };
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcRevenue</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">bool</span> isOnAssignment = <span class="hljs-literal">false</span>;
+
+            <span class="hljs-keyword">foreach</span> (Assignment assignment <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span>.Employer.Assignments)
+            {
+                <span class="hljs-keyword">if</span> (assignment.Resource == <span class="hljs-keyword">this</span> &amp;&amp; assignment.IsActive(month))
+                {
+                    isOnAssignment = <span class="hljs-literal">true</span>;
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+
+            <span class="hljs-keyword">double</span> revenue = <span class="hljs-keyword">base</span>.CalcRevenue(month);
+
+            <span class="hljs-keyword">if</span> (isOnAssignment)
+            {
+                revenue += <span class="hljs-number">168</span> * (<span class="hljs-keyword">this</span>.Experience) <span class="hljs-keyword">switch</span>
+                {
+                    ExperienceLevel.Junior =&gt; <span class="hljs-number">500</span>,
+                    _ =&gt; <span class="hljs-number">800</span>,
+                };
+            }
+
+            <span class="hljs-keyword">return</span> revenue;
+        }
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">EmployeeWithCar</span> : <span class="hljs-title">Employee</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> CarCost { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcCost</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.CalcCost(month) + <span class="hljs-keyword">this</span>.CarCost;
+        }
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">SalesRep</span> : <span class="hljs-title">EmployeeWithCar</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> BonusPercentage { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcCost</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">double</span> revenue = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">foreach</span> (Assignment assignment <span class="hljs-keyword">in</span> Employer.Assignments)
+            {
+                <span class="hljs-keyword">if</span> (assignment.Seller == <span class="hljs-keyword">this</span> &amp;&amp; assignment.IsActive(month))
+                {
+                    revenue += assignment.Resource.CalcRevenue(month);
+                }
+            }
+
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.CalcCost(month) + <span class="hljs-number">25000</span> + BonusPercentage * revenue;
+        }
+    }
+
+    <span class="hljs-keyword">class</span> <span class="hljs-title">SalesMgr</span> : <span class="hljs-title">EmployeeWithCar</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> BonusPercentage { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">double</span> <span class="hljs-title">CalcCost</span>(<span class="hljs-params">DateTime month</span>)</span>
+        {
+            <span class="hljs-keyword">double</span> revenue = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">foreach</span> (Assignment assignment <span class="hljs-keyword">in</span> Employer.Assignments)
+            {
+                <span class="hljs-keyword">if</span> (assignment.IsActive(month))
+                {
+                    revenue += assignment.Resource.CalcRevenue(month);
+                }
+            }
+
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.CalcCost(month) + <span class="hljs-number">60000</span> + BonusPercentage * revenue;
+        }
+    }
+    
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            Company company = <span class="hljs-keyword">new</span> Company();
+            Consultant karl = <span class="hljs-keyword">new</span> Consultant()
+            {
+                Employer = company,
+                Experience = ExperienceLevel.Junior
+            };
+            SalesRep niclas = <span class="hljs-keyword">new</span> SalesRep()
+            {
+                Employer = company,
+                CarCost = <span class="hljs-number">8000</span>,
+                BonusPercentage = <span class="hljs-number">0.05</span>
+            };
+            company.Employees.Add(karl);
+            company.Employees.Add(niclas);
+            company.Employees.Add(
+                <span class="hljs-keyword">new</span> SalesMgr()
+                {
+                    Employer = company,
+                    CarCost = <span class="hljs-number">15000</span>,
+                    BonusPercentage = <span class="hljs-number">0.02</span>
+                }
+            );
+            company.Assignments.Add(
+                <span class="hljs-keyword">new</span> Assignment()
+                {
+                    Seller = niclas,
+                    Resource = karl,
+                    Start = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2020</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>),
+                    End = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2020</span>, <span class="hljs-number">12</span>, <span class="hljs-number">31</span>)
+                }
+            );
+
+            Console.WriteLine(<span class="hljs-string">$&quot;Result in december 2020: <span class="hljs-subst">{company.CalcResult(new DateTime(<span class="hljs-number">2020</span>, <span class="hljs-number">12</span>, <span class="hljs-number">1</span>))}</span>&quot;</span>);
+        }
+    }
+}
+</div></code></pre>
+<h2 id="arv">Arv</h2>
+<p>Arv används inom objektorienterad programmering för att implementera en &quot;är en&quot;-relation.</p>
+<p>En klass som ärver en annan klass har alla medlemmar som klassen den ärver har plus de medlemmmar som klassen lägger till.</p>
+<p>Varje klass kan bara ärva en annan klass, men många klasser kan ärva från samma klass.</p>
+<p>I en arvsrelation mellan två klasser kallas den ärvda klassen <em>basklass</em> (eng. <em>base class</em>), <em>super class</em> eller <em>förälderklass</em> (eng. <em>parent class</em>). Den ärvande klassen kallas <em>barnklass</em> (eng. <em>child class</em>) eller underklass (eng. <em>sub class</em>).</p>
+<p>Exempel:</p>
 
     </body>
     </html>

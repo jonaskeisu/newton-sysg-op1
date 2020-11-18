@@ -1362,6 +1362,301 @@ namespace TicTacToe
 }
 ```
 
+# Exempel på objektorienterad design
+
+Ett konsultföretag har anställda. Anställda är antingen konsulter, säljare eller säljchefer. En konsult är antingen junior eller senior, vilket påverkar lönen för konsulten men också timtaxan när konsulten är på uppdrag. Det är säljarnas ansvar att hitta uppdrag ute hos kunder åt konsulterna. Ett uppdrag har en utsträckning i tiden. Säljaren som hittat ett uppdrag åt en konsult får varje månad en procentuell bonus av intäkterna från uppdraget medan uppdraget pågår. En säljchef får varje månad en procentuell bonus av hela företagets intäkter. Alla anställda anställda har samma fasta kostnader utöver lön varje månad som täcker t.ex. kontor, it och telefoni. Säljare och säljchefer har dessutom olika tjänstebil som kostar företaget ytterligare varje månad. Systemet skall räkna ut resultatet för företaget (intäkter minus kostnader) för en specifik månad.
+
+### Klassdiagram
+
+<div style="zoom: 1">
+
+```plantuml 
+class Employee {
+    Company Employer
+    {static} double FixedCost;
+    virtual double CalcCost(DateTime)
+    virtual double CalcRevenue(DateTime)
+}
+
+enum ExperienceLevel {
+    Junior
+    Senior
+}
+
+class Consultant {
+    ExperienceLevel Experience
+    override double CalcCost(DateTime)
+    override double CalcRevenue(DateTime)
+}
+
+class EmployeeWithCar
+{
+    double CarCost
+    override double CalcCost(DateTime)
+}
+
+class SalesRep {
+    double BonusPercentage
+    override double CalcCost(DateTime)
+}
+
+class SalesMgr {
+    double BonusPercentage
+    override double CalcCost(DateTime)
+}
+
+class Company {
+    List<Employee> Empoloyees
+    List<Assignment> Assigments
+    double CalcResult(DateTime)
+}
+
+class Assignment
+{
+    SalesRep Seller
+    Consultant Resource
+    DateTime Start
+    DateTime End
+    bool IsActive(DateTime)
+}
+
+Employee <|-- Consultant: "Är en"
+Employee <|-- EmployeeWithCar: "Är en"
+EmployeeWithCar <|-- SalesRep: "Är en"
+EmployeeWithCar <|-- SalesMgr: "Är en"
+
+Company "1" --o "0 .. *" Employee: "Sammlar"
+Company --o "0 .. *" Assignment: "Sammlar"
+
+Consultant --* ExperienceLevel: "Består av"
+```
+</div>
+
+### Kod
+
+```cs 
+using System;
+using System.Collections.Generic;
+
+namespace ProfitCalculator
+{
+    class Company
+    {
+        public List<Employee> Employees { get; set; }
+        public List<Assignment> Assignments { get; set; }
+
+        public Company()
+        {
+            Employees = new List<Employee>();
+            Assignments = new List<Assignment>();
+        }
+
+        public double CalcResult(DateTime month)
+        {
+            double revenue = 0;
+            double cost = 0;
+            foreach (Employee employee in this.Employees)
+            {
+                revenue += employee.CalcRevenue(month);
+                cost += employee.CalcCost(month);
+            }
+            return revenue - cost;
+        }
+    }
+
+    class Assignment
+    {
+        public SalesRep Seller { get; set; }
+        public Consultant Resource { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public bool IsActive(DateTime month)
+        {
+            return Start <= month && End >= month;
+        }
+    }
+
+    class Employee
+    {
+        public bool HasInsurance { get; set; }
+
+        public static double FixedCost
+        {
+            get
+            {
+                return 10000;
+            }
+        }
+
+        public Company Employer { get; set; }
+
+        public virtual double CalcCost(DateTime month)
+        {
+            return FixedCost + (HasInsurance ? 5000 : 0);
+        }
+
+        public virtual double CalcRevenue(DateTime month)
+        {
+            return 0;
+        }
+    }
+
+    enum ExperienceLevel
+    {
+        Junior,
+        Senior
+    }
+
+    class Consultant : Employee
+    {
+        public ExperienceLevel Experience { get; set; }
+
+        public override double CalcCost(DateTime month)
+        {
+            return base.CalcCost(month) + (this.Experience) switch
+            {
+                ExperienceLevel.Junior => 30000,
+                _ => 45000,
+            };
+        }
+
+        public override double CalcRevenue(DateTime month)
+        {
+            bool isOnAssignment = false;
+
+            foreach (Assignment assignment in this.Employer.Assignments)
+            {
+                if (assignment.Resource == this && assignment.IsActive(month))
+                {
+                    isOnAssignment = true;
+                    break;
+                }
+            }
+
+            double revenue = base.CalcRevenue(month);
+
+            if (isOnAssignment)
+            {
+                revenue += 168 * (this.Experience) switch
+                {
+                    ExperienceLevel.Junior => 500,
+                    _ => 800,
+                };
+            }
+
+            return revenue;
+        }
+    }
+
+    class EmployeeWithCar : Employee
+    {
+        public double CarCost { get; set; }
+
+        public override double CalcCost(DateTime month)
+        {
+            return base.CalcCost(month) + this.CarCost;
+        }
+    }
+
+    class SalesRep : EmployeeWithCar
+    {
+        public double BonusPercentage { get; set; }
+
+        public override double CalcCost(DateTime month)
+        {
+            double revenue = 0;
+            foreach (Assignment assignment in Employer.Assignments)
+            {
+                if (assignment.Seller == this && assignment.IsActive(month))
+                {
+                    revenue += assignment.Resource.CalcRevenue(month);
+                }
+            }
+
+            return base.CalcCost(month) + 25000 + BonusPercentage * revenue;
+        }
+    }
+
+    class SalesMgr : EmployeeWithCar
+    {
+        public double BonusPercentage { get; set; }
+
+        public override double CalcCost(DateTime month)
+        {
+            double revenue = 0;
+            foreach (Assignment assignment in Employer.Assignments)
+            {
+                if (assignment.IsActive(month))
+                {
+                    revenue += assignment.Resource.CalcRevenue(month);
+                }
+            }
+
+            return base.CalcCost(month) + 60000 + BonusPercentage * revenue;
+        }
+    }
+    
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Company company = new Company();
+            Consultant karl = new Consultant()
+            {
+                Employer = company,
+                Experience = ExperienceLevel.Junior
+            };
+            SalesRep niclas = new SalesRep()
+            {
+                Employer = company,
+                CarCost = 8000,
+                BonusPercentage = 0.05
+            };
+            company.Employees.Add(karl);
+            company.Employees.Add(niclas);
+            company.Employees.Add(
+                new SalesMgr()
+                {
+                    Employer = company,
+                    CarCost = 15000,
+                    BonusPercentage = 0.02
+                }
+            );
+            company.Assignments.Add(
+                new Assignment()
+                {
+                    Seller = niclas,
+                    Resource = karl,
+                    Start = new DateTime(2020, 1, 1),
+                    End = new DateTime(2020, 12, 31)
+                }
+            );
+
+            Console.WriteLine($"Result in december 2020: {company.CalcResult(new DateTime(2020, 12, 1))}");
+        }
+    }
+}
+```
+
+## Arv 
+
+Arv används inom objektorienterad programmering för att implementera en "är en"-relation. 
+
+En klass som ärver en annan klass har alla medlemmar som klassen den ärver har plus de medlemmmar som klassen lägger till. 
+
+Varje klass kan bara ärva en annan klass, men många klasser kan ärva från samma klass. 
+
+I en arvsrelation mellan två klasser kallas den ärvda klassen *basklass* (eng. *base class*), *super class* eller *förälderklass* (eng. *parent class*). Den ärvande klassen kallas *barnklass* (eng. *child class*) eller underklass (eng. *sub class*). 
+
+Exempel: 
+
+
+
+
+
+
+
+
 
 
 
